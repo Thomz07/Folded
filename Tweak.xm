@@ -55,7 +55,12 @@
 	CGRect original = %orig;
 
 	if(enabled && customTitleOffSetEnabled){
-		return CGRectMake(original.origin.x,(original.origin.y)-customTitleOffSet,original.size.width,original.size.height); // everything original except the y
+		return CGRectMake(
+			original.origin.x,
+			(original.origin.y)-customTitleOffSet,
+			original.size.width,
+			original.size.height
+		    ); // everything original except the y
 	} else {return original;}
 }
 
@@ -95,46 +100,149 @@
 %group layout12
 %hook SBFolderIconListView
 
-+ (unsigned long long)maxVisibleIconRowsInterfaceOrientation:(long long)arg1 { // return a number depending on the position of the segment cell, i'm too lazy to make it return directly the number from the cell lmao
++ (unsigned long long)maxVisibleIconRowsInterfaceOrientation:(long long)arg1 {
+	/* NOTE: 
+	Thomz said: // return a number depending on the position of the segment cell, 
+	i'm too lazy to make it return directly the number from the cell lmao
+
+	Well guess what? I adjusted it for you, and saved a lot of lines :P */
 
 	if(enabled && customLayoutEnabled){
-		if(customLayoutRows == 0){
-			return 1;
-		} else if(customLayoutRows == 1){
-			return 2;
-		} else if(customLayoutRows == 2){
-			return 3;
-		} else if(customLayoutRows == 3){
-			return 4;
-		} else if(customLayoutRows == 4){
-			return 5;
-		} else if(customLayoutRows == 5){
-			return 6;
-		} else if(customLayoutRows == 6){
-			return 7;
-		} else {return %orig;}
+		return (customLayoutRows);
 	} else {return %orig;}
 }
 
 + (unsigned long long)iconColumnsForInterfaceOrientation:(long long)arg1 { // same for columns
 
 	if(enabled && customLayoutEnabled){
-		if(customLayoutColumns == 0){
-			return 1;
-		} else if(customLayoutColumns == 1){
-			return 2;
-		} else if(customLayoutColumns == 2){
-			return 3;
-		} else if(customLayoutColumns == 3){
-			return 4;
-		} else if(customLayoutColumns == 4){
-			return 5;
-		} else if(customLayoutColumns == 5){
-			return 6;
-		} else if(customLayoutColumns == 6){
-			return 7;
-		} else {return %orig;}
+    	return (customLayoutColumns);
 	} else {return %orig;}
+}
+
+%end
+%end
+
+%group layout13
+
+//This part is crucial to my method :devil_face:
+%hook SBIconController
+
+-(void)viewDidAppear:(BOOL)arg1 {
+  %orig;
+  hasProcessLaunched = YES;
+
+  if (hasInjectionFailed) {
+	  UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
+                               message:@"Folded has failed to inject a custom folder icon layout. This is due to aother tweak interfering with Folded. Please note Cartella has prevented a crash that would have occured due to this."
+                               preferredStyle:UIAlertControllerStyleAlert];
+ 
+		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+   		handler:^(UIAlertAction * action) {}];
+ 
+		[alert addAction:defaultAction];
+		[self presentViewController:alert animated:YES completion:nil];
+  }
+
+}
+
+%end
+
+%hook SBIconListGridLayoutConfiguration
+
+%property (nonatomic, assign) BOOL isFolder;
+
+%new
+-(BOOL)getLocations {
+  NSUInteger locationColumns = MSHookIvar<NSUInteger>(self, "_numberOfPortraitColumns");
+  NSUInteger locationRows = MSHookIvar<NSUInteger>(self, "_numberOfPortraitRows");
+  if (locationColumns == 3 && locationRows == 3) {
+    self.isFolder = YES;
+  } else {
+    self.isFolder = NO;
+  }
+  return self.isFolder;
+}
+
+-(NSUInteger)numberOfPortraitColumns {
+  [self getLocations];
+  if (self.isFolder && enabled) {
+    if (hasProcessLaunched) {
+    return (folderColumns);
+    } else {
+      @try {
+      return (folderIconColumns);
+      } @catch (NSException *exception) {
+      return folderColumns;
+	  hasInjectionFailed = YES;
+      }
+    }
+  } else {
+    return (%orig);
+  }
+}
+
+-(NSUInteger)numberOfPortraitRows {
+  [self getLocations];
+  if (self.isFolder && enabled) {
+    if (hasProcessLaunched) {
+    return (folderRows);
+    } else {
+      @try {
+      return (folderIconRows);
+      } @catch (NSException *exception) {
+      return folderRows;
+	  hasInjectionFailed = YES;
+      }
+    }
+  } else {
+    return (%orig);
+  }
+}
+
+%end
+%end
+
+%hook universalIconControl
+
+%hook SBIconGridImage
+
+//ios 12 stuff
+-(NSUInteger)numberOfColumns {
+  return folderIconColumns;
+}
+
+-(NSUInteger)numberOfCells {
+  return (folderIconColumns*folderIconRows);
+}
+
+-(NSUInteger)numberOfRows {
+  return folderIconRows;
+}
+///
+
+//Haha this next part is my genius method of stopping SpringBoard crashes!
+//Ngl surprised my dumb self thought of this. :D
++(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
+  @try {
+    return %orig;
+  } @catch (NSException *exception) {
+    return nil;
+  }
+}
++(id)gridImageForLayout:(id)arg1 cellImageDrawBlock:(id)arg2 {
+  @try {
+    return %orig;
+  } @catch (NSException *exception) {
+    return nil;
+  }
+}
+
++(id)gridImageForLayout:(id)arg1 pool:(id)arg2 cellImageDrawBlock:(id)arg3 {
+  @try {
+    return %orig;
+  } @catch (NSException *exception) {
+    return nil;
+  }
 }
 
 %end
@@ -142,13 +250,19 @@
 
 %ctor{ // reloading prefs
 	reloadPrefs();
+	hasProcessLaunched = NO;
+	hasInjectionFailed = NO;
+
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
+	
 	%init(SBFloatyFolderView);
 	%init(SBFolderTitleTextField);
-	if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"13.0")){
-		%init(pinchToClose13);
-	} else {
+	%init(universalIconControl);
+	if(kCFCoreFoundationVersionNumber < 1600)){
 		%init(pinchToClose12);
 		%init(layout12);
+	} else {
+		%init(pinchToClose13);
+		%init(layout13);
 	}
 }

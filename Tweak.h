@@ -1,11 +1,71 @@
-@interface SBFloatyFolderView : UIView
+@interface SBIconController : UIAlertController
 @end
 
-@interface SBFolderTitleTextField : UIView
+@interface SBIconListGridLayoutConfiguration
+@property (nonatomic, assign) BOOL isFolder;
+
+- (BOOL)getLocations;
+- (NSUInteger)numberOfPortraitColumns;
+- (NSUInteger)numberOfPortraitRows;
+@end
+
+//I use this to change the folder icon on ios 12, and fix the crashes on ios 13
+@interface SBIconGridImage
++(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 ;
++(id)gridImageForLayout:(id)arg1 cellImageDrawBlock:(id)arg2 ;
++(id)gridImageForLayout:(id)arg1 pool:(id)arg2 cellImageDrawBlock:(id)arg3 ;
+@end
+
+@interface SBFloatyFolderView : UIView
+-(void)layoutSubviews;
+-(void)setBackgroundColor:(UIColor *)arg1;
+@end
+
+@interface SBFolderBackgroundView : UIView
+-(void)layoutSubviews;
+-(void)setBackgroundColor:(UIColor *)arg1;
+@end
+
+@interface SBFolderControllerBackgroundView : UIView
+@property (nonatomic, retain) UIColor *backgroundColor;
+@property (nonatomic, assign) CGFloat aplha;
+-(void)layoutSubviews;
+@end
+
+@interface SBWallpaperEffectView : UIView
+@property (nonatomic, retain) UIView *blurView;
+@end
+
+@interface SBFolderIconImageView : UIView
+@property (nonatomic, retain) SBWallpaperEffectView *backgroundView;
+@property (nonatomic, assign) CGFloat aplha;
+@property (nonatomic, assign) CGAffineTransform transform;
+@end
+
+@interface SBIconListPageControl : UIView
+@property (nonatomic, assign) BOOL hidden;
+@end
+
+@interface _SBIconGridWrapperView : UIView
+@property (nonatomic, assign) CGAffineTransform transform;
+@end
+
+@interface UITextFieldBorderView
+@property (nonatomic, assign) BOOL hidden;
+-(void)layoutSubviews;
+@end
+
+@class UITextField, UIFont;
+@interface SBFolderTitleTextField : UITextField
+@property (nonatomic, assign) CGRect frame;
+@property (nonatomic, assign) CGRect bounds;
+@property (nonatomic, strong) UIFont *font;
+-(void)setFont:(id)arg1 fullFontSize:(id)arg2 ambientOnly:(BOOL)arg3;
+-(void)setTextCentersHorizontally:(BOOL)arg1;
+-(void)layoutSubviews;
 @end
 
 // Defining global variables and methods
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 // Preferences keys
 NSDictionary *preferences;
@@ -30,6 +90,10 @@ double customTitleFontSize;
 BOOL customTitleOffSetEnabled;
 double customTitleOffSet;
 
+BOOL hasProcessLaunched;
+BOOL hasInjectionFailed;
+
+//Reloading the prefs (duh) 
 static void reloadPrefs(){
 	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
 	enabled = [[preferences objectForKey:@"enabled"] boolValue];
