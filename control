@@ -1,6 +1,6 @@
 Package: xyz.burritoz.thomz.folded
 Name: Folded
-Depends: mobilesubstrate, prefernceloader
+Depends: mobilesubstrate, preferenceloader
 Version: 0.5
 Architecture: iphoneos-arm
 Description: Folders, your way
