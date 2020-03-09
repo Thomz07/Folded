@@ -7,12 +7,14 @@ BOOL backgroundAlphaEnabled;
 BOOL cornerRadiusEnabled;
 BOOL customCenteredFrameEnabled;
 BOOL customLayoutEnabled;
+BOOL customTitleFontSizeEnabled;
+BOOL customTitleOffSetEnabled;
 
 - (NSArray *)specifiers {
 	if (!_specifiers) {
 		_specifiers = [self loadSpecifiersFromPlistName:@"Root" target:self];
 
-		NSArray *chosenLabels = @[@"backgroundAlpha",@"cornerRadius",@"customFrameX",@"customFrameY", @"customLayoutRows", @"customLayoutColumns"];
+		NSArray *chosenLabels = @[@"backgroundAlpha",@"cornerRadius",@"customFrameX",@"customFrameY", @"customLayoutRows", @"customLayoutColumns", @"customTitleFontSize",@"customTitleOffSet"];
 		self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
 		for(PSSpecifier *specifier in [self specifiers]) {
 			if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
@@ -49,6 +51,8 @@ BOOL customLayoutEnabled;
 		cornerRadiusEnabled = [[preferences objectForKey:@"cornerRadiusEnabled"] boolValue];
 		customCenteredFrameEnabled = [[preferences objectForKey:@"customCenteredFrameEnabled"] boolValue];
 		customLayoutEnabled = [[preferences objectForKey:@"customLayoutEnabled"] boolValue];
+		customTitleFontSizeEnabled = [[preferences objectForKey:@"customTitleFontSizeEnabled"] boolValue];
+		customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
 
 		if(!backgroundAlphaEnabled){
          	[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"backgroundAlpha"]] animated:YES];
@@ -74,6 +78,18 @@ BOOL customLayoutEnabled;
 			[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutRows"], self.mySavedSpecifiers[@"customLayoutColumns"]] afterSpecifierID:@"Enable Custom Layout" animated:YES];
 		}
 
+		if(!customTitleFontSizeEnabled){
+         	[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] animated:YES];
+		} else if(customTitleFontSizeEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customTitleFontSize"]]) {
+			[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] afterSpecifierID:@"Custom Title Font Size" animated:YES];
+		}
+
+		if(!customTitleOffSetEnabled){
+         	[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleOffSet"]] animated:YES];
+		} else if(customTitleOffSetEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customTitleOffSet"]]) {
+			[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleOffSet"]] afterSpecifierID:@"Custom Title Offset" animated:YES];
+		}
+
 }
 
 -(void)removeSegments {
@@ -82,6 +98,8 @@ BOOL customLayoutEnabled;
 	cornerRadiusEnabled = [[preferences objectForKey:@"cornerRadiusEnabled"] boolValue];
 	customCenteredFrameEnabled = [[preferences objectForKey:@"customCenteredFrameEnabled"] boolValue];
 	customLayoutEnabled = [[preferences objectForKey:@"customLayoutEnabled"] boolValue];
+	customTitleFontSizeEnabled = [[preferences objectForKey:@"customTitleFontSizeEnabled"] boolValue];
+	customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
 
 	if(!backgroundAlphaEnabled){
 		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"backgroundAlpha"]] animated:YES];
@@ -97,6 +115,14 @@ BOOL customLayoutEnabled;
 
 	if(!customLayoutEnabled){
 		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutRows"], self.mySavedSpecifiers[@"customLayoutColumns"]] animated:YES];
+	}
+
+	if(!customTitleFontSizeEnabled){
+		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] animated:YES];
+	}
+
+	if(!customTitleOffSetEnabled){
+		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleOffSet"]] animated:YES];
 	}
 
 }

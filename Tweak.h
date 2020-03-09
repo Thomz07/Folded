@@ -1,6 +1,9 @@
 @interface SBFloatyFolderView : UIView
 @end
 
+@interface SBFolderTitleTextField : UIView
+@end
+
 // Defining global variables and methods
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -21,6 +24,11 @@ CGFloat frameHeight;
 BOOL customLayoutEnabled;
 int customLayoutRows;
 int customLayoutColumns;
+BOOL hideTitleEnabled;
+BOOL customTitleFontSizeEnabled;
+double customTitleFontSize;
+BOOL customTitleOffSetEnabled;
+double customTitleOffSet;
 
 static void reloadPrefs(){
 	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
@@ -39,4 +47,9 @@ static void reloadPrefs(){
 	customLayoutEnabled = [[preferences objectForKey:@"customLayoutEnabled"] boolValue];
 	customLayoutRows = [[preferences objectForKey:@"customLayoutRows"] intValue];
 	customLayoutColumns = [[preferences objectForKey:@"customLayoutColumns"] intValue];
+    hideTitleEnabled = [[preferences objectForKey:@"hideTitleEnabled"] boolValue];
+    customTitleFontSizeEnabled = [[preferences objectForKey:@"customTitleFontSizeEnabled"] boolValue];
+    customTitleFontSize = [[preferences objectForKey:@"customTitleFontSize"] doubleValue];
+    customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
+    customTitleOffSet = [[preferences objectForKey:@"customTitleOffSet"] doubleValue];
 }
