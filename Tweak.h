@@ -92,6 +92,7 @@ double customTitleOffSet;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
+BOOL hasShownFailureAlert;
 
 //Reloading the prefs (duh) 
 static void reloadPrefs(){
