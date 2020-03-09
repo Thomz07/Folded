@@ -131,7 +131,7 @@
   %orig;
   hasProcessLaunched = YES;
 
-  if (hasInjectionFailed) {
+  if (hasInjectionFailed && !hasShownFailureAlert) {
 	  UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
                                message:@"Folded has failed to inject a custom folder icon layout. This is due to aother tweak interfering with Folded. Please note Cartella has prevented a crash that would have occured due to this."
                                preferredStyle:UIAlertControllerStyleAlert];
@@ -141,6 +141,7 @@
  
 		[alert addAction:defaultAction];
 		[self presentViewController:alert animated:YES completion:nil];
+                hasShownFailureAlert = YES;
   }
 
 }
@@ -252,6 +253,7 @@
 	reloadPrefs();
 	hasProcessLaunched = NO;
 	hasInjectionFailed = NO;
+        hasShownFailureAlert = NO;
 
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
 	
