@@ -66,7 +66,7 @@
 
 + (unsigned long long)maxVisibleIconRowsInterfaceOrientation:(long long)arg1 {
 
-	if(enabled && customLayoutEnabled && !customBiggerLayoutEnabled){
+	if(enabled && customLayoutEnabled){
 		if(customLayoutRows == 0){
 			return 1;
 		} else if(customLayoutRows == 1){
@@ -82,14 +82,12 @@
 		} else if(customLayoutRows == 6){
 			return 7;
 		} else {return %orig;}
-	} else if(enabled && customLayoutEnabled && customLayoutEnabled){
-		return customBiggerLayoutRows;
 	} else {return %orig;}
 }
 
 + (unsigned long long)iconColumnsForInterfaceOrientation:(long long)arg1 {
 
-	if(enabled && customLayoutEnabled && !customBiggerLayoutEnabled){
+	if(enabled && customLayoutEnabled){
 		if(customLayoutColumns == 0){
 			return 1;
 		} else if(customLayoutColumns == 1){
@@ -105,8 +103,6 @@
 		} else if(customLayoutColumns == 6){
 			return 7;
 		} else {return %orig;}
-	} else if(enabled && customLayoutEnabled && customBiggerLayoutEnabled){
-		return customBiggerLayoutColumns;
 	} else {return %orig;}
 }
 
@@ -115,7 +111,7 @@
 
 %ctor{
 	reloadPrefs();
-	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, CFSTR("com.burritoz.thomz.folded.prefs/reload"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
+	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
 	%init(SBFloatyFolderView);
 	if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"13.0")){
 		%init(pinchToClose13);

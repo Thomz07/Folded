@@ -21,12 +21,9 @@ CGFloat frameHeight;
 BOOL customLayoutEnabled;
 int customLayoutRows;
 int customLayoutColumns;
-BOOL customBiggerLayoutEnabled;
-unsigned long long customBiggerLayoutRows;
-unsigned long long customBiggerLayoutColumns;
 
 static void reloadPrefs(){
-	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"com.burritoz.thomz.folded.prefs"];
+	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
 	enabled = [[preferences objectForKey:@"enabled"] boolValue];
 	backgroundAlphaEnabled = [[preferences objectForKey:@"backgroundAlphaEnabled"] boolValue];
 	backgroundAlpha = [[preferences objectForKey:@"backgroundAlpha"] doubleValue];
@@ -42,7 +39,4 @@ static void reloadPrefs(){
 	customLayoutEnabled = [[preferences objectForKey:@"customLayoutEnabled"] boolValue];
 	customLayoutRows = [[preferences objectForKey:@"customLayoutRows"] intValue];
 	customLayoutColumns = [[preferences objectForKey:@"customLayoutColumns"] intValue];
-	customBiggerLayoutEnabled = [[preferences objectForKey:@"customBiggerLayoutEnabled"] boolValue];
-	customBiggerLayoutRows = [[preferences valueForKey:@"customBiggerLayoutRows"] unsignedLongLongValue];
-	customBiggerLayoutColumns = [[preferences valueForKey:@"customBiggerLayoutColumns"] unsignedLongLongValue];
 }
