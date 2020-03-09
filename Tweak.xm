@@ -1,38 +1,5 @@
 #include "Tweak.h"
 
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-
-// Preferences keys
-NSDictionary *preferences;
-BOOL enabled;
-BOOL backgroundAlphaEnabled;
-double backgroundAlpha;
-BOOL cornerRadiusEnabled;
-double cornerRadius;
-BOOL pinchToCloseEnabled;
-BOOL customFrameEnabled;
-BOOL customCenteredFrameEnabled;
-CGFloat frameX;
-CGFloat frameY;
-CGFloat frameWidth;
-CGFloat frameHeight;
-
-static void reloadPrefs(){
-	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"com.burritoz.thomz.folded.prefs"];
-	enabled = [[preferences objectForKey:@"enabled"] boolValue];
-	backgroundAlphaEnabled = [[preferences objectForKey:@"backgroundAlphaEnabled"] boolValue];
-	backgroundAlpha = [[preferences objectForKey:@"backgroundAlpha"] doubleValue];
-	cornerRadiusEnabled = [[preferences objectForKey:@"cornerRadiusEnabled"] boolValue];
-	cornerRadius = [[preferences objectForKey:@"cornerRadius"] doubleValue];
-	pinchToCloseEnabled = [[preferences objectForKey:@"pinchToCloseEnabled"] boolValue];
-	customFrameEnabled = [[preferences objectForKey:@"customFrameEnabled"] boolValue];
-	customCenteredFrameEnabled = [[preferences objectForKey:@"customCenteredFrameEnabled"] boolValue];
-	frameX = [[preferences valueForKey:@"customFrameX"] floatValue];
-	frameY = [[preferences valueForKey:@"customFrameY"] floatValue];
-	frameWidth = [[preferences valueForKey:@"customFrameWidth"] floatValue];
-	frameHeight = [[preferences valueForKey:@"customFrameHeight"] floatValue];
-}
-
 %group SBFloatyFolderView
 %hook SBFloatyFolderView
 
@@ -68,6 +35,7 @@ static void reloadPrefs(){
 %hook SBFolderSettings
 
 -(BOOL)pinchToClose {
+
 	if(enabled && pinchToCloseEnabled){
 		return YES;
 	} else {
@@ -82,11 +50,64 @@ static void reloadPrefs(){
 %hook SBHFolderSettings
 
 -(BOOL)pinchToClose {
+
 	if(enabled && pinchToCloseEnabled){
 		return YES;
 	} else {
 		return NO;
 	}
+}
+
+%end
+%end
+
+%group layout12
+%hook SBFolderIconListView
+
++ (unsigned long long)maxVisibleIconRowsInterfaceOrientation:(long long)arg1 {
+
+	if(enabled && customLayoutEnabled && !customBiggerLayoutEnabled){
+		if(customLayoutRows == 0){
+			return 1;
+		} else if(customLayoutRows == 1){
+			return 2;
+		} else if(customLayoutRows == 2){
+			return 3;
+		} else if(customLayoutRows == 3){
+			return 4;
+		} else if(customLayoutRows == 4){
+			return 5;
+		} else if(customLayoutRows == 5){
+			return 6;
+		} else if(customLayoutRows == 6){
+			return 7;
+		} else {return %orig;}
+	} else if(enabled && customLayoutEnabled && customLayoutEnabled){
+		return customBiggerLayoutRows;
+	} else {return %orig;}
+}
+
++ (unsigned long long)iconColumnsForInterfaceOrientation:(long long)arg1 {
+
+	if(enabled && customLayoutEnabled && !customBiggerLayoutEnabled){
+		if(customLayoutColumns == 0){
+			return 1;
+		} else if(customLayoutColumns == 1){
+			return 2;
+		} else if(customLayoutColumns == 2){
+			return 3;
+		} else if(customLayoutColumns == 3){
+			return 4;
+		} else if(customLayoutColumns == 4){
+			return 5;
+		} else if(customLayoutColumns == 5){
+			return 6;
+		} else if(customLayoutColumns == 6){
+			return 7;
+		} else {return %orig;}
+	} else if(enabled && customLayoutEnabled && customBiggerLayoutEnabled){
+		return customBiggerLayoutColumns;
+	} else {return %orig;}
 }
 
 %end
@@ -100,5 +121,6 @@ static void reloadPrefs(){
 		%init(pinchToClose13);
 	} else {
 		%init(pinchToClose12);
+		%init(layout12);
 	}
 }
