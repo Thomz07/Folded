@@ -292,7 +292,9 @@
 	%init(SBFloatyFolderView);
 	%init(SBFolderTitleTextField);
 	if(kCFCoreFoundationVersionNumber < 1600){ // why not check the version it's better ?
-		%init(pinchToClose12);
+        //Edit: thomz likes to use something else, I use kCoreFoundationNumber because it doesn't require the #define, and overall seems to be simpler to work with. 
+	//Change it back if you want, thmoz, I don't care. 
+	%init(pinchToClose12);
 		%init(layout12);
 	} else {
 		%init(pinchToClose13);
