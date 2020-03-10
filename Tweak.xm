@@ -158,7 +158,7 @@
   %orig;
   hasProcessLaunched = YES;
 
-  if (hasInjectionFailed && !hasShownFailureAlert) {
+  if (hasInjectionFailed && showInjectionAlerts && !hasShownFailureAlert) {
 	  UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
                                message:@"Folded has failed to inject a custom folder icon layout. This is due to aother tweak interfering with Folded. Please note Cartella has prevented a crash that would have occured due to this."
                                preferredStyle:UIAlertControllerStyleAlert];
@@ -293,7 +293,7 @@
 	%init(SBFolderTitleTextField);
 	if(kCFCoreFoundationVersionNumber < 1600){ // why not check the version it's better ?
         //Edit: thomz likes to use something else, I use kCoreFoundationNumber because it doesn't require the #define, and overall seems to be simpler to work with. 
-	//Change it back if you want, thmoz, I don't care. 
+		//Change it back if you want, thmoz, I don't care. 
 	%init(pinchToClose12);
 		%init(layout12);
 	} else {

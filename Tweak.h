@@ -108,6 +108,7 @@ NSString *titleColor;
 BOOL titleBackgroundEnabled;
 NSString *titleBackgroundColor;
 double titleBackgroundCornerRadius;
+BOOL showInjectionAlerts;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
@@ -146,4 +147,5 @@ static void reloadPrefs(){
 	titleBackgroundEnabled = [[preferences objectForKey:@"titleBackgroundEnabled"] boolValue];
 	titleBackgroundColor = [preferences valueForKey:@"titleBackgroundColor"];
 	titleBackgroundCornerRadius = [[preferences objectForKey:@"titleBackgroundCornerRadius"] doubleValue];
+	showInjectionAlerts = [[preferences objectForKey:@"showInjectionAlerts"] boolValue];
 }

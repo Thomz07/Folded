@@ -1,8 +1,9 @@
 #import <Preferences/PSListController.h>
 #import <Preferences/PSTableCell.h>
 #import <Preferences/PSSpecifier.h>
+#import <Preferences/PSListItemsController.h>
 
-@interface TitleRootListController : PSListController
+@interface OPESubPageController : PSListController
 @property (nonatomic, retain) NSMutableDictionary *mySavedSpecifiers;
 @end
 

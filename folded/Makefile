@@ -4,7 +4,7 @@ include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = Folded
 
-Folded_FILES = OPERootListController.m TitleRootListController.m
+Folded_FILES = $(wildcard *.m) #makes compiler include the other cells/pages of prefs
 Folded_INSTALL_PATH = /Library/PreferenceBundles
 Folded_FRAMEWORKS = UIKit
 Folded_PRIVATE_FRAMEWORKS = Preferences

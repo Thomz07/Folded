@@ -1,46 +1,70 @@
-#include "TitleRootListController.h"
+#include "OPESubPageController.h"
 
-@implementation TitleRootListController
+@implementation OPESubPageController
 
 NSDictionary *preferences;
 BOOL customTitleFontSizeEnabled;
 BOOL customTitleOffSetEnabled;
 BOOL titleColorEnabled;
 
-- (NSArray *)specifiers {
-	if (!_specifiers) {
-		_specifiers = [self loadSpecifiersFromPlistName:@"Title" target:self];
+- (void)setSpecifier:(PSSpecifier *)specifier {
+    [self loadFromSpecifier:specifier];
+    [super setSpecifier:specifier];
+}
 
-		NSArray *chosenLabels = @[@"customTitleFontSize", @"customTitleOffSet", @"titleColor"];
-		self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
+- (bool)shouldReloadSpecifiersOnResume {
+    return false;
+}
+
+
+
+- (void)loadFromSpecifier:(PSSpecifier *)specifier {
+	if (!_specifiers) {
+		NSString *sub = [specifier propertyForKey:@"pageKey"];
+
+		//NSString *contents = [NSString stringWithContentsOfFile:sub encoding:NSUTF8StringEncoding error:nil];
+
+    	//NSArray *chosenLabels = [contents componentsSeparatedByString:@","];
+
+		_specifiers = [self loadSpecifiersFromPlistName:sub target:self];
+
+		/*self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
 		for(PSSpecifier *specifier in [self specifiers]) {
 			if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
 			[self.mySavedSpecifiers setObject:specifier forKey:[specifier propertyForKey:@"key"]];
 			}
-		}
+		}*/
 	}
+}
 
-	return _specifiers;
+- (void)viewWillAppear:(BOOL)animated {
+
+	[UISegmentedControl appearanceWhenContainedInInstancesOfClasses:@[self.class]].tintColor = [UIColor colorWithRed:0.93 green:0.76 blue:0.07 alpha:1.0];
+    [[UISwitch appearanceWhenContainedInInstancesOfClasses:@[self.class]] setOnTintColor:[UIColor colorWithRed:0.93 green:0.76 blue:0.07 alpha:1.0]];
+    [[UISlider appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:0.93 green:0.76 blue:0.07 alpha:1.0]];
+
+    [super viewWillAppear:animated];
 }
 
 -(void)viewDidLoad {
 	[super viewDidLoad];
-	[self removeSegments];
+	//[self removeSegments];
 	UIBarButtonItem *applyButton = [[UIBarButtonItem alloc] initWithTitle:@"Apply" style:UIBarButtonItemStylePlain target:self action:@selector(apply:)];
     self.navigationItem.rightBarButtonItem = applyButton;
 }
 
 -(void)reloadSpecifiers {
-	[self removeSegments];
+	//[self removeSegments];
 }
 
 -(void)apply:(PSSpecifier *)specifier {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
+	   [self.view endEditing:YES]; //Hides the keyboard, if present
          });
 }
 
--(void)setPreferenceValue:(id)value specifier:(PSSpecifier *)specifier {
+/*-(void)setPreferenceValue:(id)value specifier:(PSSpecifier *)specifier {
 		[super setPreferenceValue:value specifier:specifier];
 
 		preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
@@ -86,6 +110,6 @@ BOOL titleColorEnabled;
 		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleColor"]] animated:YES];
 	}
 
-}
+} */
 
 @end

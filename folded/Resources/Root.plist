@@ -20,6 +20,18 @@
 			<key>label</key>
 			<string>Enable</string>
 		</dict>
+				<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>showInjectionAlerts</string>
+			<key>label</key>
+			<string>Show Compatability Alerts</string>
+		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
@@ -342,7 +354,9 @@
 			<key>cell</key>
 			<string>PSLinkCell</string>
 			<key>detail</key>
-			<string>TitleRootListController</string>
+			<string>OPESubPageController</string>
+			<key>pageKey</key>
+			<string>Title</string>
 			<key>label</key>
 			<string>Title Modification</string>
 		</dict>

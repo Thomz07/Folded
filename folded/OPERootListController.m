@@ -25,6 +25,15 @@ BOOL customFolderIconEnabled;
 	return _specifiers;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+
+	[UISegmentedControl appearanceWhenContainedInInstancesOfClasses:@[self.class]].tintColor = [UIColor colorWithRed:0.93 green:0.76 blue:0.07 alpha:1.0];
+    [[UISwitch appearanceWhenContainedInInstancesOfClasses:@[self.class]] setOnTintColor:[UIColor colorWithRed:0.93 green:0.76 blue:0.07 alpha:1.0]];
+    [[UISlider appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:0.93 green:0.76 blue:0.07 alpha:1.0]];
+
+    [super viewWillAppear:animated];
+}
+
 -(void)viewDidLoad {
 	[super viewDidLoad];
 	[self removeSegments];
@@ -39,6 +48,7 @@ BOOL customFolderIconEnabled;
 -(void)apply:(PSSpecifier *)specifier {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
+	   [self.view endEditing:YES];
          });
 }
 
