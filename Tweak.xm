@@ -64,6 +64,39 @@
 	} else {return original;}
 }
 
+-(void)layoutSubviews {
+	%orig;
+
+	UIColor *color = [UIColor cscp_colorFromHexString:titleColor];
+	UIColor *color2 = [UIColor cscp_colorFromHexString:titleBackgroundColor];
+
+	if(enabled && titleFontWeight == 1){
+
+	} else if(enabled && titleFontWeight == 2){
+		[self setFont:[UIFont systemFontOfSize:(self.font.pointSize)]]; // for some reason, systemFontOfSize is bigger than the title font
+	} else if(enabled && titleFontWeight == 3){
+		[self setFont:[UIFont boldSystemFontOfSize:(self.font.pointSize)]];
+	}
+
+	if(enabled && titleAlignment == 1){
+		[self setTextAlignment:NSTextAlignmentLeft];
+	} else if(enabled && titleAlignment == 2){
+
+	} else if(enabled && titleAlignment == 3){
+		[self setTextAlignment:NSTextAlignmentRight];
+	}
+
+	if(enabled && titleColorEnabled){
+		[self setTextColor:color];
+	}
+
+	if(enabled && titleBackgroundEnabled){
+		[self setBackgroundColor:color2];
+		[self.layer setMasksToBounds:true];
+		[self.layer setCornerRadius:titleBackgroundCornerRadius];
+	}
+}
+
 %end
 %end
 
@@ -101,19 +134,6 @@
 %hook SBFolderIconListView
 
 + (unsigned long long)maxVisibleIconRowsInterfaceOrientation:(long long)arg1 {
-	/* NOTE: 
-	Thomz said: // return a number depending on the position of the segment cell, 
-	i'm too lazy to make it return directly the number from the cell lmao
-
-	Well guess what? I adjusted it for you, and saved a lot of lines :P */
-
-	// don't forget about casting variable type, you tried to return an int value where you had to return a long long value. Thomz :)
-
-        //I'm almost sure it works for this reason:
-        //I think that returning an integer when it asks for a long long is fine. 
-        //An integer is a long long. However, longs also include both integers and floating point numbers,
-        //so you can return either and it will work. -Burrit0z 
-
 
 	if(enabled && customLayoutEnabled){
 		return (customLayoutRows);
@@ -127,7 +147,7 @@
 	} else {return %orig;}
 }
 
-%enabled
+%end
 %end
 
 %group layout13
@@ -175,12 +195,12 @@
   [self getLocations];
   if (self.isFolder && enabled) {
     if (hasProcessLaunched) {
-    return (folderColumns);
+    return (customLayoutColumns);
     } else {
       @try {
       return (folderIconColumns);
       } @catch (NSException *exception) {
-      return folderColumns;
+      return customLayoutColumns;
 	  hasInjectionFailed = YES;
       }
     }
@@ -193,12 +213,12 @@
   [self getLocations];
   if (self.isFolder && enabled) {
     if (hasProcessLaunched) {
-    return (folderRows);
+    return (customLayoutRows);
     } else {
       @try {
       return (folderIconRows);
       } @catch (NSException *exception) {
-      return folderRows;
+      return customLayoutRows;
 	  hasInjectionFailed = YES;
       }
     }
@@ -210,7 +230,7 @@
 %end
 %end
 
-%group universalIconControl
+%group iconGrid13
 %hook SBIconGridImage
 
 //ios 12 stuff
@@ -277,6 +297,6 @@
 	} else {
 		%init(pinchToClose13);
 		%init(layout13);
-		%init(universalIconControl);
+		%init(iconGrid13);
 	}
 }

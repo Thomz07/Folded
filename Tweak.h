@@ -1,3 +1,12 @@
+#include <CSColorPicker/CSColorPicker.h>
+
+#define PLIST_PATH @"/User/Library/Preferences/com.thomz.foldy.plist"
+
+inline NSString *StringForPreferenceKey(NSString *key) {
+    NSDictionary *prefs = [NSDictionary dictionaryWithContentsOfFile:PLIST_PATH] ? : [NSDictionary new];
+    return prefs[key];
+}
+
 @interface SBIconController : UIAlertController
 @end
 
@@ -92,6 +101,13 @@ double customTitleOffSet;
 BOOL customFolderIconEnabled;
 long long folderIconRows;
 long long folderIconColumns;
+int titleFontWeight;
+int titleAlignment;
+BOOL titleColorEnabled;
+NSString *titleColor;
+BOOL titleBackgroundEnabled;
+NSString *titleBackgroundColor;
+double titleBackgroundCornerRadius;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
@@ -120,6 +136,14 @@ static void reloadPrefs(){
     customTitleFontSize = [[preferences objectForKey:@"customTitleFontSize"] doubleValue];
     customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
     customTitleOffSet = [[preferences objectForKey:@"customTitleOffSet"] doubleValue];
+	customFolderIconEnabled = [[preferences objectForKey:@"customFolderIconEnabled"] boolValue];
     folderIconRows = [[preferences objectForKey:@"folderIconRows"] longLongValue];
 	folderIconColumns = [[preferences objectForKey:@"folderIconColumns"] longLongValue];
+	titleFontWeight = [[preferences objectForKey:@"titleFontWeight"] intValue];
+	titleAlignment = [[preferences objectForKey:@"titleAlignment"] intValue];
+	titleColorEnabled = [[preferences objectForKey:@"titleColorEnabled"] boolValue];
+	titleColor = [preferences valueForKey:@"titleColor"];
+	titleBackgroundEnabled = [[preferences objectForKey:@"titleBackgroundEnabled"] boolValue];
+	titleBackgroundColor = [preferences valueForKey:@"titleBackgroundColor"];
+	titleBackgroundCornerRadius = [[preferences objectForKey:@"titleBackgroundCornerRadius"] doubleValue];
 }

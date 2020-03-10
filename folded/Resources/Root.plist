@@ -202,7 +202,7 @@
             <key>defaults</key>
             <string>xyz.burritoz.thomz.folded.prefs</string>
             <key>default</key>
-            <string>2</string>
+            <string>3</string>
             <key>key</key>
             <string>customLayoutRows</string>
             <key>validValues</key>
@@ -232,7 +232,7 @@
             <key>defaults</key>
             <string>xyz.burritoz.thomz.folded.prefs</string>
             <key>default</key>
-            <string>2</string>
+            <string>3</string>
             <key>key</key>
             <string>customLayoutColumns</string>
             <key>validValues</key>
@@ -268,78 +268,6 @@
 			<key>defaults</key>
 			<string>xyz.burritoz.thomz.folded.prefs</string>
 			<key>key</key>
-			<string>hideTitleEnabled</string>
-			<key>label</key>
-			<string>Hide Title</string>
-        </dict>
-		<dict>
-        	<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
-			<string>customTitleFontSizeEnabled</string>
-			<key>label</key>
-			<string>Custom Title Font Size</string>
-        </dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSliderCell</string>
-			<key>min</key>
-			<integer>0</integer>
-			<key>max</key>
-			<integer>99</integer>
-			<key>isSegmented</key>
-			<false/>
-			<key>showValue</key>
-			<true/>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
-			<string>customTitleFontSize</string>
-		</dict>
-		<dict>
-        	<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
-			<string>customTitleOffSetEnabled</string>
-			<key>label</key>
-			<string>Custom Title Offset</string>
-        </dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSliderCell</string>
-			<key>min</key>
-			<integer>0</integer>
-			<key>max</key>
-			<integer>99</integer>
-			<key>isSegmented</key>
-			<false/>
-			<key>showValue</key>
-			<true/>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
-			<string>customTitleOffSet</string>
-		</dict>
-		<dict>
-        	<key>cell</key>
-        	<string>PSGroupCell</string>
-        </dict>
-		<dict>
-        	<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
 			<string>customFolderIconEnabled</string>
 			<key>label</key>
 			<string>Custom Folder Grid</string>
@@ -352,7 +280,7 @@
             <key>defaults</key>
             <string>xyz.burritoz.thomz.folded.prefs</string>
             <key>default</key>
-            <string>2</string>
+            <string>3</string>
             <key>key</key>
             <string>folderIconRows</string>
             <key>validValues</key>
@@ -382,7 +310,7 @@
             <key>defaults</key>
             <string>xyz.burritoz.thomz.folded.prefs</string>
             <key>default</key>
-            <string>2</string>
+            <string>3</string>
             <key>key</key>
             <string>folderIconColumns</string>
             <key>validValues</key>
@@ -405,7 +333,19 @@
                 <string>6</string>
                 <string>7</string>
             </array>
+		</dict>
+		<dict>
+        	<key>cell</key>
+        	<string>PSGroupCell</string>
         </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>detail</key>
+			<string>TitleRootListController</string>
+			<key>label</key>
+			<string>Title Modification</string>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>Folded</string>

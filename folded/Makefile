@@ -4,11 +4,12 @@ include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = Folded
 
-Folded_FILES = OPERootListController.m
+Folded_FILES = OPERootListController.m TitleRootListController.m
 Folded_INSTALL_PATH = /Library/PreferenceBundles
 Folded_FRAMEWORKS = UIKit
 Folded_PRIVATE_FRAMEWORKS = Preferences
 Folded_CFLAGS = -fobjc-arc
+Folded_LDFLAGS += -lCSColorPicker
 
 include $(THEOS_MAKE_PATH)/bundle.mk
 

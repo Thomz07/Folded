@@ -7,14 +7,13 @@ BOOL backgroundAlphaEnabled;
 BOOL cornerRadiusEnabled;
 BOOL customCenteredFrameEnabled;
 BOOL customLayoutEnabled;
-BOOL customTitleFontSizeEnabled;
-BOOL customTitleOffSetEnabled;
+BOOL customFolderIconEnabled;
 
 - (NSArray *)specifiers {
 	if (!_specifiers) {
 		_specifiers = [self loadSpecifiersFromPlistName:@"Root" target:self];
 
-		NSArray *chosenLabels = @[@"backgroundAlpha",@"cornerRadius",@"customFrameX",@"customFrameY", @"customLayoutRows", @"customLayoutColumns", @"customTitleFontSize",@"customTitleOffSet"];
+		NSArray *chosenLabels = @[@"backgroundAlpha",@"cornerRadius",@"customFrameX",@"customFrameY", @"customLayoutRows", @"customLayoutColumns", @"folderIconRows", @"folderIconColumns"];
 		self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
 		for(PSSpecifier *specifier in [self specifiers]) {
 			if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
@@ -51,8 +50,7 @@ BOOL customTitleOffSetEnabled;
 		cornerRadiusEnabled = [[preferences objectForKey:@"cornerRadiusEnabled"] boolValue];
 		customCenteredFrameEnabled = [[preferences objectForKey:@"customCenteredFrameEnabled"] boolValue];
 		customLayoutEnabled = [[preferences objectForKey:@"customLayoutEnabled"] boolValue];
-		customTitleFontSizeEnabled = [[preferences objectForKey:@"customTitleFontSizeEnabled"] boolValue];
-		customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
+		customFolderIconEnabled = [[preferences objectForKey:@"customFolderIconEnabled"] boolValue];
 
 		if(!backgroundAlphaEnabled){
          	[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"backgroundAlpha"]] animated:YES];
@@ -78,16 +76,10 @@ BOOL customTitleOffSetEnabled;
 			[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutRows"], self.mySavedSpecifiers[@"customLayoutColumns"]] afterSpecifierID:@"Enable Custom Layout" animated:YES];
 		}
 
-		if(!customTitleFontSizeEnabled){
-         	[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] animated:YES];
-		} else if(customTitleFontSizeEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customTitleFontSize"]]) {
-			[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] afterSpecifierID:@"Custom Title Font Size" animated:YES];
-		}
-
-		if(!customTitleOffSetEnabled){
-         	[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleOffSet"]] animated:YES];
-		} else if(customTitleOffSetEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customTitleOffSet"]]) {
-			[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleOffSet"]] afterSpecifierID:@"Custom Title Offset" animated:YES];
+		if(!customFolderIconEnabled){
+         	[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"folderIconRows"], self.mySavedSpecifiers[@"folderIconColumns"]] animated:YES];
+		} else if(customFolderIconEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"folderIconRows"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"folderIconColumns"]]) {
+			[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"folderIconRows"], self.mySavedSpecifiers[@"folderIconColumns"]] afterSpecifierID:@"Custom Folder Grid" animated:YES];
 		}
 
 }
@@ -98,8 +90,7 @@ BOOL customTitleOffSetEnabled;
 	cornerRadiusEnabled = [[preferences objectForKey:@"cornerRadiusEnabled"] boolValue];
 	customCenteredFrameEnabled = [[preferences objectForKey:@"customCenteredFrameEnabled"] boolValue];
 	customLayoutEnabled = [[preferences objectForKey:@"customLayoutEnabled"] boolValue];
-	customTitleFontSizeEnabled = [[preferences objectForKey:@"customTitleFontSizeEnabled"] boolValue];
-	customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
+	customFolderIconEnabled = [[preferences objectForKey:@"customFolderIconEnabled"] boolValue];
 
 	if(!backgroundAlphaEnabled){
 		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"backgroundAlpha"]] animated:YES];
@@ -117,12 +108,8 @@ BOOL customTitleOffSetEnabled;
 		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutRows"], self.mySavedSpecifiers[@"customLayoutColumns"]] animated:YES];
 	}
 
-	if(!customTitleFontSizeEnabled){
-		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] animated:YES];
-	}
-
-	if(!customTitleOffSetEnabled){
-		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleOffSet"]] animated:YES];
+	if(!customFolderIconEnabled){
+		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"folderIconRows"], self.mySavedSpecifiers[@"folderIconColumns"]] animated:YES];
 	}
 
 }

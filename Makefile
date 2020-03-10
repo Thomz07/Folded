@@ -8,6 +8,7 @@ TWEAK_NAME = Folded
 
 Folded_FILES = Tweak.xm
 Folded_CFLAGS = -fobjc-arc
+Folded_LDFLAGS += -lCSColorPicker
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 SUBPROJECTS += folded
