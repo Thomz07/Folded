@@ -109,6 +109,12 @@
 
 	// don't forget about casting variable type, you tried to return an int value where you had to return a long long value. Thomz :)
 
+        //I'm almost sure it works for this reason:
+        //I think that returning an integer when it asks for a long long is fine. 
+        //An integer is a long long. However, longs also include both integers and floating point numbers,
+        //so you can return either and it will work. -Burrit0z 
+
+
 	if(enabled && customLayoutEnabled){
 		return (customLayoutRows);
 	} else {return %orig;}
