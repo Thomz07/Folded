@@ -82,13 +82,16 @@ CGFloat frameY;
 CGFloat frameWidth;
 CGFloat frameHeight;
 BOOL customLayoutEnabled;
-int customLayoutRows;
-int customLayoutColumns;
+long long customLayoutRows;
+long long customLayoutColumns;
 BOOL hideTitleEnabled;
 BOOL customTitleFontSizeEnabled;
 double customTitleFontSize;
 BOOL customTitleOffSetEnabled;
 double customTitleOffSet;
+BOOL customFolderIconEnabled;
+long long folderIconRows;
+long long folderIconColumns;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
@@ -110,11 +113,13 @@ static void reloadPrefs(){
 	frameWidth = [[preferences valueForKey:@"customFrameWidth"] floatValue];
 	frameHeight = [[preferences valueForKey:@"customFrameHeight"] floatValue];
 	customLayoutEnabled = [[preferences objectForKey:@"customLayoutEnabled"] boolValue];
-	customLayoutRows = [[preferences objectForKey:@"customLayoutRows"] intValue];
-	customLayoutColumns = [[preferences objectForKey:@"customLayoutColumns"] intValue];
+	customLayoutRows = [[preferences objectForKey:@"customLayoutRows"] longLongValue];
+	customLayoutColumns = [[preferences objectForKey:@"customLayoutColumns"] longLongValue];
     hideTitleEnabled = [[preferences objectForKey:@"hideTitleEnabled"] boolValue];
     customTitleFontSizeEnabled = [[preferences objectForKey:@"customTitleFontSizeEnabled"] boolValue];
     customTitleFontSize = [[preferences objectForKey:@"customTitleFontSize"] doubleValue];
     customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
     customTitleOffSet = [[preferences objectForKey:@"customTitleOffSet"] doubleValue];
+    folderIconRows = [[preferences objectForKey:@"folderIconRows"] longLongValue];
+	folderIconColumns = [[preferences objectForKey:@"folderIconColumns"] longLongValue];
 }

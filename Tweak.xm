@@ -107,6 +107,8 @@
 
 	Well guess what? I adjusted it for you, and saved a lot of lines :P */
 
+	// don't forget about casting variable type, you tried to return an int value where you had to return a long long value. Thomz :)
+
 	if(enabled && customLayoutEnabled){
 		return (customLayoutRows);
 	} else {return %orig;}
@@ -119,11 +121,10 @@
 	} else {return %orig;}
 }
 
-%end
+%enabled
 %end
 
 %group layout13
-
 //This part is crucial to my method :devil_face:
 %hook SBIconController
 
@@ -203,21 +204,26 @@
 %end
 %end
 
-%hook universalIconControl
-
+%group universalIconControl
 %hook SBIconGridImage
 
 //ios 12 stuff
 -(NSUInteger)numberOfColumns {
-  return folderIconColumns;
+	if(enabled && customFolderIconEnabled){
+  		return folderIconColumns;
+  	} else {return %orig;}
 }
 
 -(NSUInteger)numberOfCells {
-  return (folderIconColumns*folderIconRows);
+	if(enabled && customFolderIconEnabled){
+  		return (folderIconColumns*folderIconRows);
+  	} else {return %orig;}
 }
 
 -(NSUInteger)numberOfRows {
-  return folderIconRows;
+	if(enabled && customFolderIconEnabled){	
+  		return folderIconRows;
+  	} else {return %orig;}
 }
 ///
 
@@ -253,18 +259,18 @@
 	reloadPrefs();
 	hasProcessLaunched = NO;
 	hasInjectionFailed = NO;
-        hasShownFailureAlert = NO;
+    hasShownFailureAlert = NO;
 
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
 	
 	%init(SBFloatyFolderView);
 	%init(SBFolderTitleTextField);
-	%init(universalIconControl);
-	if(kCFCoreFoundationVersionNumber < 1600)){
+	if(kCFCoreFoundationVersionNumber < 1600){ // why not check the version it's better ?
 		%init(pinchToClose12);
 		%init(layout12);
 	} else {
 		%init(pinchToClose13);
 		%init(layout13);
+		%init(universalIconControl);
 	}
 }
