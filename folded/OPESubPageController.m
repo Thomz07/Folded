@@ -94,7 +94,7 @@ BOOL titleBackgroundEnabled;
 			[self removeContiguousSpecifiers:@[self.recievedLabels objectAtIndex:x] animated:YES];
 		}
 
-	/*if(!customTitleFontSizeEnabled){
+	if(!customTitleFontSizeEnabled){
 		[self removeContiguousSpecifiers:@[self.chosenLabels[@"customTitleFontSize"]] animated:YES];
 	}
 
@@ -108,7 +108,7 @@ BOOL titleBackgroundEnabled;
 
 	if(!titleBackgroundEnabled){
 		[self removeContiguousSpecifiers:@[self.chosenLabels[@"titleBackgroundColor"], self.chosenLabels[@"titleBackgroundCornerRadius"]] animated:YES];
-	} *//*
+	}
 
 } */
 
