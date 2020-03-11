@@ -49,6 +49,8 @@
 
 %group SBFolderTitleTextField
 %hook SBFolderTitleTextField
+%property (nonatomic, retain) UIVisualEffectView *lightView;
+%property (nonatomic, retain) UIVisualEffectView *darkView;
 
 -(CGRect)textRectForBounds:(CGRect)arg1 { // title offset
 	
@@ -94,6 +96,20 @@
 		[self setBackgroundColor:color2];
 		[self.layer setMasksToBounds:true];
 		[self.layer setCornerRadius:titleBackgroundCornerRadius];
+	}
+
+	self.lightView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+	self.lightView.frame = self.bounds;
+	self.darkView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+	self.darkView.frame = self.bounds;
+
+	if(enabled && titleBackgroundEnabled && titleBackgroundBlurEnabled){
+		[self setBackgroundColor:[UIColor clearColor]];
+		if(customBlurBackground == 1){
+			[self insertSubview:self.lightView atIndex:0];
+		} else if(customBlurBackground == 2){
+			[self insertSubview:self.darkView atIndex:0];
+		}
 	}
 }
 
@@ -160,10 +176,10 @@
 
   if (hasInjectionFailed && showInjectionAlerts && !hasShownFailureAlert) {
 	  UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
-                               message:@"Folded has failed to inject a custom folder icon layout. This is due to aother tweak interfering with Folded. Please note Cartella has prevented a crash that would have occured due to this."
+                               message:@"Folded has failed to inject a custom folder icon layout. This is due to another tweak interfering with Folded. Please note Cartella has prevented a crash that would have occured due to this." // wut ?
                                preferredStyle:UIAlertControllerStyleAlert];
  
-		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault
    		handler:^(UIAlertAction * action) {}];
  
 		[alert addAction:defaultAction];
@@ -230,10 +246,78 @@
 %end
 %end
 
+%group SBFolderBackgroundView
+%hook SBFolderBackgroundView
+%property (nonatomic, retain) UIVisualEffectView *lightView;
+%property (nonatomic, retain) UIVisualEffectView *darkView;
+-(void)layoutSubviews {
+	%orig;
+    self.lightView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+	self.lightView.frame = self.bounds;
+	self.darkView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+	self.darkView.frame = self.bounds;
+	UIView *backgroundColorFrame = [[UIView alloc] initWithFrame:self.bounds];
+	UIColor *backgroundColor = [UIColor cscp_colorFromHexString:folderBackgroundColor];
+	[backgroundColorFrame setBackgroundColor:backgroundColor];
+
+	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 1){
+		MSHookIvar<UIVisualEffectView *>(self, "_blurView") = self.lightView;
+		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+		[self addSubview:self.lightView];
+	}
+
+	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 2){
+		MSHookIvar<UIVisualEffectView *>(self, "_blurView") = self.darkView;
+		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+		[self addSubview:self.darkView];
+	}
+
+	if(enabled && folderBackgroundColorEnabled){
+		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+		[self addSubview:backgroundColorFrame];
+	}
+
+}
+%end
+%end
+
+%group iconGrid12
+%hook SBIconGridImage
+
++ (unsigned long long)numberOfColumns {
+
+	if(enabled && twoByTwoIconEnabled){
+		return 2;
+	} else {return %orig;}
+}
+
++ (unsigned long long)numberOfRowsForNumberOfCells:(unsigned long long)arg1 {
+    
+	if(enabled && twoByTwoIconEnabled){
+		return 2;
+	} else {return %orig;}
+}
+
++ (CGSize)cellSize {
+    CGSize orig = %orig;
+	if(enabled && twoByTwoIconEnabled){
+		return CGSizeMake(orig.width * 1.5, orig.height);
+	} else {return %orig;}
+}
+
++ (CGSize)cellSpacing {
+    CGSize orig = %orig;
+    if(enabled && twoByTwoIconEnabled){
+		return CGSizeMake(orig.width * 1.5, orig.height);
+	} else {return %orig;}
+}
+
+%end 
+%end
+
 %group iconGrid13
 %hook SBIconGridImage
 
-//ios 12 stuff
 -(NSUInteger)numberOfColumns {
 	if(enabled && customFolderIconEnabled){
   		return folderIconColumns;
@@ -291,11 +375,11 @@
 	
 	%init(SBFloatyFolderView);
 	%init(SBFolderTitleTextField);
-	if(kCFCoreFoundationVersionNumber < 1600){ // why not check the version it's better ?
-        //Edit: thomz likes to use something else, I use kCoreFoundationNumber because it doesn't require the #define, and overall seems to be simpler to work with. 
-		//Change it back if you want, thmoz, I don't care. 
-	%init(pinchToClose12);
+	%init(SBFolderBackgroundView);
+	if(kCFCoreFoundationVersionNumber < 1600){ 
+		%init(pinchToClose12);
 		%init(layout12);
+		%init(iconGrid12);
 	} else {
 		%init(pinchToClose13);
 		%init(layout13);

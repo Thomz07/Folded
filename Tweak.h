@@ -1,6 +1,6 @@
 #include <CSColorPicker/CSColorPicker.h>
 
-#define PLIST_PATH @"/User/Library/Preferences/com.thomz.foldy.plist"
+#define PLIST_PATH @"/User/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
 
 inline NSString *StringForPreferenceKey(NSString *key) {
     NSDictionary *prefs = [NSDictionary dictionaryWithContentsOfFile:PLIST_PATH] ? : [NSDictionary new];
@@ -33,6 +33,8 @@ inline NSString *StringForPreferenceKey(NSString *key) {
 @interface SBFolderBackgroundView : UIView
 -(void)layoutSubviews;
 -(void)setBackgroundColor:(UIColor *)arg1;
+@property (nonatomic, retain) UIVisualEffectView *lightView;
+@property (nonatomic, retain) UIVisualEffectView *darkView;
 @end
 
 @interface SBFolderControllerBackgroundView : UIView
@@ -69,6 +71,8 @@ inline NSString *StringForPreferenceKey(NSString *key) {
 @property (nonatomic, assign) CGRect frame;
 @property (nonatomic, assign) CGRect bounds;
 @property (nonatomic, strong) UIFont *font;
+@property (nonatomic, retain) UIVisualEffectView *lightView;
+@property (nonatomic, retain) UIVisualEffectView *darkView;
 -(void)setFont:(id)arg1 fullFontSize:(id)arg2 ambientOnly:(BOOL)arg3;
 -(void)setTextCentersHorizontally:(BOOL)arg1;
 -(void)layoutSubviews;
@@ -101,6 +105,7 @@ double customTitleOffSet;
 BOOL customFolderIconEnabled;
 long long folderIconRows;
 long long folderIconColumns;
+BOOL twoByTwoIconEnabled;
 int titleFontWeight;
 int titleAlignment;
 BOOL titleColorEnabled;
@@ -108,7 +113,12 @@ NSString *titleColor;
 BOOL titleBackgroundEnabled;
 NSString *titleBackgroundColor;
 double titleBackgroundCornerRadius;
+BOOL titleBackgroundBlurEnabled;
 BOOL showInjectionAlerts;
+BOOL customBlurBackgroundEnabled;
+int customBlurBackground;
+BOOL folderBackgroundColorEnabled;
+NSString *folderBackgroundColor;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
@@ -140,6 +150,7 @@ static void reloadPrefs(){
 	customFolderIconEnabled = [[preferences objectForKey:@"customFolderIconEnabled"] boolValue];
     folderIconRows = [[preferences objectForKey:@"folderIconRows"] longLongValue];
 	folderIconColumns = [[preferences objectForKey:@"folderIconColumns"] longLongValue];
+	twoByTwoIconEnabled = [[preferences objectForKey:@"twoByTwoIconEnabled"] boolValue];
 	titleFontWeight = [[preferences objectForKey:@"titleFontWeight"] intValue];
 	titleAlignment = [[preferences objectForKey:@"titleAlignment"] intValue];
 	titleColorEnabled = [[preferences objectForKey:@"titleColorEnabled"] boolValue];
@@ -147,5 +158,10 @@ static void reloadPrefs(){
 	titleBackgroundEnabled = [[preferences objectForKey:@"titleBackgroundEnabled"] boolValue];
 	titleBackgroundColor = [preferences valueForKey:@"titleBackgroundColor"];
 	titleBackgroundCornerRadius = [[preferences objectForKey:@"titleBackgroundCornerRadius"] doubleValue];
+	titleBackgroundBlurEnabled = [[preferences objectForKey:@"titleBackgroundBlurEnabled"] boolValue];
 	showInjectionAlerts = [[preferences objectForKey:@"showInjectionAlerts"] boolValue];
+	customBlurBackgroundEnabled = [[preferences objectForKey:@"customBlurBackgroundEnabled"] boolValue];
+	customBlurBackground = [[preferences objectForKey:@"customBlurBackground"] intValue];
+	folderBackgroundColorEnabled = [[preferences objectForKey:@"folderBackgroundColorEnabled"] boolValue];
+	folderBackgroundColor = [preferences valueForKey:@"folderBackgroundColor"];
 }

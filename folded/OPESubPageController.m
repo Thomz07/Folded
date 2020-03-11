@@ -6,6 +6,7 @@ NSDictionary *preferences;
 BOOL customTitleFontSizeEnabled;
 BOOL customTitleOffSetEnabled;
 BOOL titleColorEnabled;
+BOOL titleBackgroundEnabled;
 
 - (void)setSpecifier:(PSSpecifier *)specifier {
     [self loadFromSpecifier:specifier];
@@ -26,6 +27,8 @@ BOOL titleColorEnabled;
 
     	//NSArray *chosenLabels = [contents componentsSeparatedByString:@","];
 
+		//NSArray *chosenLabels = @[@"customTitleFontSize", @"customTitleOffSet", @"titleColor", @"titleBackgroundColor", @"titleBackgroundCornerRadius"];
+
 		_specifiers = [self loadSpecifiersFromPlistName:sub target:self];
 
 		/*self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
@@ -39,9 +42,9 @@ BOOL titleColorEnabled;
 
 - (void)viewWillAppear:(BOOL)animated {
 
-	[UISegmentedControl appearanceWhenContainedInInstancesOfClasses:@[self.class]].tintColor = [UIColor colorWithRed:0.93 green:0.76 blue:0.07 alpha:1.0];
-    [[UISwitch appearanceWhenContainedInInstancesOfClasses:@[self.class]] setOnTintColor:[UIColor colorWithRed:0.93 green:0.76 blue:0.07 alpha:1.0]];
-    [[UISlider appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:0.93 green:0.76 blue:0.07 alpha:1.0]];
+	[[UISegmentedControl appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:1.00 green:0.94 blue:0.27 alpha:1.0]];
+    [[UISwitch appearanceWhenContainedInInstancesOfClasses:@[self.class]] setOnTintColor:[UIColor colorWithRed:1.00 green:0.94 blue:0.27 alpha:1.0]];
+    [[UISlider appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:1.00 green:0.94 blue:0.27 alpha:1.0]];
 
     [super viewWillAppear:animated];
 }
@@ -60,7 +63,7 @@ BOOL titleColorEnabled;
 -(void)apply:(PSSpecifier *)specifier {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
-	   [self.view endEditing:YES]; //Hides the keyboard, if present
+	   [self.view endEditing:YES]; //Hides the keyboard, if present // omg thank you that was so annoying lmao
          });
 }
 
@@ -71,6 +74,7 @@ BOOL titleColorEnabled;
 		customTitleFontSizeEnabled = [[preferences objectForKey:@"customTitleFontSizeEnabled"] boolValue];
 		customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
 		titleColorEnabled = [[preferences objectForKey:@"titleColorEnabled"] boolValue];
+		titleBackgroundEnabled = [[preferences objectForKey:@"titleBackgroundEnabled"] boolValue];
 
 		if(!customTitleFontSizeEnabled){
          	[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] animated:YES];
@@ -90,6 +94,12 @@ BOOL titleColorEnabled;
 			[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleColor"]] afterSpecifierID:@"Custom Title Color" animated:YES];
 		}
 
+		if(!titleBackgroundEnabled){
+         	[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"], self.mySavedSpecifiers[@"titleBackgroundCornerRadius"]] animated:YES];
+		} else if(titleBackgroundEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"titleBackgroundColor"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"titleBackgroundCornerRadius"]]) {
+			[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"], self.mySavedSpecifiers[@"titleBackgroundCornerRadius"]] afterSpecifierID:@"Title Background" animated:YES];
+		}
+
 }
 
 -(void)removeSegments {
@@ -97,6 +107,7 @@ BOOL titleColorEnabled;
 	customTitleFontSizeEnabled = [[preferences objectForKey:@"customTitleFontSizeEnabled"] boolValue];
 	customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
 	titleColorEnabled = [[preferences objectForKey:@"titleColorEnabled"] boolValue];
+	titleBackgroundEnabled = [[preferences objectForKey:@"titleBackgroundEnabled"] boolValue];
 
 	if(!customTitleFontSizeEnabled){
 		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] animated:YES];
@@ -108,6 +119,10 @@ BOOL titleColorEnabled;
 
 	if(!titleColorEnabled){
 		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleColor"]] animated:YES];
+	}
+
+	if(!titleBackgroundEnabled){
+		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"], self.mySavedSpecifiers[@"titleBackgroundCornerRadius"]] animated:YES];
 	}
 
 } */

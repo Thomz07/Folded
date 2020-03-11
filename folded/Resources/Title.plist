@@ -216,6 +216,18 @@
 			<key>key</key>
 			<string>titleBackgroundCornerRadius</string>
 		</dict>
+		<dict>
+        	<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>titleBackgroundBlurEnabled</string>
+			<key>label</key>
+			<string>Use Folder Blur</string>
+        </dict>
 	</array>
 	<key>title</key>
 	<string>Folded</string>

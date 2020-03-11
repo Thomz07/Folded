@@ -1,5 +1,4 @@
 ARCHS = armv7 arm64 arm64e
-THEOS_DEVICE_IP = 192.168.0.172 #This is my phone ip (Burrit0z)
 
 INSTALL_TARGET_PROCESSES = SpringBoard
 
