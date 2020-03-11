@@ -13,28 +13,26 @@ BOOL titleBackgroundEnabled;
     [super setSpecifier:specifier];
 }
 
-- (bool)shouldReloadSpecifiersOnResume {
-    return false;
-}
-
-
 
 - (void)loadFromSpecifier:(PSSpecifier *)specifier {
 	if (!_specifiers) {
 		NSString *sub = [specifier propertyForKey:@"pageKey"];
 
-		//NSString *contents = [NSString stringWithContentsOfFile:sub encoding:NSUTF8StringEncoding error:nil];
+		//NSString *location = [sub stringByAppendingString:@".txt"];
+		//NSString *contents = [NSString stringWithContentsOfFile:location encoding:NSUTF8StringEncoding error:nil];
 
-    	//NSArray *chosenLabels = [contents componentsSeparatedByString:@","];
+    	//self.recievedLabels = [contents componentsSeparatedByString:@","];
+		//NSUInteger count = [_recievedLabels count];
+		//self.chosenLabels = [NSDictionary dictionaryWithObjects:nil forKeys:self.recievedLabels count:count];
 
 		//NSArray *chosenLabels = @[@"customTitleFontSize", @"customTitleOffSet", @"titleColor", @"titleBackgroundColor", @"titleBackgroundCornerRadius"];
 
 		_specifiers = [self loadSpecifiersFromPlistName:sub target:self];
 
-		/*self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
+		/*self.chosenLabels = (!self.chosenLabels) ? [[NSMutableDictionary alloc] init] : self.chosenLabels;
 		for(PSSpecifier *specifier in [self specifiers]) {
 			if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
-			[self.mySavedSpecifiers setObject:specifier forKey:[specifier propertyForKey:@"key"]];
+				self.chosenLabels setObject:specifier forKey:[specifier propertyForKey:@"key"]];
 			}
 		}*/
 	}
@@ -63,67 +61,54 @@ BOOL titleBackgroundEnabled;
 -(void)apply:(PSSpecifier *)specifier {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
-	   [self.view endEditing:YES]; //Hides the keyboard, if present // omg thank you that was so annoying lmao
+	   [self.view endEditing:YES]; //Hides the keyboard, if present -Burrit0z // omg thank you that was so annoying lmao
+	   							   //Lmao no problem Thomz ;) -Burrit0z
          });
 }
-
-/*-(void)setPreferenceValue:(id)value specifier:(PSSpecifier *)specifier {
+/*
+-(void)setPreferenceValue:(id)value specifier:(PSSpecifier *)specifier {
 		[super setPreferenceValue:value specifier:specifier];
 
 		preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
-		customTitleFontSizeEnabled = [[preferences objectForKey:@"customTitleFontSizeEnabled"] boolValue];
-		customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
-		titleColorEnabled = [[preferences objectForKey:@"titleColorEnabled"] boolValue];
-		titleBackgroundEnabled = [[preferences objectForKey:@"titleBackgroundEnabled"] boolValue];
 
-		if(!customTitleFontSizeEnabled){
-         	[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] animated:YES];
-		} else if(customTitleFontSizeEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customTitleFontSize"]]) {
-			[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] afterSpecifierID:@"Custom Title Font Size" animated:YES];
-		}
+		for (int x = 0; x < [self.recievedLabels count]; x++) {
+			[self.chosenLabels setObject:([[preferences objectForKey:[[self.recievedLabels] objectAtIndex:x]] boolValue]) 
+																forKey:[[self.recievedLabels] objectAtIndex:x]];
 
-		if(!customTitleOffSetEnabled){
-         	[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleOffSet"]] animated:YES];
-		} else if(customTitleOffSetEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customTitleOffSet"]]) {
-			[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleOffSet"]] afterSpecifierID:@"Custom Title Offset" animated:YES];
-		}
-
-		if(!titleColorEnabled){
-         	[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleColor"]] animated:YES];
-		} else if(titleColorEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"titleColor"]]) {
-			[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleColor"]] afterSpecifierID:@"Custom Title Color" animated:YES];
-		}
-
-		if(!titleBackgroundEnabled){
-         	[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"], self.mySavedSpecifiers[@"titleBackgroundCornerRadius"]] animated:YES];
-		} else if(titleBackgroundEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"titleBackgroundColor"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"titleBackgroundCornerRadius"]]) {
-			[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"], self.mySavedSpecifiers[@"titleBackgroundCornerRadius"]] afterSpecifierID:@"Title Background" animated:YES];
+			if(![self.chosenLabels objectForKey:[self.recievedLabels objectAtIndex:x]]){
+				[self removeContiguousSpecifiers:@[self.recievedLabels objectAtIndex:x] animated:YES];
+			} else if([self.chosenLabels objectForKey:[self.recievedLabels objectAtIndex:x]]) {
+				[self insertContiguousSpecifiers:c afterSpecifierID:[[self.recievedLabels] objectAtIndex:x] animated:YES];
+			}
 		}
 
 }
 
 -(void)removeSegments {
 	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
-	customTitleFontSizeEnabled = [[preferences objectForKey:@"customTitleFontSizeEnabled"] boolValue];
-	customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
-	titleColorEnabled = [[preferences objectForKey:@"titleColorEnabled"] boolValue];
-	titleBackgroundEnabled = [[preferences objectForKey:@"titleBackgroundEnabled"] boolValue];
 
-	if(!customTitleFontSizeEnabled){
-		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] animated:YES];
+	for (int x = 0; x < [self.recievedLabels count]; x++) {
+			[self.chosenLabels setObject:([[preferences objectForKey:[[self.recievedLabels] objectAtIndex:x]] boolValue]) 
+																forKey:[[self.recievedLabels] objectAtIndex:x]];
+
+			[self removeContiguousSpecifiers:@[self.recievedLabels objectAtIndex:x] animated:YES];
+		}
+
+	/*if(!customTitleFontSizeEnabled){
+		[self removeContiguousSpecifiers:@[self.chosenLabels[@"customTitleFontSize"]] animated:YES];
 	}
 
 	if(!customTitleOffSetEnabled){
-		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleOffSet"]] animated:YES];
+		[self removeContiguousSpecifiers:@[self.chosenLabels[@"customTitleOffSet"]] animated:YES];
 	}
 
 	if(!titleColorEnabled){
-		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleColor"]] animated:YES];
+		[self removeContiguousSpecifiers:@[self.chosenLabels[@"titleColor"]] animated:YES];
 	}
 
 	if(!titleBackgroundEnabled){
-		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"], self.mySavedSpecifiers[@"titleBackgroundCornerRadius"]] animated:YES];
-	}
+		[self removeContiguousSpecifiers:@[self.chosenLabels[@"titleBackgroundColor"], self.chosenLabels[@"titleBackgroundCornerRadius"]] animated:YES];
+	} *//*
 
 } */
 

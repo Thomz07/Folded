@@ -5,7 +5,7 @@ TWEAK_TYPE="Tweak"
 LOGOS_FILES="Tweak.xm "
 TWEAK_FILES=""
 
-MINIOS="11.0"
+MINIOS="10.0"
 ARCHS="arm64 arm64e"
 
 CFLAGS="-fobjc-arc"

@@ -4,7 +4,8 @@
 #import <Preferences/PSListItemsController.h>
 
 @interface OPESubPageController : PSListController
-@property (nonatomic, retain) NSMutableDictionary *mySavedSpecifiers;
+@property (nonatomic, retain) NSMutableDictionary *chosenLabels;
+@property (nonatomic, retain) NSArray *recievedLabels;
 @end
 
 @interface PSListController (iOS12Plus)

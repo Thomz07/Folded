@@ -386,3 +386,6 @@
 		%init(iconGrid13);
 	}
 }
+
+
+//Well, that's all for now, folks! It's been awesome working with Thomz, I hope to make more tweaks with him!
