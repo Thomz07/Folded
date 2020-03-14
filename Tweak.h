@@ -28,6 +28,7 @@ inline NSString *StringForPreferenceKey(NSString *key) {
 @interface SBFloatyFolderView : UIView
 -(void)layoutSubviews;
 -(void)setBackgroundColor:(UIColor *)arg1;
+-(UIColor *)randomColor;
 @end
 
 @interface SBFolderBackgroundView : UIView
@@ -121,6 +122,10 @@ BOOL folderBackgroundColorEnabled;
 NSString *folderBackgroundColor;
 BOOL customTitleFontEnabled;
 NSString *customTitleFont;
+BOOL seizureModeEnabled;
+BOOL folderBackgroundBackgroundColorEnabled;
+double backgroundAlphaColor;
+NSString * folderBackgroundBackgroundColor;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
@@ -168,4 +173,8 @@ static void reloadPrefs(){
 	folderBackgroundColor = [preferences valueForKey:@"folderBackgroundColor"];
 	customTitleFontEnabled = [[preferences valueForKey:@"customTitleFontEnabled"] boolValue];
 	customTitleFont = [[preferences valueForKey:@"customTitleFont"] stringValue];
+	seizureModeEnabled = [[preferences objectForKey:@"seizureModeEnabled"] boolValue];
+	folderBackgroundBackgroundColorEnabled = [[preferences objectForKey:@"folderBackgroundBackgroundColorEnabled"] boolValue];
+	backgroundAlphaColor = [[preferences objectForKey:@"backgroundAlphaColor"] doubleValue];
+	folderBackgroundBackgroundColor = [preferences valueForKey:@"folderBackgroundBackgroundColor"];
 }

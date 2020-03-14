@@ -425,9 +425,15 @@
 			<string>Colors Modification</string>
 		</dict>
 		<dict>
-        	<key>cell</key>
-        	<string>PSGroupCell</string>
-        </dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>detail</key>
+			<string>OPESubPageController</string>
+			<key>pageKey</key>
+			<string>Miscellaneous</string>
+			<key>label</key>
+			<string>Miscellaneous</string>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>Folded</string>

@@ -44,6 +44,43 @@
 	} else {return %orig;}
 }
 
+-(void)scrollViewDidScroll:(id)arg1 {
+	if(enabled && seizureModeEnabled){
+		[self setBackgroundColor:[self randomColor]];
+	}
+}
+
+%new
+- (UIColor *)randomColor {
+
+	int r = arc4random_uniform(256);
+	int g = arc4random_uniform(256);
+	int b = arc4random_uniform(256);
+
+	return [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:1.0f];
+}
+
+%end
+%end
+
+%group SBFolderBackgroundMaterialSettings
+%hook SBFolderBackgroundMaterialSettings
+
+-(UIColor *)baseOverlayColor { // this effect looks so sweet
+
+	UIColor *color = [UIColor cscp_colorFromHexString:folderBackgroundBackgroundColor];
+
+	if(enabled && folderBackgroundBackgroundColorEnabled){
+		return color;
+	} else {return %orig;}
+}
+
+-(double)baseOverlayTintAlpha {
+	if(enabled && folderBackgroundBackgroundColorEnabled){
+		return backgroundAlphaColor;
+	} else {return %orig;}
+}
+
 %end
 %end
 
@@ -64,7 +101,7 @@
 			original.size.height
 		    ); // everything original except the y
 	} else {return original;}
-}
+} // we should modify the frame instead of using this method to make it work with title bg option
 
 -(void)layoutSubviews {
 	%orig;
@@ -380,6 +417,7 @@
 	%init(SBFloatyFolderView);
 	%init(SBFolderTitleTextField);
 	%init(SBFolderBackgroundView);
+	%init(SBFolderBackgroundMaterialSettings);
 	if(kCFCoreFoundationVersionNumber < 1600){ 
 		%init(pinchToClose12);
 		%init(layout12);
