@@ -166,6 +166,6 @@ static void reloadPrefs(){
 	customBlurBackground = [[preferences objectForKey:@"customBlurBackground"] intValue];
 	folderBackgroundColorEnabled = [[preferences objectForKey:@"folderBackgroundColorEnabled"] boolValue];
 	folderBackgroundColor = [preferences valueForKey:@"folderBackgroundColor"];
-	customTitleFontEnabled = [preferences [valueForKey:@"customTitleFontEnabled"] boolValue];
-	customTitleFont = [preferences [valueForKey:@"customTitleFont"] stringValue];
+	customTitleFontEnabled = [[preferences valueForKey:@"customTitleFontEnabled"] boolValue];
+	customTitleFont = [[preferences valueForKey:@"customTitleFont"] stringValue];
 }
