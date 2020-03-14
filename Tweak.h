@@ -119,6 +119,8 @@ BOOL customBlurBackgroundEnabled;
 int customBlurBackground;
 BOOL folderBackgroundColorEnabled;
 NSString *folderBackgroundColor;
+BOOL customTitleFontEnabled;
+NSString *customTitleFont;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
@@ -164,4 +166,6 @@ static void reloadPrefs(){
 	customBlurBackground = [[preferences objectForKey:@"customBlurBackground"] intValue];
 	folderBackgroundColorEnabled = [[preferences objectForKey:@"folderBackgroundColorEnabled"] boolValue];
 	folderBackgroundColor = [preferences valueForKey:@"folderBackgroundColor"];
+	customTitleFontEnabled = [preferences [valueForKey:@"customTitleFontEnabled"] boolValue];
+	customTitleFont = [preferences [valueForKey:@"customTitleFont"] stringValue];
 }

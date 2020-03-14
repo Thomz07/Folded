@@ -111,6 +111,10 @@
 			[self insertSubview:self.darkView atIndex:0];
 		}
 	}
+
+	if (enabled && customTitleFontEnabled) {
+    	[self setFont:[UIFont fontWithName:customTitleFont size:(self.font.pointSize)]];
+	}
 }
 
 %end

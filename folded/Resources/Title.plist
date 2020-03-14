@@ -56,6 +56,30 @@
 			<key>defaults</key>
 			<string>xyz.burritoz.thomz.folded.prefs</string>
 			<key>key</key>
+			<string>customTitleFontEnabled</string>
+			<key>label</key>
+			<string>Custom Title Font</string>
+        </dict>
+		<dict>
+            <key>cell</key>
+            <string>PSEditTextCell</string>
+            <key>label</key>
+            <string>(System) Font Name</string>
+            <key>defaults</key>
+            <string>xyz.burritoz.thomz.folded.prefs</string>
+            <key>key</key>
+            <string>customTitleFont</string>
+            <key>isNumeric</key>
+            <false/>
+        </dict>
+		<dict>
+        	<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
 			<string>customTitleOffSetEnabled</string>
 			<key>label</key>
 			<string>Custom Title Offset</string>
