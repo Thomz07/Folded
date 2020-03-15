@@ -8,3 +8,7 @@
 @interface PSListController (iOS12Plus)
 -(BOOL)containsSpecifier:(id)arg1;
 @end
+
+@interface Thomz_TwitterCell : PSTableCell
+@end
+

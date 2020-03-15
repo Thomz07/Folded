@@ -72,13 +72,27 @@
 
 	if(enabled && folderBackgroundBackgroundColorEnabled){
 		return color;
+	} else if(enabled && randomColorBackgroundEnabled){
+		return [self randomColor];
 	} else {return %orig;}
 }
 
 -(double)baseOverlayTintAlpha {
 	if(enabled && folderBackgroundBackgroundColorEnabled){
 		return backgroundAlphaColor;
+	} else if(enabled && randomColorBackgroundEnabled){
+		return backgroundAlphaColor;
 	} else {return %orig;}
+}
+
+%new
+- (UIColor *)randomColor {
+
+	int r = arc4random_uniform(256);
+	int g = arc4random_uniform(256);
+	int b = arc4random_uniform(256);
+
+	return [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:1.0f];
 }
 
 %end
@@ -94,14 +108,10 @@
 	CGRect original = %orig;
 
 	if(enabled && customTitleOffSetEnabled){
-		return CGRectMake(
-			original.origin.x,
-			(original.origin.y)-customTitleOffSet,
-			original.size.width,
-			original.size.height
-		    ); // everything original except the y
+		return CGRectMake(original.origin.x,(original.origin.y)-customTitleOffSet,original.size.width,original.size.height);
+		//[self setFrame:CGRectMake(original.origin.x,(original.origin.y)-customTitleOffSet,original.size.width,original.size.height)]; // everything original except the y
 	} else {return original;}
-} // we should modify the frame instead of using this method to make it work with title bg option
+} // This should wokr but i can't try it because of the title prefs crashing, hope you'll be able to fix soon :)
 
 -(void)layoutSubviews {
 	%orig;

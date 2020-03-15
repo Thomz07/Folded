@@ -124,4 +124,65 @@ BOOL customFolderIconEnabled;
 
 }
 
+-(void)linkTwitter {
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://twitter.com/Thomzi07"]];
+}
+
+-(void)linkReddit {
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.reddit.com/user/Burrit0z_Dev"]];
+}
+
+@end
+
+@implementation Thomz_TwitterCell
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier  {
+
+	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
+
+	if (self)
+    {
+        UILabel *User = [[UILabel alloc] initWithFrame:CGRectMake(80,20,200,20)];
+        [User setText:specifier.properties[@"user"]];
+		[User setFont:[User.font fontWithSize:20]];
+
+		UILabel *Description = [[UILabel alloc]initWithFrame:CGRectMake(80,40,200,20)];
+		[Description setText:specifier.properties[@"description"]];
+		[Description setFont:[Description.font fontWithSize:12.5]];
+
+		NSBundle *bundle = [[NSBundle alloc]initWithPath:@"/Library/PreferenceBundles/Folded.bundle"];
+
+		UIImage *profilePicture = nil; 
+        profilePicture = [UIImage imageWithContentsOfFile:[bundle pathForResource:specifier.properties[@"image"] ofType:@"png"]];
+		UIImageView *profilePictureView = [[UIImageView alloc] initWithImage:profilePicture];
+		[profilePictureView setFrame:CGRectMake(12.5,12.5,55,55)];
+		[profilePictureView.layer setMasksToBounds:true];
+		[profilePictureView.layer setCornerRadius:27.5];
+
+		UIImage *twitter = nil;
+		twitter = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"twitter" ofType:@"png"]];
+		UIImageView *twitterIcon = [[UIImageView alloc] initWithImage:twitter];
+		twitterIcon.image = [twitterIcon.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+		[twitterIcon setTintColor:[UIColor colorWithRed:1.00 green:0.94 blue:0.27 alpha:1.0]];
+		[twitterIcon setFrame:CGRectMake((self.bounds.size.width) + 20,32.5,15,15)];
+
+		UIImage *reddit = nil;
+		reddit = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"reddit" ofType:@"png"]];
+		UIImageView *redditIcon = [[UIImageView alloc] initWithImage:reddit];
+		redditIcon.image = [redditIcon.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+		[redditIcon setTintColor:[UIColor colorWithRed:1.00 green:0.94 blue:0.27 alpha:1.0]];
+		[redditIcon setFrame:CGRectMake((self.bounds.size.width) + 20,30,20,20)];
+
+        [self addSubview:User];
+		[self addSubview:Description];
+		[self addSubview:profilePictureView];
+		if([specifier.properties[@"reddit"] isEqual:@"true"]){
+			[self addSubview:redditIcon];
+		} else {
+			[self addSubview:twitterIcon];
+		}
+    }
+
+    return self;
+}
+
 @end
