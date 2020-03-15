@@ -18,23 +18,23 @@ BOOL titleBackgroundEnabled;
 	if (!_specifiers) {
 		NSString *sub = [specifier propertyForKey:@"pageKey"];
 
-		//NSString *location = [sub stringByAppendingString:@".txt"];
-		//NSString *contents = [NSString stringWithContentsOfFile:location encoding:NSUTF8StringEncoding error:nil];
-
-    	//self.recievedLabels = [contents componentsSeparatedByString:@","];
-		//NSUInteger count = [_recievedLabels count];
-		//self.chosenLabels = [NSDictionary dictionaryWithObjects:nil forKeys:self.recievedLabels count:count];
-
-		//NSArray *chosenLabels = @[@"customTitleFontSize", @"customTitleOffSet", @"titleColor", @"titleBackgroundColor", @"titleBackgroundCornerRadius"];
+		if ([sub isEqualToString:@"Title"]) {
+			self.chosenLabels = [NSMutableArray arrayWithCapacity:4];
+			[self.chosenLabels addObject:@"customTitleFontSize"];
+			[self.chosenLabels addObject:@"customTitleOffSet"];
+			[self.chosenLabels addObject:@"titleColor"];
+			[self.chosenLabels addObject:@"titleBackgroundColor"];
+			[self.chosenLabels addObject:@"titleBackgroundCornerRadius"];
+		}
 
 		_specifiers = [self loadSpecifiersFromPlistName:sub target:self];
 
-		/*self.chosenLabels = (!self.chosenLabels) ? [[NSMutableDictionary alloc] init] : self.chosenLabels;
+		self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
 		for(PSSpecifier *specifier in [self specifiers]) {
-			if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
-				self.chosenLabels setObject:specifier forKey:[specifier propertyForKey:@"key"]];
+			if([self.chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
+			[self.mySavedSpecifiers setObject:specifier forKey:[specifier propertyForKey:@"key"]];
 			}
-		}*/
+		}
 	}
 }
 
@@ -49,13 +49,13 @@ BOOL titleBackgroundEnabled;
 
 -(void)viewDidLoad {
 	[super viewDidLoad];
-	//[self removeSegments];
+	[self removeSegments];
 	UIBarButtonItem *applyButton = [[UIBarButtonItem alloc] initWithTitle:@"Apply" style:UIBarButtonItemStylePlain target:self action:@selector(apply:)];
     self.navigationItem.rightBarButtonItem = applyButton;
 }
 
 -(void)reloadSpecifiers {
-	//[self removeSegments];
+	[self removeSegments];
 }
 
 -(void)apply:(PSSpecifier *)specifier {
@@ -65,20 +65,28 @@ BOOL titleBackgroundEnabled;
 	   							   //Lmao no problem Thomz ;) -Burrit0z
          });
 }
-/*
+
 -(void)setPreferenceValue:(id)value specifier:(PSSpecifier *)specifier {
 		[super setPreferenceValue:value specifier:specifier];
 
 		preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
 
-		for (int x = 0; x < [self.recievedLabels count]; x++) {
-			[self.chosenLabels setObject:([[preferences objectForKey:[[self.recievedLabels] objectAtIndex:x]] boolValue]) 
-																forKey:[[self.recievedLabels] objectAtIndex:x]];
+		for (int x = 0; x < [self.chosenLabels count]; x++) {
 
-			if(![self.chosenLabels objectForKey:[self.recievedLabels objectAtIndex:x]]){
-				[self removeContiguousSpecifiers:@[self.recievedLabels objectAtIndex:x] animated:YES];
-			} else if([self.chosenLabels objectForKey:[self.recievedLabels objectAtIndex:x]]) {
-				[self insertContiguousSpecifiers:c afterSpecifierID:[[self.recievedLabels] objectAtIndex:x] animated:YES];
+			id key = [self.chosenLabels objectAtIndex:x];
+
+			id currentSpecifier = [preferences objectForKey:key];
+
+			BOOL isCurrentEnabled = [currentSpecifier boolValue];
+
+			NSDictionary *tempDictionary = @{key: currentSpecifier};
+			NSMutableDictionary *dict =  [NSMutableDictionary dictionary];
+			[dict setDictionary:tempDictionary];
+
+			if(!isCurrentEnabled){
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[key]] animated:YES];
+			} else if(isCurrentEnabled && ![self containsSpecifier:self.mySavedSpecifiers[key]]) {
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[key]] afterSpecifierID:key animated:YES];
 			}
 		}
 
@@ -86,14 +94,24 @@ BOOL titleBackgroundEnabled;
 
 -(void)removeSegments {
 	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
+	
+	for (int x = 0; x < [self.chosenLabels count]; x++) {
 
-	for (int x = 0; x < [self.recievedLabels count]; x++) {
-			[self.chosenLabels setObject:([[preferences objectForKey:[[self.recievedLabels] objectAtIndex:x]] boolValue]) 
-																forKey:[[self.recievedLabels] objectAtIndex:x]];
+		id key = [self.chosenLabels objectAtIndex:x];
 
-			[self removeContiguousSpecifiers:@[self.recievedLabels objectAtIndex:x] animated:YES];
+		id currentSpecifier = [preferences objectForKey:key];
+
+		BOOL isCurrentEnabled = [currentSpecifier boolValue];
+
+		NSDictionary *tempDictionary = @{key: currentSpecifier};
+		NSMutableDictionary *dict =  [NSMutableDictionary dictionary];
+		[dict setDictionary:tempDictionary];
+
+		if(!isCurrentEnabled){
+			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[key]] animated:YES];
 		}
-
+	}
+/*
 	if(!customTitleFontSizeEnabled){
 		[self removeContiguousSpecifiers:@[self.chosenLabels[@"customTitleFontSize"]] animated:YES];
 	}
@@ -108,8 +126,8 @@ BOOL titleBackgroundEnabled;
 
 	if(!titleBackgroundEnabled){
 		[self removeContiguousSpecifiers:@[self.chosenLabels[@"titleBackgroundColor"], self.chosenLabels[@"titleBackgroundCornerRadius"]] animated:YES];
-	}
+	} */
 
-} */
+}
 
 @end
