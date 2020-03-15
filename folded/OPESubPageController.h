@@ -3,6 +3,7 @@
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSListItemsController.h>
 #import <Preferences/PSSliderTableCell.h>
+//#import <Preferences/PSSegmentTableCell.h>
 
 @interface OPESubPageController : PSListController
 @property (nonatomic, retain) NSMutableArray *chosenLabels;
@@ -14,4 +15,7 @@
 @end
 
 @interface KRLabeledSliderCell : PSSliderTableCell
+@end
+
+@interface Thomz_LabeledSegmentCell : PSTableCell
 @end

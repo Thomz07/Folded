@@ -35,6 +35,9 @@ inline NSString *StringForPreferenceKey(NSString *key) {
 -(UIColor *)randomColor;
 @end
 
+@interface SBFolderIconBackgroundView : UIView
+@end
+
 @interface SBFolderBackgroundView : UIView
 -(void)layoutSubviews;
 -(void)setBackgroundColor:(UIColor *)arg1;
