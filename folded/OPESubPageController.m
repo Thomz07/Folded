@@ -73,9 +73,9 @@ BOOL titleBackgroundEnabled;
 
 		for (int x = 0; x < [self.chosenLabels count]; x++) {
 
-			id key = [self.chosenLabels objectAtIndex:x];
+			NSString *key = [self.chosenLabels objectAtIndex:x];
 
-			id currentSpecifier = [preferences objectForKey:key];
+			NSString *currentSpecifier = [preferences objectForKey:key];
 
 			BOOL isCurrentEnabled = [currentSpecifier boolValue];
 
@@ -97,9 +97,9 @@ BOOL titleBackgroundEnabled;
 	
 	for (int x = 0; x < [self.chosenLabels count]; x++) {
 
-		id key = [self.chosenLabels objectAtIndex:x];
+		NSString *key = [self.chosenLabels objectAtIndex:x];
 
-		id currentSpecifier = [preferences objectForKey:key];
+		NSString *currentSpecifier = [preferences objectForKey:key];
 
 		BOOL isCurrentEnabled = [currentSpecifier boolValue];
 
@@ -107,9 +107,9 @@ BOOL titleBackgroundEnabled;
 		NSMutableDictionary *dict =  [NSMutableDictionary dictionary];
 		[dict setDictionary:tempDictionary];
 
-		if(!isCurrentEnabled){
+		/*if(!isCurrentEnabled){
 			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[key]] animated:YES];
-		}
+		}*/
 	}
 /*
 	if(!customTitleFontSizeEnabled){
