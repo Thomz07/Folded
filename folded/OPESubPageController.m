@@ -187,3 +187,66 @@ BOOL customTitleFontEnabled;
     [self.control setFrame:CGRectOffset(self.control.frame, 0, 15)];
 }
 @end // love you kritanta (yeah [s]he's awesome -Burritoz)
+
+@implementation Thomz_LabeledSegmentCell
+
+- (instancetype)initWithStyle:(long long)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier 
+{
+	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
+
+    if (self)
+    {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15,5,200,20)];
+        label.text = specifier.properties[@"label"];
+        [self.contentView addSubview:label];
+        [self.control setFrame:CGRectOffset(self.control.frame, 0, 15)];
+    }
+
+    return self;
+}
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self.control setFrame:CGRectOffset(self.control.frame, 0, 30)];
+}
+@end 
+
+@implementation ThomzScreenSizeCell // lil copy of HBTwitterCell from Cephei
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier  {
+
+	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
+
+	if (self)
+    {
+		UILabel *deviceInformation = [[UILabel alloc]initWithFrame:CGRectMake(15,15,300,20)];
+        UILabel *ScreenWidth = [[UILabel alloc] initWithFrame:CGRectMake(15,40,300,20)];
+		UILabel *ScreenHeight = [[UILabel alloc] initWithFrame:CGRectMake(15,60,300,20)];
+		UILabel *deviceOS = [[UILabel alloc] initWithFrame:CGRectMake(15,80,300,20)];
+		float width = [UIScreen mainScreen].bounds.size.width;
+		float height = [UIScreen mainScreen].bounds.size.height;
+		NSString *widthString = [NSString stringWithFormat:@"%0.1f", width];
+		NSString *heightString = [NSString stringWithFormat:@"%0.1f", height];
+		NSString *fullSentenceWidth = [NSString stringWithFormat:@"Your screen width is %@", widthString];
+		NSString *fullSentenceHeight = [NSString stringWithFormat:@"Your screen height is %@", heightString];
+		NSString *OS = [NSString stringWithFormat:@"Your iOS Version is %@", [[UIDevice currentDevice] systemVersion]];
+		[deviceInformation setText:@"Device Information"];
+		[deviceInformation setFont:[deviceInformation.font fontWithSize:20]];
+        [ScreenWidth setText:fullSentenceWidth];
+		[ScreenWidth setFont:[ScreenWidth.font fontWithSize:15]];
+		[ScreenHeight setText:fullSentenceHeight];
+		[ScreenHeight setFont:[ScreenHeight.font fontWithSize:15]];
+		[deviceOS setText:OS];
+		[deviceOS setFont:[deviceOS.font fontWithSize:15]];
+
+		[self addSubview:deviceInformation];
+		[self addSubview:ScreenWidth];
+		[self addSubview:ScreenHeight];
+		[self addSubview:deviceOS];
+
+    }
+
+    return self;
+}
+
+
+@end

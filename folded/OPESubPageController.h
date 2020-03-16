@@ -39,3 +39,6 @@
 
 @interface Thomz_LabeledSegmentCell : PSSegmentTableCell
 @end
+
+@interface ThomzScreenSizeCell : PSTableCell
+@end
