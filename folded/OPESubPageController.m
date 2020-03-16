@@ -23,14 +23,14 @@ BOOL customTitleFontEnabled;
 
 		_specifiers = [self loadSpecifiersFromPlistName:_sub target:self];
 
-		if ([self.sub isEqualToString:@"Title"]) {
+		if ([[specifier propertyForKey:@"pageKey"] isEqualToString:@"Title"]) {
 			NSArray *chosenLabels = @[@"customTitleFontSize", @"customTitleOffSet", @"titleColor", @"customTitleColor", @"customTitleFont", @"titleBackgroundEnabled"];
 			self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
 			for(PSSpecifier *specifier in [self specifiers]) {
-				if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
-				[self.mySavedSpecifiers setObject:specifier forKey:[specifier propertyForKey:@"key"]];
-				}
+			if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
+			[self.mySavedSpecifiers setObject:specifier forKey:[specifier propertyForKey:@"key"]];
 			}
+		}
 		}
 
 	}
@@ -91,6 +91,8 @@ BOOL customTitleFontEnabled;
 			customTitleFontSizeEnabled = [[preferences objectForKey:@"customTitleFontSizeEnabled"] boolValue];
 			customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
 			titleColorEnabled = [[preferences objectForKey:@"titleColorEnabled"] boolValue];
+			//customTitleFontEnabled = [[preferences objectForKey:@"customTitleFontEnabled"] boolValue];
+			//titleBackgroundEnabled = [[preferences objectForKey:@"titleBackgroundEnabled"] boolValue];
 
 			if(!customTitleFontSizeEnabled){
 				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] animated:YES];
@@ -110,7 +112,7 @@ BOOL customTitleFontEnabled;
 				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleColor"]] afterSpecifierID:@"Custom Title Color" animated:YES];
 			}
 
-			if(!customTitleFontEnabled){
+			/*if(!customTitleFontEnabled){
 				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFont"]] animated:YES];
 			} else if(customTitleOffSetEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customTitleFont"]]) {
 				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFont"]] afterSpecifierID:@"Custom Title Font" animated:YES];
@@ -120,7 +122,7 @@ BOOL customTitleFontEnabled;
 				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"]] animated:YES];
 			} else if(customTitleOffSetEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"titleBackgroundColor"]]) {
 				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"]] afterSpecifierID:@"Title Background" animated:YES];
-			}
+			}*/
 		}
 
 }
@@ -133,9 +135,11 @@ BOOL customTitleFontEnabled;
 		customTitleFontSizeEnabled = [[preferences objectForKey:@"customTitleFontSizeEnabled"] boolValue];
 		customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
 		titleColorEnabled = [[preferences objectForKey:@"titleColorEnabled"] boolValue];
+		//customTitleFontEnabled = [[preferences objectForKey:@"customTitleFontEnabled"] boolValue];
+		//titleBackgroundEnabled = [[preferences objectForKey:@"titleBackgroundEnabled"] boolValue];
 
 		if(!customTitleFontSizeEnabled){
-			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] animated:YES];
+		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] animated:YES];
 		}
 
 		if(!customTitleOffSetEnabled){
@@ -146,13 +150,13 @@ BOOL customTitleFontEnabled;
 			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleColor"]] animated:YES];
 		}
 
-		if(!customTitleFontEnabled){
+		/*if(!customTitleFontEnabled){
 			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFont"]] animated:YES];
 		}
 
 		if(!titleBackgroundEnabled){
 			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"]] animated:YES];
-		}
+		} */
 	}
 
 }
