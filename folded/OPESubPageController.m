@@ -136,19 +136,23 @@ BOOL customTitleFontEnabled;
 		
 		else if([self.sub isEqualToString:@"Layout"]) {
 
-			if(!customLayoutEnabled){
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutRows"] && 
-								self.mySavedSpecifiers[@"customLayoutColumns"] && 
-								self.mySavedSpecifiers[@"Rows"] && 
-								self.mySavedSpecifiers[@"Columns"]
-								] animated:YES];
+			if(!customLayoutEnabled) {
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"Rows"]] animated:YES];
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutRows"]] animated:YES];
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"Columns"]] animated:YES];
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutColumns"]] animated:YES];
+
 			} else if(customTitleOffSetEnabled) {
+
 				if(![self containsSpecifier:self.mySavedSpecifiers[@"customLayoutRows"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"customLayoutColumns"]]) {
-					[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"Rows" &&
-								self.mySavedSpecifiers[@"customLayoutRows" &&
-								self.mySavedSpecifiers[@"Columns" &&
-								self.mySavedSpecifiers[@"customLayoutColumns"
-					] afterSpecifierID:@"Enable Custom Layout" animated:YES];
+
+				//This is backwards on purpose!
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutColumns"]] afterSpecifierID:@"Enable Custom Layout" animated:YES];
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"]] afterSpecifierID:@"Enable Custom Layout" animated:YES];
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"]] afterSpecifierID:@"Enable Custom Layout" animated:YES];
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"]] afterSpecifierID:@"Enable Custom Layout" animated:YES];
+
+				
 					
 				}
 			}
@@ -188,11 +192,10 @@ BOOL customTitleFontEnabled;
 
 	else if([self.sub isEqualToString:@"Layout"]) {
 		if(!customLayoutEnabled){
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutRows"] && 
-								self.mySavedSpecifiers[@"customLayoutColumns"] && 
-								self.mySavedSpecifiers[@"Rows"] && 
-								self.mySavedSpecifiers[@"Columns"]
-								] animated:YES];
+			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"Rows"]] animated:YES];
+			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutRows"]] animated:YES];
+			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"Columns"]] animated:YES];
+			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutColumns"]] animated:YES];
 		}
 	}
 
