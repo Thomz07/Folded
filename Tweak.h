@@ -31,6 +31,13 @@ inline NSString *StringForPreferenceKey(NSString *key) {
 -(UIColor *)randomColor;
 @end
 
+@interface SBFolderBackgroundMaterialSettings
+-(UIColor *)randomColor;
+@end
+
+@interface SBFolderIconBackgroundView : UIView
+@end
+
 @interface SBFolderBackgroundView : UIView
 -(void)layoutSubviews;
 -(void)setBackgroundColor:(UIColor *)arg1;
@@ -126,6 +133,7 @@ BOOL seizureModeEnabled;
 BOOL folderBackgroundBackgroundColorEnabled;
 double backgroundAlphaColor;
 NSString * folderBackgroundBackgroundColor;
+BOOL randomColorBackgroundEnabled;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
@@ -177,4 +185,5 @@ static void reloadPrefs(){
 	folderBackgroundBackgroundColorEnabled = [[preferences objectForKey:@"folderBackgroundBackgroundColorEnabled"] boolValue];
 	backgroundAlphaColor = [[preferences objectForKey:@"backgroundAlphaColor"] doubleValue];
 	folderBackgroundBackgroundColor = [preferences valueForKey:@"folderBackgroundBackgroundColor"];
+	randomColorBackgroundEnabled = [[preferences objectForKey:@"randomColorBackgroundEnabled"] boolValue];
 }

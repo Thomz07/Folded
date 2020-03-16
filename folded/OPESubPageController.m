@@ -88,9 +88,9 @@ BOOL titleBackgroundEnabled;
 			} else if(isCurrentEnabled && ![self containsSpecifier:self.mySavedSpecifiers[key]]) {
 				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[key]] afterSpecifierID:key animated:YES];
 			}
-		}
+		} 
 
-}
+} // it seems not to work, i can't access the title link cell
 
 -(void)removeSegments {
 	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
@@ -131,3 +131,53 @@ BOOL titleBackgroundEnabled;
 }
 
 @end
+
+@implementation KRLabeledSliderCell
+
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier 
+{
+	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
+
+    if (self)
+    {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15,15,200,20)];
+        label.text = specifier.properties[@"label"];
+        [self.contentView addSubview:label];
+        [self.control setFrame:CGRectOffset(self.control.frame, 0, 15)];
+		[self setBackgroundColor:[UIColor whiteColor]];
+    }
+
+    return self;
+}
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self.control setFrame:CGRectOffset(self.control.frame, 0, 15)];
+}
+@end // love you kritanta
+
+/*@implementation Thomz_LabeledSegmentCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier 
+{
+	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
+
+    if (self)
+    {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15,15,200,20)];
+        label.text = specifier.properties[@"label"];
+        [self.contentView addSubview:label];
+        [self.control setFrame:CGRectOffset(self.control.frame, 0, 15)];
+    }
+
+    return self;
+}
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self.control setFrame:CGRectOffset(self.control.frame, 0, 15)];
+}
+@end */
+
+
