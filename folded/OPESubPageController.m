@@ -150,6 +150,7 @@ BOOL customTitleFontEnabled;
 								self.mySavedSpecifiers[@"customLayoutColumns"
 					] afterSpecifierID:@"Enable Custom Layout" animated:YES];
 					
+				}
 			}
 		}
 
