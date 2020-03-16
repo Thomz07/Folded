@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>items</key>
-	<array>        
+	<array>
         <dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
@@ -26,6 +26,12 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 		</dict>
+		<dict>
+      <key>cell</key>
+      <string>PSGroupCell</string>
+			<key>label</key>
+			<string>Rows</string>
+    </dict>
 		<dict>
             <key>cell</key>
             <string>PSSegmentCell</string>
@@ -61,9 +67,11 @@
             </array>
         </dict>
         <dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-		</dict>
+        	<key>cell</key>
+        	<string>PSGroupCell</string>
+					<key>label</key>
+					<string>Columns</string>
+        </dict>
         <dict>
             <key>cell</key>
             <string>PSSegmentCell</string>

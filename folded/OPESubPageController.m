@@ -8,6 +8,8 @@ BOOL customTitleOffSetEnabled;
 BOOL titleColorEnabled;
 BOOL titleBackgroundEnabled;
 BOOL hasShownApplyAlert;
+BOOL customLayoutEnabled;
+BOOL customTitleFontEnabled;
 
 - (void)setSpecifier:(PSSpecifier *)specifier {
     [self loadFromSpecifier:specifier];
@@ -17,25 +19,31 @@ BOOL hasShownApplyAlert;
 
 - (void)loadFromSpecifier:(PSSpecifier *)specifier {
 	if (!_specifiers) {
-		NSString *sub = [specifier propertyForKey:@"pageKey"];
+		self.sub = [specifier propertyForKey:@"pageKey"];
 
-		if ([sub isEqualToString:@"Title"]) {
-			self.chosenLabels = [NSMutableArray arrayWithCapacity:4];
-			[self.chosenLabels addObject:@"customTitleFontSize"];
-			[self.chosenLabels addObject:@"customTitleOffSet"];
-			[self.chosenLabels addObject:@"titleColor"];
-			[self.chosenLabels addObject:@"titleBackgroundColor"];
-			[self.chosenLabels addObject:@"titleBackgroundCornerRadius"];
-		}
+		_specifiers = [self loadSpecifiersFromPlistName:_sub target:self];
 
-		_specifiers = [self loadSpecifiersFromPlistName:sub target:self];
-
-		self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
-		for(PSSpecifier *specifier in [self specifiers]) {
-			if([self.chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
-			[self.mySavedSpecifiers setObject:specifier forKey:[specifier propertyForKey:@"key"]];
+		if ([self.sub isEqualToString:@"Title"]) {
+			NSArray *chosenLabels = @[@"customTitleFontSize", @"customTitleOffSet", @"titleColor", @"customTitleColor", @"customTitleFont", @"titleBackgroundEnabled"];
+			self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
+			for(PSSpecifier *specifier in [self specifiers]) {
+				if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
+				[self.mySavedSpecifiers setObject:specifier forKey:[specifier propertyForKey:@"key"]];
+				}
 			}
 		}
+
+
+		else if ([self.sub isEqualToString:@"Layout"]) {
+			NSArray *chosenLabels = @[@"customLayoutRows", @"customLayoutColumns", @"Rows", @"Columns"];
+			self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
+			for(PSSpecifier *specifier in [self specifiers]) {
+				if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
+				[self.mySavedSpecifiers setObject:specifier forKey:[specifier propertyForKey:@"key"]];
+				}
+			}
+		}
+
 	}
 }
 
@@ -50,14 +58,14 @@ BOOL hasShownApplyAlert;
 
 -(void)viewDidLoad {
 	[super viewDidLoad];
-	//[self removeSegments];
+	[self removeSegments];
 	hasShownApplyAlert = NO;
 	UIBarButtonItem *applyButton = [[UIBarButtonItem alloc] initWithTitle:@"Apply" style:UIBarButtonItemStylePlain target:self action:@selector(apply:)];
     self.navigationItem.rightBarButtonItem = applyButton;
 }
 
 -(void)reloadSpecifiers {
-	//[self removeSegments];
+	[self removeSegments];
 }
 
 -(void)apply:(PSSpecifier *)specifier {
@@ -66,20 +74,20 @@ BOOL hasShownApplyAlert;
 	   [self.view endEditing:YES]; //Hides the keyboard, if present -Burrit0z // omg thank you that was so annoying lmao
 	   							   //Lmao no problem Thomz ;) -Burrit0z
          });
-	
+
 	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
 
 	if (!hasShownApplyAlert) {
 		UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
 								message:@"Your settings have been applied. Some settings, not many, may require a respring."
 								preferredStyle:UIAlertControllerStyleAlert];
-	
+
 			UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cool!" style:UIAlertActionStyleDefault
 			handler:^(UIAlertAction * action) {}];
-	
+
 			[alert addAction:defaultAction];
 			[self presentViewController:alert animated:YES completion:nil];
-			
+
 			hasShownApplyAlert = YES;
 	}
 }
@@ -89,62 +97,108 @@ BOOL hasShownApplyAlert;
 
 		preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
 
-		for (int x = 0; x < [self.chosenLabels count]; x++) {
+		if ([self.sub isEqualToString:@"Title"]) {
 
-			NSString *key = [self.chosenLabels objectAtIndex:x];
+			customTitleFontSizeEnabled = [[preferences objectForKey:@"customTitleFontSizeEnabled"] boolValue];
+			customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
+			titleColorEnabled = [[preferences objectForKey:@"titleColorEnabled"] boolValue];
 
-			NSString *currentSpecifier = [preferences objectForKey:key];
-
-			BOOL isCurrentEnabled = [[preferences objectForKey:key] boolValue];
-
-			NSDictionary *tempDictionary = @{key: currentSpecifier};
-			NSMutableDictionary *dict =  [NSMutableDictionary dictionary];
-			[dict setDictionary:tempDictionary];
-
-			if(!isCurrentEnabled){
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[key]] animated:YES];
-			} else if(isCurrentEnabled && ![self containsSpecifier:self.mySavedSpecifiers[key]]) {
-				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[key]] afterSpecifierID:key animated:YES];
+			if(!customTitleFontSizeEnabled){
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] animated:YES];
+			} else if(customTitleFontSizeEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customTitleFontSize"]]) {
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] afterSpecifierID:@"Custom Title Font Size" animated:YES];
 			}
-		} 
+
+			if(!customTitleOffSetEnabled){
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleOffSet"]] animated:YES];
+			} else if(customTitleOffSetEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customTitleOffSet"]]) {
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleOffSet"]] afterSpecifierID:@"Custom Title Offset" animated:YES];
+			}
+
+			if(!titleColorEnabled){
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleColor"]] animated:YES];
+			} else if(titleColorEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"titleColor"]]) {
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleColor"]] afterSpecifierID:@"Custom Title Color" animated:YES];
+			}
+
+			if(!customTitleFontEnabled){
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFont"]] animated:YES];
+			} else if(customTitleOffSetEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customTitleFont"]]) {
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFont"]] afterSpecifierID:@"Custom Title Font" animated:YES];
+			}
+
+			if(!titleBackgroundEnabled){
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"]] animated:YES];
+			} else if(customTitleOffSetEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"titleBackgroundColor"]]) {
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"]] afterSpecifierID:@"Title Background" animated:YES];
+			}
+		}
+
+		else if([self.sub isEqualToString:@"Layout"]) {
+
+			if(!customLayoutEnabled) {
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"Rows"]] animated:YES];
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutRows"]] animated:YES];
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"Columns"]] animated:YES];
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutColumns"]] animated:YES];
+
+			} else if(customTitleOffSetEnabled) {
+
+				if(![self containsSpecifier:self.mySavedSpecifiers[@"customLayoutRows"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"customLayoutColumns"]]) {
+
+				//This is backwards on purpose!
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutColumns"]] afterSpecifierID:@"Enable Custom Layout" animated:YES];
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"]] afterSpecifierID:@"Enable Custom Layout" animated:YES];
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"]] afterSpecifierID:@"Enable Custom Layout" animated:YES];
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"]] afterSpecifierID:@"Enable Custom Layout" animated:YES];
+
+
+
+				}
+			}
+		}
 
 }
 
 -(void)removeSegments {
 	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
-	
-	for (int x = 0; x < [self.chosenLabels count]; x++) {
 
-		NSString *key = [self.chosenLabels objectAtIndex:x];
+	if ([self.sub isEqualToString:@"Title"]) {
 
-		NSString *currentSpecifier = [preferences objectForKey:key];
+		customTitleFontSizeEnabled = [[preferences objectForKey:@"customTitleFontSizeEnabled"] boolValue];
+		customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
+		titleColorEnabled = [[preferences objectForKey:@"titleColorEnabled"] boolValue];
 
-		BOOL isCurrentEnabled = [[preferences objectForKey:key] boolValue];
+		if(!customTitleFontSizeEnabled){
+			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] animated:YES];
+		}
 
-		NSDictionary *tempDictionary = @{key: currentSpecifier};
-		NSMutableDictionary *dict =  [NSMutableDictionary dictionary];
-		[dict setDictionary:tempDictionary];
+		if(!customTitleOffSetEnabled){
+			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleOffSet"]] animated:YES];
+		}
 
-		if(!isCurrentEnabled){
-			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[key]] animated:YES];
+		if(!titleColorEnabled){
+			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleColor"]] animated:YES];
+		}
+
+		if(!customTitleFontEnabled){
+			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFont"]] animated:YES];
+		}
+
+		if(!titleBackgroundEnabled){
+			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"]] animated:YES];
 		}
 	}
-/*
-	if(!customTitleFontSizeEnabled){
-		[self removeContiguousSpecifiers:@[self.chosenLabels[@"customTitleFontSize"]] animated:YES];
+
+	else if([self.sub isEqualToString:@"Layout"]) {
+		if(!customLayoutEnabled){
+			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"Rows"]] animated:YES];
+			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutRows"]] animated:YES];
+			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"Columns"]] animated:YES];
+			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutColumns"]] animated:YES];
+		}
 	}
 
-	if(!customTitleOffSetEnabled){
-		[self removeContiguousSpecifiers:@[self.chosenLabels[@"customTitleOffSet"]] animated:YES];
-	}
-
-	if(!titleColorEnabled){
-		[self removeContiguousSpecifiers:@[self.chosenLabels[@"titleColor"]] animated:YES];
-	}
-
-	if(!titleBackgroundEnabled){
-		[self removeContiguousSpecifiers:@[self.chosenLabels[@"titleBackgroundColor"], self.chosenLabels[@"titleBackgroundCornerRadius"]] animated:YES];
-	} */
 
 }
 
@@ -153,7 +207,7 @@ BOOL hasShownApplyAlert;
 @implementation KRLabeledSliderCell
 
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier
 {
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
 
@@ -175,9 +229,10 @@ BOOL hasShownApplyAlert;
 }
 @end // love you kritanta (yeah [s]he's awesome -Burritoz)
 
+
 @implementation Thomz_LabeledSegmentCell
 
-- (instancetype)initWithStyle:(long long)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier 
+- (instancetype)initWithStyle:(long long)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier
 {
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
 
@@ -196,6 +251,4 @@ BOOL hasShownApplyAlert;
     [super layoutSubviews];
     [self.control setFrame:CGRectOffset(self.control.frame, 0, 30)];
 }
-@end 
-
-
+@end

@@ -8,6 +8,8 @@
 @interface OPESubPageController : PSListController
 @property (nonatomic, retain) NSMutableArray *chosenLabels;
 @property (nonatomic, retain) NSMutableDictionary *mySavedSpecifiers;
+@property (nonatomic, assign) NSString *sub;
+-(void)removeSegments;
 @end
 
 @interface PSListController (iOS12Plus)

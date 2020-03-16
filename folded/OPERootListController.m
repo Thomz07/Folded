@@ -35,20 +35,20 @@ BOOL hasShownApplyAlert;
 	   [self.view endEditing:YES]; //Hides the keyboard, if present -Burrit0z // omg thank you that was so annoying lmao
 	   							   //Lmao no problem Thomz ;) -Burrit0z
          });
-	
+
 	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
 
 	if (!hasShownApplyAlert) {
 		UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
 								message:@"Your settings have been applied. Some settings, not many, may require a respring."
 								preferredStyle:UIAlertControllerStyleAlert];
-	
+
 			UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cool!" style:UIAlertActionStyleDefault
 			handler:^(UIAlertAction * action) {}];
-	
+
 			[alert addAction:defaultAction];
 			[self presentViewController:alert animated:YES completion:nil];
-			
+
 			hasShownApplyAlert = YES;
 	}
 }
@@ -84,7 +84,7 @@ BOOL hasShownApplyAlert;
 
 		NSBundle *bundle = [[NSBundle alloc]initWithPath:@"/Library/PreferenceBundles/Folded.bundle"];
 
-		UIImage *profilePicture; 
+		UIImage *profilePicture;
         profilePicture = [UIImage imageWithContentsOfFile:[bundle pathForResource:specifier.properties[@"image"] ofType:@"png"]];
 		UIImageView *profilePictureView = [[UIImageView alloc] initWithImage:profilePicture];
 		[profilePictureView setFrame:CGRectMake(12.5,17.5,41.25,41.25)];
@@ -116,4 +116,17 @@ BOOL hasShownApplyAlert;
     return self;
 }
 
+@end
+
+@implementation Burrit0z_TitleCell //A temporary one
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
+	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
+
+    if (self) {
+
+	}
+
+	return self;
+}
 @end
