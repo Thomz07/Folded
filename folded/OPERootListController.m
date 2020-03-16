@@ -28,8 +28,19 @@
 -(void)apply:(PSSpecifier *)specifier {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
-	   [self.view endEditing:YES];
+	   [self.view endEditing:YES]; //Hides the keyboard, if present -Burrit0z // omg thank you that was so annoying lmao
+	   							   //Lmao no problem Thomz ;) -Burrit0z
          });
+	
+	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
+                               message:@"Your settings have been applied. Some settings, not many, may require a respring."
+                               preferredStyle:UIAlertControllerStyleAlert];
+ 
+		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cool!" style:UIAlertActionStyleDefault
+   		handler:^(UIAlertAction * action) {}];
+ 
+		[alert addAction:defaultAction];
+		[self presentViewController:alert animated:YES completion:nil];
 }
 
 -(void)linkTwitter {
@@ -55,29 +66,27 @@
     {
         UILabel *User = [[UILabel alloc] initWithFrame:CGRectMake(80,20,200,20)];
         [User setText:specifier.properties[@"user"]];
-		[User setFont:[User.font fontWithSize:20]];
+		[User setFont:[User.font fontWithSize:15]];
 
 		UILabel *Description = [[UILabel alloc]initWithFrame:CGRectMake(80,40,200,20)];
 		[Description setText:specifier.properties[@"description"]];
-		[Description setFont:[Description.font fontWithSize:12.5]];
+		[Description setFont:[Description.font fontWithSize:10]];
 
 		NSBundle *bundle = [[NSBundle alloc]initWithPath:@"/Library/PreferenceBundles/Folded.bundle"];
 
-		UIImage *profilePicture = nil; 
+		UIImage *profilePicture; 
         profilePicture = [UIImage imageWithContentsOfFile:[bundle pathForResource:specifier.properties[@"image"] ofType:@"png"]];
 		UIImageView *profilePictureView = [[UIImageView alloc] initWithImage:profilePicture];
-		[profilePictureView setFrame:CGRectMake(12.5,12.5,55,55)];
-		[profilePictureView.layer setMasksToBounds:true];
-		[profilePictureView.layer setCornerRadius:27.5];
+		[profilePictureView setFrame:CGRectMake(12.5,17.5,41.25,41.25)];
 
-		UIImage *twitter = nil;
+		UIImage *twitter;
 		twitter = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"twitter" ofType:@"png"]];
 		UIImageView *twitterIcon = [[UIImageView alloc] initWithImage:twitter];
 		twitterIcon.image = [twitterIcon.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 		[twitterIcon setTintColor:[UIColor colorWithRed:1.00 green:0.94 blue:0.27 alpha:1.0]];
 		[twitterIcon setFrame:CGRectMake((self.bounds.size.width) + 20,32.5,15,15)];
 
-		UIImage *reddit = nil;
+		UIImage *reddit;
 		reddit = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"reddit" ofType:@"png"]];
 		UIImageView *redditIcon = [[UIImageView alloc] initWithImage:reddit];
 		redditIcon.image = [redditIcon.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];

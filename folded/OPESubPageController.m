@@ -64,6 +64,16 @@ BOOL titleBackgroundEnabled;
 	   [self.view endEditing:YES]; //Hides the keyboard, if present -Burrit0z // omg thank you that was so annoying lmao
 	   							   //Lmao no problem Thomz ;) -Burrit0z
          });
+	
+	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
+                               message:@"Your settings have been applied. Some settings, not many, may require a respring."
+                               preferredStyle:UIAlertControllerStyleAlert];
+ 
+		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cool!" style:UIAlertActionStyleDefault
+   		handler:^(UIAlertAction * action) {}];
+ 
+		[alert addAction:defaultAction];
+		[self presentViewController:alert animated:YES completion:nil];
 }
 
 -(void)setPreferenceValue:(id)value specifier:(PSSpecifier *)specifier {
@@ -77,7 +87,7 @@ BOOL titleBackgroundEnabled;
 
 			NSString *currentSpecifier = [preferences objectForKey:key];
 
-			BOOL isCurrentEnabled = [currentSpecifier boolValue];
+			BOOL isCurrentEnabled = [[preferences objectForKey:key] boolValue];
 
 			NSDictionary *tempDictionary = @{key: currentSpecifier};
 			NSMutableDictionary *dict =  [NSMutableDictionary dictionary];
@@ -90,7 +100,7 @@ BOOL titleBackgroundEnabled;
 			}
 		} 
 
-} // it seems not to work, i can't access the title link cell
+}
 
 -(void)removeSegments {
 	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
@@ -101,15 +111,15 @@ BOOL titleBackgroundEnabled;
 
 		NSString *currentSpecifier = [preferences objectForKey:key];
 
-		//BOOL isCurrentEnabled = [currentSpecifier boolValue];
+		BOOL isCurrentEnabled = [[preferences objectForKey:key] boolValue];
 
 		NSDictionary *tempDictionary = @{key: currentSpecifier};
 		NSMutableDictionary *dict =  [NSMutableDictionary dictionary];
 		[dict setDictionary:tempDictionary];
 
-		/*if(!isCurrentEnabled){
+		if(!isCurrentEnabled){
 			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[key]] animated:YES];
-		}*/
+		}
 	}
 /*
 	if(!customTitleFontSizeEnabled){
@@ -155,7 +165,7 @@ BOOL titleBackgroundEnabled;
     [super layoutSubviews];
     [self.control setFrame:CGRectOffset(self.control.frame, 0, 15)];
 }
-@end // love you kritanta
+@end // love you kritanta (yeah [s]he's awesome -Burritoz)
 
 /*@implementation Thomz_LabeledSegmentCell
 
