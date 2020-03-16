@@ -7,6 +7,7 @@ BOOL customTitleFontSizeEnabled;
 BOOL customTitleOffSetEnabled;
 BOOL titleColorEnabled;
 BOOL titleBackgroundEnabled;
+BOOL hasShownApplyAlert;
 
 - (void)setSpecifier:(PSSpecifier *)specifier {
     [self loadFromSpecifier:specifier];
@@ -49,13 +50,14 @@ BOOL titleBackgroundEnabled;
 
 -(void)viewDidLoad {
 	[super viewDidLoad];
-	[self removeSegments];
+	//[self removeSegments];
+	hasShownApplyAlert = NO;
 	UIBarButtonItem *applyButton = [[UIBarButtonItem alloc] initWithTitle:@"Apply" style:UIBarButtonItemStylePlain target:self action:@selector(apply:)];
     self.navigationItem.rightBarButtonItem = applyButton;
 }
 
 -(void)reloadSpecifiers {
-	[self removeSegments];
+	//[self removeSegments];
 }
 
 -(void)apply:(PSSpecifier *)specifier {
@@ -67,7 +69,7 @@ BOOL titleBackgroundEnabled;
 	
 	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
 
-	if ([[preferences objectForKey:hasShownApplyAlert] boolValue] != YES) {
+	if (!hasShownApplyAlert) {
 		UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
 								message:@"Your settings have been applied. Some settings, not many, may require a respring."
 								preferredStyle:UIAlertControllerStyleAlert];
@@ -77,8 +79,8 @@ BOOL titleBackgroundEnabled;
 	
 			[alert addAction:defaultAction];
 			[self presentViewController:alert animated:YES completion:nil];
-
-			[preferences setBool:YES forKey:hasShownApplyAlert];
+			
+			hasShownApplyAlert = YES;
 	}
 }
 
