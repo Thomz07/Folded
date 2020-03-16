@@ -33,17 +33,6 @@ BOOL customTitleFontEnabled;
 			}
 		}
 
-
-		else if ([self.sub isEqualToString:@"Layout"]) {
-			NSArray *chosenLabels = @[@"customLayoutRows", @"customLayoutColumns", @"Rows", @"Columns"];
-			self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
-			for(PSSpecifier *specifier in [self specifiers]) {
-				if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
-				[self.mySavedSpecifiers setObject:specifier forKey:[specifier propertyForKey:@"key"]];
-				}
-			}
-		}
-
 	}
 }
 
@@ -74,20 +63,20 @@ BOOL customTitleFontEnabled;
 	   [self.view endEditing:YES]; //Hides the keyboard, if present -Burrit0z // omg thank you that was so annoying lmao
 	   							   //Lmao no problem Thomz ;) -Burrit0z
          });
-
+	
 	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
 
 	if (!hasShownApplyAlert) {
 		UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
 								message:@"Your settings have been applied. Some settings, not many, may require a respring."
 								preferredStyle:UIAlertControllerStyleAlert];
-
+	
 			UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cool!" style:UIAlertActionStyleDefault
 			handler:^(UIAlertAction * action) {}];
-
+	
 			[alert addAction:defaultAction];
 			[self presentViewController:alert animated:YES completion:nil];
-
+			
 			hasShownApplyAlert = YES;
 	}
 }
@@ -134,37 +123,13 @@ BOOL customTitleFontEnabled;
 			}
 		}
 
-		else if([self.sub isEqualToString:@"Layout"]) {
-
-			if(!customLayoutEnabled) {
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"Rows"]] animated:YES];
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutRows"]] animated:YES];
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"Columns"]] animated:YES];
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutColumns"]] animated:YES];
-
-			} else if(customTitleOffSetEnabled) {
-
-				if(![self containsSpecifier:self.mySavedSpecifiers[@"customLayoutRows"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"customLayoutColumns"]]) {
-
-				//This is backwards on purpose!
-				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutColumns"]] afterSpecifierID:@"Enable Custom Layout" animated:YES];
-				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"]] afterSpecifierID:@"Enable Custom Layout" animated:YES];
-				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"]] afterSpecifierID:@"Enable Custom Layout" animated:YES];
-				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"]] afterSpecifierID:@"Enable Custom Layout" animated:YES];
-
-
-
-				}
-			}
-		}
-
 }
 
 -(void)removeSegments {
 	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
 
 	if ([self.sub isEqualToString:@"Title"]) {
-
+	
 		customTitleFontSizeEnabled = [[preferences objectForKey:@"customTitleFontSizeEnabled"] boolValue];
 		customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
 		titleColorEnabled = [[preferences objectForKey:@"titleColorEnabled"] boolValue];
@@ -190,16 +155,6 @@ BOOL customTitleFontEnabled;
 		}
 	}
 
-	else if([self.sub isEqualToString:@"Layout"]) {
-		if(!customLayoutEnabled){
-			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"Rows"]] animated:YES];
-			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutRows"]] animated:YES];
-			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"Columns"]] animated:YES];
-			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customLayoutColumns"]] animated:YES];
-		}
-	}
-
-
 }
 
 @end
@@ -207,7 +162,7 @@ BOOL customTitleFontEnabled;
 @implementation KRLabeledSliderCell
 
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier 
 {
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
 
@@ -228,27 +183,3 @@ BOOL customTitleFontEnabled;
     [self.control setFrame:CGRectOffset(self.control.frame, 0, 15)];
 }
 @end // love you kritanta (yeah [s]he's awesome -Burritoz)
-
-
-@implementation Thomz_LabeledSegmentCell
-
-- (instancetype)initWithStyle:(long long)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier
-{
-	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
-
-    if (self)
-    {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15,5,200,20)];
-        label.text = specifier.properties[@"label"];
-        [self.contentView addSubview:label];
-        [self.control setFrame:CGRectOffset(self.control.frame, 0, 15)];
-    }
-
-    return self;
-}
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    [self.control setFrame:CGRectOffset(self.control.frame, 0, 30)];
-}
-@end
