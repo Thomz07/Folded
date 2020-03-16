@@ -14,4 +14,3 @@
 
 @interface Thomz_TwitterCell : PSTableCell
 @end
-

@@ -22,6 +22,10 @@
 			<key>label</key>
 			<string>Custom Folder Grid</string>
         </dict>
+        <dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
 		<dict>
             <key>cell</key>
             <string>PSSegmentCell</string>
@@ -29,6 +33,10 @@
             <string>xyz.burritoz.thomz.folded.prefs</string>
             <key>default</key>
             <string>3</string>
+            <key>cellClass</key>
+            <string>Thomz_LabeledSegmentCell</string>
+            <key>label</key>
+            <string>Rows</string>
             <key>key</key>
             <string>folderIconRows</string>
             <key>validValues</key>
@@ -53,12 +61,20 @@
             </array>
         </dict>
         <dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+        <dict>
             <key>cell</key>
             <string>PSSegmentCell</string>
             <key>defaults</key>
             <string>xyz.burritoz.thomz.folded.prefs</string>
             <key>default</key>
             <string>3</string>
+            <key>cellClass</key>
+            <string>Thomz_LabeledSegmentCell</string>
+            <key>label</key>
+            <string>Columns</string>
             <key>key</key>
             <string>folderIconColumns</string>
             <key>validValues</key>
@@ -85,7 +101,11 @@
         <dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>footerText</key>
+		</dict>
+        <dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+            <key>footerText</key>
 			<string>iOS 12 only</string>
 		</dict>
 		<dict>

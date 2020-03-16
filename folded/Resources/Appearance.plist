@@ -112,7 +112,7 @@
 			<key>label</key>
 			<string>Background Color Alpha</string>
 			<key>height</key>
-			<integer>80</integer>
+			<integer>83</integer>
 		</dict>
 		<dict>
         	<key>cell</key>

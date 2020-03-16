@@ -74,11 +74,11 @@ BOOL hasShownApplyAlert;
 
 	if (self)
     {
-        UILabel *User = [[UILabel alloc] initWithFrame:CGRectMake(80,20,200,20)];
+        UILabel *User = [[UILabel alloc] initWithFrame:CGRectMake(70,20,200,20)];
         [User setText:specifier.properties[@"user"]];
 		[User setFont:[User.font fontWithSize:15]];
 
-		UILabel *Description = [[UILabel alloc]initWithFrame:CGRectMake(80,40,200,20)];
+		UILabel *Description = [[UILabel alloc]initWithFrame:CGRectMake(70,40,200,20)];
 		[Description setText:specifier.properties[@"description"]];
 		[Description setFont:[Description.font fontWithSize:10]];
 

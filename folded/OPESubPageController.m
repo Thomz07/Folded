@@ -175,15 +175,15 @@ BOOL hasShownApplyAlert;
 }
 @end // love you kritanta (yeah [s]he's awesome -Burritoz)
 
-/*@implementation Thomz_LabeledSegmentCell
+@implementation Thomz_LabeledSegmentCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier 
+- (instancetype)initWithStyle:(long long)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier 
 {
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
 
     if (self)
     {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15,15,200,20)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15,5,200,20)];
         label.text = specifier.properties[@"label"];
         [self.contentView addSubview:label];
         [self.control setFrame:CGRectOffset(self.control.frame, 0, 15)];
@@ -194,8 +194,8 @@ BOOL hasShownApplyAlert;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    [self.control setFrame:CGRectOffset(self.control.frame, 0, 15)];
+    [self.control setFrame:CGRectOffset(self.control.frame, 0, 30)];
 }
-@end */
+@end 
 
 
