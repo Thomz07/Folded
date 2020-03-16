@@ -101,7 +101,7 @@ BOOL titleBackgroundEnabled;
 
 		NSString *currentSpecifier = [preferences objectForKey:key];
 
-		BOOL isCurrentEnabled = [currentSpecifier boolValue];
+		//BOOL isCurrentEnabled = [currentSpecifier boolValue];
 
 		NSDictionary *tempDictionary = @{key: currentSpecifier};
 		NSMutableDictionary *dict =  [NSMutableDictionary dictionary];
