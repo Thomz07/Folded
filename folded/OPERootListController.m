@@ -32,15 +32,21 @@
 	   							   //Lmao no problem Thomz ;) -Burrit0z
          });
 	
-	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
-                               message:@"Your settings have been applied. Some settings, not many, may require a respring."
-                               preferredStyle:UIAlertControllerStyleAlert];
- 
-		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cool!" style:UIAlertActionStyleDefault
-   		handler:^(UIAlertAction * action) {}];
- 
-		[alert addAction:defaultAction];
-		[self presentViewController:alert animated:YES completion:nil];
+	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
+
+	if ([[preferences objectForKey:hasShownApplyAlert] boolValue] != YES) {
+		UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
+								message:@"Your settings have been applied. Some settings, not many, may require a respring."
+								preferredStyle:UIAlertControllerStyleAlert];
+	
+			UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cool!" style:UIAlertActionStyleDefault
+			handler:^(UIAlertAction * action) {}];
+	
+			[alert addAction:defaultAction];
+			[self presentViewController:alert animated:YES completion:nil];
+
+			[preferences setBool:YES forKey:hasShownApplyAlert];
+	}
 }
 
 -(void)linkTwitter {
