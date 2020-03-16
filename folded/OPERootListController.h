@@ -15,3 +15,5 @@
 @interface Thomz_TwitterCell : PSTableCell
 @end
 
+@interface Burrit0z_TitleCell : PSTableCell
+@end
