@@ -63,21 +63,6 @@
 %end
 %end
 
-%group SBFolderIconBackgroundView
-%hook SBFolderIconBackgroundView
-
--(void)layoutSubviews {
-	%orig;
-	UIView *backgroundColor = [[UIView alloc] initWithFrame:self.frame];
-	[backgroundColor setBackgroundColor:[UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0]];
-	[self addSubview:backgroundColor];
-	[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-	
-}
-
-%end
-%end
-
 %group SBFolderBackgroundMaterialSettings
 %hook SBFolderBackgroundMaterialSettings
 
@@ -443,7 +428,6 @@
 	%init(SBFolderTitleTextField);
 	%init(SBFolderBackgroundView);
 	%init(SBFolderBackgroundMaterialSettings);
-	%init(SBFolderIconBackgroundView);
 	if(kCFCoreFoundationVersionNumber < 1600){ 
 		%init(pinchToClose12);
 		%init(layout12);
