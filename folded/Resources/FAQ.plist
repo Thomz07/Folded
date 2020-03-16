@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>Welcome to Folded FAQ</string>
+            <key>footerText</key>
+            <string>You can find here explainations for every options of the tweak</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>Layout</string>
+            <key>footerText</key>
+            <string>The layout section is very simple, you only need to enable it and choose the number of rows and columns you want for your folder. This option does not modify the folder icon.</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>Frame</string>
+            <key>footerText</key>
+            <string>The frame section lets you change the frame of your folder. If you enable the Centered Frame option, your folder will be automaticly centered. The value you need to write for the frame are not pixels. Adjust the values depending on your screen width and height listed below.</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>Icon</string>
+            <key>footerText</key>
+            <string>Icon Section lets you modify the icon grid and change the number of rows and columns on iOS 13. Due to major changes from iOS 12 to 13, the option have been changed to 2x2 only for iOS 12. The layout must be 2x2 to make it work.</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>Appearance</string>
+            <key>footerText</key>
+            <string>With the Appearance section, you can make your folders colorful. You can go from simply change the blur of your folder to adding a color to the background or use a random color everytime you enter a folder.</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>Title</string>
+            <key>footerText</key>
+            <string>The Title section lets you change the title to fit your custom frame. You can adjust the offset from the top, change the color of the title, use a custom alignment or even change the font of it.</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>Miscellaneous</string>
+            <key>footerText</key>
+            <string>In the Miscellaneous section, you'll find simple options such as modifying the background alpha or set a custom corner radius. Seizure mode will make you folder background change colors really fast when you scroll.</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+        </dict>
+         <dict>
+			<key>cell</key>
+			<string>PSDefaultCell</string>
+			<key>cellClass</key>
+			<string>ThomzScreenSizeCell</string>
+			<key>height</key>
+			<integer>115</integer>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>FAQ</string>
+</dict>
+</plist>

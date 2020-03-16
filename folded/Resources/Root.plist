@@ -102,6 +102,20 @@
 		</dict>
 		<dict>
 			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>detail</key>
+			<string>OPESubPageController</string>
+			<key>pageKey</key>
+			<string>FAQ</string>
+			<key>label</key>
+			<string>FAQ</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>cellClass</key>
 			<string>Thomz_TwitterCell</string>
