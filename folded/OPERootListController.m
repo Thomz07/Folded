@@ -90,10 +90,6 @@ BOOL hasShownApplyAlert;
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.reddit.com/user/Burrit0z_Dev"]];
 }
 
--(void)linkTwitterBossgfx {
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://twitter.com/bossgfx_"]];
-}
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offsetY = scrollView.contentOffset.y;
 
