@@ -11,7 +11,7 @@
 }
 
 -(void)setCornerRadius:(double)arg1 { // returning the value from the slider cell in the settings for the corner radius
-	
+
 	if(enabled && cornerRadiusEnabled){
 		return %orig(cornerRadius);
 	}
@@ -78,6 +78,7 @@
 }
 
 -(double)baseOverlayTintAlpha {
+
 	if(enabled && folderBackgroundBackgroundColorEnabled){
 		return backgroundAlphaColor;
 	} else if(enabled && randomColorBackgroundEnabled){
@@ -101,25 +102,15 @@
 %group SBFolderTitleTextField
 %hook SBFolderTitleTextField
 
--(CGRect)textRectForBounds:(CGRect)arg1 { // title offset
-	
-	CGRect original = %orig;
-
-	if(enabled && customTitleOffSetEnabled){
-		//return CGRectMake(original.origin.x,(original.origin.y)-customTitleOffSet,original.size.width,original.size.height);
-		return %orig;
-		[self setFrame:CGRectMake(original.origin.x,(original.origin.y)-customTitleOffSet,original.size.width,original.size.height)]; // everything original except the y
-	} else {return original;}
-} // This should wokr but i can't try it because of the title prefs crashing, hope you'll be able to fix soon :)
-
 -(void)layoutSubviews {
+
 	%orig;
 
 	UIColor *color = [UIColor cscp_colorFromHexString:titleColor];
 	UIColor *color2 = [UIColor cscp_colorFromHexString:titleBackgroundColor];
 
 	if(enabled && titleFontWeight == 1){
-
+		// nothing
 	} else if(enabled && titleFontWeight == 2){
 		[self setFont:[UIFont systemFontOfSize:(self.font.pointSize)]]; // for some reason, systemFontOfSize is bigger than the title font
 	} else if(enabled && titleFontWeight == 3){
@@ -129,7 +120,7 @@
 	if(enabled && titleAlignment == 1){
 		[self setTextAlignment:NSTextAlignmentLeft];
 	} else if(enabled && titleAlignment == 2){
-
+		// nothing
 	} else if(enabled && titleAlignment == 3){
 		[self setTextAlignment:NSTextAlignmentRight];
 	}
@@ -149,7 +140,7 @@
 	}
 
 	if(enabled && customTitleOffSetEnabled){
-		[self setFrame:CGRectMake(self.frame.origin.x,(self.bounds.origin.y)+customTitleOffSet,self.bounds.size.width,self.bounds.size.height)]; 
+		[self setFrame:CGRectMake(self.frame.origin.x,(self.bounds.origin.y)+customTitleOffSet,self.bounds.size.width,self.bounds.size.height)];
 	}
 }
 
@@ -159,7 +150,7 @@
 %group ios12
 %hook SBFolderSettings
 
--(BOOL)pinchToClose { // enable pinch to close 
+-(BOOL)pinchToClose { // enable pinch to close
 
 	if(enabled && pinchToCloseEnabled){
 		return YES;
@@ -169,7 +160,21 @@
 }
 
 %end
-%hook SBFolderIconListView
+
+%hook SBHFolderSettings
+
+-(BOOL)pinchToClose { // enable pinch to close again
+
+	if(enabled && pinchToCloseEnabled){
+		return YES;
+	} else {
+		return NO;
+	}
+}
+
+%end
+
+%hook SBFolderIconListView // layout for iOS 12
 
 + (unsigned long long)maxVisibleIconRowsInterfaceOrientation:(long long)arg1 {
 
@@ -178,7 +183,7 @@
 	} else {return %orig;}
 }
 
-+ (unsigned long long)iconColumnsForInterfaceOrientation:(long long)arg1 { // same for columns
++ (unsigned long long)iconColumnsForInterfaceOrientation:(long long)arg1 {
 
 	if(enabled && customLayoutEnabled){
     	return (customLayoutColumns);
@@ -197,7 +202,7 @@
 }
 
 + (unsigned long long)numberOfRowsForNumberOfCells:(unsigned long long)arg1 {
-    
+
 	if(enabled && twoByTwoIconEnabled){
 		return 2;
 	} else {return %orig;}
@@ -217,7 +222,7 @@
 	} else {return %orig;}
 }
 
-%end 
+%end
 
 ///////////////
 %end
@@ -239,7 +244,7 @@
 }
 
 -(NSUInteger)numberOfRows {
-	if(enabled && customFolderIconEnabled){	
+	if(enabled && customFolderIconEnabled){
   		return folderIconRows;
   	} else {return %orig;}
 }
@@ -295,17 +300,19 @@
 %hook SBIconController
 
 -(void)viewDidAppear:(BOOL)arg1 {
+
   %orig;
+
   hasProcessLaunched = YES;
 
   if (hasInjectionFailed && showInjectionAlerts && !hasShownFailureAlert) {
 	  UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
                                message:@"Folded has failed to inject a custom folder icon layout. This is due to another tweak interfering with Folded. Please note Cartella has prevented a crash that would have occured due to this." // wut ?
                                preferredStyle:UIAlertControllerStyleAlert];
- 
+
 		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault
    		handler:^(UIAlertAction * action) {}];
- 
+
 		[alert addAction:defaultAction];
 		[self presentViewController:alert animated:YES completion:nil];
                 hasShownFailureAlert = YES;
@@ -316,11 +323,11 @@
 %end
 
 %hook SBIconListGridLayoutConfiguration
-
 %property (nonatomic, assign) BOOL isFolder;
 
 %new
 -(BOOL)getLocations {
+
   NSUInteger locationColumns = MSHookIvar<NSUInteger>(self, "_numberOfPortraitColumns");
   NSUInteger locationRows = MSHookIvar<NSUInteger>(self, "_numberOfPortraitRows");
   if (locationColumns == 3 && locationRows == 3) {
@@ -332,6 +339,7 @@
 }
 
 -(NSUInteger)numberOfPortraitColumns {
+
   [self getLocations];
   if (self.isFolder && enabled) {
     if (hasProcessLaunched) {
@@ -350,6 +358,7 @@
 }
 
 -(NSUInteger)numberOfPortraitRows {
+
   [self getLocations];
   if (self.isFolder && enabled) {
     if (hasProcessLaunched) {
@@ -375,7 +384,9 @@
 %property (nonatomic, retain) UIVisualEffectView *lightView;
 %property (nonatomic, retain) UIVisualEffectView *darkView;
 -(void)layoutSubviews {
+
 	%orig;
+
     self.lightView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
 	self.lightView.frame = self.bounds;
 	self.darkView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
@@ -397,7 +408,6 @@
         gradient.endPoint = CGPointMake(0.5, 1);
 	}
 
-	// set the gradient colors
 	gradient.colors = gradientColors;
 
 	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 1){
@@ -419,8 +429,6 @@
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		[self.layer insertSublayer:gradient atIndex:0];
 	}
-
-
 }
 %end
 %end
@@ -432,12 +440,12 @@
     hasShownFailureAlert = NO;
 
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
-	
+
 	%init(SBFloatyFolderView);
 	%init(SBFolderTitleTextField);
 	%init(SBFolderBackgroundView);
 	%init(SBFolderBackgroundMaterialSettings);
-	if(kCFCoreFoundationVersionNumber < 1600){ 
+	if(kCFCoreFoundationVersionNumber < 1600){
 		%init(ios12);
 	} else {
 		%init(ios13);

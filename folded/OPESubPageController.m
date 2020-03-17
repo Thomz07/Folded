@@ -38,9 +38,9 @@ BOOL customTitleFontEnabled;
 
 - (void)viewWillAppear:(BOOL)animated {
 
-	[[UISegmentedControl appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:0.06 green:0.56 blue:1.00 alpha:1.0]];
-    [[UISwitch appearanceWhenContainedInInstancesOfClasses:@[self.class]] setOnTintColor:[UIColor colorWithRed:0.06 green:0.56 blue:1.00 alpha:1.0]];
-    [[UISlider appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:0.06 green:0.56 blue:1.00 alpha:1.0]];
+	[[UISegmentedControl appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:0.00 green:0.54 blue:1.00 alpha:1.00]];
+    [[UISwitch appearanceWhenContainedInInstancesOfClasses:@[self.class]] setOnTintColor:[UIColor colorWithRed:0.00 green:0.54 blue:1.00 alpha:1.00]];
+    [[UISlider appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:0.00 green:0.54 blue:1.00 alpha:1.00]];
 
     [super viewWillAppear:animated];
 }
@@ -218,6 +218,7 @@ BOOL customTitleFontEnabled;
 		[deviceOS setText:OS];
 		[deviceOS setFont:[deviceOS.font fontWithSize:15]];
 
+		[self setBackgroundColor:[UIColor clearColor]];
 		[self addSubview:deviceInformation];
 		[self addSubview:ScreenWidth];
 		[self addSubview:ScreenHeight];

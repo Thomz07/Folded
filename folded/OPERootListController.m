@@ -15,9 +15,9 @@ BOOL hasShownApplyAlert;
 
 - (void)viewWillAppear:(BOOL)animated {
 
-	[[UISegmentedControl appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:0.06 green:0.56 blue:1.00 alpha:1.0]];
-    [[UISwitch appearanceWhenContainedInInstancesOfClasses:@[self.class]] setOnTintColor:[UIColor colorWithRed:0.06 green:0.56 blue:1.00 alpha:1.0]];
-    [[UISlider appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:0.06 green:0.56 blue:1.00 alpha:1.0]];
+	[[UISegmentedControl appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:0.00 green:0.54 blue:1.00 alpha:1.00]];
+    [[UISwitch appearanceWhenContainedInInstancesOfClasses:@[self.class]] setOnTintColor:[UIColor colorWithRed:0.00 green:0.54 blue:1.00 alpha:1.00]];
+    [[UISlider appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:0.00 green:0.54 blue:1.00 alpha:1.00]];
 
     [super viewWillAppear:animated];
 }
@@ -55,6 +55,16 @@ BOOL hasShownApplyAlert;
             [self.iconView.trailingAnchor constraintEqualToAnchor:self.navigationItem.titleView.trailingAnchor],
             [self.iconView.bottomAnchor constraintEqualToAnchor:self.navigationItem.titleView.bottomAnchor],
         ]];
+
+		UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Pirated :("
+								message:@"Why would you pirate a free tweak ? Redownload Folded from repo.packix.com if you want to use it."
+								preferredStyle:UIAlertControllerStyleAlert];
+
+		if ([[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/xyz.burritoz.thomz.folded.list"]){
+			// nothing
+		} else {
+			[self presentViewController:alert animated:YES completion:nil];
+		}
 }
 
 -(void)apply:(PSSpecifier *)specifier {
@@ -93,7 +103,7 @@ BOOL hasShownApplyAlert;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offsetY = scrollView.contentOffset.y;
 
-    if (offsetY > 125) {
+    if (offsetY > 80) {
         [UIView animateWithDuration:0.2 animations:^{
             self.iconView.alpha = 0.0;
             self.titleLabel.alpha = 1.0;
