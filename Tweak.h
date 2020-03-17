@@ -138,6 +138,9 @@ BOOL folderBackgroundBackgroundColorEnabled;
 double backgroundAlphaColor;
 NSString * folderBackgroundBackgroundColor;
 BOOL randomColorBackgroundEnabled;
+BOOL folderBackgroundColorWithGradientEnabled;
+NSString *folderBackgroundColorWithGradient;
+BOOL folderBackgroundColorWithGradientVerticalGradientEnabled; // bruh
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
@@ -190,4 +193,7 @@ static void reloadPrefs(){
 	backgroundAlphaColor = [[preferences objectForKey:@"backgroundAlphaColor"] doubleValue];
 	folderBackgroundBackgroundColor = [preferences valueForKey:@"folderBackgroundBackgroundColor"];
 	randomColorBackgroundEnabled = [[preferences objectForKey:@"randomColorBackgroundEnabled"] boolValue];
+	folderBackgroundColorWithGradientEnabled = [[preferences objectForKey:@"folderBackgroundColorWithGradientEnabled"] boolValue];
+	folderBackgroundColorWithGradient = [preferences valueForKey:@"folderBackgroundColorWithGradient"];
+	folderBackgroundColorWithGradientVerticalGradientEnabled = [[preferences objectForKey:@"folderBackgroundColorWithGradientVerticalGradientEnabled"] boolValue];
 }

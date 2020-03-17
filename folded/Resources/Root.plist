@@ -162,24 +162,6 @@
 			<key>action</key>
 			<string>linkReddit</string>
 		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>cellClass</key>
-			<string>Thomz_TwitterCell</string>
-			<key>user</key>
-			<string>Bossgfx</string>
-			<key>description</key>
-			<string>Icon and Banner (maybe)</string>
-			<key>height</key>
-			<integer>70</integer>
-			<key>reddit</key>
-			<string>false</string>
-			<key>image</key>
-			<string>bossgfx</string>
-			<key>action</key>
-			<string>linkTwitterBossgfx</string>
-		</dict>
 	</array>
 	<key>title</key>
 	<string>Folded</string>
