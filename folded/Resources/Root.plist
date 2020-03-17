@@ -57,6 +57,8 @@
 			<string>Layout</string>
 			<key>label</key>
 			<string>Layout</string>
+			<key>icon</key>
+			<string>layout.png</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -67,6 +69,8 @@
 			<string>Frame</string>
 			<key>label</key>
 			<string>Frame</string>
+			<key>icon</key>
+			<string>frame.png</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -77,6 +81,8 @@
 			<string>Icon</string>
 			<key>label</key>
 			<string>Icon</string>
+			<key>icon</key>
+			<string>iconSection.png</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -87,6 +93,8 @@
 			<string>Appearance</string>
 			<key>label</key>
 			<string>Appearance</string>
+			<key>icon</key>
+			<string>appearance.png</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -97,6 +105,8 @@
 			<string>Title</string>
 			<key>label</key>
 			<string>Title</string>
+			<key>icon</key>
+			<string>title.png</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -107,6 +117,8 @@
 			<string>Miscellaneous</string>
 			<key>label</key>
 			<string>Miscellaneous</string>
+			<key>icon</key>
+			<string>miscellaneous.png</string>
 		</dict>
 		<dict>
 			<key>cell</key>
