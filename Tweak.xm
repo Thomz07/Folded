@@ -156,7 +156,7 @@
 %end
 %end
 
-%group pinchToClose12
+%group ios12
 %hook SBFolderSettings
 
 -(BOOL)pinchToClose { // enable pinch to close 
@@ -169,24 +169,6 @@
 }
 
 %end
-%end
-
-%group pinchToClose13
-%hook SBHFolderSettings
-
--(BOOL)pinchToClose { // enable pinch to close again
-
-	if(enabled && pinchToCloseEnabled){
-		return YES;
-	} else {
-		return NO;
-	}
-}
-
-%end
-%end
-
-%group layout12
 %hook SBFolderIconListView
 
 + (unsigned long long)maxVisibleIconRowsInterfaceOrientation:(long long)arg1 {
@@ -204,9 +186,111 @@
 }
 
 %end
+
+%hook SBIconGridImage
+
++ (unsigned long long)numberOfColumns {
+
+	if(enabled && twoByTwoIconEnabled){
+		return 2;
+	} else {return %orig;}
+}
+
++ (unsigned long long)numberOfRowsForNumberOfCells:(unsigned long long)arg1 {
+    
+	if(enabled && twoByTwoIconEnabled){
+		return 2;
+	} else {return %orig;}
+}
+
++ (CGSize)cellSize {
+    CGSize orig = %orig;
+	if(enabled && twoByTwoIconEnabled){
+		return CGSizeMake(orig.width * 1.5, orig.height);
+	} else {return %orig;}
+}
+
++ (CGSize)cellSpacing {
+    CGSize orig = %orig;
+    if(enabled && twoByTwoIconEnabled){
+		return CGSizeMake(orig.width * 1.5, orig.height);
+	} else {return %orig;}
+}
+
+%end 
+
+///////////////
 %end
 
-%group layout13
+%group ios13
+
+%hook SBIconGridImage
+
+-(NSUInteger)numberOfColumns {
+	if(enabled && customFolderIconEnabled){
+  		return folderIconColumns;
+  	} else {return %orig;}
+}
+
+-(NSUInteger)numberOfCells {
+	if(enabled && customFolderIconEnabled){
+  		return (folderIconColumns*folderIconRows);
+  	} else {return %orig;}
+}
+
+-(NSUInteger)numberOfRows {
+	if(enabled && customFolderIconEnabled){	
+  		return folderIconRows;
+  	} else {return %orig;}
+}
+///
+
+//Haha this next part is my genius method of stopping SpringBoard crashes!
+//Ngl surprised my dumb self thought of this. :D
++(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
+  if (enabled && customFolderIconEnabled) {
+	@try {
+		return %orig;
+	} @catch (NSException *exception) {
+		return nil;
+	}
+  }
+}
++(id)gridImageForLayout:(id)arg1 cellImageDrawBlock:(id)arg2 {
+  if (enabled && customFolderIconEnabled) {
+	@try {
+		return %orig;
+	} @catch (NSException *exception) {
+		return nil;
+	}
+  }
+}
+
++(id)gridImageForLayout:(id)arg1 pool:(id)arg2 cellImageDrawBlock:(id)arg3 {
+  if (enabled && customFolderIconEnabled) {
+	@try {
+		return %orig;
+	} @catch (NSException *exception) {
+		return nil;
+	}
+  }
+}
+
+%end
+
+%hook SBHFolderSettings
+
+-(BOOL)pinchToClose { // enable pinch to close again
+
+	if(enabled && pinchToCloseEnabled){
+		return YES;
+	} else {
+		return NO;
+	}
+}
+
+%end
+
 //This part is crucial to my method :devil_face:
 %hook SBIconController
 
@@ -341,96 +425,6 @@
 %end
 %end
 
-%group iconGrid12
-%hook SBIconGridImage
-
-+ (unsigned long long)numberOfColumns {
-
-	if(enabled && twoByTwoIconEnabled){
-		return 2;
-	} else {return %orig;}
-}
-
-+ (unsigned long long)numberOfRowsForNumberOfCells:(unsigned long long)arg1 {
-    
-	if(enabled && twoByTwoIconEnabled){
-		return 2;
-	} else {return %orig;}
-}
-
-+ (CGSize)cellSize {
-    CGSize orig = %orig;
-	if(enabled && twoByTwoIconEnabled){
-		return CGSizeMake(orig.width * 1.5, orig.height);
-	} else {return %orig;}
-}
-
-+ (CGSize)cellSpacing {
-    CGSize orig = %orig;
-    if(enabled && twoByTwoIconEnabled){
-		return CGSizeMake(orig.width * 1.5, orig.height);
-	} else {return %orig;}
-}
-
-%end 
-%end
-
-%group iconGrid13
-%hook SBIconGridImage
-
--(NSUInteger)numberOfColumns {
-	if(enabled && customFolderIconEnabled){
-  		return folderIconColumns;
-  	} else {return %orig;}
-}
-
--(NSUInteger)numberOfCells {
-	if(enabled && customFolderIconEnabled){
-  		return (folderIconColumns*folderIconRows);
-  	} else {return %orig;}
-}
-
--(NSUInteger)numberOfRows {
-	if(enabled && customFolderIconEnabled){	
-  		return folderIconRows;
-  	} else {return %orig;}
-}
-///
-
-//Haha this next part is my genius method of stopping SpringBoard crashes!
-//Ngl surprised my dumb self thought of this. :D
-+(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
-  if (enabled && customFolderIconEnabled) {
-	@try {
-		return %orig;
-	} @catch (NSException *exception) {
-		return nil;
-	}
-  }
-}
-+(id)gridImageForLayout:(id)arg1 cellImageDrawBlock:(id)arg2 {
-  if (enabled && customFolderIconEnabled) {
-	@try {
-		return %orig;
-	} @catch (NSException *exception) {
-		return nil;
-	}
-  }
-}
-
-+(id)gridImageForLayout:(id)arg1 pool:(id)arg2 cellImageDrawBlock:(id)arg3 {
-  if (enabled && customFolderIconEnabled) {
-	@try {
-		return %orig;
-	} @catch (NSException *exception) {
-		return nil;
-	}
-  }
-}
-
-%end
-%end
-
 %ctor{ // reloading prefs
 	reloadPrefs();
 	hasProcessLaunched = NO;
@@ -444,18 +438,13 @@
 	%init(SBFolderBackgroundView);
 	%init(SBFolderBackgroundMaterialSettings);
 	if(kCFCoreFoundationVersionNumber < 1600){ 
-		%init(pinchToClose12);
-		%init(layout12);
-		%init(iconGrid12);
+		%init(ios12);
 	} else {
-		%init(pinchToClose13);
-		%init(layout13);
-		if (1==0) { //just so it doesn't init
-		 %init(iconGrid13);
-		}
+		%init(ios13);
 	}
 }
 
 
 //Well, that's all for now, folks! It's been awesome working with Thomz, I hope to make more tweaks with him!
 //yeet :)
+//Ah, I see you're a man of culture as well.
