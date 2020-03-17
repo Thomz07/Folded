@@ -55,6 +55,16 @@ BOOL hasShownApplyAlert;
             [self.iconView.trailingAnchor constraintEqualToAnchor:self.navigationItem.titleView.trailingAnchor],
             [self.iconView.bottomAnchor constraintEqualToAnchor:self.navigationItem.titleView.bottomAnchor],
         ]];
+
+		UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Pirated :("
+								message:@"Why would you pirate a free tweak ? Redownload Folded from repo.packix.com if you want to use it."
+								preferredStyle:UIAlertControllerStyleAlert];
+
+		if ([[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/xyz.burritoz.thomz.folded.list"]){
+			// nothing
+		} else {
+			[self presentViewController:alert animated:YES completion:nil];
+		}
 }
 
 -(void)apply:(PSSpecifier *)specifier {

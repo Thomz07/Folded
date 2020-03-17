@@ -218,6 +218,7 @@ BOOL customTitleFontEnabled;
 		[deviceOS setText:OS];
 		[deviceOS setFont:[deviceOS.font fontWithSize:15]];
 
+		[self setBackgroundColor:[UIColor clearColor]];
 		[self addSubview:deviceInformation];
 		[self addSubview:ScreenWidth];
 		[self addSubview:ScreenHeight];
