@@ -40,7 +40,7 @@ BOOL hasShownApplyAlert;
 
         self.iconView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,10,10)];
         self.iconView.contentMode = UIViewContentModeScaleAspectFit;
-        self.iconView.image = [UIImage imageWithContentsOfFile:@"/Library/PreferenceBundles/Folded.bundle/icon@3x.png"];
+        self.iconView.image = [UIImage imageWithContentsOfFile:@"/Library/PreferenceBundles/Folded.bundle/icon@2x.png"];
         self.iconView.translatesAutoresizingMaskIntoConstraints = NO;
         self.iconView.alpha = 1.0;
         [self.navigationItem.titleView addSubview:self.iconView];
@@ -114,6 +114,28 @@ BOOL hasShownApplyAlert;
             self.titleLabel.alpha = 0.0;
         }];
     }
+}
+
+-(void)respring:(id)sender {
+	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Respring"
+								message:@"Are you sure you want to respring ?"
+								preferredStyle:UIAlertControllerStyleAlert];
+
+			UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
+			handler:^(UIAlertAction * action) {
+				NSTask *t = [[NSTask alloc] init];
+				[t setLaunchPath:@"/usr/bin/killall"];
+				[t setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
+				[t launch];
+			}];
+
+			UIAlertAction* no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault
+			handler:^(UIAlertAction * action) {}];
+
+			[alert addAction:yes];
+			[alert addAction:no];
+
+			[self presentViewController:alert animated:YES completion:nil];
 }
 
 @end
