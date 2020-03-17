@@ -23,16 +23,18 @@
 			<string>Rows and Columns</string>
         </dict>
         <dict>
+        	<key>cell</key>
+        	<string>PSGroupCell</string>
+            <key>footerText</key>
+			<string>Rows</string>
+        </dict>
+        <dict>
             <key>cell</key>
             <string>PSSegmentCell</string>
             <key>defaults</key>
             <string>xyz.burritoz.thomz.folded.prefs</string>
             <key>default</key>
             <string>3</string>
-            <key>cellClass</key>
-            <string>Thomz_LabeledSegmentCell</string>
-            <key>label</key>
-            <string>Rows</string>
             <key>key</key>
             <string>customLayoutRows</string>
             <key>validValues</key>
@@ -59,6 +61,8 @@
         <dict>
         	<key>cell</key>
         	<string>PSGroupCell</string>
+            <key>footerText</key>
+			<string>Columns</string>
         </dict>
         <dict>
             <key>cell</key>
@@ -67,12 +71,6 @@
             <string>xyz.burritoz.thomz.folded.prefs</string>
             <key>default</key>
             <string>3</string>
-            <key>cellClass</key>
-            <string>Thomz_LabeledSegmentCell</string>
-            <key>label</key>
-            <string>Columns</string>
-            <!--<key>height</key>
-            <integer>83</integer>-->
             <key>key</key>
             <string>customLayoutColumns</string>
             <key>validValues</key>
