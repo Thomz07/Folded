@@ -90,7 +90,7 @@
 			<key>min</key>
 			<integer>0</integer>
 			<key>max</key>
-			<integer>55</integer>
+			<integer>700</integer>
 			<key>isSegmented</key>
 			<false/>
 			<key>showValue</key>
@@ -224,12 +224,6 @@
 			<key>label</key>
 			<string>Background Color</string> 
 		</dict>
-		<dict>
-        	<key>cell</key>
-        	<string>PSGroupCell</string>
-			<key>label</key>
-			<string>Title Background Corner Radius</string>
-        </dict>
         <dict>
 			<key>cell</key>
 			<string>PSSliderCell</string>
@@ -245,19 +239,13 @@
 			<string>xyz.burritoz.thomz.folded.prefs</string>
 			<key>key</key>
 			<string>titleBackgroundCornerRadius</string>
-		</dict>
-		<dict>
-        	<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
-			<string>titleBackgroundBlurEnabled</string>
 			<key>label</key>
-			<string>Use Title Background Blur</string>
-        </dict>
+			<string>Title Background Corner Radius</string>
+			<key>cellClass</key>
+			<string>KRLabeledSliderCell</string>
+			<key>height</key>
+			<integer>83</integer>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>Title</string>

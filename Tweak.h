@@ -1,6 +1,8 @@
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKitCore.h>
+//#import <Foundation/Foundation.h>
+//#import <UIKit/UIKitCore.h>
 //Those two lines are only used when compiling via DragonBuild
+//actually they make it uncompilable with theos
+//i think my sdks are broken, why the hell UIKitCore is not found
 
 #include <CSColorPicker/CSColorPicker.h>
 
@@ -83,8 +85,6 @@ inline NSString *StringForPreferenceKey(NSString *key) {
 @property (nonatomic, assign) CGRect frame;
 @property (nonatomic, assign) CGRect bounds;
 @property (nonatomic, strong) UIFont *font;
-@property (nonatomic, retain) UIVisualEffectView *lightView;
-@property (nonatomic, retain) UIVisualEffectView *darkView;
 -(void)setFont:(id)arg1 fullFontSize:(id)arg2 ambientOnly:(BOOL)arg3;
 -(void)setTextCentersHorizontally:(BOOL)arg1;
 -(void)layoutSubviews;

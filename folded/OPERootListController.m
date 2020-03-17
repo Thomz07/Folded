@@ -15,9 +15,9 @@ BOOL hasShownApplyAlert;
 
 - (void)viewWillAppear:(BOOL)animated {
 
-	[[UISegmentedControl appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:1.00 green:0.94 blue:0.27 alpha:1.0]];
-    [[UISwitch appearanceWhenContainedInInstancesOfClasses:@[self.class]] setOnTintColor:[UIColor colorWithRed:1.00 green:0.94 blue:0.27 alpha:1.0]];
-    [[UISlider appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:1.00 green:0.94 blue:0.27 alpha:1.0]];
+	[[UISegmentedControl appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:0.06 green:0.56 blue:1.00 alpha:1.0]];
+    [[UISwitch appearanceWhenContainedInInstancesOfClasses:@[self.class]] setOnTintColor:[UIColor colorWithRed:0.06 green:0.56 blue:1.00 alpha:1.0]];
+    [[UISlider appearanceWhenContainedInInstancesOfClasses:@[self.class]] setTintColor:[UIColor colorWithRed:0.06 green:0.56 blue:1.00 alpha:1.0]];
 
     [super viewWillAppear:animated];
 }
@@ -29,11 +29,32 @@ BOOL hasShownApplyAlert;
 	UIBarButtonItem *applyButton = [[UIBarButtonItem alloc] initWithTitle:@"Apply" style:UIBarButtonItemStylePlain target:self action:@selector(apply:)];
     self.navigationItem.rightBarButtonItem = applyButton;
 
-	self.iconView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:@"/Library/PreferenceBundles/folded.bundle/icon@3x.png"]];
-	self.iconView.contentMode = UIViewContentModeScaleAspectFit;
-	self.iconView.translatesAutoresizingMaskIntoConstraints = NO;
-	self.iconView.alpha = 1.0;
-	self.navigationItem.titleView = self.iconView;
+	self.navigationItem.titleView = [UIView new];
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,10,10)];
+        self.titleLabel.font = [UIFont systemFontOfSize:17];
+        self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        self.titleLabel.text = @"Folded";
+		self.titleLabel.alpha = 0.0;
+        self.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [self.navigationItem.titleView addSubview:self.titleLabel];
+
+        self.iconView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,10,10)];
+        self.iconView.contentMode = UIViewContentModeScaleAspectFit;
+        self.iconView.image = [UIImage imageWithContentsOfFile:@"/Library/PreferenceBundles/Folded.bundle/icon@3x.png"];
+        self.iconView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.iconView.alpha = 1.0;
+        [self.navigationItem.titleView addSubview:self.iconView];
+
+		[NSLayoutConstraint activateConstraints:@[
+            [self.titleLabel.topAnchor constraintEqualToAnchor:self.navigationItem.titleView.topAnchor],
+            [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.navigationItem.titleView.leadingAnchor],
+            [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.navigationItem.titleView.trailingAnchor],
+            [self.titleLabel.bottomAnchor constraintEqualToAnchor:self.navigationItem.titleView.bottomAnchor],
+            [self.iconView.topAnchor constraintEqualToAnchor:self.navigationItem.titleView.topAnchor],
+            [self.iconView.leadingAnchor constraintEqualToAnchor:self.navigationItem.titleView.leadingAnchor],
+            [self.iconView.trailingAnchor constraintEqualToAnchor:self.navigationItem.titleView.trailingAnchor],
+            [self.iconView.bottomAnchor constraintEqualToAnchor:self.navigationItem.titleView.bottomAnchor],
+        ]];
 }
 
 -(void)apply:(PSSpecifier *)specifier {
@@ -73,6 +94,22 @@ BOOL hasShownApplyAlert;
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://twitter.com/bossgfx_"]];
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat offsetY = scrollView.contentOffset.y;
+
+    if (offsetY > 125) {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.iconView.alpha = 0.0;
+            self.titleLabel.alpha = 1.0;
+        }];
+    } else {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.iconView.alpha = 1.0;
+            self.titleLabel.alpha = 0.0;
+        }];
+    }
+}
+
 @end
 
 @implementation Thomz_TwitterCell // lil copy of HBTwitterCell from Cephei
@@ -82,11 +119,11 @@ BOOL hasShownApplyAlert;
 
 	if (self)
     {
-        UILabel *User = [[UILabel alloc] initWithFrame:CGRectMake(70,20,200,20)];
+        UILabel *User = [[UILabel alloc] initWithFrame:CGRectMake(70,17.5,200,20)];
         [User setText:specifier.properties[@"user"]];
 		[User setFont:[User.font fontWithSize:15]];
 
-		UILabel *Description = [[UILabel alloc]initWithFrame:CGRectMake(70,40,200,20)];
+		UILabel *Description = [[UILabel alloc]initWithFrame:CGRectMake(70,35,200,20)];
 		[Description setText:specifier.properties[@"description"]];
 		[Description setFont:[Description.font fontWithSize:10]];
 
@@ -95,30 +132,12 @@ BOOL hasShownApplyAlert;
 		UIImage *profilePicture;
         profilePicture = [UIImage imageWithContentsOfFile:[bundle pathForResource:specifier.properties[@"image"] ofType:@"png"]];
 		UIImageView *profilePictureView = [[UIImageView alloc] initWithImage:profilePicture];
-		[profilePictureView setFrame:CGRectMake(12.5,17.5,41.25,41.25)];
-
-		UIImage *twitter;
-		twitter = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"twitter" ofType:@"png"]];
-		UIImageView *twitterIcon = [[UIImageView alloc] initWithImage:twitter];
-		twitterIcon.image = [twitterIcon.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-		[twitterIcon setTintColor:[UIColor colorWithRed:1.00 green:0.94 blue:0.27 alpha:1.0]];
-		[twitterIcon setFrame:CGRectMake((self.bounds.size.width) + 20,32.5,15,15)];
-
-		UIImage *reddit;
-		reddit = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"reddit" ofType:@"png"]];
-		UIImageView *redditIcon = [[UIImageView alloc] initWithImage:reddit];
-		redditIcon.image = [redditIcon.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-		[redditIcon setTintColor:[UIColor colorWithRed:1.00 green:0.94 blue:0.27 alpha:1.0]];
-		[redditIcon setFrame:CGRectMake((self.bounds.size.width) + 20,30,20,20)];
+		[profilePictureView setFrame:CGRectMake(12.5,15,40,40)];
 
         [self addSubview:User];
 		[self addSubview:Description];
 		[self addSubview:profilePictureView];
-		if([specifier.properties[@"reddit"] isEqual:@"true"]){
-			[self addSubview:redditIcon];
-		} else {
-			[self addSubview:twitterIcon];
-		}
+		
     }
 
     return self;
@@ -137,4 +156,35 @@ BOOL hasShownApplyAlert;
 
 	return self;
 }
+@end
+
+@implementation FoldedHeaderCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
+	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
+
+    if (self) {
+		UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(90,25,500,30)];
+		[title setNumberOfLines:0];
+		[title setText:@"Folded"];
+		[title setFont:[UIFont systemFontOfSize:30]];
+
+		UILabel *developers = [[UILabel alloc] initWithFrame:CGRectMake(90,55,500,20)];
+		[developers setNumberOfLines:0];
+		[developers setText:@"Folders, your way"];
+		[developers setFont:[UIFont systemFontOfSize:15]];
+
+		NSBundle *bundle = [[NSBundle alloc]initWithPath:@"/Library/PreferenceBundles/Folded.bundle"];
+		UIImage *logo = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"fullSizedIcon" ofType:@"png"]];
+		UIImageView *icon = [[UIImageView alloc]initWithImage:logo];
+		[icon setFrame:CGRectMake(20,22.5,55,55)];
+
+		[self addSubview:title];
+		[self addSubview:developers];
+		[self addSubview:icon];
+	}
+
+	return self;
+}
+
 @end

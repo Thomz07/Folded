@@ -100,16 +100,15 @@
 
 %group SBFolderTitleTextField
 %hook SBFolderTitleTextField
-%property (nonatomic, retain) UIVisualEffectView *lightView;
-%property (nonatomic, retain) UIVisualEffectView *darkView;
 
 -(CGRect)textRectForBounds:(CGRect)arg1 { // title offset
 	
 	CGRect original = %orig;
 
 	if(enabled && customTitleOffSetEnabled){
-		return CGRectMake(original.origin.x,(original.origin.y)-customTitleOffSet,original.size.width,original.size.height);
-		//[self setFrame:CGRectMake(original.origin.x,(original.origin.y)-customTitleOffSet,original.size.width,original.size.height)]; // everything original except the y
+		//return CGRectMake(original.origin.x,(original.origin.y)-customTitleOffSet,original.size.width,original.size.height);
+		return %orig;
+		[self setFrame:CGRectMake(original.origin.x,(original.origin.y)-customTitleOffSet,original.size.width,original.size.height)]; // everything original except the y
 	} else {return original;}
 } // This should wokr but i can't try it because of the title prefs crashing, hope you'll be able to fix soon :)
 
@@ -145,22 +144,12 @@
 		[self.layer setCornerRadius:titleBackgroundCornerRadius];
 	}
 
-	self.lightView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-	self.lightView.frame = self.bounds;
-	self.darkView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
-	self.darkView.frame = self.bounds;
-
-	if(enabled && titleBackgroundEnabled && titleBackgroundBlurEnabled){
-		[self setBackgroundColor:[UIColor clearColor]];
-		if(customBlurBackground == 1){
-			[self insertSubview:self.lightView atIndex:0];
-		} else if(customBlurBackground == 2){
-			[self insertSubview:self.darkView atIndex:0];
-		}
-	}
-
 	if (enabled && customTitleFontEnabled) {
     	[self setFont:[UIFont fontWithName:customTitleFont size:(self.font.pointSize)]];
+	}
+
+	if(enabled && customTitleOffSetEnabled){
+		[self setFrame:CGRectMake(self.frame.origin.x,(self.bounds.origin.y)+customTitleOffSet,self.bounds.size.width,self.bounds.size.height)]; 
 	}
 }
 

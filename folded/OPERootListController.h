@@ -8,7 +8,7 @@
         UITableView * _table;
 }
 @property (nonatomic, retain) NSMutableDictionary *mySavedSpecifiers;
-@property (nonatomic, retain) UIView *headerView;
+@property (nonatomic, retain) UILabel *titleLabel;
 @property (nonatomic, retain) UIImageView *iconView;
 @end
 
@@ -20,4 +20,7 @@
 @end
 
 @interface Burrit0z_TitleCell : PSTableCell
+@end
+
+@interface FoldedHeaderCell : PSTableCell
 @end
