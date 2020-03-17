@@ -252,7 +252,7 @@
   if (self.isFolder && enabled) {
     if (hasProcessLaunched) {
     return (customLayoutColumns);
-    } else {
+    } else if (customFolderIconEnabled) {
       @try {
       return (folderIconColumns);
       } @catch (NSException *exception) {
@@ -270,7 +270,7 @@
   if (self.isFolder && enabled) {
     if (hasProcessLaunched) {
     return (customLayoutRows);
-    } else {
+    } else if (customFolderIconEnabled) {
       @try {
       return (folderIconRows);
       } @catch (NSException *exception) {
@@ -400,25 +400,31 @@
 //Haha this next part is my genius method of stopping SpringBoard crashes!
 //Ngl surprised my dumb self thought of this. :D
 +(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
-  @try {
-    return %orig;
-  } @catch (NSException *exception) {
-    return nil;
+  if (enabled && customFolderIconEnabled) {
+	@try {
+		return %orig;
+	} @catch (NSException *exception) {
+		return nil;
+	}
   }
 }
 +(id)gridImageForLayout:(id)arg1 cellImageDrawBlock:(id)arg2 {
-  @try {
-    return %orig;
-  } @catch (NSException *exception) {
-    return nil;
+  if (enabled && customFolderIconEnabled) {
+	@try {
+		return %orig;
+	} @catch (NSException *exception) {
+		return nil;
+	}
   }
 }
 
 +(id)gridImageForLayout:(id)arg1 pool:(id)arg2 cellImageDrawBlock:(id)arg3 {
-  @try {
-    return %orig;
-  } @catch (NSException *exception) {
-    return nil;
+  if (enabled && customFolderIconEnabled) {
+	@try {
+		return %orig;
+	} @catch (NSException *exception) {
+		return nil;
+	}
   }
 }
 
@@ -444,7 +450,9 @@
 	} else {
 		%init(pinchToClose13);
 		%init(layout13);
-		%init(iconGrid13);
+		if (1==0) { //just so it doesn't init
+		 %init(iconGrid13);
+		}
 	}
 }
 

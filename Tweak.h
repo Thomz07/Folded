@@ -1,5 +1,5 @@
-//#import <Foundation/Foundation.h>
-//#import <UIKit/UIKitCore.h>
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKitCore.h>
 //Those two lines are only used when compiling via DragonBuild
 //actually they make it uncompilable with theos
 //i think my sdks are broken, why the hell UIKitCore is not found
