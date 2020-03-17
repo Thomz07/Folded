@@ -300,6 +300,22 @@
 	UIColor *backgroundColor = [UIColor cscp_colorFromHexString:folderBackgroundColor];
 	[backgroundColorFrame setBackgroundColor:backgroundColor];
 
+	NSArray<id> *gradientColors = [StringForPreferenceKey(@"folderBackgroundColorWithGradient") cscp_gradientStringCGColors];
+
+	CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.bounds;
+
+	if(!folderBackgroundColorWithGradientVerticalGradientEnabled){
+		gradient.startPoint = CGPointMake(0, 0.5);
+		gradient.endPoint = CGPointMake(1, 0.5);
+	} else if(folderBackgroundColorWithGradientVerticalGradientEnabled) {
+		gradient.startPoint = CGPointMake(0.5, 0);
+        gradient.endPoint = CGPointMake(0.5, 1);
+	}
+
+	// set the gradient colors
+	gradient.colors = gradientColors;
+
 	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 1){
 		MSHookIvar<UIVisualEffectView *>(self, "_blurView") = self.lightView;
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -312,10 +328,14 @@
 		[self addSubview:self.darkView];
 	}
 
-	if(enabled && folderBackgroundColorEnabled){
+	if(enabled && folderBackgroundColorEnabled && !folderBackgroundColorWithGradientEnabled){
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		[self addSubview:backgroundColorFrame];
+	} else if(enabled && folderBackgroundColorEnabled && folderBackgroundColorWithGradientEnabled){
+		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+		[self.layer insertSublayer:gradient atIndex:0];
 	}
+
 
 }
 %end
