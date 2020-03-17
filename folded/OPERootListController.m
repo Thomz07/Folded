@@ -25,8 +25,15 @@ BOOL hasShownApplyAlert;
 -(void)viewDidLoad {
 	[super viewDidLoad];
 	hasShownApplyAlert = NO;
+
 	UIBarButtonItem *applyButton = [[UIBarButtonItem alloc] initWithTitle:@"Apply" style:UIBarButtonItemStylePlain target:self action:@selector(apply:)];
     self.navigationItem.rightBarButtonItem = applyButton;
+
+	self.iconView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:@"/Library/PreferenceBundles/folded.bundle/icon@3x.png"]];
+	self.iconView.contentMode = UIViewContentModeScaleAspectFit;
+	self.iconView.translatesAutoresizingMaskIntoConstraints = NO;
+	self.iconView.alpha = 1.0;
+	self.navigationItem.titleView = self.iconView;
 }
 
 -(void)apply:(PSSpecifier *)specifier {
@@ -55,6 +62,7 @@ BOOL hasShownApplyAlert;
 
 -(void)linkTwitter {
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://twitter.com/Thomzi07"]];
+		//If you get a deprecation error using DragonBuild and an ios > 10 sdk, modify the headers, its not recommended, but do it
 }
 
 -(void)linkReddit {

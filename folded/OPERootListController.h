@@ -4,8 +4,12 @@
 #import <Preferences/PSListItemsController.h>
 #import <Preferences/PSSliderTableCell.h>
 
-@interface OPERootListController : PSListController
+@interface OPERootListController : PSListController{
+        UITableView * _table;
+}
 @property (nonatomic, retain) NSMutableDictionary *mySavedSpecifiers;
+@property (nonatomic, retain) UIView *headerView;
+@property (nonatomic, retain) UIImageView *iconView;
 @end
 
 @interface PSListController (iOS12Plus)
