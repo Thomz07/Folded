@@ -1,3 +1,7 @@
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKitCore.h>
+//Those two lines are only used when compiling via DragonBuild
+
 #include <CSColorPicker/CSColorPicker.h>
 
 #define PLIST_PATH @"/User/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
