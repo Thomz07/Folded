@@ -12,5 +12,5 @@ Folded_PRIVATE_FRAMEWORKS = Preferences
 Folded_LDFLAGS += -lCSColorPicker
 
 include $(THEOS_MAKE_PATH)/tweak.mk
-SUBPROJECTS += folded
+SUBPROJECTS += prefs
 include $(THEOS_MAKE_PATH)/aggregate.mk

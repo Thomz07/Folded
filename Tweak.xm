@@ -438,12 +438,12 @@
 %end
 
 %ctor{ // reloading preferences
-	reloadPrefs();
+	prefsChanged();
 	hasProcessLaunched = NO;
 	hasInjectionFailed = NO;
     hasShownFailureAlert = NO;
 
-	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, (CFStringRef)@"xyz.burritoz.thomz.folded.preferences/reload", NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
+	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)prefsChanged, (CFStringRef)@"xyz.burritoz.thomz.folded.preferences/reload", NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
 
 	%init(SBFloatyFolderView);
 	%init(SBFolderTitleTextField);

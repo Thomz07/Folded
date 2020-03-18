@@ -3,13 +3,14 @@
 //Those two lines are only used when compiling via DragonBuild
 //actually they make it uncompilable with theos
 //i think my sdks are broken, why the hell UIKitCore is not found
+//Dunno man.
 
 #include <CSColorPicker/CSColorPicker.h>
 
-#define PLIST_PATH @"/User/Library/Preferences/xyz.burritoz.thomz.folded.preferences.plist"
-#define kIdentifier @"xyz.burritoz.thomz.folded.preferences.plist"
-#define kSettingsPath @"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.preferences.plist"
-#define kSettingsChangedNotification (CFStringRef)@"xyz.burritoz.thomz.folded.preferences/reload"
+#define PLIST_PATH @"/User/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
+#define kIdentifier @"xyz.burritoz.thomz.folded.prefs.plist"
+#define kSettingsPath @"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
+#define kSettingsChangedNotification (CFStringRef)@"xyz.burritoz.thomz.folded.prefs/reload"
 
 inline NSString *StringForPreferenceKey(NSString *key) {
     NSDictionary *prefs = [NSDictionary dictionaryWithContentsOfFile:PLIST_PATH] ? : [NSDictionary new];
@@ -152,7 +153,7 @@ BOOL hasShownFailureAlert;
 
 static void *observer = NULL;
 
-static void initPrefs() { //this is pretty much right off the iphonedevwiki :D I would much rather use Cephei
+static void reloadPrefs() {
     if ([NSHomeDirectory() isEqualToString:@"/var/mobile"]) {
         CFArrayRef keyList = CFPreferencesCopyKeyList((CFStringRef)kIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
 
@@ -164,17 +165,15 @@ static void initPrefs() { //this is pretty much right off the iphonedevwiki :D I
             }
             CFRelease(keyList);
         }
-    } 
+    }
     else {
         preferences = [NSDictionary dictionaryWithContentsOfFile:kSettingsPath];
     }
 }
 
-
-
-static void reloadPrefs() {
+static void prefsChanged() {
     CFPreferencesAppSynchronize((CFStringRef)kIdentifier);
-    initPrefs();
+    reloadPrefs();
 
 	enabled = [preferences objectForKey:@"enabled"] ? [[preferences objectForKey:@"enabled"] boolValue] : NO;
 
