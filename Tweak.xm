@@ -443,7 +443,7 @@
 	hasInjectionFailed = NO;
     hasShownFailureAlert = NO;
 
-	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, CFSTR("xyz.burritoz.thomz.folded.preferences/reload"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
+	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, (CFStringRef)@"xyz.burritoz.thomz.folded.preferences/reload", NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
 
 	%init(SBFloatyFolderView);
 	%init(SBFolderTitleTextField);

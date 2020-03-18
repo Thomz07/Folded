@@ -150,6 +150,8 @@ BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
 BOOL hasShownFailureAlert;
 
+static void *observer = NULL;
+
 static void initPrefs() { //this is pretty much right off the iphonedevwiki :D I would much rather use Cephei
     if ([NSHomeDirectory() isEqualToString:@"/var/mobile"]) {
         CFArrayRef keyList = CFPreferencesCopyKeyList((CFStringRef)kIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
@@ -298,6 +300,5 @@ static void reloadPrefs() {
 	hideFolderGridEnabled = [preferences objectForKey:@"hideFolderGridEnabled"] ? 
 				[[preferences objectForKey:@"hideFolderGridEnabled"] boolValue] : NO;
 	
-	
-
+	NSLog(@"[Folded]: Prefs have been reloaded");
 }
