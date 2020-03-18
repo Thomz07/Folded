@@ -198,7 +198,7 @@ BOOL customTitleFontEnabled;
 
 	if (self)
     {
-		UILabel *deviceInformation = [[UILabel alloc]initWithFrame:CGRectMake(15,15,300,20)];
+		UILabel *deviceInformation = [[UILabel alloc]initWithFrame:CGRectMake(15,14,300,20)];
         UILabel *ScreenWidth = [[UILabel alloc] initWithFrame:CGRectMake(15,40,300,20)];
 		UILabel *ScreenHeight = [[UILabel alloc] initWithFrame:CGRectMake(15,60,300,20)];
 		UILabel *deviceOS = [[UILabel alloc] initWithFrame:CGRectMake(15,80,300,20)];
