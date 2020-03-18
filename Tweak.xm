@@ -346,19 +346,17 @@
 -(NSUInteger)numberOfPortraitColumns {
   [self getLocations];
     if (self.isFolder && enabled) {
-	  return customLayoutColumns;
-  }/*
-    if (hasProcessLaunched) {
-    return (customLayoutColumns);
-    } else if (customFolderIconEnabled) {
-      @try {
-      return (folderIconColumns);
-      } @catch (NSException *exception) {
-      return customLayoutColumns;
-	  hasInjectionFailed = YES;
-      }
-    }
-  }*/ else {
+		if (hasProcessLaunched) {
+		return (customLayoutColumns);
+		} else if (customFolderIconEnabled) {
+		@try {
+		return (folderIconColumns);
+		} @catch (NSException *exception) {
+		return customLayoutColumns;
+		hasInjectionFailed = YES;
+		}
+	}
+  } else {
     return (%orig);
   }
 }
@@ -366,19 +364,17 @@
 -(NSUInteger)numberOfPortraitRows {
   [self getLocations];
   if (self.isFolder && enabled) {
-	  return customLayoutRows;
-  }
-    /*if (hasProcessLaunched) {
-    return (customLayoutRows);
-    } else if (customFolderIconEnabled) {
-      @try {
-      return (folderIconRows);
-      } @catch (NSException *exception) {
-      return customLayoutRows;
-	  hasInjectionFailed = YES;
-      }
+		if (hasProcessLaunched) {
+			return (customLayoutRows);
+		} else if (customFolderIconEnabled) {
+		@try {
+		return (folderIconRows);
+		} @catch (NSException *exception) {
+		return customLayoutRows;
+		hasInjectionFailed = YES;
+		}
     }
-  }*/ else {
+  } else {
     return (%orig);
   }
 }
@@ -446,7 +442,6 @@
 	hasProcessLaunched = NO;
 	hasInjectionFailed = NO;
     hasShownFailureAlert = NO;
-	enabled = YES;
 
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, CFSTR("xyz.burritoz.thomz.folded.preferences/reload"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
 
