@@ -306,14 +306,13 @@
 %hook SBIconController
 
 -(void)viewDidAppear:(BOOL)arg1 {
-
   %orig;
 
   hasProcessLaunched = YES;
 
   if (hasInjectionFailed && showInjectionAlerts && !hasShownFailureAlert) {
 	  UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
-                               message:@"Folded has failed to inject a custom folder icon layout. This is due to another tweak interfering with Folded. Please note Cartella has prevented a crash that would have occured due to this." // wut ?
+                               message:@"Folded has failed to inject a custom folder icon layout. This is due to another tweak interfering with Folded. Please note Folded has prevented a crash that would have occured due to this."
                                preferredStyle:UIAlertControllerStyleAlert];
 
 		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault
@@ -345,9 +344,10 @@
 }
 
 -(NSUInteger)numberOfPortraitColumns {
-
   [self getLocations];
-  if (self.isFolder && enabled) {
+    if (self.isFolder && enabled) {
+	  return customLayoutColumns;
+  }/*
     if (hasProcessLaunched) {
     return (customLayoutColumns);
     } else if (customFolderIconEnabled) {
@@ -358,16 +358,17 @@
 	  hasInjectionFailed = YES;
       }
     }
-  } else {
+  }*/ else {
     return (%orig);
   }
 }
 
 -(NSUInteger)numberOfPortraitRows {
-
   [self getLocations];
   if (self.isFolder && enabled) {
-    if (hasProcessLaunched) {
+	  return customLayoutRows;
+  }
+    /*if (hasProcessLaunched) {
     return (customLayoutRows);
     } else if (customFolderIconEnabled) {
       @try {
@@ -377,7 +378,7 @@
 	  hasInjectionFailed = YES;
       }
     }
-  } else {
+  }*/ else {
     return (%orig);
   }
 }
@@ -440,13 +441,14 @@
 %end
 %end
 
-%ctor{ // reloading prefs
+%ctor{ // reloading preferences
 	reloadPrefs();
 	hasProcessLaunched = NO;
 	hasInjectionFailed = NO;
     hasShownFailureAlert = NO;
+	enabled = YES;
 
-	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
+	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, CFSTR("xyz.burritoz.thomz.folded.preferences/reload"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
 
 	%init(SBFloatyFolderView);
 	%init(SBFolderTitleTextField);
