@@ -175,7 +175,7 @@ static void prefsChanged() {
     CFPreferencesAppSynchronize((CFStringRef)kIdentifier);
     reloadPrefs();
 
-	enabled = [preferences objectForKey:@"enabled"] ? [[preferences objectForKey:@"enabled"] boolValue] : NO;
+	enabled = [preferences objectForKey:@"enabled"] ? [[preferences objectForKey:@"enabled"] boolValue] : YES;
 
 	backgroundAlphaEnabled = [preferences objectForKey:@"backgroundAlphaEnabled"] ? 
 				[[preferences objectForKey:@"backgroundAlphaEnabled"] boolValue] : NO;
@@ -300,4 +300,6 @@ static void prefsChanged() {
 				[[preferences objectForKey:@"hideFolderGridEnabled"] boolValue] : NO;
 	
 	NSLog(@"[Folded]: Prefs have been reloaded");
+
+
 }
