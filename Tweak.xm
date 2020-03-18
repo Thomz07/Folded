@@ -147,6 +147,19 @@
 %end
 %end
 
+%group _SBIconGridWrapperView
+%hook _SBIconGridWrapperView
+
+-(void)layoutSubviews {
+    %orig;
+    if(enabled && hideFolderGridEnabled){
+		[self setHidden:true];
+	}
+}
+
+%end
+%end
+
 %group ios12
 %hook SBFolderSettings
 
@@ -445,6 +458,7 @@
 	%init(SBFolderTitleTextField);
 	%init(SBFolderBackgroundView);
 	%init(SBFolderBackgroundMaterialSettings);
+	%init(_SBIconGridWrapperView);
 	if(kCFCoreFoundationVersionNumber < 1600){
 		%init(ios12);
 	} else {

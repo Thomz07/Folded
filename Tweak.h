@@ -141,6 +141,7 @@ BOOL randomColorBackgroundEnabled;
 BOOL folderBackgroundColorWithGradientEnabled;
 NSString *folderBackgroundColorWithGradient;
 BOOL folderBackgroundColorWithGradientVerticalGradientEnabled; // bruh
+BOOL hideFolderGridEnabled;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
@@ -196,4 +197,5 @@ static void reloadPrefs(){
 	folderBackgroundColorWithGradientEnabled = [[preferences objectForKey:@"folderBackgroundColorWithGradientEnabled"] boolValue];
 	folderBackgroundColorWithGradient = [preferences valueForKey:@"folderBackgroundColorWithGradient"];
 	folderBackgroundColorWithGradientVerticalGradientEnabled = [[preferences objectForKey:@"folderBackgroundColorWithGradientVerticalGradientEnabled"] boolValue];
+	hideFolderGridEnabled = [[preferences objectForKey:@"hideFolderGridEnabled"] boolValue];
 }
