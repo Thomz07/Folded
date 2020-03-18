@@ -161,19 +161,6 @@
 
 %end
 
-%hook SBHFolderSettings
-
--(BOOL)pinchToClose { // enable pinch to close again
-
-	if(enabled && pinchToCloseEnabled){
-		return YES;
-	} else {
-		return NO;
-	}
-}
-
-%end
-
 %hook SBFolderIconListView // layout for iOS 12
 
 + (unsigned long long)maxVisibleIconRowsInterfaceOrientation:(long long)arg1 {
@@ -259,6 +246,8 @@
 	} @catch (NSException *exception) {
 		return nil;
 	}
+  } else {
+	  return %orig;
   }
 }
 +(id)gridImageForLayout:(id)arg1 cellImageDrawBlock:(id)arg2 {
@@ -268,6 +257,8 @@
 	} @catch (NSException *exception) {
 		return nil;
 	}
+  } else {
+	  return %orig;
   }
 }
 
@@ -278,6 +269,8 @@
 	} @catch (NSException *exception) {
 		return nil;
 	}
+  } else {
+	  return %orig;
   }
 }
 
@@ -377,6 +370,7 @@
 }
 
 %end
+
 %end
 
 %group SBFolderBackgroundView
@@ -444,7 +438,7 @@
 	%init(SBFloatyFolderView);
 	%init(SBFolderTitleTextField);
 	%init(SBFolderBackgroundView);
-	%init(SBFolderBackgroundMaterialSettings);
+	%init(SBFolderBackgroundMaterialSettings); //this doesn't exist on ios13
 	if(kCFCoreFoundationVersionNumber < 1600){
 		%init(ios12);
 	} else {
