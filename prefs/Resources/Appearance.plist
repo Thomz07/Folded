@@ -192,6 +192,44 @@
                 <string>Dark</string>
             </array>
 		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>customWallpaperBlurEnabled</string>
+			<key>label</key>
+			<string>Custom Wallpaper Blur Strength</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>min</key>
+			<integer>0</integer>
+			<key>max</key>
+			<integer>1</integer>
+			<key>isSegmented</key>
+			<false/>
+			<key>showValue</key>
+			<true/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>customWallpaperBlurFactor</string>
+			<key>cellClass</key>
+			<string>KRLabeledSliderCell</string>
+			<key>label</key>
+			<string>Blur Strength</string>
+			<key>height</key>
+			<integer>83</integer>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>Appearance</string>

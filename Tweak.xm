@@ -437,6 +437,28 @@
 %end
 %end
 
+%group other
+
+%hook SBFolderController
+-(BOOL)_homescreenAndDockShouldFade {
+  if (enabled && clearBackgroundIcons) {
+    return YES;
+  } else {
+    return %orig;
+  }
+}
+%end
+
+%hook SBFolderControllerBackgroundView
+
+-(void)layoutSubviews {
+    %orig;
+	if (enabled && customWallpaperBlurEnabled) self.alpha = customWallpaperBlurFactor;
+}
+
+%end
+
+%end
 
 
 #define kIdentifier @"xyz.burritoz.thomz.folded.prefs"
@@ -531,6 +553,10 @@ static void preferencesChanged()
 	folderBackgroundColorWithGradient = [prefs valueForKey:@"folderBackgroundColorWithGradient"];
 	folderBackgroundColorWithGradientVerticalGradientEnabled = boolValueForKey(@"folderBackgroundColorWithGradientVerticalGradientEnabled", NO);
 	hideFolderGridEnabled = boolValueForKey(@"hideFolderGridEnabled", NO);
+	clearBackgroundIcons = boolValueForKey(@"clearBackgroundIcons", NO);
+	customWallpaperBlurEnabled = boolValueForKey(@"customWallpaperBlurEnabled", NO);
+	customWallpaperBlurFactor = numberForValue(@"customWallpaperBlurFactor", 1.0);
+
 
 	//Hopefully this works :D
 }
@@ -557,9 +583,10 @@ static void preferencesChanged()
 	%init(SBFolderTitleTextField);
 	%init(SBFolderBackgroundView);
 	%init(SBFolderBackgroundMaterialSettings); //this doesn't exist on ios13
-	%init(_SBIconGridWrapperView);
+	%init(other);
 	if(kCFCoreFoundationVersionNumber < 1600){
 		%init(ios12);
+		%init(_SBIconGridWrapperView);
 	} else {
 		%init(ios13);
 	}

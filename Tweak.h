@@ -143,6 +143,9 @@ BOOL folderBackgroundColorWithGradientEnabled;
 NSString *folderBackgroundColorWithGradient;
 BOOL folderBackgroundColorWithGradientVerticalGradientEnabled; // bruh
 BOOL hideFolderGridEnabled;
+BOOL clearBackgroundIcons;
+BOOL customWallpaperBlurEnabled;
+double customWallpaperBlurFactor;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;

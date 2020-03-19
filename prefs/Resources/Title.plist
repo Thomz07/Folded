@@ -230,7 +230,7 @@
 			<key>min</key>
 			<integer>0</integer>
 			<key>max</key>
-			<integer>15</integer>
+			<integer>60</integer>
 			<key>isSegmented</key>
 			<false/>
 			<key>showValue</key>
