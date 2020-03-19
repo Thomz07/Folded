@@ -392,6 +392,8 @@
   }
 }
 
+%end
+
 %hook SBIconListGridLayoutConfiguration
 %property (nonatomic, assign) BOOL isFolder;
 
