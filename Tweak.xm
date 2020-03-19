@@ -228,7 +228,7 @@
 %end
 
 %group ios13
-/*
+
 %hook SBIconGridImage
 
 -(NSUInteger)numberOfColumns {
@@ -288,7 +288,7 @@
 }
 
 %end
-*/
+
 %hook SBHFolderSettings
 
 -(BOOL)pinchToClose { // enable pinch to close again
