@@ -1,18 +1,9 @@
 #import <Foundation/Foundation.h>
+#include <CSColorPicker/CSColorPicker.h>
 //#import <UIKit/UIKitCore.h>
 //Those two lines are only used when compiling via DragonBuild
 //actually they make it uncompilable with theos
 //i think my sdks are broken, why the hell UIKitCore is not found
-
-#include <CSColorPicker/CSColorPicker.h>
-
-#define PLIST_PATH @"/User/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
-NSDictionary *prefs = nil;
-
-inline NSString *StringForPreferenceKey(NSString *key) {
-    NSDictionary *prefs = [NSDictionary dictionaryWithContentsOfFile:PLIST_PATH] ? : [NSDictionary new];
-    return prefs[key];
-}
 
 @interface SBIconController : UIAlertController
 @end
@@ -91,18 +82,6 @@ inline NSString *StringForPreferenceKey(NSString *key) {
 -(void)layoutSubviews;
 @end
 
-//DO NOT USE THESE NEXT TWO INTERFACES, THEY ARE MOSTLY INACCURATE, SAME ONES I USED IN CARTELLA
-@interface SBWallpaperEffectView : UIView
-@property (nonatomic, retain) UIView *blurView;
-@end
-
-@interface SBFolderIconImageView : UIView
-@property (nonatomic, retain) SBWallpaperEffectView *backgroundView; //This isn't really what the headers say...
-@property (nonatomic, assign) CGFloat aplha;
-@end
-
-//////////////////
-
 // Defining global variables and methods
 
 // Preferences keys
@@ -170,3 +149,119 @@ BOOL hideFolderIconBackground;
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
 BOOL hasShownFailureAlert;
+
+#define PLIST_PATH @"/User/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
+#define kIdentifier @"xyz.burritoz.thomz.folded.prefs"
+#define kSettingsChangedNotification (CFStringRef)@"xyz.burritoz.thomz.folded.prefs/reload"
+#define kSettingsPath @"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
+
+NSDictionary *prefs = nil;
+
+inline NSString *StringForPreferenceKey(NSString *key) {
+    NSDictionary *prefs = [NSDictionary dictionaryWithContentsOfFile:PLIST_PATH] ? : [NSDictionary new];
+    return prefs[key];
+}
+
+static void *observer = NULL;
+
+static void reloadPrefs() 
+{
+    if ([NSHomeDirectory() isEqualToString:@"/var/mobile"]) 
+    {
+        CFArrayRef keyList = CFPreferencesCopyKeyList((CFStringRef)kIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+
+        if (keyList) 
+        {
+            prefs = (NSDictionary *)CFBridgingRelease(CFPreferencesCopyMultiple(keyList, (CFStringRef)kIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost));
+
+            if (!prefs) 
+            {
+                prefs = [NSDictionary new];
+            }
+            CFRelease(keyList);
+        }
+    } 
+    else 
+    {
+        prefs = [NSDictionary dictionaryWithContentsOfFile:kSettingsPath];
+    }
+}
+
+
+static BOOL boolValueForKey(NSString *key, BOOL defaultValue) {
+    return (prefs && [prefs objectForKey:key]) ? [[prefs objectForKey:key] boolValue] : defaultValue;
+}
+
+static double numberForValue(NSString *key, double defaultValue) {
+	return (prefs && [prefs objectForKey:key]) ?  [[prefs objectForKey:key] doubleValue] : defaultValue;
+	//I'm pretty sure a double will return fine to any numeric variable
+}
+
+static void preferencesChanged() 
+{
+    CFPreferencesAppSynchronize((CFStringRef)kIdentifier);
+    reloadPrefs();
+
+	enabled = boolValueForKey(@"enabled", YES);
+	backgroundAlphaEnabled = boolValueForKey(@"backgroundAlphaEnabled", NO);
+	backgroundAlpha = numberForValue(@"backgroundAlpha", 1.0);
+	cornerRadiusEnabled = boolValueForKey(@"cornerRadiusEnabled", NO);
+	cornerRadius = numberForValue(@"cornerRadius", 10);
+	pinchToCloseEnabled = boolValueForKey(@"pinchToCloseEnabled", NO);
+	customFrameEnabled = boolValueForKey(@"customFrameEnabled", NO);
+	customCenteredFrameEnabled = boolValueForKey(@"customCenteredFrameEnabled", NO);
+	frameX = numberForValue(@"customFrameX", 0);
+	frameY = numberForValue(@"customFrameY", 0);
+	frameWidth = numberForValue(@"customFrameWidth", 300);
+	frameHeight = numberForValue(@"customFrameHeight", 300);
+	customLayoutEnabled = boolValueForKey(@"customLayoutEnabled", NO);
+	customLayoutRows = numberForValue(@"customLayoutRows", 4);
+	customLayoutColumns = numberForValue(@"customLayoutColumns", 4);
+    hideTitleEnabled = boolValueForKey(@"hideTitleEnabled", NO);
+    customTitleFontSizeEnabled = boolValueForKey(@"customTitleFontSizeEnabled", NO);
+    customTitleFontSize = numberForValue(@"customTitleFontSize", 36);
+    customTitleOffSetEnabled = boolValueForKey(@"customTitleOffSetEnabled", NO);
+    customTitleOffSet = numberForValue(@"customTitleOffSet", 0);
+	customTitleXOffSetEnabled = boolValueForKey(@"customTitleXOffSetEnabled", NO);
+    customTitleXOffSet = numberForValue(@"customTitleXOffSet", 0);
+	customFolderIconEnabled = boolValueForKey(@"customFolderIconEnabled", NO);
+    folderIconRows = numberForValue(@"folderIconRows", 3);
+	folderIconColumns = numberForValue(@"folderIconColumns", 3);
+	twoByTwoIconEnabled = boolValueForKey(@"twoByTwoIconEnabled", NO);
+	titleFontWeight = numberForValue(@"titleFontWeight", 1);
+	titleAlignment = numberForValue(@"titleAlignment", 1);
+	titleColorEnabled = boolValueForKey(@"titleColorEnabled", NO);
+	titleColor = [prefs valueForKey:@"titleColor"];
+	titleBackgroundEnabled = boolValueForKey(@"titleBackgroundEnabled", NO);
+	titleBackgroundColor = [prefs valueForKey:@"titleBackgroundColor"];
+	titleBackgroundCornerRadius = numberForValue(@"titleBackgroundCornerRadius", 10);
+	titleBackgroundBlurEnabled = boolValueForKey(@"titleBackgroundBlurEnabled", NO);
+	showInjectionAlerts = boolValueForKey(@"showInjectionAlerts", YES);
+	customBlurBackgroundEnabled = boolValueForKey(@"customBlurBackgroundEnabled", NO);
+	customBlurBackground = numberForValue(@"customBlurBackground", 1);
+	folderBackgroundColorEnabled = boolValueForKey(@"folderBackgroundColorEnabled", NO);
+	folderBackgroundColor = [prefs valueForKey:@"folderBackgroundColor"];
+	customTitleFontEnabled = boolValueForKey(@"customTitleFontEnabled", NO);
+	customTitleFont = [[prefs valueForKey:@"customTitleFont"] stringValue];
+	seizureModeEnabled = boolValueForKey(@"seizureModeEnabled", NO);
+	folderBackgroundBackgroundColorEnabled = boolValueForKey(@"folderBackgroundBackgroundColorEnabled", NO);
+	backgroundAlphaColor = numberForValue(@"backgroundAlphaColor", 0);
+	folderBackgroundBackgroundColor = [prefs valueForKey:@"folderBackgroundBackgroundColor"];
+	randomColorBackgroundEnabled = boolValueForKey(@"randomColorBackgroundEnabled", NO);
+	folderBackgroundColorWithGradientEnabled = boolValueForKey(@"folderBackgroundColorWithGradientEnabled", NO);
+	folderBackgroundColorWithGradient = [prefs valueForKey:@"folderBackgroundColorWithGradient"];
+	folderBackgroundColorWithGradientVerticalGradientEnabled = boolValueForKey(@"folderBackgroundColorWithGradientVerticalGradientEnabled", NO);
+	hideFolderGridEnabled = boolValueForKey(@"hideFolderGridEnabled", NO);
+	clearBackgroundIcons = boolValueForKey(@"clearBackgroundIcons", NO);
+	customWallpaperBlurEnabled = boolValueForKey(@"customWallpaperBlurEnabled", NO);
+	customWallpaperBlurFactor = numberForValue(@"customWallpaperBlurFactor", 1.0);
+	tapToCloseEnabled = boolValueForKey(@"tapToCloseEnabled", NO);
+	customTitleBoxWidthEnabled = boolValueForKey(@"customTitleBoxWidthEnabled", NO);
+	customTitleBoxHeightEnabled = boolValueForKey(@"customTitleBoxHeightEnabled", NO);
+	customTitleBoxWidth = numberForValue(@"customTitleBoxWidth", 100);
+	customTitleBoxHeight = numberForValue(@"customTitleBoxHeight", 50);
+	hideFolderIconBackground = boolValueForKey(@"hideFolderIconBackground", NO);
+
+
+	//Hopefully this works :D
+}

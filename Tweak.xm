@@ -385,7 +385,7 @@
 		  //This completely blocks the blur view from showing, as without this code it woul ocassionally show
 		  //However, sometimes it has caused a crash for people, so I am adding it as a @try and @catch
 	  } @catch (NSException *exception) {
-		  NSLog(@"[Folded]: Prevented a crash that would have occured due to the MTMaterial blurView of the icon background not existing.")
+		  NSLog(@"[Folded]: Prevented a crash that would have occured due to the MTMaterial blurView of the icon background not existing.");
 	  }
     self.backgroundView.alpha = 0;
     self.backgroundView.hidden = 1;
@@ -526,115 +526,6 @@
 %end
 
 %end
-
-
-#define kIdentifier @"xyz.burritoz.thomz.folded.prefs"
-#define kSettingsChangedNotification (CFStringRef)@"xyz.burritoz.thomz.folded.prefs/reload"
-#define kSettingsPath @"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
-
-static void *observer = NULL;
-
-static void reloadPrefs() 
-{
-    if ([NSHomeDirectory() isEqualToString:@"/var/mobile"]) 
-    {
-        CFArrayRef keyList = CFPreferencesCopyKeyList((CFStringRef)kIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-
-        if (keyList) 
-        {
-            prefs = (NSDictionary *)CFBridgingRelease(CFPreferencesCopyMultiple(keyList, (CFStringRef)kIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost));
-
-            if (!prefs) 
-            {
-                prefs = [NSDictionary new];
-            }
-            CFRelease(keyList);
-        }
-    } 
-    else 
-    {
-        prefs = [NSDictionary dictionaryWithContentsOfFile:kSettingsPath];
-    }
-}
-
-
-static BOOL boolValueForKey(NSString *key, BOOL defaultValue) {
-    return (prefs && [prefs objectForKey:key]) ? [[prefs objectForKey:key] boolValue] : defaultValue;
-}
-
-static double numberForValue(NSString *key, double defaultValue) {
-	return (prefs && [prefs objectForKey:key]) ?  [[prefs objectForKey:key] doubleValue] : defaultValue;
-	//I'm pretty sure a double will return fine to any numeric variable
-}
-
-static void preferencesChanged() 
-{
-    CFPreferencesAppSynchronize((CFStringRef)kIdentifier);
-    reloadPrefs();
-
-	enabled = boolValueForKey(@"enabled", YES);
-	backgroundAlphaEnabled = boolValueForKey(@"backgroundAlphaEnabled", NO);
-	backgroundAlpha = numberForValue(@"backgroundAlpha", 1.0);
-	cornerRadiusEnabled = boolValueForKey(@"cornerRadiusEnabled", NO);
-	cornerRadius = numberForValue(@"cornerRadius", 10);
-	pinchToCloseEnabled = boolValueForKey(@"pinchToCloseEnabled", NO);
-	customFrameEnabled = boolValueForKey(@"customFrameEnabled", NO);
-	customCenteredFrameEnabled = boolValueForKey(@"customCenteredFrameEnabled", NO);
-	frameX = numberForValue(@"customFrameX", 0);
-	frameY = numberForValue(@"customFrameY", 0);
-	frameWidth = numberForValue(@"customFrameWidth", 300);
-	frameHeight = numberForValue(@"customFrameHeight", 300);
-	customLayoutEnabled = boolValueForKey(@"customLayoutEnabled", NO);
-	customLayoutRows = numberForValue(@"customLayoutRows", 4);
-	customLayoutColumns = numberForValue(@"customLayoutColumns", 4);
-    hideTitleEnabled = boolValueForKey(@"hideTitleEnabled", NO);
-    customTitleFontSizeEnabled = boolValueForKey(@"customTitleFontSizeEnabled", NO);
-    customTitleFontSize = numberForValue(@"customTitleFontSize", 36);
-    customTitleOffSetEnabled = boolValueForKey(@"customTitleOffSetEnabled", NO);
-    customTitleOffSet = numberForValue(@"customTitleOffSet", 0);
-	customTitleXOffSetEnabled = boolValueForKey(@"customTitleXOffSetEnabled", NO);
-    customTitleXOffSet = numberForValue(@"customTitleXOffSet", 0);
-	customFolderIconEnabled = boolValueForKey(@"customFolderIconEnabled", NO);
-    folderIconRows = numberForValue(@"folderIconRows", 3);
-	folderIconColumns = numberForValue(@"folderIconColumns", 3);
-	twoByTwoIconEnabled = boolValueForKey(@"twoByTwoIconEnabled", NO);
-	titleFontWeight = numberForValue(@"titleFontWeight", 1);
-	titleAlignment = numberForValue(@"titleAlignment", 1);
-	titleColorEnabled = boolValueForKey(@"titleColorEnabled", NO);
-	titleColor = [prefs valueForKey:@"titleColor"];
-	titleBackgroundEnabled = boolValueForKey(@"titleBackgroundEnabled", NO);
-	titleBackgroundColor = [prefs valueForKey:@"titleBackgroundColor"];
-	titleBackgroundCornerRadius = numberForValue(@"titleBackgroundCornerRadius", 10);
-	titleBackgroundBlurEnabled = boolValueForKey(@"titleBackgroundBlurEnabled", NO);
-	showInjectionAlerts = boolValueForKey(@"showInjectionAlerts", YES);
-	customBlurBackgroundEnabled = boolValueForKey(@"customBlurBackgroundEnabled", NO);
-	customBlurBackground = numberForValue(@"customBlurBackground", 1);
-	folderBackgroundColorEnabled = boolValueForKey(@"folderBackgroundColorEnabled", NO);
-	folderBackgroundColor = [prefs valueForKey:@"folderBackgroundColor"];
-	customTitleFontEnabled = boolValueForKey(@"customTitleFontEnabled", NO);
-	customTitleFont = [[prefs valueForKey:@"customTitleFont"] stringValue];
-	seizureModeEnabled = boolValueForKey(@"seizureModeEnabled", NO);
-	folderBackgroundBackgroundColorEnabled = boolValueForKey(@"folderBackgroundBackgroundColorEnabled", NO);
-	backgroundAlphaColor = numberForValue(@"backgroundAlphaColor", 0);
-	folderBackgroundBackgroundColor = [prefs valueForKey:@"folderBackgroundBackgroundColor"];
-	randomColorBackgroundEnabled = boolValueForKey(@"randomColorBackgroundEnabled", NO);
-	folderBackgroundColorWithGradientEnabled = boolValueForKey(@"folderBackgroundColorWithGradientEnabled", NO);
-	folderBackgroundColorWithGradient = [prefs valueForKey:@"folderBackgroundColorWithGradient"];
-	folderBackgroundColorWithGradientVerticalGradientEnabled = boolValueForKey(@"folderBackgroundColorWithGradientVerticalGradientEnabled", NO);
-	hideFolderGridEnabled = boolValueForKey(@"hideFolderGridEnabled", NO);
-	clearBackgroundIcons = boolValueForKey(@"clearBackgroundIcons", NO);
-	customWallpaperBlurEnabled = boolValueForKey(@"customWallpaperBlurEnabled", NO);
-	customWallpaperBlurFactor = numberForValue(@"customWallpaperBlurFactor", 1.0);
-	tapToCloseEnabled = boolValueForKey(@"tapToCloseEnabled", NO);
-	customTitleBoxWidthEnabled = boolValueForKey(@"customTitleBoxWidthEnabled", NO);
-	customTitleBoxHeightEnabled = boolValueForKey(@"customTitleBoxHeightEnabled", NO);
-	customTitleBoxWidth = numberForValue(@"customTitleBoxWidth", 100);
-	customTitleBoxHeight = numberForValue(@"customTitleBoxHeight", 50);
-	hideFolderIconBackground = boolValueForKey(@"hideFolderIconBackground", NO);
-
-
-	//Hopefully this works :D
-}
 
 %ctor 
 {
