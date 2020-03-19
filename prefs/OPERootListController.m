@@ -55,7 +55,7 @@ NSDictionary *preferences;
         ]];
 
 		UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Pirated :("
-								message:@"Why would you pirate a free tweak ? Redownload Folded from repo.packix.com if you want to use it."
+								message:@"Why would you pirate a free tweak? Redownload Folded from repo.packix.com if you want to use it."
 								preferredStyle:UIAlertControllerStyleAlert];
 
 		if ([[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/info/xyz.burritoz.thomz.folded.list"]){
@@ -116,28 +116,6 @@ NSDictionary *preferences;
             self.titleLabel.alpha = 0.0;
         }];
     }
-}
-
--(void)respring:(id)sender {
-	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Respring"
-								message:@"Are you sure you want to respring?"
-								preferredStyle:UIAlertControllerStyleAlert];
-
-			UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
-			handler:^(UIAlertAction * action) {
-				NSTask *t = [[NSTask alloc] init];
-				[t setLaunchPath:@"/usr/bin/killall"];
-				[t setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
-				[t launch];
-			}];
-
-			UIAlertAction* no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault
-			handler:^(UIAlertAction * action) {}];
-
-			[alert addAction:yes];
-			[alert addAction:no];
-
-			[self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

@@ -176,18 +176,6 @@
 			<key>action</key>
 			<string>linkReddit</string>
 		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>action</key>
-			<string>respring:</string>
-			<key>label</key>
-			<string>Respring</string>
-		</dict>
 	</array>
 	<key>title</key>
 	<string>Folded</string>

@@ -96,8 +96,8 @@ BOOL customTitleFontEnabled;
 			UIAlertAction* no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault
 			handler:^(UIAlertAction * action) {}];
 
-			[alert addAction:yes];
 			[alert addAction:no];
+			[alert addAction:yes];
 
 			[self presentViewController:alert animated:YES completion:nil];
 	}
