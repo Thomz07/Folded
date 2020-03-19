@@ -23,7 +23,6 @@ NSDictionary *preferences;
 
 -(void)viewDidLoad {
 	[super viewDidLoad];
-	hasShownApplyAlert = NO;
 
 	UIBarButtonItem *applyButton = [[UIBarButtonItem alloc] initWithTitle:@"Apply" style:UIBarButtonItemStylePlain target:self action:@selector(apply:)];
     self.navigationItem.rightBarButtonItem = applyButton;
