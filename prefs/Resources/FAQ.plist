@@ -66,7 +66,7 @@
             <key>label</key>
             <string>Miscellaneous</string>
             <key>footerText</key>
-            <string>In the Miscellaneous section, you'll find simple options such as modifying the background alpha or set a custom corner radius. Seizure mode will make you folder background change colors really fast when you scroll.</string>
+            <string>In the Miscellaneous section, you'll find simple options such as modifying the background alpha or set a custom corner radius. Seizure mode will make you folder background change colors really fast when you scroll (this was a bug that was turned into something fun!) Additionally, you will find options to close the folder to your liking!.</string>
         </dict>
         <dict>
             <key>cell</key>

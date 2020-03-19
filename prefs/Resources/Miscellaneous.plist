@@ -102,6 +102,18 @@
 		</dict>
 		<dict>
 			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>tapToCloseEnabled</string>
+			<key>label</key>
+			<string>Tap Anywhere to Close</string>
+		</dict>
+		<dict>
+			<key>cell</key>
 			<string>PSGroupCell</string>
 		</dict>
 		<dict>

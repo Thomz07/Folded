@@ -146,6 +146,7 @@ BOOL hideFolderGridEnabled;
 BOOL clearBackgroundIcons;
 BOOL customWallpaperBlurEnabled;
 double customWallpaperBlurFactor;
+BOOL tapToCloseEnabled;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;

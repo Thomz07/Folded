@@ -50,6 +50,15 @@
 	}
 }
 
+-(BOOL)_tapToCloseGestureRecognizer:(id)arg1 shouldReceiveTouch:(id)arg2 {
+  %orig;
+  if (enabled && tapToCloseEnabled) {
+    return (YES); //This lets the tap recognizer recieve touch everywhere, even on the folder background itself.
+  } else {
+    return %orig;
+  }
+}
+
 %new
 - (UIColor *)randomColor {
 
@@ -556,6 +565,7 @@ static void preferencesChanged()
 	clearBackgroundIcons = boolValueForKey(@"clearBackgroundIcons", NO);
 	customWallpaperBlurEnabled = boolValueForKey(@"customWallpaperBlurEnabled", NO);
 	customWallpaperBlurFactor = numberForValue(@"customWallpaperBlurFactor", 1.0);
+	tapToCloseEnabled = boolValueForKey(@"tapToCloseEnabled", NO);
 
 
 	//Hopefully this works :D
