@@ -345,7 +345,7 @@
 
 -(NSUInteger)numberOfPortraitColumns {
   [self getLocations];
-    if (self.isFolder && enabled) {
+    if (self.isFolder && enabled && customLayoutEnabled) {
 		if (hasProcessLaunched) {
 		return (customLayoutColumns);
 		} else if (customFolderIconEnabled) {
@@ -363,7 +363,7 @@
 
 -(NSUInteger)numberOfPortraitRows {
   [self getLocations];
-  if (self.isFolder && enabled) {
+  if (self.isFolder && enabled && customLayoutEnabled) {
 		if (hasProcessLaunched) {
 			return (customLayoutRows);
 		} else if (customFolderIconEnabled) {
@@ -469,9 +469,13 @@ static void reloadPrefs()
 }
 
 
-static BOOL boolValueForKey(NSString *key, BOOL defaultValue) 
-{
+static BOOL boolValueForKey(NSString *key, BOOL defaultValue) {
     return (prefs && [prefs objectForKey:key]) ? [[prefs objectForKey:key] boolValue] : defaultValue;
+}
+
+static double numberForValue(NSString *key, double defaultValue) {
+	return (prefs && [prefs objectForKey:key]) ?  [[prefs objectForKey:key] doubleValue] : defaultValue;
+	//I'm pretty sure a double will return fine to any numeric variable
 }
 
 static void preferencesChanged() 
@@ -480,54 +484,55 @@ static void preferencesChanged()
     reloadPrefs();
 
 	enabled = boolValueForKey(@"enabled", YES);
-	backgroundAlphaEnabled = [[prefs objectForKey:@"backgroundAlphaEnabled"] boolValue];
-	backgroundAlpha = [[prefs objectForKey:@"backgroundAlpha"] doubleValue];
-	cornerRadiusEnabled = [[prefs objectForKey:@"cornerRadiusEnabled"] boolValue];
-	cornerRadius = [[prefs objectForKey:@"cornerRadius"] doubleValue];
-	pinchToCloseEnabled = [[prefs objectForKey:@"pinchToCloseEnabled"] boolValue];
-	customFrameEnabled = [[prefs objectForKey:@"customFrameEnabled"] boolValue];
-	customCenteredFrameEnabled = [[prefs objectForKey:@"customCenteredFrameEnabled"] boolValue];
-	frameX = [[prefs valueForKey:@"customFrameX"] floatValue];
-	frameY = [[prefs valueForKey:@"customFrameY"] floatValue];
-	frameWidth = [[prefs valueForKey:@"customFrameWidth"] floatValue];
-	frameHeight = [[prefs valueForKey:@"customFrameHeight"] floatValue];
-	customLayoutEnabled = [[prefs objectForKey:@"customLayoutEnabled"] boolValue];
-	customLayoutRows = [[prefs objectForKey:@"customLayoutRows"] longLongValue];
-	customLayoutColumns = [[prefs objectForKey:@"customLayoutColumns"] longLongValue];
-    hideTitleEnabled = [[prefs objectForKey:@"hideTitleEnabled"] boolValue];
-    customTitleFontSizeEnabled = [[prefs objectForKey:@"customTitleFontSizeEnabled"] boolValue];
-    customTitleFontSize = [[prefs objectForKey:@"customTitleFontSize"] doubleValue];
-    customTitleOffSetEnabled = [[prefs objectForKey:@"customTitleOffSetEnabled"] boolValue];
-    customTitleOffSet = [[prefs objectForKey:@"customTitleOffSet"] doubleValue];
-	customFolderIconEnabled = [[prefs objectForKey:@"customFolderIconEnabled"] boolValue];
-    folderIconRows = [[prefs objectForKey:@"folderIconRows"] longLongValue];
-	folderIconColumns = [[prefs objectForKey:@"folderIconColumns"] longLongValue];
-	twoByTwoIconEnabled = [[prefs objectForKey:@"twoByTwoIconEnabled"] boolValue];
-	titleFontWeight = [[prefs objectForKey:@"titleFontWeight"] intValue];
-	titleAlignment = [[prefs objectForKey:@"titleAlignment"] intValue];
-	titleColorEnabled = [[prefs objectForKey:@"titleColorEnabled"] boolValue];
+	backgroundAlphaEnabled = boolValueForKey(@"backgroundAlphaEnabled", NO);
+	backgroundAlpha = numberForValue(@"backgroundAlpha", 1.0);
+	cornerRadiusEnabled = boolValueForKey(@"cornerRadiusEnabled", NO);
+	cornerRadius = numberForValue(@"cornerRadius", 10);
+	pinchToCloseEnabled = boolValueForKey(@"pinchToCloseEnabled", NO);
+	customFrameEnabled = boolValueForKey(@"customFrameEnabled", NO);
+	customCenteredFrameEnabled = boolValueForKey(@"customCenteredFrameEnabled", NO);
+	frameX = numberForValue(@"customFrameX", 0);
+	frameY = numberForValue(@"customFrameY", 0);
+	frameWidth = numberForValue(@"customFrameWidth", 300);
+	frameHeight = numberForValue(@"customFrameHeight", 300);
+	customLayoutEnabled = boolValueForKey(@"customLayoutEnabled", NO);
+	customLayoutRows = numberForValue(@"customLayoutRows", 4);
+	customLayoutColumns = numberForValue(@"customLayoutColumns", 4);
+    hideTitleEnabled = boolValueForKey(@"hideTitleEnabled", NO);
+    customTitleFontSizeEnabled = boolValueForKey(@"customTitleFontSizeEnabled", NO);
+    customTitleFontSize = numberForValue(@"customTitleFontSize", 36);
+    customTitleOffSetEnabled = boolValueForKey(@"customTitleOffSetEnabled", NO);
+    customTitleOffSet = numberForValue(@"customTitleOffSet", 0);
+	customFolderIconEnabled = boolValueForKey(@"customFolderIconEnabled", NO);
+    folderIconRows = numberForValue(@"folderIconRows", 3);
+	folderIconColumns = numberForValue(@"folderIconColumns", 3);
+	twoByTwoIconEnabled = boolValueForKey(@"twoByTwoIconEnabled", NO);
+	titleFontWeight = numberForValue(@"titleFontWeight", 1);
+	titleAlignment = numberForValue(@"titleAlignment", 1);
+	titleColorEnabled = boolValueForKey(@"titleColorEnabled", NO);
 	titleColor = [prefs valueForKey:@"titleColor"];
-	titleBackgroundEnabled = [[prefs objectForKey:@"titleBackgroundEnabled"] boolValue];
+	titleBackgroundEnabled = boolValueForKey(@"titleBackgroundEnabled", NO);
 	titleBackgroundColor = [prefs valueForKey:@"titleBackgroundColor"];
-	titleBackgroundCornerRadius = [[prefs objectForKey:@"titleBackgroundCornerRadius"] doubleValue];
-	titleBackgroundBlurEnabled = [[prefs objectForKey:@"titleBackgroundBlurEnabled"] boolValue];
-	showInjectionAlerts = [[prefs objectForKey:@"showInjectionAlerts"] boolValue];
-	customBlurBackgroundEnabled = [[prefs objectForKey:@"customBlurBackgroundEnabled"] boolValue];
-	customBlurBackground = [[prefs objectForKey:@"customBlurBackground"] intValue];
-	folderBackgroundColorEnabled = [[prefs objectForKey:@"folderBackgroundColorEnabled"] boolValue];
+	titleBackgroundCornerRadius = numberForValue(@"titleBackgroundCornerRadius", 10);
+	titleBackgroundBlurEnabled = boolValueForKey(@"titleBackgroundBlurEnabled", NO);
+	showInjectionAlerts = boolValueForKey(@"showInjectionAlerts", YES);
+	customBlurBackgroundEnabled = boolValueForKey(@"customBlurBackgroundEnabled", NO);
+	customBlurBackground = numberForValue(@"customBlurBackground", 1);
+	folderBackgroundColorEnabled = boolValueForKey(@"folderBackgroundColorEnabled", NO);
 	folderBackgroundColor = [prefs valueForKey:@"folderBackgroundColor"];
-	customTitleFontEnabled = [[prefs valueForKey:@"customTitleFontEnabled"] boolValue];
+	customTitleFontEnabled = boolValueForKey(@"customTitleFontEnabled", NO);
 	customTitleFont = [[prefs valueForKey:@"customTitleFont"] stringValue];
-	seizureModeEnabled = [[prefs objectForKey:@"seizureModeEnabled"] boolValue];
-	folderBackgroundBackgroundColorEnabled = [[prefs objectForKey:@"folderBackgroundBackgroundColorEnabled"] boolValue];
-	backgroundAlphaColor = [[prefs objectForKey:@"backgroundAlphaColor"] doubleValue];
+	seizureModeEnabled = boolValueForKey(@"seizureModeEnabled", NO);
+	folderBackgroundBackgroundColorEnabled = boolValueForKey(@"folderBackgroundBackgroundColorEnabled", NO);
+	backgroundAlphaColor = numberForValue(@"backgroundAlphaColor", 0);
 	folderBackgroundBackgroundColor = [prefs valueForKey:@"folderBackgroundBackgroundColor"];
-	randomColorBackgroundEnabled = [[prefs objectForKey:@"randomColorBackgroundEnabled"] boolValue];
-	folderBackgroundColorWithGradientEnabled = [[prefs objectForKey:@"folderBackgroundColorWithGradientEnabled"] boolValue];
+	randomColorBackgroundEnabled = boolValueForKey(@"randomColorBackgroundEnabled", NO);
+	folderBackgroundColorWithGradientEnabled = boolValueForKey(@"folderBackgroundColorWithGradientEnabled", NO);
 	folderBackgroundColorWithGradient = [prefs valueForKey:@"folderBackgroundColorWithGradient"];
-	folderBackgroundColorWithGradientVerticalGradientEnabled = [[prefs objectForKey:@"folderBackgroundColorWithGradientVerticalGradientEnabled"] boolValue];
-	hideFolderGridEnabled = [[prefs objectForKey:@"hideFolderGridEnabled"] boolValue];
+	folderBackgroundColorWithGradientVerticalGradientEnabled = boolValueForKey(@"folderBackgroundColorWithGradientVerticalGradientEnabled", NO);
+	hideFolderGridEnabled = boolValueForKey(@"hideFolderGridEnabled", NO);
 
+	//Hopefully this works :D
 }
 
 %ctor 
