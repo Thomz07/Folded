@@ -228,7 +228,7 @@
 %end
 
 %group ios13
-
+/*
 %hook SBIconGridImage
 
 -(NSUInteger)numberOfColumns {
@@ -288,7 +288,7 @@
 }
 
 %end
-
+*/
 %hook SBHFolderSettings
 
 -(BOOL)pinchToClose { // enable pinch to close again
@@ -437,13 +437,116 @@
 %end
 %end
 
-%ctor{ // reloading prefs
-	reloadPrefs();
+
+
+#define kIdentifier @"xyz.burritoz.thomz.folded.prefs"
+#define kSettingsChangedNotification (CFStringRef)@"xyz.burritoz.thomz.folded.prefs/reload"
+#define kSettingsPath @"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
+
+static void *observer = NULL;
+
+static void reloadPrefs() 
+{
+    if ([NSHomeDirectory() isEqualToString:@"/var/mobile"]) 
+    {
+        CFArrayRef keyList = CFPreferencesCopyKeyList((CFStringRef)kIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+
+        if (keyList) 
+        {
+            prefs = (NSDictionary *)CFBridgingRelease(CFPreferencesCopyMultiple(keyList, (CFStringRef)kIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost));
+
+            if (!prefs) 
+            {
+                prefs = [NSDictionary new];
+            }
+            CFRelease(keyList);
+        }
+    } 
+    else 
+    {
+        prefs = [NSDictionary dictionaryWithContentsOfFile:kSettingsPath];
+    }
+}
+
+
+static BOOL boolValueForKey(NSString *key, BOOL defaultValue) 
+{
+    return (prefs && [prefs objectForKey:key]) ? [[prefs objectForKey:key] boolValue] : defaultValue;
+}
+
+static void preferencesChanged() 
+{
+    CFPreferencesAppSynchronize((CFStringRef)kIdentifier);
+    reloadPrefs();
+
+	enabled = boolValueForKey(@"enabled", YES);
+	backgroundAlphaEnabled = [[prefs objectForKey:@"backgroundAlphaEnabled"] boolValue];
+	backgroundAlpha = [[prefs objectForKey:@"backgroundAlpha"] doubleValue];
+	cornerRadiusEnabled = [[prefs objectForKey:@"cornerRadiusEnabled"] boolValue];
+	cornerRadius = [[prefs objectForKey:@"cornerRadius"] doubleValue];
+	pinchToCloseEnabled = [[prefs objectForKey:@"pinchToCloseEnabled"] boolValue];
+	customFrameEnabled = [[prefs objectForKey:@"customFrameEnabled"] boolValue];
+	customCenteredFrameEnabled = [[prefs objectForKey:@"customCenteredFrameEnabled"] boolValue];
+	frameX = [[prefs valueForKey:@"customFrameX"] floatValue];
+	frameY = [[prefs valueForKey:@"customFrameY"] floatValue];
+	frameWidth = [[prefs valueForKey:@"customFrameWidth"] floatValue];
+	frameHeight = [[prefs valueForKey:@"customFrameHeight"] floatValue];
+	customLayoutEnabled = [[prefs objectForKey:@"customLayoutEnabled"] boolValue];
+	customLayoutRows = [[prefs objectForKey:@"customLayoutRows"] longLongValue];
+	customLayoutColumns = [[prefs objectForKey:@"customLayoutColumns"] longLongValue];
+    hideTitleEnabled = [[prefs objectForKey:@"hideTitleEnabled"] boolValue];
+    customTitleFontSizeEnabled = [[prefs objectForKey:@"customTitleFontSizeEnabled"] boolValue];
+    customTitleFontSize = [[prefs objectForKey:@"customTitleFontSize"] doubleValue];
+    customTitleOffSetEnabled = [[prefs objectForKey:@"customTitleOffSetEnabled"] boolValue];
+    customTitleOffSet = [[prefs objectForKey:@"customTitleOffSet"] doubleValue];
+	customFolderIconEnabled = [[prefs objectForKey:@"customFolderIconEnabled"] boolValue];
+    folderIconRows = [[prefs objectForKey:@"folderIconRows"] longLongValue];
+	folderIconColumns = [[prefs objectForKey:@"folderIconColumns"] longLongValue];
+	twoByTwoIconEnabled = [[prefs objectForKey:@"twoByTwoIconEnabled"] boolValue];
+	titleFontWeight = [[prefs objectForKey:@"titleFontWeight"] intValue];
+	titleAlignment = [[prefs objectForKey:@"titleAlignment"] intValue];
+	titleColorEnabled = [[prefs objectForKey:@"titleColorEnabled"] boolValue];
+	titleColor = [prefs valueForKey:@"titleColor"];
+	titleBackgroundEnabled = [[prefs objectForKey:@"titleBackgroundEnabled"] boolValue];
+	titleBackgroundColor = [prefs valueForKey:@"titleBackgroundColor"];
+	titleBackgroundCornerRadius = [[prefs objectForKey:@"titleBackgroundCornerRadius"] doubleValue];
+	titleBackgroundBlurEnabled = [[prefs objectForKey:@"titleBackgroundBlurEnabled"] boolValue];
+	showInjectionAlerts = [[prefs objectForKey:@"showInjectionAlerts"] boolValue];
+	customBlurBackgroundEnabled = [[prefs objectForKey:@"customBlurBackgroundEnabled"] boolValue];
+	customBlurBackground = [[prefs objectForKey:@"customBlurBackground"] intValue];
+	folderBackgroundColorEnabled = [[prefs objectForKey:@"folderBackgroundColorEnabled"] boolValue];
+	folderBackgroundColor = [prefs valueForKey:@"folderBackgroundColor"];
+	customTitleFontEnabled = [[prefs valueForKey:@"customTitleFontEnabled"] boolValue];
+	customTitleFont = [[prefs valueForKey:@"customTitleFont"] stringValue];
+	seizureModeEnabled = [[prefs objectForKey:@"seizureModeEnabled"] boolValue];
+	folderBackgroundBackgroundColorEnabled = [[prefs objectForKey:@"folderBackgroundBackgroundColorEnabled"] boolValue];
+	backgroundAlphaColor = [[prefs objectForKey:@"backgroundAlphaColor"] doubleValue];
+	folderBackgroundBackgroundColor = [prefs valueForKey:@"folderBackgroundBackgroundColor"];
+	randomColorBackgroundEnabled = [[prefs objectForKey:@"randomColorBackgroundEnabled"] boolValue];
+	folderBackgroundColorWithGradientEnabled = [[prefs objectForKey:@"folderBackgroundColorWithGradientEnabled"] boolValue];
+	folderBackgroundColorWithGradient = [prefs valueForKey:@"folderBackgroundColorWithGradient"];
+	folderBackgroundColorWithGradientVerticalGradientEnabled = [[prefs objectForKey:@"folderBackgroundColorWithGradientVerticalGradientEnabled"] boolValue];
+	hideFolderGridEnabled = [[prefs objectForKey:@"hideFolderGridEnabled"] boolValue];
+
+}
+
+%ctor 
+{
+    preferencesChanged();
+
+    CFNotificationCenterAddObserver(
+        CFNotificationCenterGetDarwinNotifyCenter(),
+        &observer,
+        (CFNotificationCallback)preferencesChanged,
+        kSettingsChangedNotification,
+        NULL,
+        CFNotificationSuspensionBehaviorDeliverImmediately
+    );
 	hasProcessLaunched = NO;
 	hasInjectionFailed = NO;
     hasShownFailureAlert = NO;
 
-	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
+	//CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
 
 	%init(SBFloatyFolderView);
 	%init(SBFolderTitleTextField);

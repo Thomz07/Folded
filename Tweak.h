@@ -7,6 +7,7 @@
 #include <CSColorPicker/CSColorPicker.h>
 
 #define PLIST_PATH @"/User/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
+NSDictionary *prefs = nil;
 
 inline NSString *StringForPreferenceKey(NSString *key) {
     NSDictionary *prefs = [NSDictionary dictionaryWithContentsOfFile:PLIST_PATH] ? : [NSDictionary new];
@@ -94,7 +95,7 @@ inline NSString *StringForPreferenceKey(NSString *key) {
 
 // Preferences keys
 NSDictionary *preferences;
-BOOL enabled;
+BOOL enabled = YES;
 BOOL backgroundAlphaEnabled;
 double backgroundAlpha;
 BOOL cornerRadiusEnabled;
@@ -147,6 +148,7 @@ BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
 BOOL hasShownFailureAlert;
 
+/*
 //Reloading the prefs (duh) 
 static void reloadPrefs(){
 	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
@@ -198,4 +200,4 @@ static void reloadPrefs(){
 	folderBackgroundColorWithGradient = [preferences valueForKey:@"folderBackgroundColorWithGradient"];
 	folderBackgroundColorWithGradientVerticalGradientEnabled = [[preferences objectForKey:@"folderBackgroundColorWithGradientVerticalGradientEnabled"] boolValue];
 	hideFolderGridEnabled = [[preferences objectForKey:@"hideFolderGridEnabled"] boolValue];
-}
+}*/
