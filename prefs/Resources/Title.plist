@@ -114,6 +114,34 @@
 			<key>defaults</key>
 			<string>xyz.burritoz.thomz.folded.prefs</string>
 			<key>key</key>
+			<string>customTitleXOffSetEnabled</string>
+			<key>label</key>
+			<string>Custom Title X Offset</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>min</key>
+			<integer>0</integer>
+			<key>max</key>
+			<integer>700</integer>
+			<key>isSegmented</key>
+			<false/>
+			<key>showValue</key>
+			<true/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>customTitleXOffSet</string>
+		</dict>
+		<dict>
+        	<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
 			<string>customTitleBoxWidthEnabled</string>
 			<key>label</key>
 			<string>Custom Title Box Width</string>

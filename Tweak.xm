@@ -148,37 +148,34 @@
     	[self setFont:[UIFont fontWithName:customTitleFont size:(self.font.pointSize)]];
 	}
 
-	CGRect modifiedFrame = self.frame;
+	CGFloat modifiedOriginX = self.frame.origin.x; //yeah, theres a reason this is frame and not bounds
+	CGFloat modifiedOriginY = self.bounds.origin.y;
+	CGFloat modifiedWidth = self.bounds.size.width;
+	CGFloat modifiedHeight = self.bounds.size.height;
+
+	if(enabled && customTitleXOffSetEnabled) {
+		modifiedOriginX = customTitleXOffSet;
+	}
 
 	if(enabled && customTitleOffSetEnabled){
-		modifiedFrame = CGRectMake(
-			modifiedFrame.origin.x,
-			(modifiedFrame.origin.y)+customTitleOffSet,
-			modifiedFrame.size.width,
-			modifiedFrame.size.height
-			);
+		modifiedOriginY = (modifiedOriginY + customTitleOffSet);
 	}
 
 	if(enabled && customTitleBoxWidthEnabled) {
-		modifiedFrame = CGRectMake(
-			modifiedFrame.origin.x,
-			modifiedFrame.origin.y,
-			customTitleBoxWidth,
-			modifiedFrame.size.height
-			);
+		modifiedWidth = customTitleBoxWidth;
 	}
 
 	if(enabled && customTitleBoxHeightEnabled) {
-		modifiedFrame = CGRectMake(
-			modifiedFrame.origin.x,
-			modifiedFrame.origin.y,
-			modifiedFrame.size.width,
-			customTitleBoxHeight
-			);
+		modifiedHeight = customTitleBoxHeight;
 	}
 
-	if(enabled && (customTitleBoxWidthEnabled || customTitleBoxHeightEnabled || customTitleOffSetEnabled)) {
-		[self setFrame:modifiedFrame];
+	if(enabled && (customTitleBoxWidthEnabled || customTitleBoxHeightEnabled || customTitleOffSetEnabled || customTitleXOffSetEnabled)) {
+		[self setFrame: CGRectMake(
+			modifiedOriginX,
+			modifiedOriginY,
+			modifiedWidth,
+			modifiedHeight
+		)];
 	}
 
 }
@@ -564,6 +561,8 @@ static void preferencesChanged()
     customTitleFontSize = numberForValue(@"customTitleFontSize", 36);
     customTitleOffSetEnabled = boolValueForKey(@"customTitleOffSetEnabled", NO);
     customTitleOffSet = numberForValue(@"customTitleOffSet", 0);
+	customTitleXOffSetEnabled = boolValueForKey(@"customTitleXOffSetEnabled", NO);
+    customTitleXOffSet = numberForValue(@"customTitleXOffSet", 0);
 	customFolderIconEnabled = boolValueForKey(@"customFolderIconEnabled", NO);
     folderIconRows = numberForValue(@"folderIconRows", 3);
 	folderIconColumns = numberForValue(@"folderIconColumns", 3);

@@ -115,6 +115,8 @@ BOOL customTitleFontSizeEnabled;
 double customTitleFontSize;
 BOOL customTitleOffSetEnabled;
 double customTitleOffSet;
+BOOL customTitleXOffSetEnabled;
+double customTitleXOffSet;
 BOOL customFolderIconEnabled;
 long long folderIconRows;
 long long folderIconColumns;
