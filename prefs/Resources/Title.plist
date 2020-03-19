@@ -66,7 +66,7 @@
 			<key>label</key>
 			<string>Custom Title Font</string>
         </dict>
-		<dict>
+		<!--<dict>
             <key>cell</key>
             <string>PSEditTextCell</string>
             <key>label</key>
@@ -77,6 +77,92 @@
             <string>customTitleFont</string>
             <key>isNumeric</key>
             <false/>
+        </dict>-->
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>key</key>
+			<string>customTitleFont</string>
+			<key>label</key>
+			<string>Font</string>
+			<key>validTitles</key>
+			<array>
+				<string>Arial</string>
+				<string>Georgia</string>
+				<string>Verdana</string>
+				<string>AcademyEngraved</string>
+				<string>AlNile</string>
+				<string>AppleGothic</string>
+				<string>Athelas</string>
+				<string>ChalkDuster</string>
+				<string>Charter</string>
+				<string>Cochin</string>
+				<string>Damascus</string>
+				<string>Didot</string>
+				<string>Farah</string>
+				<string>GillSans</string>
+				<string>Marion</string>
+				<string>Mishafi</string>
+				<string>NoteWorthy</string>
+				<string>Optima</string>
+				<string>Palatino</string>
+				<string>Papyrus</string>
+				<string>STIXGeneral</string>
+				<string>Seravek</string>
+				<string>SnellRoundhand</string>
+				<string>SuperClarendon</string>
+				<string>Zapfino</string>
+				<string>AmericanTypewriter</string>
+				<string>Baskerville</string>
+				<string>BebasNeue</string>
+				<string>CopperPlate</string>
+				<string>Menlo</string>
+				<string>Rockwell</string>
+				<string>TrebuchetMS</string>
+			</array>
+			<key>validValues</key>
+			<array>
+				<string>Arial</string>
+				<string>Georgia</string>
+				<string>Verdana</string>
+				<string>AcademyEngraved</string>
+				<string>AlNile</string>
+				<string>AppleGothic</string>
+				<string>Athelas</string>
+				<string>ChalkDuster</string>
+				<string>Charter</string>
+				<string>Cochin</string>
+				<string>Damascus</string>
+				<string>Didot</string>
+				<string>Farah</string>
+				<string>GillSans</string>
+				<string>Marion</string>
+				<string>Mishafi</string>
+				<string>NoteWorthy</string>
+				<string>Optima</string>
+				<string>Palatino</string>
+				<string>Papyrus</string>
+				<string>STIXGeneral</string>
+				<string>Seravek</string>
+				<string>SnellRoundhand</string>
+				<string>SuperClarendon</string>
+				<string>Zapfino</string>
+				<string>AmericanTypewriter</string>
+				<string>Baskerville</string>
+				<string>BebasNeue</string>
+				<string>CopperPlate</string>
+				<string>Menlo</string>
+				<string>Rockwell</string>
+				<string>TrebuchetMS</string>
+			</array>
+		</dict>
+		<dict>
+        	<key>cell</key>
+        	<string>PSGroupCell</string>
         </dict>
 		<dict>
         	<key>cell</key>
