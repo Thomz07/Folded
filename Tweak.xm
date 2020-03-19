@@ -220,6 +220,8 @@
   }
 }
 
+%end
+
 %hook SBFolderIconListView // layout for iOS 12
 
 + (unsigned long long)maxVisibleIconRowsInterfaceOrientation:(long long)arg1 {
