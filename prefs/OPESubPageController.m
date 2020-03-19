@@ -48,9 +48,11 @@ BOOL customTitleFontEnabled;
 -(void)viewDidLoad {
 	[super viewDidLoad];
 	[self removeSegments];
-	hasShownApplyAlert = NO;
-	UIBarButtonItem *applyButton = [[UIBarButtonItem alloc] initWithTitle:@"Apply" style:UIBarButtonItemStylePlain target:self action:@selector(apply:)];
-    self.navigationItem.rightBarButtonItem = applyButton;
+	if (![self.sub isEqualToString:@"FAQ"]) {
+		hasShownApplyAlert = NO;
+		UIBarButtonItem *applyButton = [[UIBarButtonItem alloc] initWithTitle:@"Apply" style:UIBarButtonItemStylePlain target:self action:@selector(apply:)];
+		self.navigationItem.rightBarButtonItem = applyButton;
+	}
 }
 
 -(void)reloadSpecifiers {
@@ -66,7 +68,7 @@ BOOL customTitleFontEnabled;
 	
 	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
 
-	if (!hasShownApplyAlert) {
+	if (!hasShownApplyAlert && !([self.sub isEqualToString:@"Layout"] || [self.sub isEqualToString:@"Icon"])) {
 		UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
 								message:@"Your settings have been applied. Some settings, not many, may require a respring."
 								preferredStyle:UIAlertControllerStyleAlert];
@@ -78,6 +80,26 @@ BOOL customTitleFontEnabled;
 			[self presentViewController:alert animated:YES completion:nil];
 			
 			hasShownApplyAlert = YES;
+	} else if([self.sub isEqualToString:@"Layout"] || [self.sub isEqualToString:@"Icon"]) {
+		UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Respring"
+								message:@"This section requires a respring for changes to apply. Are you sure you want to respring?"
+								preferredStyle:UIAlertControllerStyleAlert];
+
+			UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
+			handler:^(UIAlertAction * action) {
+				NSTask *t = [[NSTask alloc] init];
+				[t setLaunchPath:@"/usr/bin/killall"];
+				[t setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
+				[t launch];
+			}];
+
+			UIAlertAction* no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault
+			handler:^(UIAlertAction * action) {}];
+
+			[alert addAction:yes];
+			[alert addAction:no];
+
+			[self presentViewController:alert animated:YES completion:nil];
 	}
 }
 

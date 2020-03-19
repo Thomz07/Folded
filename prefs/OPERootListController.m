@@ -3,7 +3,6 @@
 @implementation OPERootListController
 
 NSDictionary *preferences;
-BOOL hasShownApplyAlert;
 
 - (NSArray *)specifiers {
 	if (!_specifiers) {
@@ -75,20 +74,24 @@ BOOL hasShownApplyAlert;
          });
 
 	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
+	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
+							message:@"Your settings have been applied. Some settings, not many, may require a respring. \n Would you like to respring as well?"
+							preferredStyle:UIAlertControllerStyleAlert];
 
-	if (!hasShownApplyAlert) {
-		UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
-								message:@"Your settings have been applied. Some settings, not many, may require a respring."
-								preferredStyle:UIAlertControllerStyleAlert];
+		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault
+		handler:^(UIAlertAction * action) {}];
+		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
+		handler:^(UIAlertAction * action) {
+			NSTask *t = [[NSTask alloc] init];
+			[t setLaunchPath:@"/usr/bin/killall"];
+			[t setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
+			[t launch];
+		}];
 
-			UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cool!" style:UIAlertActionStyleDefault
-			handler:^(UIAlertAction * action) {}];
-
-			[alert addAction:defaultAction];
-			[self presentViewController:alert animated:YES completion:nil];
-
-			hasShownApplyAlert = YES;
-	}
+		[alert addAction:defaultAction];
+		[alert addAction:yes];
+		[self presentViewController:alert animated:YES completion:nil];
+	
 }
 
 -(void)linkTwitter {
@@ -118,7 +121,7 @@ BOOL hasShownApplyAlert;
 
 -(void)respring:(id)sender {
 	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Respring"
-								message:@"Are you sure you want to respring ?"
+								message:@"Are you sure you want to respring?"
 								preferredStyle:UIAlertControllerStyleAlert];
 
 			UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive

@@ -20,3 +20,10 @@
 
 @interface ThomzScreenSizeCell : PSTableCell
 @end
+
+@interface NSTask : NSObject
+@property(copy) NSArray *arguments;
+@property(copy) NSString *launchPath;
+- (id)init;
+- (void)launch;
+@end
