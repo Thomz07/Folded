@@ -210,6 +210,16 @@
 
 %end
 
+%hook SBIconBlurryBackgroundView
+
+-(BOOL)isBlurring {
+  if (enabled && hideFolderIconBackground) {
+    return NO;
+  } else {
+    return %orig;
+  }
+}
+
 %hook SBFolderIconListView // layout for iOS 12
 
 + (unsigned long long)maxVisibleIconRowsInterfaceOrientation:(long long)arg1 {
@@ -362,6 +372,23 @@
 }
 
 %end
+
+%hook SBFolderIconImageView
+
+-(void)layoutSubviews { //I'm sorry for using layoutSubviews, there's probably a better way
+  %orig; //I want to run the original stuff first
+  if (hideFolderIconBackground) {
+	  @try {
+		  self.backgroundView.blurView.hidden = 1;
+		  //This completely blocks the blur view from showing, as without this code it woul ocassionally show
+		  //However, sometimes it has caused a crash for people, so I am adding it as a @try and @catch
+	  } @catch (NSException *exception) {
+		  NSLog(@"[Folded]: Prevented a crash that would have occured due to the MTMaterial blurView of the icon background not existing.")
+	  }
+    self.backgroundView.alpha = 0;
+    self.backgroundView.hidden = 1;
+  }
+}
 
 %hook SBIconListGridLayoutConfiguration
 %property (nonatomic, assign) BOOL isFolder;
@@ -599,6 +626,7 @@ static void preferencesChanged()
 	customTitleBoxHeightEnabled = boolValueForKey(@"customTitleBoxHeightEnabled", NO);
 	customTitleBoxWidth = numberForValue(@"customTitleBoxWidth", 100);
 	customTitleBoxHeight = numberForValue(@"customTitleBoxHeight", 50);
+	hideFolderIconBackground = boolValueForKey(@"hideFolderIconBackground", NO);
 
 
 	//Hopefully this works :D
@@ -627,9 +655,9 @@ static void preferencesChanged()
 	%init(SBFolderBackgroundView);
 	%init(SBFolderBackgroundMaterialSettings); //this doesn't exist on ios13
 	%init(other);
+	%init(_SBIconGridWrapperView);
 	if(kCFCoreFoundationVersionNumber < 1600){
 		%init(ios12);
-		%init(_SBIconGridWrapperView);
 	} else {
 		%init(ios13);
 	}

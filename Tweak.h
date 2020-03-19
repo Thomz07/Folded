@@ -91,6 +91,18 @@ inline NSString *StringForPreferenceKey(NSString *key) {
 -(void)layoutSubviews;
 @end
 
+//DO NOT USE THESE NEXT TWO INTERFACES, THEY ARE MOSTLY INACCURATE, SAME ONES I USED IN CARTELLA
+@interface SBWallpaperEffectView : UIView
+@property (nonatomic, retain) UIView *blurView;
+@end
+
+@interface SBFolderIconImageView : UIView
+@property (nonatomic, retain) SBWallpaperEffectView *backgroundView; //This isn't really what the headers say...
+@property (nonatomic, assign) CGFloat aplha;
+@end
+
+//////////////////
+
 // Defining global variables and methods
 
 // Preferences keys
@@ -153,61 +165,8 @@ BOOL customTitleBoxWidthEnabled;
 double customTitleBoxWidth;
 BOOL customTitleBoxHeightEnabled;
 double customTitleBoxHeight;
+BOOL hideFolderIconBackground;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
 BOOL hasShownFailureAlert;
-
-/*
-//Reloading the prefs (duh) 
-static void reloadPrefs(){
-	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
-	enabled = [[preferences objectForKey:@"enabled"] boolValue];
-	backgroundAlphaEnabled = [[preferences objectForKey:@"backgroundAlphaEnabled"] boolValue];
-	backgroundAlpha = [[preferences objectForKey:@"backgroundAlpha"] doubleValue];
-	cornerRadiusEnabled = [[preferences objectForKey:@"cornerRadiusEnabled"] boolValue];
-	cornerRadius = [[preferences objectForKey:@"cornerRadius"] doubleValue];
-	pinchToCloseEnabled = [[preferences objectForKey:@"pinchToCloseEnabled"] boolValue];
-	customFrameEnabled = [[preferences objectForKey:@"customFrameEnabled"] boolValue];
-	customCenteredFrameEnabled = [[preferences objectForKey:@"customCenteredFrameEnabled"] boolValue];
-	frameX = [[preferences valueForKey:@"customFrameX"] floatValue];
-	frameY = [[preferences valueForKey:@"customFrameY"] floatValue];
-	frameWidth = [[preferences valueForKey:@"customFrameWidth"] floatValue];
-	frameHeight = [[preferences valueForKey:@"customFrameHeight"] floatValue];
-	customLayoutEnabled = [[preferences objectForKey:@"customLayoutEnabled"] boolValue];
-	customLayoutRows = [[preferences objectForKey:@"customLayoutRows"] longLongValue];
-	customLayoutColumns = [[preferences objectForKey:@"customLayoutColumns"] longLongValue];
-    hideTitleEnabled = [[preferences objectForKey:@"hideTitleEnabled"] boolValue];
-    customTitleFontSizeEnabled = [[preferences objectForKey:@"customTitleFontSizeEnabled"] boolValue];
-    customTitleFontSize = [[preferences objectForKey:@"customTitleFontSize"] doubleValue];
-    customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
-    customTitleOffSet = [[preferences objectForKey:@"customTitleOffSet"] doubleValue];
-	customFolderIconEnabled = [[preferences objectForKey:@"customFolderIconEnabled"] boolValue];
-    folderIconRows = [[preferences objectForKey:@"folderIconRows"] longLongValue];
-	folderIconColumns = [[preferences objectForKey:@"folderIconColumns"] longLongValue];
-	twoByTwoIconEnabled = [[preferences objectForKey:@"twoByTwoIconEnabled"] boolValue];
-	titleFontWeight = [[preferences objectForKey:@"titleFontWeight"] intValue];
-	titleAlignment = [[preferences objectForKey:@"titleAlignment"] intValue];
-	titleColorEnabled = [[preferences objectForKey:@"titleColorEnabled"] boolValue];
-	titleColor = [preferences valueForKey:@"titleColor"];
-	titleBackgroundEnabled = [[preferences objectForKey:@"titleBackgroundEnabled"] boolValue];
-	titleBackgroundColor = [preferences valueForKey:@"titleBackgroundColor"];
-	titleBackgroundCornerRadius = [[preferences objectForKey:@"titleBackgroundCornerRadius"] doubleValue];
-	titleBackgroundBlurEnabled = [[preferences objectForKey:@"titleBackgroundBlurEnabled"] boolValue];
-	showInjectionAlerts = [[preferences objectForKey:@"showInjectionAlerts"] boolValue];
-	customBlurBackgroundEnabled = [[preferences objectForKey:@"customBlurBackgroundEnabled"] boolValue];
-	customBlurBackground = [[preferences objectForKey:@"customBlurBackground"] intValue];
-	folderBackgroundColorEnabled = [[preferences objectForKey:@"folderBackgroundColorEnabled"] boolValue];
-	folderBackgroundColor = [preferences valueForKey:@"folderBackgroundColor"];
-	customTitleFontEnabled = [[preferences valueForKey:@"customTitleFontEnabled"] boolValue];
-	customTitleFont = [[preferences valueForKey:@"customTitleFont"] stringValue];
-	seizureModeEnabled = [[preferences objectForKey:@"seizureModeEnabled"] boolValue];
-	folderBackgroundBackgroundColorEnabled = [[preferences objectForKey:@"folderBackgroundBackgroundColorEnabled"] boolValue];
-	backgroundAlphaColor = [[preferences objectForKey:@"backgroundAlphaColor"] doubleValue];
-	folderBackgroundBackgroundColor = [preferences valueForKey:@"folderBackgroundBackgroundColor"];
-	randomColorBackgroundEnabled = [[preferences objectForKey:@"randomColorBackgroundEnabled"] boolValue];
-	folderBackgroundColorWithGradientEnabled = [[preferences objectForKey:@"folderBackgroundColorWithGradientEnabled"] boolValue];
-	folderBackgroundColorWithGradient = [preferences valueForKey:@"folderBackgroundColorWithGradient"];
-	folderBackgroundColorWithGradientVerticalGradientEnabled = [[preferences objectForKey:@"folderBackgroundColorWithGradientVerticalGradientEnabled"] boolValue];
-	hideFolderGridEnabled = [[preferences objectForKey:@"hideFolderGridEnabled"] boolValue];
-}*/
