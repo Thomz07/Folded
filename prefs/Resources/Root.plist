@@ -133,6 +133,8 @@
 			<string>FAQ</string>
 			<key>label</key>
 			<string>FAQ</string>
+			<key>icon</key>
+			<string>FAQ.png</string>
 		</dict>
 		<dict>
 			<key>cell</key>
