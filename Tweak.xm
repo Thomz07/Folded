@@ -148,7 +148,7 @@
     	[self setFont:[UIFont fontWithName:customTitleFont size:(self.font.pointSize)]];
 	}
 
-	CGRect modifiedFrame = self.bounds;
+	CGRect modifiedFrame = self.frame;
 
 	if(enabled && customTitleOffSetEnabled){
 		modifiedFrame = CGRectMake(
