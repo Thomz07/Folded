@@ -58,7 +58,7 @@
             <key>label</key>
             <string>Custom Title Font Notes</string>
             <key>footerText</key>
-            <string>In order to choose a custom font, PLEASE READ CAREFULLY. You may choose from the system fonts located in /System/Library/Fonts. For example, there's a font there called CourierNew.ttf. If you wanted to use this font, type CourierNew in the custom font box. IF YOU INCORRECTLY TYPE THE NAME, YOUR DEVICE WILL FREEZE. You may use a different font by placing it in AppFonts, but do so at your own risk, as this IS modifying your filesystem if you choose to do so. </string>
+            <string>In order to choose a custom font, PLEASE READ CAREFULLY. You may choose from the system fonts located in /System/Library/Fonts. For example, there's a font there called CourierNew.ttf. If you wanted to use this font, type CourierNew in the custom font box. IF YOU INCORRECTLY TYPE THE NAME, YOUR DEVICE WILL FREEZE. You may use a different font by placing it in AppFonts, but do so at your own risk, as this IS modifying your filesystem if you choose to do so. Additionally, using title font weight options can cause issues with certain fonts! Please refrain from using weighting options if you are using a custom font.</string>
         </dict>
         <dict>
             <key>cell</key>
