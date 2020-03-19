@@ -88,7 +88,7 @@
 			<key>key</key>
 			<string>customTitleOffSetEnabled</string>
 			<key>label</key>
-			<string>Custom Title Offset</string>
+			<string>Custom Title Y Offset</string>
         </dict>
 		<dict>
 			<key>cell</key>
@@ -105,6 +105,62 @@
 			<string>xyz.burritoz.thomz.folded.prefs</string>
 			<key>key</key>
 			<string>customTitleOffSet</string>
+		</dict>
+		<dict>
+        	<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>customTitleBoxWidthEnabled</string>
+			<key>label</key>
+			<string>Custom Title Box Width</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>min</key>
+			<integer>0</integer>
+			<key>max</key>
+			<integer>700</integer>
+			<key>isSegmented</key>
+			<false/>
+			<key>showValue</key>
+			<true/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>customTitleBoxWidth</string>
+		</dict>
+		<dict>
+        	<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>customTitleBoxHeightEnabled</string>
+			<key>label</key>
+			<string>Custom Title Box Height</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>min</key>
+			<integer>0</integer>
+			<key>max</key>
+			<integer>700</integer>
+			<key>isSegmented</key>
+			<false/>
+			<key>showValue</key>
+			<true/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>customTitleBoxHeight</string>
 		</dict>
 		<dict>
         	<key>cell</key>

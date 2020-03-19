@@ -147,6 +147,10 @@ BOOL clearBackgroundIcons;
 BOOL customWallpaperBlurEnabled;
 double customWallpaperBlurFactor;
 BOOL tapToCloseEnabled;
+BOOL customTitleBoxWidthEnabled;
+double customTitleBoxWidth;
+BOOL customTitleBoxHeightEnabled;
+double customTitleBoxHeight;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;

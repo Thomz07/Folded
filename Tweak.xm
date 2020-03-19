@@ -148,9 +148,39 @@
     	[self setFont:[UIFont fontWithName:customTitleFont size:(self.font.pointSize)]];
 	}
 
+	CGRect modifiedFrame = self.bounds;
+
 	if(enabled && customTitleOffSetEnabled){
-		[self setFrame:CGRectMake(self.frame.origin.x,(self.bounds.origin.y)+customTitleOffSet,self.bounds.size.width,self.bounds.size.height)];
+		modifiedFrame = CGRectMake(
+			modifiedFrame.origin.x,
+			(modifiedFrame.origin.y)+customTitleOffSet,
+			modifiedFrame.size.width,
+			modifiedFrame.size.height
+			);
 	}
+
+	if(enabled && customTitleBoxWidthEnabled) {
+		modifiedFrame = CGRectMake(
+			modifiedFrame.origin.x,
+			modifiedFrame.origin.y,
+			customTitleBoxWidth,
+			modifiedFrame.size.height
+			);
+	}
+
+	if(enabled && customTitleBoxHeightEnabled) {
+		modifiedFrame = CGRectMake(
+			modifiedFrame.origin.x,
+			modifiedFrame.origin.y,
+			modifiedFrame.size.width,
+			customTitleBoxHeight
+			);
+	}
+
+	if(enabled && (customTitleBoxWidthEnabled || customTitleBoxHeightEnabled || customTitleOffSetEnabled)) {
+		[self setFrame:modifiedFrame];
+	}
+
 }
 
 %end
@@ -566,6 +596,10 @@ static void preferencesChanged()
 	customWallpaperBlurEnabled = boolValueForKey(@"customWallpaperBlurEnabled", NO);
 	customWallpaperBlurFactor = numberForValue(@"customWallpaperBlurFactor", 1.0);
 	tapToCloseEnabled = boolValueForKey(@"tapToCloseEnabled", NO);
+	customTitleBoxWidthEnabled = boolValueForKey(@"customTitleBoxWidthEnabled", NO);
+	customTitleBoxHeightEnabled = boolValueForKey(@"customTitleBoxHeightEnabled", NO);
+	customTitleBoxWidth = numberForValue(@"customTitleBoxWidth", 100);
+	customTitleBoxHeight = numberForValue(@"customTitleBoxHeight", 50);
 
 
 	//Hopefully this works :D
