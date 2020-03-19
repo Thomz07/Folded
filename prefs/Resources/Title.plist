@@ -50,6 +50,12 @@
 		</dict>
 		<dict>
         	<key>cell</key>
+        	<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>PLEASE SEE FAQ PAGE FOR MORE INFO!</string>
+        </dict>
+		<dict>
+        	<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
 			<false/>
