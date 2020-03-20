@@ -352,13 +352,6 @@
 -(void)layoutSubviews { //I'm sorry for using layoutSubviews, there's probably a better way
   %orig; //I want to run the original stuff first
   if (enabled && hideFolderIconBackground) {
-	  @try {
-		  self.backgroundView.blurView.hidden = 1;
-		  //This completely blocks the blur view from showing, as without this code it woul ocassionally show
-		  //However, sometimes it has caused a crash for people, so I am adding it as a @try and @catch
-	  } @catch (NSException *exception) {
-		  NSLog(@"[Folded]: Prevented a crash that would have occured due to the MTMaterial blurView of the icon background not existing.");
-	  }
     self.backgroundView.alpha = 0;
     self.backgroundView.hidden = 1;
   }
@@ -499,17 +492,21 @@
 
 -(NSUInteger)numberOfPortraitColumns {
   [self getLocations];
-    if (self.isFolder && enabled && customLayoutEnabled) {
-		if (hasProcessLaunched) {
-		return (customLayoutColumns);
-		} else if (customFolderIconEnabled) {
-		@try {
-		return (folderIconColumns);
-		} @catch (NSException *exception) {
-		return customLayoutColumns;
-		hasInjectionFailed = YES;
+    if (self.isFolder && enabled) {
+		if (customFolderIconEnabled) {
+			if (hasProcessLaunched) {
+				return (customLayoutColumns) ? (customLayoutColumns != nil) : %orig;
+			} else {
+				@try {
+					return (folderIconColumns);
+				} @catch (NSException *exception) {
+				return %orig;
+				hasInjectionFailed = YES;
+				}	
+			}
+		} else if(customLayoutEnabled && !customFolderIconEnabled) {
+			return customLayoutColumns;
 		}
-	}
   } else {
     return (%orig);
   }
@@ -517,17 +514,21 @@
 
 -(NSUInteger)numberOfPortraitRows {
   [self getLocations];
-  if (self.isFolder && enabled && customLayoutEnabled) {
-		if (hasProcessLaunched) {
-			return (customLayoutRows);
-		} else if (customFolderIconEnabled) {
-		@try {
-		return (folderIconRows);
-		} @catch (NSException *exception) {
-		return customLayoutRows;
-		hasInjectionFailed = YES;
+    if (self.isFolder && enabled) {
+		if (customFolderIconEnabled) {
+			if (hasProcessLaunched) {
+				return (customLayoutRows) ? (customLayoutRows != nil) : %orig;
+			} else {
+				@try {
+					return (folderIconRows);
+				} @catch (NSException *exception) {
+				return %orig;
+				hasInjectionFailed = YES;
+				}	
+			}
+		} else if(customLayoutEnabled && !customFolderIconEnabled) {
+			return customLayoutRows;
 		}
-    }
   } else {
     return (%orig);
   }
@@ -553,11 +554,14 @@
 	hasInjectionFailed = NO;
     hasShownFailureAlert = NO;
 	%init(universal);
-	if(kCFCoreFoundationVersionNumber < 1600){
-		%init(ios12);
-	} else {
-		%init(ios13);
-	}
+	//if(kCFCoreFoundationVersionNumber < 1600){
+	//	%init(ios12);
+	//} else {
+	//	%init(ios13);
+	//}
+	%init(ios12);
+	%init(ios13);
+	
 	NSLog(@"[Folded]: Tweak initialized.");
 }
 

@@ -66,6 +66,11 @@ NSDictionary *preferences;
 }
 
 -(void)apply:(PSSpecifier *)specifier {
+	NSTask *f = [[NSTask alloc] init];
+			[f setLaunchPath:@"/usr/bin/killall"];
+			[f setArguments:[NSArray arrayWithObjects:@"cfprefsd", nil]];
+			[f launch];
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
 	   [self.view endEditing:YES]; //Hides the keyboard, if present -Burrit0z // omg thank you that was so annoying lmao
