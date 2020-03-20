@@ -151,18 +151,26 @@
 
 	if(enabled && customTitleXOffSetEnabled) {
 		modifiedOriginX = customTitleXOffSet;
+	} else {
+		modifiedOriginX = self.frame.origin.x;
 	}
 
 	if(enabled && customTitleOffSetEnabled){
 		modifiedOriginY = (modifiedOriginY + customTitleOffSet);
+	} else {
+		modifiedOriginY = self.bounds.origin.y;
 	}
 
 	if(enabled && customTitleBoxWidthEnabled) {
 		modifiedWidth = customTitleBoxWidth;
+	} else {
+		modifiedWidth = self.bounds.size.width;
 	}
 
 	if(enabled && customTitleBoxHeightEnabled) {
 		modifiedHeight = customTitleBoxHeight;
+	} else {
+		modifiedHeight = self.bounds.size.height;
 	}
 
 	if(enabled && (customTitleBoxWidthEnabled || customTitleBoxHeightEnabled || customTitleOffSetEnabled || customTitleXOffSetEnabled)) {
@@ -339,6 +347,25 @@
 
 %end
 
+%hook SBFolderIconImageView
+
+-(void)layoutSubviews { //I'm sorry for using layoutSubviews, there's probably a better way
+  %orig; //I want to run the original stuff first
+  if (enabled && hideFolderIconBackground) {
+	  @try {
+		  self.backgroundView.blurView.hidden = 1;
+		  //This completely blocks the blur view from showing, as without this code it woul ocassionally show
+		  //However, sometimes it has caused a crash for people, so I am adding it as a @try and @catch
+	  } @catch (NSException *exception) {
+		  NSLog(@"[Folded]: Prevented a crash that would have occured due to the MTMaterial blurView of the icon background not existing.");
+	  }
+    self.backgroundView.alpha = 0;
+    self.backgroundView.hidden = 1;
+  }
+}
+
+%end
+
 ///////////////
 %end
 
@@ -510,7 +537,7 @@
 
 %end
 
-%ctor 
+%ctor
 {
     preferencesChanged();
 
