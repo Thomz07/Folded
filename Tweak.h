@@ -262,6 +262,6 @@ static void preferencesChanged()
 	customTitleBoxHeight = numberForValue(@"customTitleBoxHeight", 50);
 	hideFolderIconBackground = boolValueForKey(@"hideFolderIconBackground", NO);
 
-
+	NSLog(@"[Folded]: Preferences reloaded sucessfully.");
 	//Hopefully this works :D
 }

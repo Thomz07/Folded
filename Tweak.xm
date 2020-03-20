@@ -1,6 +1,6 @@
 #include "Tweak.h"
 
-%group SBFloatyFolderView
+%group universal
 %hook SBFloatyFolderView
 
 -(void)setBackgroundAlpha:(double)arg1 { // returning the value from the slider cell in the settings for the bg alpha
@@ -70,9 +70,7 @@
 }
 
 %end
-%end
 
-%group SBFolderBackgroundMaterialSettings
 %hook SBFolderBackgroundMaterialSettings
 
 -(UIColor *)baseOverlayColor { // this effect looks so sweet
@@ -106,9 +104,7 @@
 }
 
 %end
-%end
 
-%group SBFolderTitleTextField
 %hook SBFolderTitleTextField
 
 -(void)layoutSubviews {
@@ -181,9 +177,7 @@
 }
 
 %end
-%end
 
-%group _SBIconGridWrapperView
 %hook _SBIconGridWrapperView
 
 -(void)layoutSubviews {
@@ -194,6 +188,79 @@
 }
 
 %end
+
+
+%hook SBFolderBackgroundView
+%property (nonatomic, retain) UIVisualEffectView *lightView;
+%property (nonatomic, retain) UIVisualEffectView *darkView;
+-(void)layoutSubviews {
+
+	%orig;
+
+    self.lightView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+	self.lightView.frame = self.bounds;
+	self.darkView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+	self.darkView.frame = self.bounds;
+	UIView *backgroundColorFrame = [[UIView alloc] initWithFrame:self.bounds];
+	UIColor *backgroundColor = [UIColor cscp_colorFromHexString:folderBackgroundColor];
+	[backgroundColorFrame setBackgroundColor:backgroundColor];
+
+	NSArray<id> *gradientColors = [StringForPreferenceKey(@"folderBackgroundColorWithGradient") cscp_gradientStringCGColors];
+
+	CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.bounds;
+
+	if(!folderBackgroundColorWithGradientVerticalGradientEnabled){
+		gradient.startPoint = CGPointMake(0, 0.5);
+		gradient.endPoint = CGPointMake(1, 0.5);
+	} else if(folderBackgroundColorWithGradientVerticalGradientEnabled) {
+		gradient.startPoint = CGPointMake(0.5, 0);
+        gradient.endPoint = CGPointMake(0.5, 1);
+	}
+
+	gradient.colors = gradientColors;
+
+	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 1){
+		MSHookIvar<UIVisualEffectView *>(self, "_blurView") = self.lightView;
+		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+		[self addSubview:self.lightView];
+	}
+
+	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 2){
+		MSHookIvar<UIVisualEffectView *>(self, "_blurView") = self.darkView;
+		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+		[self addSubview:self.darkView];
+	}
+
+	if(enabled && folderBackgroundColorEnabled && !folderBackgroundColorWithGradientEnabled){
+		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+		[self addSubview:backgroundColorFrame];
+	} else if(enabled && folderBackgroundColorEnabled && folderBackgroundColorWithGradientEnabled){
+		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+		[self.layer insertSublayer:gradient atIndex:0];
+	}
+}
+%end
+
+%hook SBFolderController
+-(BOOL)_homescreenAndDockShouldFade {
+  if (enabled && clearBackgroundIcons) {
+    return YES;
+  } else {
+    return %orig;
+  }
+}
+%end
+
+%hook SBFolderControllerBackgroundView
+
+-(void)layoutSubviews {
+    %orig;
+	if (enabled && customWallpaperBlurEnabled) self.alpha = customWallpaperBlurFactor;
+}
+
+%end
+
 %end
 
 %group ios12
@@ -379,14 +446,7 @@
 
 -(void)layoutSubviews { //I'm sorry for using layoutSubviews, there's probably a better way
   %orig; //I want to run the original stuff first
-  if (hideFolderIconBackground) {
-	  @try {
-		  self.backgroundView.blurView.hidden = 1;
-		  //This completely blocks the blur view from showing, as without this code it woul ocassionally show
-		  //However, sometimes it has caused a crash for people, so I am adding it as a @try and @catch
-	  } @catch (NSException *exception) {
-		  NSLog(@"[Folded]: Prevented a crash that would have occured due to the MTMaterial blurView of the icon background not existing.");
-	  }
+  if (enabled && hideFolderIconBackground) {
     self.backgroundView.alpha = 0;
     self.backgroundView.hidden = 1;
   }
@@ -450,83 +510,6 @@
 
 %end
 
-%group SBFolderBackgroundView
-%hook SBFolderBackgroundView
-%property (nonatomic, retain) UIVisualEffectView *lightView;
-%property (nonatomic, retain) UIVisualEffectView *darkView;
--(void)layoutSubviews {
-
-	%orig;
-
-    self.lightView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-	self.lightView.frame = self.bounds;
-	self.darkView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
-	self.darkView.frame = self.bounds;
-	UIView *backgroundColorFrame = [[UIView alloc] initWithFrame:self.bounds];
-	UIColor *backgroundColor = [UIColor cscp_colorFromHexString:folderBackgroundColor];
-	[backgroundColorFrame setBackgroundColor:backgroundColor];
-
-	NSArray<id> *gradientColors = [StringForPreferenceKey(@"folderBackgroundColorWithGradient") cscp_gradientStringCGColors];
-
-	CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.bounds;
-
-	if(!folderBackgroundColorWithGradientVerticalGradientEnabled){
-		gradient.startPoint = CGPointMake(0, 0.5);
-		gradient.endPoint = CGPointMake(1, 0.5);
-	} else if(folderBackgroundColorWithGradientVerticalGradientEnabled) {
-		gradient.startPoint = CGPointMake(0.5, 0);
-        gradient.endPoint = CGPointMake(0.5, 1);
-	}
-
-	gradient.colors = gradientColors;
-
-	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 1){
-		MSHookIvar<UIVisualEffectView *>(self, "_blurView") = self.lightView;
-		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-		[self addSubview:self.lightView];
-	}
-
-	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 2){
-		MSHookIvar<UIVisualEffectView *>(self, "_blurView") = self.darkView;
-		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-		[self addSubview:self.darkView];
-	}
-
-	if(enabled && folderBackgroundColorEnabled && !folderBackgroundColorWithGradientEnabled){
-		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-		[self addSubview:backgroundColorFrame];
-	} else if(enabled && folderBackgroundColorEnabled && folderBackgroundColorWithGradientEnabled){
-		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-		[self.layer insertSublayer:gradient atIndex:0];
-	}
-}
-%end
-%end
-
-%group other
-
-%hook SBFolderController
--(BOOL)_homescreenAndDockShouldFade {
-  if (enabled && clearBackgroundIcons) {
-    return YES;
-  } else {
-    return %orig;
-  }
-}
-%end
-
-%hook SBFolderControllerBackgroundView
-
--(void)layoutSubviews {
-    %orig;
-	if (enabled && customWallpaperBlurEnabled) self.alpha = customWallpaperBlurFactor;
-}
-
-%end
-
-%end
-
 %ctor 
 {
     preferencesChanged();
@@ -542,20 +525,13 @@
 	hasProcessLaunched = NO;
 	hasInjectionFailed = NO;
     hasShownFailureAlert = NO;
-
-	//CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
-
-	%init(SBFloatyFolderView);
-	%init(SBFolderTitleTextField);
-	%init(SBFolderBackgroundView);
-	%init(SBFolderBackgroundMaterialSettings); //this doesn't exist on ios13
-	%init(other);
-	%init(_SBIconGridWrapperView);
+	%init(universal);
 	if(kCFCoreFoundationVersionNumber < 1600){
 		%init(ios12);
 	} else {
 		%init(ios13);
 	}
+	NSLog(@"[Folded]: Tweak initialized.");
 }
 
 
