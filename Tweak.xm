@@ -494,8 +494,8 @@
   [self getLocations];
     if (self.isFolder && enabled) {
 		if (customFolderIconEnabled) {
-			if (hasProcessLaunched) {
-				return (customLayoutColumns != nil) ? (customLayoutColumns) : %orig;
+			if (hasProcessLaunched) { 
+				return (customLayoutColumns);
 			} else {
 				@try {
 					return (folderIconColumns);
@@ -517,7 +517,7 @@
     if (self.isFolder && enabled) {
 		if (customFolderIconEnabled) {
 			if (hasProcessLaunched) {
-				return (customLayoutRows != nil) ? (customLayoutRows) : %orig;
+				return customLayoutRows;
 			} else {
 				@try {
 					return (folderIconRows);
