@@ -495,7 +495,7 @@
     if (self.isFolder && enabled) {
 		if (customFolderIconEnabled) {
 			if (hasProcessLaunched) {
-				return (customLayoutColumns) ? (customLayoutColumns != nil) : %orig;
+				return (customLayoutColumns != nil) ? (customLayoutColumns) : %orig;
 			} else {
 				@try {
 					return (folderIconColumns);
@@ -517,7 +517,7 @@
     if (self.isFolder && enabled) {
 		if (customFolderIconEnabled) {
 			if (hasProcessLaunched) {
-				return (customLayoutRows) ? (customLayoutRows != nil) : %orig;
+				return (customLayoutRows != nil) ? (customLayoutRows) : %orig;
 			} else {
 				@try {
 					return (folderIconRows);
