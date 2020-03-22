@@ -190,7 +190,7 @@ BOOL cornerRadiusEnabled;
 
 			if(!titleBackgroundEnabled){
 				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"], self.mySavedSpecifiers[@"titleBackgroundCornerRadius"]] animated:YES];
-			} else if(customTitleOffSetEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"titleBackgroundColor"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"titleBackgroundCornerRadius"]]) {
+			} else if(titleBackgroundEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"titleBackgroundColor"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"titleBackgroundCornerRadius"]]) {
 				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"], self.mySavedSpecifiers[@"titleBackgroundCornerRadius"]] afterSpecifierID:@"Title Background" animated:YES];
 			}
 
