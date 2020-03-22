@@ -217,10 +217,10 @@ BOOL cornerRadiusEnabled;
 
 			customCenteredFrameEnabled = [[preferences objectForKey:@"customCenteredFrameEnabled"] boolValue];
 
-			if(!customCenteredFrameEnabled){
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customFrameX"], self.mySavedSpecifiers[@"customFrameY"]] animated:YES];
-			} else if(customCenteredFrameEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customFrameX"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"customFrameY"]]) {
+			if(!customCenteredFrameEnabled&& ![self containsSpecifier:self.mySavedSpecifiers[@"customFrameX"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"customFrameY"]]){
 				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customFrameX"], self.mySavedSpecifiers[@"customFrameY"]] afterSpecifierID:@"Centered Frame" animated:YES];
+			} else if(customCenteredFrameEnabled) {
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customFrameX"], self.mySavedSpecifiers[@"customFrameY"]] animated:YES];
 			}
 			
 		}
@@ -337,9 +337,9 @@ BOOL cornerRadiusEnabled;
 
 			customCenteredFrameEnabled = [[preferences objectForKey:@"customCenteredFrameEnabled"] boolValue];
 
-			if(!customCenteredFrameEnabled){
+			if(customCenteredFrameEnabled) {
 				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customFrameX"], self.mySavedSpecifiers[@"customFrameY"]] animated:YES];
-			}	
+			}
 		}
 
 		if ([self.sub isEqualToString:@"Appearance"]) {
