@@ -19,8 +19,6 @@
 			<string>customLayoutEnabled</string>
 			<key>label</key>
 			<string>Enable Custom Layout</string>
-			<key>sublabel</key>
-			<string>Rows and Columns</string>
         </dict>
         <dict>
         	<key>cell</key>

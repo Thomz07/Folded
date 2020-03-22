@@ -47,12 +47,14 @@
 			<string>xyz.burritoz.thomz.folded.prefs</string>
 			<key>key</key>
 			<string>customTitleFontSize</string>
+			<key>tag</key>
+			<string>customTitleFontSize</string>
 		</dict>
 		<dict>
         	<key>cell</key>
         	<string>PSGroupCell</string>
-			<key>label</key>
-			<string>PLEASE SEE FAQ PAGE FOR MORE INFO!</string>
+			<key>footerText</key>
+			<string>Please Read FAQ page for more info</string>
         </dict>
 		<dict>
         	<key>cell</key>
@@ -66,18 +68,6 @@
 			<key>label</key>
 			<string>Custom Title Font</string>
         </dict>
-		<!--<dict>
-            <key>cell</key>
-            <string>PSEditTextCell</string>
-            <key>label</key>
-            <string>(System) Font Name</string>
-            <key>defaults</key>
-            <string>xyz.burritoz.thomz.folded.prefs</string>
-            <key>key</key>
-            <string>customTitleFont</string>
-            <key>isNumeric</key>
-            <false/>
-        </dict>-->
 		<dict>
 			<key>cell</key>
 			<string>PSLinkListCell</string>
@@ -86,6 +76,8 @@
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>key</key>
+			<string>customTitleFont</string>
+			<key>tag</key>
 			<string>customTitleFont</string>
 			<key>label</key>
 			<string>Font</string>
@@ -191,6 +183,8 @@
 			<string>xyz.burritoz.thomz.folded.prefs</string>
 			<key>key</key>
 			<string>customTitleOffSet</string>
+			<key>tag</key>
+			<string>customTitleOffSet</string>
 		</dict>
 		<dict>
         	<key>cell</key>
@@ -218,6 +212,8 @@
 			<key>defaults</key>
 			<string>xyz.burritoz.thomz.folded.prefs</string>
 			<key>key</key>
+			<string>customTitleXOffSet</string>
+			<key>tag</key>
 			<string>customTitleXOffSet</string>
 		</dict>
 		<dict>
@@ -247,6 +243,8 @@
 			<string>xyz.burritoz.thomz.folded.prefs</string>
 			<key>key</key>
 			<string>customTitleBoxWidth</string>
+			<key>tag</key>
+			<string>customTitleBoxWidth</string>
 		</dict>
 		<dict>
         	<key>cell</key>
@@ -274,6 +272,8 @@
 			<key>defaults</key>
 			<string>xyz.burritoz.thomz.folded.prefs</string>
 			<key>key</key>
+			<string>customTitleBoxHeight</string>
+			<key>tag</key>
 			<string>customTitleBoxHeight</string>
 		</dict>
 		<dict>
@@ -352,19 +352,22 @@
 			<key>cell</key>
 			<string>PSLinkCell</string>
 			<key>cellClass</key>
-			<string>CSColorDisplayCell</string>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
+			<string>PFSimpleLiteColorCell</string>
+			<key>tag</key>
 			<string>titleColor</string>
-			<key>defaultsPath</key>
-			<string>/Library/PreferenceBundles/Folded.bundle</string>
-			<key>fallback</key>
-			<string>51e8b6</string>
-			<key>alpha</key>
-			<true/>
+			<key>libcolorpicker</key>
+			<dict>
+				<key>defaults</key>
+				<string>xyz.burritoz.thomz.folded.prefs</string>
+				<key>key</key>
+				<string>titleColor</string>
+				<key>fallback</key>
+				<string>#ffffff</string>
+				<key>alpha</key>
+				<true/> 
+			</dict>
 			<key>label</key>
-			<string>Color</string> 
+			<string>Background Color</string>
 		</dict>
         <dict>
         	<key>cell</key>
@@ -382,23 +385,26 @@
 			<key>label</key>
 			<string>Title Background</string>
         </dict>
-        <dict>
+		<dict>
 			<key>cell</key>
 			<string>PSLinkCell</string>
 			<key>cellClass</key>
-			<string>CSColorDisplayCell</string>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
+			<string>PFSimpleLiteColorCell</string>
+			<key>tag</key>
 			<string>titleBackgroundColor</string>
-			<key>defaultsPath</key>
-			<string>/Library/PreferenceBundles/Folded.bundle</string>
-			<key>fallback</key>
-			<string>51e8b6</string>
-			<key>alpha</key>
-			<true/>
+			<key>libcolorpicker</key>
+			<dict>
+				<key>defaults</key>
+				<string>xyz.burritoz.thomz.folded.prefs</string>
+				<key>key</key>
+				<string>titleBackgroundColor</string>
+				<key>fallback</key>
+				<string>#ffffff</string>
+				<key>alpha</key>
+				<true/> 
+			</dict>
 			<key>label</key>
-			<string>Background Color</string> 
+			<string>Background Color</string>
 		</dict>
         <dict>
 			<key>cell</key>
@@ -414,6 +420,8 @@
 			<key>defaults</key>
 			<string>xyz.burritoz.thomz.folded.prefs</string>
 			<key>key</key>
+			<string>titleBackgroundCornerRadius</string>
+			<key>tag</key>
 			<string>titleBackgroundCornerRadius</string>
 			<key>label</key>
 			<string>Title Background Corner Radius</string>

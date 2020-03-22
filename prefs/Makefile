@@ -1,4 +1,4 @@
-ARCHS = armv7 arm64 arm64e
+ARCHS = arm64 arm64e
 
 include $(THEOS)/makefiles/common.mk
 
@@ -9,7 +9,7 @@ Folded_INSTALL_PATH = /Library/PreferenceBundles
 Folded_FRAMEWORKS = UIKit
 Folded_PRIVATE_FRAMEWORKS = Preferences
 Folded_CFLAGS = -fobjc-arc
-Folded_LDFLAGS += -lCSColorPicker
+Folded_LIBRARIES = colorpicker
 
 include $(THEOS_MAKE_PATH)/bundle.mk
 

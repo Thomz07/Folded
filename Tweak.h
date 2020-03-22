@@ -1,9 +1,7 @@
 #import <Foundation/Foundation.h>
 #include <CSColorPicker/CSColorPicker.h>
-//#import <UIKit/UIKitCore.h>
-//Those two lines are only used when compiling via DragonBuild
-//actually they make it uncompilable with theos
-//i think my sdks are broken, why the hell UIKitCore is not found
+#include <libcolorpicker.h>
+UIColor *colorFromDefaultsWithKey(NSString *defaults, NSString *key, NSString *fallback);
 
 @interface SBIconController : UIAlertController
 @end
@@ -87,7 +85,6 @@
 // Defining global variables and methods
 
 // Preferences keys
-NSDictionary *preferences;
 BOOL enabled = YES;
 BOOL backgroundAlphaEnabled;
 double backgroundAlpha;
@@ -135,7 +132,8 @@ double backgroundAlphaColor;
 NSString * folderBackgroundBackgroundColor;
 BOOL randomColorBackgroundEnabled;
 BOOL folderBackgroundColorWithGradientEnabled;
-NSString *folderBackgroundColorWithGradient;
+NSString *gradientColorOne;
+NSString *gradientColorTwo;
 BOOL folderBackgroundColorWithGradientVerticalGradientEnabled; // bruh
 BOOL hideFolderGridEnabled;
 BOOL clearBackgroundIcons;
@@ -233,25 +231,26 @@ static void preferencesChanged()
 	titleFontWeight = numberForValue(@"titleFontWeight", 1);
 	titleAlignment = numberForValue(@"titleAlignment", 1);
 	titleColorEnabled = boolValueForKey(@"titleColorEnabled", NO);
-	titleColor = [prefs valueForKey:@"titleColor"];
+	titleColor = [prefs objectForKey:@"titleColor"];
 	titleBackgroundEnabled = boolValueForKey(@"titleBackgroundEnabled", NO);
-	titleBackgroundColor = [prefs valueForKey:@"titleBackgroundColor"];
+	titleBackgroundColor = [prefs objectForKey:@"titleBackgroundColor"];
 	titleBackgroundCornerRadius = numberForValue(@"titleBackgroundCornerRadius", 10);
 	titleBackgroundBlurEnabled = boolValueForKey(@"titleBackgroundBlurEnabled", NO);
 	showInjectionAlerts = boolValueForKey(@"showInjectionAlerts", YES);
 	customBlurBackgroundEnabled = boolValueForKey(@"customBlurBackgroundEnabled", NO);
 	customBlurBackground = numberForValue(@"customBlurBackground", 1);
 	folderBackgroundColorEnabled = boolValueForKey(@"folderBackgroundColorEnabled", NO);
-	folderBackgroundColor = [prefs valueForKey:@"folderBackgroundColor"];
+	folderBackgroundColor = [prefs objectForKey:@"folderBackgroundColor"];
 	customTitleFontEnabled = boolValueForKey(@"customTitleFontEnabled", NO);
 	customTitleFont = [[prefs valueForKey:@"customTitleFont"] stringValue];
 	seizureModeEnabled = boolValueForKey(@"seizureModeEnabled", NO);
 	folderBackgroundBackgroundColorEnabled = boolValueForKey(@"folderBackgroundBackgroundColorEnabled", NO);
 	backgroundAlphaColor = numberForValue(@"backgroundAlphaColor", 0);
-	folderBackgroundBackgroundColor = [prefs valueForKey:@"folderBackgroundBackgroundColor"];
+	folderBackgroundBackgroundColor = [prefs objectForKey:@"folderBackgroundBackgroundColor"];
 	randomColorBackgroundEnabled = boolValueForKey(@"randomColorBackgroundEnabled", NO);
 	folderBackgroundColorWithGradientEnabled = boolValueForKey(@"folderBackgroundColorWithGradientEnabled", NO);
-	folderBackgroundColorWithGradient = [prefs valueForKey:@"folderBackgroundColorWithGradient"];
+	gradientColorOne = [prefs objectForKey:@"gradientColorOne"];
+	gradientColorTwo = [prefs objectForKey:@"gradientColorTwo"];
 	folderBackgroundColorWithGradientVerticalGradientEnabled = boolValueForKey(@"folderBackgroundColorWithGradientVerticalGradientEnabled", NO);
 	hideFolderGridEnabled = boolValueForKey(@"hideFolderGridEnabled", NO);
 	clearBackgroundIcons = boolValueForKey(@"clearBackgroundIcons", NO);

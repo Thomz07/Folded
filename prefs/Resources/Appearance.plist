@@ -7,8 +7,6 @@
 		<dict>
         	<key>cell</key>
         	<string>PSGroupCell</string>
-			<key>footerText</key>
-			<string>Modify the alpha in the color picker to make something blurry</string>
         </dict>
         <dict>
 			<key>cell</key>
@@ -26,19 +24,22 @@
 			<key>cell</key>
 			<string>PSLinkCell</string>
 			<key>cellClass</key>
-			<string>CSColorDisplayCell</string>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
+			<string>PFSimpleLiteColorCell</string>
+			<key>tag</key>
 			<string>folderBackgroundColor</string>
-			<key>defaultsPath</key>
-			<string>/Library/PreferenceBundles/Folded.bundle</string>
-			<key>fallback</key>
-			<string>51e8b6</string>
-			<key>alpha</key>
-			<true/>
+			<key>libcolorpicker</key>
+			<dict>
+				<key>defaults</key>
+				<string>xyz.burritoz.thomz.folded.prefs</string>
+				<key>key</key>
+				<string>folderBackgroundColor</string>
+				<key>fallback</key>
+				<string>#ffffff</string>
+				<key>alpha</key>
+				<true/> 
+			</dict>
 			<key>label</key>
-			<string>Color</string> 
+			<string>Color</string>
 		</dict>
 		 <dict>
 			<key>cell</key>
@@ -50,25 +51,49 @@
 			<key>key</key>
 			<string>folderBackgroundColorWithGradientEnabled</string>
 			<key>label</key>
-			<string>Use a Gradient</string>
+			<string>Folder Background Gradient</string>
 		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSLinkCell</string>
 			<key>cellClass</key>
-			<string>CSGradientDisplayCell</string>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>defaultsPath</key>
-			<string>/Library/PreferenceBundles/Folded.bundle</string>
-			<key>key</key>
-			<string>folderBackgroundColorWithGradient</string>
+			<string>PFSimpleLiteColorCell</string>
+			<key>tag</key>
+			<string>gradientColorOne</string>
+			<key>libcolorpicker</key>
+			<dict>
+				<key>defaults</key>
+				<string>xyz.burritoz.thomz.folded.prefs</string>
+				<key>key</key>
+				<string>gradientColorOne</string>
+				<key>fallback</key>
+				<string>#ffffff</string>
+				<key>alpha</key>
+				<true/> 
+			</dict>
 			<key>label</key>
-			<string>Gradient</string>
-			<key>fallback</key>
-			<string>FFFFFF,000000</string>
-			<key>alpha</key>
-			<true/>
+			<string>First Color</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>PFSimpleLiteColorCell</string>
+			<key>tag</key>
+			<string>gradientColorTwo</string>
+			<key>libcolorpicker</key>
+			<dict>
+				<key>defaults</key>
+				<string>xyz.burritoz.thomz.folded.prefs</string>
+				<key>key</key>
+				<string>gradientColorTwo</string>
+				<key>fallback</key>
+				<string>#ffffff</string>
+				<key>alpha</key>
+				<true/> 
+			</dict>
+			<key>label</key>
+			<string>Second Color</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -78,6 +103,8 @@
 			<key>defaults</key>
 			<string>xyz.burritoz.thomz.folded.prefs</string>
 			<key>key</key>
+			<string>folderBackgroundColorWithGradientVerticalGradientEnabled</string>
+			<key>tag</key>
 			<string>folderBackgroundColorWithGradientVerticalGradientEnabled</string>
 			<key>label</key>
 			<string>Vertical Gradient</string>
@@ -102,38 +129,23 @@
 			<key>cell</key>
 			<string>PSLinkCell</string>
 			<key>cellClass</key>
-			<string>CSColorDisplayCell</string>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
+			<string>PFSimpleLiteColorCell</string>
+			<key>tag</key>
 			<string>folderBackgroundBackgroundColor</string>
-			<key>defaultsPath</key>
-			<string>/Library/PreferenceBundles/Folded.bundle</string>
-			<key>fallback</key>
-			<string>51e8b6</string>
-			<key>alpha</key>
-			<false/>
+			<key>libcolorpicker</key>
+			<dict>
+				<key>defaults</key>
+				<string>xyz.burritoz.thomz.folded.prefs</string>
+				<key>key</key>
+				<string>folderBackgroundBackgroundColor</string>
+				<key>fallback</key>
+				<string>#ffffff</string>
+				<key>alpha</key>
+				<true/> 
+			</dict>
 			<key>label</key>
-			<string>Color</string> 
+			<string>Color</string>
 		</dict>
-        <dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
-			<string>randomColorBackgroundEnabled</string>
-			<key>label</key>
-			<string>Use a Random Color</string>
-		</dict>
-		<dict>
-        	<key>cell</key>
-        	<string>PSGroupCell</string>
-			<key>label</key>
-			<string>Background Alpha</string>
-        </dict>
 		<dict>
 			<key>cell</key>
 			<string>PSSliderCell</string>
@@ -149,12 +161,30 @@
 			<string>xyz.burritoz.thomz.folded.prefs</string>
 			<key>key</key>
 			<string>backgroundAlphaColor</string>
+			<key>tag</key>
+			<string>backgroundAlphaColor</string>
 			<key>cellClass</key>
 			<string>KRLabeledSliderCell</string>
 			<key>label</key>
 			<string>Background Color Alpha</string>
 			<key>height</key>
 			<integer>83</integer>
+			<key>tag</key>
+			<string>backgroundAlphaColor</string>
+		</dict>
+        <dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>randomColorBackgroundEnabled</string>
+			<key>tag</key>
+			<string>randomColorBackgroundEnabled</string>
+			<key>label</key>
+			<string>Use a Random Color</string>
 		</dict>
 		<dict>
         	<key>cell</key>
@@ -179,6 +209,8 @@
             <string>xyz.burritoz.thomz.folded.prefs</string>
             <key>default</key>
             <string>2</string>
+			<key>tag</key>
+			<string>customBlurBackground</string>
             <key>key</key>
             <string>customBlurBackground</string>
             <key>validValues</key>
@@ -229,6 +261,8 @@
 			<string>Blur Strength</string>
 			<key>height</key>
 			<integer>83</integer>
+			<key>tag</key>
+			<string>customWallpaperBlurFactor</string>
 		</dict>
 	</array>
 	<key>title</key>

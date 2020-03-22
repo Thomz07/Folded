@@ -15,7 +15,7 @@ BOOL customTitleBoxWidthEnabled;
 BOOL customTitleBoxHeightEnabled;
 BOOL customCenteredFrameEnabled;
 BOOL folderBackgroundColorEnabled;
-BOOL folderBackgroundColorWithGradientEnabled;
+//BOOL folderBackgroundColorWithGradientEnabled;
 BOOL folderBackgroundBackgroundColorEnabled;
 BOOL customBlurBackgroundEnabled;
 BOOL customWallpaperBlurEnabled;
@@ -35,11 +35,11 @@ BOOL cornerRadiusEnabled;
 		_specifiers = [self loadSpecifiersFromPlistName:_sub target:self];
 
 		if ([[specifier propertyForKey:@"pageKey"] isEqualToString:@"Title"]) {
-			NSArray *chosenLabels = @[@"customTitleFontSize", @"customTitleOffSet", @"titleColor", @"customTitleColor", @"customTitleFont", @"titleBackgroundColor",@"titleBackgroundCornerRadius",@"customTitleBoxHeight",@"customTitleBoxWidth",@"customTitleXOffSet",@"customFrameX",@"customFrameY"];
+			NSArray *chosenLabels = @[@"customTitleFontSize", @"customTitleOffSet", @"titleColor", @"customTitleColor", @"customTitleFont" ,@"titleBackgroundColor",@"titleBackgroundCornerRadius",@"customTitleBoxHeight",@"customTitleBoxWidth",@"customTitleXOffSet",@"customFrameX",@"customFrameY"];
 			self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
 			for(PSSpecifier *specifier in [self specifiers]) {
-			if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
-			[self.mySavedSpecifiers setObject:specifier forKey:[specifier propertyForKey:@"key"]];
+			if([chosenLabels containsObject:[specifier propertyForKey:@"tag"]]) {
+			[self.mySavedSpecifiers setObject:specifier forKey:[specifier propertyForKey:@"tag"]];
 			}
 		}
 		}
@@ -55,11 +55,11 @@ BOOL cornerRadiusEnabled;
 		}
 
 		if ([[specifier propertyForKey:@"pageKey"] isEqualToString:@"Appearance"]) {
-			NSArray *chosenLabels = @[@"folderBackgroundColor",@"folderBackgroundColorWithGradientEnabled",@"folderBackgroundColorWithGradient",@"folderBackgroundColorWithGradientVerticalGradientEnabled",@"folderBackgroundBackgroundColor",@"randomColorBackgroundEnabled",@"customBlurBackground",@"customWallpaperBlurFactor"];
+			NSArray *chosenLabels = @[@"folderBackgroundColor",/*@"graidentColorOne",@"gradientColorTwo",*/@"folderBackgroundColorWithGradientVerticalGradientEnabled",@"folderBackgroundBackgroundColor",@"randomColorBackgroundEnabled",@"customBlurBackground",@"customWallpaperBlurFactor",@"backgroundAlphaColor"];
 			self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
 			for(PSSpecifier *specifier in [self specifiers]) {
-			if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
-			[self.mySavedSpecifiers setObject:specifier forKey:[specifier propertyForKey:@"key"]];
+			if([chosenLabels containsObject:[specifier propertyForKey:@"tag"]]) {
+			[self.mySavedSpecifiers setObject:specifier forKey:[specifier propertyForKey:@"tag"]];
 			}
 		}
 		}
@@ -228,7 +228,7 @@ BOOL cornerRadiusEnabled;
 		if ([self.sub isEqualToString:@"Appearance"]) {
 
 			folderBackgroundColorEnabled = [[preferences objectForKey:@"folderBackgroundColorEnabled"] boolValue];
-			folderBackgroundColorWithGradientEnabled = [[preferences objectForKey:@"folderBackgroundColorWithGradientEnabled"] boolValue];
+			//folderBackgroundColorWithGradientEnabled = [[preferences objectForKey:@"folderBackgroundColorWithGradientEnabled"] boolValue];
 			folderBackgroundBackgroundColorEnabled = [[preferences objectForKey:@"folderBackgroundBackgroundColorEnabled"] boolValue];
 			customBlurBackgroundEnabled = [[preferences objectForKey:@"customBlurBackgroundEnabled"] boolValue];
 			customWallpaperBlurEnabled = [[preferences objectForKey:@"customWallpaperBlurEnabled"] boolValue];
@@ -239,16 +239,16 @@ BOOL cornerRadiusEnabled;
 				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"folderBackgroundColor"]] afterSpecifierID:@"Folder Background Color" animated:YES];
 			}
 
-			if(!folderBackgroundColorWithGradientEnabled){
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"folderBackgroundColorWithGradient"], self.mySavedSpecifiers[@"folderBackgroundColorWithGradientVerticalGradientEnabled"]] animated:YES];
-			} else if(folderBackgroundColorWithGradientEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"folderBackgroundColorWithGradient"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"folderBackgroundColorWithGradientVerticalGradientEnabled"]]) {
-				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"folderBackgroundColorWithGradient"], self.mySavedSpecifiers[@"folderBackgroundColorWithGradientVerticalGradientEnabled"]] afterSpecifierID:@"Use a Gradient" animated:YES];
-			}
+			/*if(!folderBackgroundColorWithGradientEnabled){
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"gradientColorOne"],self.mySavedSpecifiers[@"gradientColorTwo"], self.mySavedSpecifiers[@"folderBackgroundColorWithGradientVerticalGradientEnabled"]] animated:YES];
+			} else if(folderBackgroundColorWithGradientEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"gradientColorOne"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"gradientColorTwo"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"folderBackgroundColorWithGradientVerticalGradientEnabled"]]) {
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"folderBackgroundColorWithGradient"],self.mySavedSpecifiers[@"gradientColorTwo"], self.mySavedSpecifiers[@"folderBackgroundColorWithGradientVerticalGradientEnabled"]] afterSpecifierID:@"Folder Background Gradient" animated:YES];
+			}*/
 
 			if(!folderBackgroundBackgroundColorEnabled){
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"folderBackgroundBackgroundColor"], self.mySavedSpecifiers[@"randomColorBackgroundEnabled"]] animated:YES];
-			} else if(folderBackgroundBackgroundColorEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"folderBackgroundBackgroundColor"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"randomColorBackgroundEnabled"]]) {
-				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"folderBackgroundBackgroundColor"], self.mySavedSpecifiers[@"randomColorBackgroundEnabled"]] afterSpecifierID:@"Add a Color to the Background" animated:YES];
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"folderBackgroundBackgroundColor"], self.mySavedSpecifiers[@"backgroundAlphaColor"], self.mySavedSpecifiers[@"randomColorBackgroundEnabled"]] animated:YES];
+			} else if(folderBackgroundBackgroundColorEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"folderBackgroundBackgroundColor"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"backgroundAlphaColor"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"randomColorBackgroundEnabled"]]) {
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"folderBackgroundBackgroundColor"], self.mySavedSpecifiers[@"backgroundAlphaColor"], self.mySavedSpecifiers[@"randomColorBackgroundEnabled"]] afterSpecifierID:@"Add a Color to the Background" animated:YES];
 			}
 
 			if(!customBlurBackgroundEnabled){
@@ -345,7 +345,7 @@ BOOL cornerRadiusEnabled;
 		if ([self.sub isEqualToString:@"Appearance"]) {
 
 			folderBackgroundColorEnabled = [[preferences objectForKey:@"folderBackgroundColorEnabled"] boolValue];
-			folderBackgroundColorWithGradientEnabled = [[preferences objectForKey:@"folderBackgroundColorWithGradientEnabled"] boolValue];
+			//folderBackgroundColorWithGradientEnabled = [[preferences objectForKey:@"folderBackgroundColorWithGradientEnabled"] boolValue];
 			folderBackgroundBackgroundColorEnabled = [[preferences objectForKey:@"folderBackgroundBackgroundColorEnabled"] boolValue];
 			customBlurBackgroundEnabled = [[preferences objectForKey:@"customBlurBackgroundEnabled"] boolValue];
 			customWallpaperBlurEnabled = [[preferences objectForKey:@"customWallpaperBlurEnabled"] boolValue];
@@ -354,12 +354,12 @@ BOOL cornerRadiusEnabled;
 				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"folderBackgroundColor"]] animated:YES];
 			}
 
-			if(!folderBackgroundColorWithGradientEnabled){
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"folderBackgroundColorWithGradient"], self.mySavedSpecifiers[@"folderBackgroundColorWithGradientVerticalGradientEnabled"]] animated:YES];
-			}
+			/*if(!folderBackgroundColorWithGradientEnabled){
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"gradientColorOne"],self.mySavedSpecifiers[@"gradientColorTwo"], self.mySavedSpecifiers[@"folderBackgroundColorWithGradientVerticalGradientEnabled"]] animated:YES];
+			}*/
 
 			if(!folderBackgroundBackgroundColorEnabled){
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"folderBackgroundBackgroundColor"], self.mySavedSpecifiers[@"randomColorBackgroundEnabled"]] animated:YES];
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"folderBackgroundBackgroundColor"], self.mySavedSpecifiers[@"backgroundAlphaColor"], self.mySavedSpecifiers[@"randomColorBackgroundEnabled"]] animated:YES];
 			}
 
 			if(!customBlurBackgroundEnabled){
