@@ -77,18 +77,18 @@
 
 	UIColor *color = [UIColor cscp_colorFromHexString:folderBackgroundBackgroundColor];
 
-	if(enabled && folderBackgroundBackgroundColorEnabled && !randomColorBackgroundEnabled){
+	if(enabled && folderBackgroundBackgroundColorEnabled){
 		return color;
-	} else if(enabled && folderBackgroundBackgroundColorEnabled && randomColorBackgroundEnabled){
+	} else if(enabled && randomColorBackgroundEnabled){
 		return [self randomColor];
 	} else {return %orig;}
 }
 
 -(double)baseOverlayTintAlpha {
 
-	if(enabled && folderBackgroundBackgroundColorEnabled && !randomColorBackgroundEnabled){
+	if(enabled && folderBackgroundBackgroundColorEnabled){
 		return backgroundAlphaColor;
-	} else if(enabled && folderBackgroundBackgroundColorEnabled && randomColorBackgroundEnabled){
+	} else if(enabled && randomColorBackgroundEnabled){
 		return backgroundAlphaColor;
 	} else {return %orig;}
 }
@@ -242,12 +242,10 @@
 		[self addSubview:self.darkView];
 	}
 
-	if(enabled && folderBackgroundColorEnabled){
+	if(enabled && folderBackgroundColorEnabled && !folderBackgroundColorWithGradientEnabled){
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		[self addSubview:self.backgroundColorFrame];
-	}
-	
-	if(enabled && folderBackgroundColorWithGradientEnabled){
+	} else if(enabled && folderBackgroundColorEnabled && folderBackgroundColorWithGradientEnabled){
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		[self.layer insertSublayer:self.gradient atIndex:0];
 	}
