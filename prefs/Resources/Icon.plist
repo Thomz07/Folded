@@ -10,12 +10,6 @@
 			<key>footerText</key>
 			<string>iOS 13 only</string>
 		</dict>
-        <dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>footerText</key>
-			<string>Note: There are some limitations to this *at the moment* due to how iOS works. For example, if you have a custom icon enabled, the number of icons you can fit per page of the folder depends on this, *not* the layout you set. Additionally, when editing your pages you may see a folder icon switch to the layout you set for in-folder layout. This is *not* a bug, it is a failsafe so a crash is prevented. Respring to fix this.</string>
-		</dict>
 		<dict>
         	<key>cell</key>
 			<string>PSSwitchCell</string>
