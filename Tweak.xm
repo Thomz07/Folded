@@ -208,8 +208,6 @@
 %hook SBFolderBackgroundView
 %property (nonatomic, retain) UIVisualEffectView *lightView;
 %property (nonatomic, retain) UIVisualEffectView *darkView;
-%property (nonatomic, retain) UIView *backgroundColorFrame;
-%property (nonatomic, retain) CAGradientLayer *gradient;
 -(void)layoutSubviews {
 
 	%orig;
@@ -220,29 +218,39 @@
 	self.lightView.frame = self.bounds;
 	self.darkView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
 	self.darkView.frame = self.bounds;
+<<<<<<< HEAD
 
 	self.backgroundColorFrame = [[UIView alloc] initWithFrame:self.bounds];
 	NSString *backgroundColorFromPrefs = [prefs objectForKey:@"folderBackgroundColor"];
 	UIColor *backgroundColor = LCPParseColorString(backgroundColorFromPrefs, @"#ff0000");
 	[self.backgroundColorFrame setBackgroundColor:backgroundColor];
+=======
+	UIView *backgroundColorFrame = [[UIView alloc] initWithFrame:self.bounds];
+	UIColor *backgroundColor = [UIColor cscp_colorFromHexString:folderBackgroundColor];
+	[backgroundColorFrame setBackgroundColor:backgroundColor];
+>>>>>>> parent of 27f2c5f... Should fix square bg with color
 
 	NSString *gradientColorOneFromPrefs = [prefs objectForKey:@"gradientColorOne"];
 	UIColor *gradientColorOneFinal = LCPParseColorString(gradientColorOneFromPrefs, @"#ff0000");
 	NSString *gradientColorTwoFromPrefs = [prefs objectForKey:@"gradientColorTwo"];
 	UIColor *gradientColorTwoFinal = LCPParseColorString(gradientColorTwoFromPrefs, @"#ff0000");
 
-	self.gradient = [CAGradientLayer layer];
-    self.gradient.frame = self.bounds;
+	CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.bounds;
 
 	if(!folderBackgroundColorWithGradientVerticalGradientEnabled){
-		self.gradient.startPoint = CGPointMake(0, 0.5);
-		self.gradient.endPoint = CGPointMake(1, 0.5);
+		gradient.startPoint = CGPointMake(0, 0.5);
+		gradient.endPoint = CGPointMake(1, 0.5);
 	} else if(folderBackgroundColorWithGradientVerticalGradientEnabled) {
-		self.gradient.startPoint = CGPointMake(0.5, 0);
-        self.gradient.endPoint = CGPointMake(0.5, 1);
+		gradient.startPoint = CGPointMake(0.5, 0);
+        gradient.endPoint = CGPointMake(0.5, 1);
 	}
 
+<<<<<<< HEAD
 	self.gradient.colors = @[(id) gradientColorOneFinal,(id) gradientColorTwoFinal];
+=======
+	gradient.colors = gradientColors;
+>>>>>>> parent of 27f2c5f... Should fix square bg with color
 
 	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 1){
 		MSHookIvar<UIVisualEffectView *>(self, "_blurView") = self.lightView;
@@ -258,10 +266,10 @@
 
 	if(enabled && folderBackgroundColorEnabled && !folderBackgroundColorWithGradientEnabled){
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-		[self addSubview:self.backgroundColorFrame];
+		[self addSubview:backgroundColorFrame];
 	} else if(enabled && folderBackgroundColorEnabled && folderBackgroundColorWithGradientEnabled){
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-		[self.layer insertSublayer:self.gradient atIndex:0];
+		[self.layer insertSublayer:gradient atIndex:0];
 	}
 }
 %end

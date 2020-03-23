@@ -39,8 +39,6 @@ UIColor *colorFromDefaultsWithKey(NSString *defaults, NSString *key, NSString *f
 -(void)setBackgroundColor:(UIColor *)arg1;
 @property (nonatomic, retain) UIVisualEffectView *lightView;
 @property (nonatomic, retain) UIVisualEffectView *darkView;
-@property (nonatomic, retain) UIView *backgroundColorFrame;
-@property (nonatomic, retain) CAGradientLayer *gradient;
 @end
 
 @interface SBFolderControllerBackgroundView : UIView
