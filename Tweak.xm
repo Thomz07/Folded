@@ -75,23 +75,20 @@
 
 -(UIColor *)baseOverlayColor { // this effect looks so sweet
 
-	NSDictionary *prefs = [NSDictionary dictionaryWithContentsOfFile:PLIST_PATH] ? : [NSDictionary new];
+	UIColor *color = [UIColor cscp_colorFromHexString:folderBackgroundBackgroundColor];
 
-	NSString *backgroundColorFromPrefs = [prefs objectForKey:@"folderBackgroundBackgroundColor"];
-	UIColor *color = LCPParseColorString(backgroundColorFromPrefs, @"#ff0000");
-
-	if(enabled && folderBackgroundBackgroundColorEnabled && !randomColorBackgroundEnabled){
+	if(enabled && folderBackgroundBackgroundColorEnabled){
 		return color;
-	} else if(enabled && randomColorBackgroundEnabled && randomColorBackgroundEnabled){
+	} else if(enabled && randomColorBackgroundEnabled){
 		return [self randomColor];
 	} else {return %orig;}
 }
 
 -(double)baseOverlayTintAlpha {
 
-	if(enabled && folderBackgroundBackgroundColorEnabled && !randomColorBackgroundEnabled){
+	if(enabled && folderBackgroundBackgroundColorEnabled){
 		return backgroundAlphaColor;
-	} else if(enabled && randomColorBackgroundEnabled && randomColorBackgroundEnabled){
+	} else if(enabled && randomColorBackgroundEnabled){
 		return backgroundAlphaColor;
 	} else {return %orig;}
 }
@@ -114,12 +111,8 @@
 
 	%orig;
 
-	NSDictionary *prefs = [NSDictionary dictionaryWithContentsOfFile:PLIST_PATH] ? : [NSDictionary new];
-
-	NSString *titleColorFromPrefs = [prefs objectForKey:@"titleColor"];
-	NSString *titleBackgroundColorFromPrefs = [prefs objectForKey:@"titleBackgroundColor"];
-	UIColor *color = LCPParseColorString(titleColorFromPrefs, @"#ff0000");
-	UIColor *color2 = LCPParseColorString(titleBackgroundColorFromPrefs, @"#ff0000");
+	UIColor *color = [UIColor cscp_colorFromHexString:titleColor];
+	UIColor *color2 = [UIColor cscp_colorFromHexString:titleBackgroundColor];
 
 	if(enabled && titleFontWeight == 1){
 		// nothing
@@ -208,37 +201,34 @@
 %hook SBFolderBackgroundView
 %property (nonatomic, retain) UIVisualEffectView *lightView;
 %property (nonatomic, retain) UIVisualEffectView *darkView;
+%property (nonatomic, retain) UIView *backgroundColorFrame;
+%property (nonatomic, retain) CAGradientLayer *gradient;
 -(void)layoutSubviews {
 
 	%orig;
-
-	NSDictionary *prefs = [NSDictionary dictionaryWithContentsOfFile:PLIST_PATH] ? : [NSDictionary new];
 
     self.lightView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
 	self.lightView.frame = self.bounds;
 	self.darkView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
 	self.darkView.frame = self.bounds;
-	UIView *backgroundColorFrame = [[UIView alloc] initWithFrame:self.bounds];
+	self.backgroundColorFrame = [[UIView alloc] initWithFrame:self.bounds];
 	UIColor *backgroundColor = [UIColor cscp_colorFromHexString:folderBackgroundColor];
-	[backgroundColorFrame setBackgroundColor:backgroundColor];
+	[self.backgroundColorFrame setBackgroundColor:backgroundColor];
 
-	NSString *gradientColorOneFromPrefs = [prefs objectForKey:@"gradientColorOne"];
-	UIColor *gradientColorOneFinal = LCPParseColorString(gradientColorOneFromPrefs, @"#ff0000");
-	NSString *gradientColorTwoFromPrefs = [prefs objectForKey:@"gradientColorTwo"];
-	UIColor *gradientColorTwoFinal = LCPParseColorString(gradientColorTwoFromPrefs, @"#ff0000");
+	NSArray<id> *gradientColors = [StringForPreferenceKey(@"folderBackgroundColorWithGradient") cscp_gradientStringCGColors];
 
-	CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.bounds;
+	self.gradient = [CAGradientLayer layer];
+    self.gradient.frame = self.bounds;
 
 	if(!folderBackgroundColorWithGradientVerticalGradientEnabled){
-		gradient.startPoint = CGPointMake(0, 0.5);
-		gradient.endPoint = CGPointMake(1, 0.5);
+		self.gradient.startPoint = CGPointMake(0, 0.5);
+		self.gradient.endPoint = CGPointMake(1, 0.5);
 	} else if(folderBackgroundColorWithGradientVerticalGradientEnabled) {
-		gradient.startPoint = CGPointMake(0.5, 0);
-        gradient.endPoint = CGPointMake(0.5, 1);
+		self.gradient.startPoint = CGPointMake(0.5, 0);
+        self.gradient.endPoint = CGPointMake(0.5, 1);
 	}
 
-	gradient.colors = gradientColors;
+	self.gradient.colors = gradientColors;
 
 	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 1){
 		MSHookIvar<UIVisualEffectView *>(self, "_blurView") = self.lightView;
@@ -252,7 +242,7 @@
 		[self addSubview:self.darkView];
 	}
 
-	if(enabled && folderBackgroundColorEnabled && !folderBackgroundColorWithGradientEnabled){
+	if(enabled && folderBackgroundColorEnabled){
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		[self.blurView addSubview:backgroundColorFrame];
 	} else if(enabled && folderBackgroundColorEnabled && folderBackgroundColorWithGradientEnabled){
@@ -506,7 +496,7 @@
   [self getLocations];
     if (self.isFolder && enabled) {
 		if (customFolderIconEnabled) {
-			if (hasProcessLaunched) { 
+			if (hasProcessLaunched) {
 				return (customLayoutColumns);
 			} else {
 				@try {
@@ -514,7 +504,7 @@
 				} @catch (NSException *exception) {
 				return %orig;
 				hasInjectionFailed = YES;
-				}	
+				}
 			}
 		} else if(customLayoutEnabled && !customFolderIconEnabled) {
 			return customLayoutColumns;
@@ -536,7 +526,7 @@
 				} @catch (NSException *exception) {
 				return %orig;
 				hasInjectionFailed = YES;
-				}	
+				}
 			}
 		} else if(customLayoutEnabled && !customFolderIconEnabled) {
 			return customLayoutRows;
