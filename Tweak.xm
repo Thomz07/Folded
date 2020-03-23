@@ -254,10 +254,10 @@
 
 	if(enabled && folderBackgroundColorEnabled && !folderBackgroundColorWithGradientEnabled){
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-		[self addSubview:backgroundColorFrame];
+		[self.blurView addSubview:backgroundColorFrame];
 	} else if(enabled && folderBackgroundColorEnabled && folderBackgroundColorWithGradientEnabled){
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-		[self.layer insertSublayer:gradient atIndex:0];
+		[self.blurView.layer insertSublayer:gradient atIndex:0];
 	}
 }
 %end
@@ -566,14 +566,11 @@
 	hasInjectionFailed = NO;
     hasShownFailureAlert = NO;
 	%init(universal);
-	//if(kCFCoreFoundationVersionNumber < 1600){
-	//	%init(ios12);
-	//} else {
-	//	%init(ios13);
-	//}
-	%init(ios12);
-	%init(ios13);
-	// why do you init everything ?
+	if(kCFCoreFoundationVersionNumber < 1600){
+		%init(ios12);
+	} else {
+		%init(ios13);
+	}
 	NSLog(@"[Folded]: Tweak initialized.");
 }
 

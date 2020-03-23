@@ -34,9 +34,13 @@ UIColor *colorFromDefaultsWithKey(NSString *defaults, NSString *key, NSString *f
 @interface SBFolderIconBackgroundView : UIView
 @end
 
+@interface MTMaterialView : UIVisualEffectView
+@end
+
 @interface SBFolderBackgroundView : UIView
 -(void)layoutSubviews;
 -(void)setBackgroundColor:(UIColor *)arg1;
+@property (nonatomic, retain) MTMaterialView *blurView;
 @property (nonatomic, retain) UIVisualEffectView *lightView;
 @property (nonatomic, retain) UIVisualEffectView *darkView;
 @end
