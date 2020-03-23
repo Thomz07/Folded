@@ -242,10 +242,11 @@
 		[self addSubview:self.darkView];
 	}
 
-	if(enabled && folderBackgroundColorEnabled && !folderBackgroundColorWithGradientEnabled){
+	if(enabled && folderBackgroundColorEnabled){
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		[self addSubview:self.backgroundColorFrame];
-	} else if(enabled && folderBackgroundColorEnabled && folderBackgroundColorWithGradientEnabled){
+	}
+	if(enabled &&  folderBackgroundColorWithGradientEnabled){
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		[self.layer insertSublayer:self.gradient atIndex:0];
 	}
