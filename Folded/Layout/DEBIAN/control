@@ -1,9 +1,0 @@
-Package: xyz.burritoz.thomz.folded
-Name: Folded
-Depends: mobilesubstrate, preferenceloader, com.creaturesurvive.libcscolorpicker
-Version: 1.0
-Architecture: iphoneos-arm
-Description: Folders, your way. The most complete folder tweak to date.
-Maintainer: Thomz and burrit0z
-Author: Thomz and burrit0z
-Section: Tweaks
