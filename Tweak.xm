@@ -218,17 +218,9 @@
 	self.lightView.frame = self.bounds;
 	self.darkView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
 	self.darkView.frame = self.bounds;
-<<<<<<< HEAD
-
-	self.backgroundColorFrame = [[UIView alloc] initWithFrame:self.bounds];
-	NSString *backgroundColorFromPrefs = [prefs objectForKey:@"folderBackgroundColor"];
-	UIColor *backgroundColor = LCPParseColorString(backgroundColorFromPrefs, @"#ff0000");
-	[self.backgroundColorFrame setBackgroundColor:backgroundColor];
-=======
 	UIView *backgroundColorFrame = [[UIView alloc] initWithFrame:self.bounds];
 	UIColor *backgroundColor = [UIColor cscp_colorFromHexString:folderBackgroundColor];
 	[backgroundColorFrame setBackgroundColor:backgroundColor];
->>>>>>> parent of 27f2c5f... Should fix square bg with color
 
 	NSString *gradientColorOneFromPrefs = [prefs objectForKey:@"gradientColorOne"];
 	UIColor *gradientColorOneFinal = LCPParseColorString(gradientColorOneFromPrefs, @"#ff0000");
@@ -246,11 +238,7 @@
         gradient.endPoint = CGPointMake(0.5, 1);
 	}
 
-<<<<<<< HEAD
-	self.gradient.colors = @[(id) gradientColorOneFinal,(id) gradientColorTwoFinal];
-=======
 	gradient.colors = gradientColors;
->>>>>>> parent of 27f2c5f... Should fix square bg with color
 
 	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 1){
 		MSHookIvar<UIVisualEffectView *>(self, "_blurView") = self.lightView;
