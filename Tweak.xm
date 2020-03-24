@@ -244,10 +244,11 @@
 
 	if(enabled && folderBackgroundColorEnabled){
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-		[self.blurView addSubview:backgroundColorFrame];
-	} else if(enabled && folderBackgroundColorEnabled && folderBackgroundColorWithGradientEnabled){
+		[self addSubview:self.backgroundColorFrame];
+	}
+	if(enabled &&  folderBackgroundColorWithGradientEnabled){
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-		[self.blurView.layer insertSublayer:gradient atIndex:0];
+		[self.layer insertSublayer:self.gradient atIndex:0];
 	}
 }
 %end
@@ -496,7 +497,7 @@
   [self getLocations];
     if (self.isFolder && enabled) {
 		if (customFolderIconEnabled) {
-			if (hasProcessLaunched) {
+			if (hasProcessLaunched) { 
 				return (customLayoutColumns);
 			} else {
 				@try {
@@ -504,7 +505,7 @@
 				} @catch (NSException *exception) {
 				return %orig;
 				hasInjectionFailed = YES;
-				}
+				}	
 			}
 		} else if(customLayoutEnabled && !customFolderIconEnabled) {
 			return customLayoutColumns;
@@ -526,7 +527,7 @@
 				} @catch (NSException *exception) {
 				return %orig;
 				hasInjectionFailed = YES;
-				}
+				}	
 			}
 		} else if(customLayoutEnabled && !customFolderIconEnabled) {
 			return customLayoutRows;

@@ -36,13 +36,10 @@
 @interface SBFolderIconBackgroundView : UIView
 @end
 
-@interface MTMaterialView : UIVisualEffectView
-@end
-
 @interface SBFolderBackgroundView : UIView
 -(void)layoutSubviews;
 -(void)setBackgroundColor:(UIColor *)arg1;
-@property (nonatomic, retain) MTMaterialView *blurView;
+@property (nonatomic, retain) UIVisualEffectView *blurView;
 @property (nonatomic, retain) UIVisualEffectView *lightView;
 @property (nonatomic, retain) UIVisualEffectView *darkView;
 @property (nonatomic, retain) UIView *backgroundColorFrame;
