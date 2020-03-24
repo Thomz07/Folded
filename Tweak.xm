@@ -448,7 +448,7 @@
 
   hasProcessLaunched = YES;
 
-  if (hasInjectionFailed && showInjectionAlerts && !hasShownFailureAlert) {
+  if (enabled && hasInjectionFailed && showInjectionAlerts && !hasShownFailureAlert) {
 	  UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
                                message:@"Folded has failed to inject a custom folder icon layout. This is due to another tweak interfering with Folded. Please note Folded has prevented a crash that would have occured due to this."
                                preferredStyle:UIAlertControllerStyleAlert];
@@ -495,8 +495,9 @@
 
 -(NSUInteger)numberOfPortraitColumns {
   [self getLocations];
-    if (self.isFolder && enabled) {
-		if (customFolderIconEnabled) {
+  //I rewrote this so many times, and ended up with this insanley dumb and long, but rock solid method
+    if (self.isFolder && enabled && (customLayoutEnabled || customFolderIconEnabled)) {
+		if (customFolderIconEnabled && customLayoutEnabled) {
 			if (hasProcessLaunched) { 
 				return (customLayoutColumns);
 			} else {
@@ -509,6 +510,15 @@
 			}
 		} else if(customLayoutEnabled && !customFolderIconEnabled) {
 			return customLayoutColumns;
+		} else if(!customLayoutEnabled && customFolderIconEnabled) {
+			if (!hasProcessLaunched) {
+				@try {
+						return (folderIconColumns);
+					} @catch (NSException *exception) {
+					return %orig;
+					hasInjectionFailed = YES;
+					}
+			}
 		}
   } else {
     return (%orig);
@@ -517,10 +527,10 @@
 
 -(NSUInteger)numberOfPortraitRows {
   [self getLocations];
-    if (self.isFolder && enabled) {
-		if (customFolderIconEnabled) {
-			if (hasProcessLaunched) {
-				return customLayoutRows;
+    if (self.isFolder && enabled && (customLayoutEnabled || customFolderIconEnabled)) {
+		if (customFolderIconEnabled && customLayoutEnabled) {
+			if (hasProcessLaunched) { 
+				return (customLayoutRows);
 			} else {
 				@try {
 					return (folderIconRows);
@@ -531,6 +541,15 @@
 			}
 		} else if(customLayoutEnabled && !customFolderIconEnabled) {
 			return customLayoutRows;
+		} else if(!customLayoutEnabled && customFolderIconEnabled) {
+			if (!hasProcessLaunched) {
+				@try {
+						return (folderIconRows);
+					} @catch (NSException *exception) {
+					return %orig;
+					hasInjectionFailed = YES;
+					}
+			}
 		}
   } else {
     return (%orig);

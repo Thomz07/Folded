@@ -190,13 +190,20 @@ static void reloadPrefs()
     }
 }
 
-
+//There were so many issues with prefs I'm writing these out to be super long, but super safe
+//Note to self -- Just don't use these in final release
 static BOOL boolValueForKey(NSString *key, BOOL defaultValue) {
-    return (prefs && [prefs objectForKey:key]) ? [[prefs objectForKey:key] boolValue] : defaultValue;
+    return (prefs && (
+					  [[prefs objectForKey:key] boolValue] == YES || 
+					  [[prefs objectForKey:key] boolValue] == NO)
+		) ? [[prefs objectForKey:key] boolValue] : defaultValue;
 }
 
 static double numberForValue(NSString *key, double defaultValue) {
-	return (prefs && [prefs objectForKey:key]) ?  [[prefs objectForKey:key] doubleValue] : defaultValue;
+	return (prefs && (
+					  [[prefs objectForKey:key] doubleValue] > 0 ||
+					  [[prefs objectForKey:key] doubleValue] <= 0)
+	) ?  [[prefs objectForKey:key] doubleValue] : defaultValue;
 	//I'm pretty sure a double will return fine to any numeric variable
 }
 
