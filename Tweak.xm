@@ -112,7 +112,6 @@
 	%orig;
 
 	UIColor *color = [UIColor cscp_colorFromHexString:titleColor];
-	UIColor *color2 = [UIColor cscp_colorFromHexString:titleBackgroundColor];
 
 	if(enabled && titleFontWeight == 1){
 		// nothing
@@ -134,20 +133,12 @@
 		[self setTextColor:color];
 	}
 
-	if(enabled && titleBackgroundEnabled){
-		[self setBackgroundColor:color2];
-		[self.layer setMasksToBounds:true];
-		[self.layer setCornerRadius:titleBackgroundCornerRadius];
-	}
-
 	if (enabled && customTitleFontEnabled) {
     	[self setFont:[UIFont fontWithName:customTitleFont size:(self.font.pointSize)]];
 	}
 
 	CGFloat modifiedOriginX = self.frame.origin.x; //yeah, theres a reason this is frame and not bounds
 	CGFloat modifiedOriginY = self.bounds.origin.y;
-	CGFloat modifiedWidth = self.bounds.size.width;
-	CGFloat modifiedHeight = self.bounds.size.height;
 
 	if(enabled && customTitleXOffSetEnabled) {
 		modifiedOriginX = customTitleXOffSet;
@@ -161,24 +152,12 @@
 		modifiedOriginY = self.bounds.origin.y;
 	}
 
-	if(enabled && customTitleBoxWidthEnabled) {
-		modifiedWidth = customTitleBoxWidth;
-	} else {
-		modifiedWidth = self.bounds.size.width;
-	}
-
-	if(enabled && customTitleBoxHeightEnabled) {
-		modifiedHeight = customTitleBoxHeight;
-	} else {
-		modifiedHeight = self.bounds.size.height;
-	}
-
 	if(enabled && (customTitleBoxWidthEnabled || customTitleBoxHeightEnabled || customTitleOffSetEnabled || customTitleXOffSetEnabled)) {
 		[self setFrame: CGRectMake(
 			modifiedOriginX,
 			modifiedOriginY,
-			modifiedWidth,
-			modifiedHeight
+			self.bounds.size.width,
+			self.bounds.size.height
 		)];
 	}
 

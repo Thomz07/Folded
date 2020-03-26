@@ -238,7 +238,7 @@ static void preferencesChanged()
     folderIconRows = numberForValue(@"folderIconRows", 3);
 	folderIconColumns = numberForValue(@"folderIconColumns", 3);
 	twoByTwoIconEnabled = boolValueForKey(@"twoByTwoIconEnabled", NO);
-	titleFontWeight = numberForValue(@"titleFontWeight", 1);
+	titleFontWeight = numberForValue(@"titleFontWeight", 0);
 	titleAlignment = numberForValue(@"titleAlignment", 1);
 	titleColorEnabled = boolValueForKey(@"titleColorEnabled", NO);
 	titleColor = [prefs valueForKey:@"titleColor"];

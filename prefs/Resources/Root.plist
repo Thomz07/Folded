@@ -116,7 +116,7 @@
 			<key>pageKey</key>
 			<string>Miscellaneous</string>
 			<key>label</key>
-			<string>Other (Miscellaneous)</string>
+			<string>Other</string>
 			<key>icon</key>
 			<string>miscellaneous.png</string>
 		</dict>

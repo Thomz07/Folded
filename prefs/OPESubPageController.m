@@ -35,7 +35,7 @@ BOOL cornerRadiusEnabled;
 		_specifiers = [self loadSpecifiersFromPlistName:_sub target:self];
 
 		if ([[specifier propertyForKey:@"pageKey"] isEqualToString:@"Title"]) {
-			NSArray *chosenLabels = @[@"customTitleFontSize", @"customTitleOffSet", @"titleColor", @"customTitleColor", @"customTitleFont", @"titleBackgroundColor",@"titleBackgroundCornerRadius",@"customTitleBoxHeight",@"customTitleBoxWidth",@"customTitleXOffSet",@"customFrameX",@"customFrameY"];
+			NSArray *chosenLabels = @[@"customTitleFontSize", @"customTitleOffSet", @"titleColor", @"customTitleColor", @"customTitleFont",@"customTitleXOffSet"];
 			self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
 			for(PSSpecifier *specifier in [self specifiers]) {
 			if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
@@ -159,10 +159,7 @@ BOOL cornerRadiusEnabled;
 			customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
 			titleColorEnabled = [[preferences objectForKey:@"titleColorEnabled"] boolValue];
 			customTitleFontEnabled = [[preferences objectForKey:@"customTitleFontEnabled"] boolValue];
-			titleBackgroundEnabled = [[preferences objectForKey:@"titleBackgroundEnabled"] boolValue];
 			customTitleXOffSetEnabled = [[preferences objectForKey:@"customTitleXOffSetEnabled"] boolValue];
-			customTitleBoxWidthEnabled = [[preferences objectForKey:@"customTitleBoxWidthEnabled"] boolValue];
-			customTitleBoxHeightEnabled = [[preferences objectForKey:@"customTitleBoxHeightEnabled"] boolValue];
 
 			if(!customTitleFontSizeEnabled){
 				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] animated:YES];
@@ -188,28 +185,10 @@ BOOL cornerRadiusEnabled;
 				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFont"]] afterSpecifierID:@"Custom Title Font" animated:YES];
 			}
 
-			if(!titleBackgroundEnabled){
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"], self.mySavedSpecifiers[@"titleBackgroundCornerRadius"]] animated:YES];
-			} else if(customTitleOffSetEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"titleBackgroundColor"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"titleBackgroundCornerRadius"]]) {
-				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"], self.mySavedSpecifiers[@"titleBackgroundCornerRadius"]] afterSpecifierID:@"Title Background" animated:YES];
-			}
-
 			if(!customTitleXOffSetEnabled){
 				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleXOffSet"]] animated:YES];
 			} else if(customTitleXOffSetEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customTitleXOffSet"]]) {
 				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleXOffSet"]] afterSpecifierID:@"Custom Title X Offset" animated:YES];
-			}
-
-			if(!customTitleBoxHeightEnabled){
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleBoxHeight"]] animated:YES];
-			} else if(customTitleBoxHeightEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customTitleBoxHeight"]]) {
-				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleBoxHeight"]] afterSpecifierID:@"Custom Title Box Height" animated:YES];
-			}
-
-			if(!customTitleBoxWidthEnabled){
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleBoxWidth"]] animated:YES];
-			} else if(customTitleBoxWidthEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customTitleBoxWidth"]]) {
-				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleBoxWidth"]] afterSpecifierID:@"Custom Title Box Width" animated:YES];
 			}
 		}
 
@@ -295,10 +274,7 @@ BOOL cornerRadiusEnabled;
 		customTitleOffSetEnabled = [[preferences objectForKey:@"customTitleOffSetEnabled"] boolValue];
 		titleColorEnabled = [[preferences objectForKey:@"titleColorEnabled"] boolValue];
 		customTitleFontEnabled = [[preferences objectForKey:@"customTitleFontEnabled"] boolValue];
-		titleBackgroundEnabled = [[preferences objectForKey:@"titleBackgroundEnabled"] boolValue];
 		customTitleXOffSetEnabled = [[preferences objectForKey:@"customTitleXOffSetEnabled"] boolValue];
-		customTitleBoxWidthEnabled = [[preferences objectForKey:@"customTitleBoxWidthEnabled"] boolValue];
-		customTitleBoxHeightEnabled = [[preferences objectForKey:@"customTitleBoxHeightEnabled"] boolValue];
 
 		if(!customTitleFontSizeEnabled){
 		[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFontSize"]] animated:YES];
@@ -316,20 +292,8 @@ BOOL cornerRadiusEnabled;
 			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFont"]] animated:YES];
 		}
 
-		if(!titleBackgroundEnabled){
-			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"titleBackgroundColor"], self.mySavedSpecifiers[@"titleBackgroundCornerRadius"]] animated:YES];
-		} 
-
 		if(!customTitleXOffSetEnabled){
 			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleXOffSet"]] animated:YES];
-		}
-
-		if(!customTitleBoxHeightEnabled){
-			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleBoxHeight"]] animated:YES];
-		}
-
-		if(!customTitleBoxWidthEnabled){
-			[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleBoxWidth"]] animated:YES];
 		}
 	}
 
