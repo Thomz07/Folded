@@ -143,6 +143,18 @@
 		<dict>
 			<key>cell</key>
 			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Reset all Prefernces</string>
+			<key>action</key>
+			<string>resetPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
 			<key>cellClass</key>
 			<string>Thomz_TwitterCell</string>
 			<key>user</key>

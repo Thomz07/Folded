@@ -87,8 +87,8 @@ NSDictionary *preferences;
 		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
 		handler:^(UIAlertAction * action) {
 			NSTask *t = [[NSTask alloc] init];
-			[t setLaunchPath:@"/bin/killall"];
-			[t setArguments:[NSArray arrayWithObjects:@"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", nil]];
+			[t setLaunchPath:@"usr/bin/killall"];
+			[t setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
 			[t launch];
 		}];
 
@@ -98,7 +98,7 @@ NSDictionary *preferences;
 	
 }
 
--(void)deletePrefs {
+-(void)resetPrefs {
 	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Reset Preferences"
 							message:@"Are you sure you want to reset all of your preferences? This action CANNOT be undone!"
 							preferredStyle:UIAlertControllerStyleAlert];
@@ -108,8 +108,8 @@ NSDictionary *preferences;
 		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
 		handler:^(UIAlertAction * action) {
 			NSTask *t = [[NSTask alloc] init];
-			[t setLaunchPath:@"/usr/bin/rm"];
-			[t setArguments:[NSArray arrayWithObjects:@"", nil]];
+			[t setLaunchPath:@"/bin/rm"];
+			[t setArguments:[NSArray arrayWithObjects:@"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", nil]];
 			[t launch];
 		}];
 

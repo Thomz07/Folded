@@ -6,8 +6,8 @@
 //#import <Preferences/PSSegmentTableCell.h>
 
 @interface OPESubPageController : PSListController
-@property (nonatomic, retain) NSMutableArray *chosenLabels;
-@property (nonatomic, retain) NSMutableDictionary *mySavedSpecifiers;
+@property (nonatomic, strong) NSMutableArray *chosenLabels;
+@property (nonatomic, strong) NSMutableDictionary *mySavedSpecifiers;
 @property (nonatomic, assign) NSString *sub;
 @end
 

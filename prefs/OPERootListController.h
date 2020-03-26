@@ -7,9 +7,9 @@
 @interface OPERootListController : PSListController{
         UITableView * _table;
 }
-@property (nonatomic, retain) NSMutableDictionary *mySavedSpecifiers;
-@property (nonatomic, retain) UILabel *titleLabel;
-@property (nonatomic, retain) UIImageView *iconView;
+@property (nonatomic, strong) NSMutableDictionary *mySavedSpecifiers;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIImageView *iconView;
 @end
 
 @interface PSListController (iOS12Plus)

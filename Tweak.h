@@ -39,25 +39,25 @@
 @interface SBFolderBackgroundView : UIView
 -(void)layoutSubviews;
 -(void)setBackgroundColor:(UIColor *)arg1;
-@property (nonatomic, retain) UIVisualEffectView *blurView;
-@property (nonatomic, retain) UIVisualEffectView *lightView;
-@property (nonatomic, retain) UIVisualEffectView *darkView;
-@property (nonatomic, retain) UIView *backgroundColorFrame;
-@property (nonatomic, retain) CAGradientLayer *gradient;
+@property (nonatomic, strong) UIVisualEffectView *blurView;
+@property (nonatomic, strong) UIVisualEffectView *lightView;
+@property (nonatomic, strong) UIVisualEffectView *darkView;
+@property (nonatomic, strong) UIView *backgroundColorFrame;
+@property (nonatomic, strong) CAGradientLayer *gradient;
 @end
 
 @interface SBFolderControllerBackgroundView : UIView
-@property (nonatomic, retain) UIColor *backgroundColor;
+@property (nonatomic, strong) UIColor *backgroundColor;
 @property (nonatomic, assign) CGFloat aplha;
 -(void)layoutSubviews;
 @end
 
 @interface SBWallpaperEffectView : UIView
-@property (nonatomic, retain) UIView *blurView;
+@property (nonatomic, strong) UIView *blurView;
 @end
 
 @interface SBFolderIconImageView : UIView
-@property (nonatomic, retain) SBWallpaperEffectView *backgroundView;
+@property (nonatomic, strong) SBWallpaperEffectView *backgroundView;
 @property (nonatomic, assign) CGFloat aplha;
 @property (nonatomic, assign) CGAffineTransform transform;
 @end
