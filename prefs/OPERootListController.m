@@ -29,8 +29,7 @@ NSDictionary *preferences;
 
 	self.navigationItem.titleView = [UIView new];
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,10,10)];
-        self.titleLabel.font = [UIFont systemFontOfSize:17];
-		self.titleLabel.font = [UIFont systemFontOfSize:(self.font.pointSize)]; //Thats the way i know how to do it
+        self.titleLabel.font = [UIFont systemFontOfSize:19];
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         self.titleLabel.text = @"Folded";
 		self.titleLabel.alpha = 0.0;
