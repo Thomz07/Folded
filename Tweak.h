@@ -216,7 +216,7 @@ static void preferencesChanged()
 	backgroundAlphaEnabled = boolValueForKey(@"backgroundAlphaEnabled", NO);
 	backgroundAlpha = numberForValue(@"backgroundAlpha", 1.0);
 	cornerRadiusEnabled = boolValueForKey(@"cornerRadiusEnabled", NO);
-	cornerRadius = numberForValue(@"cornerRadius", 10);
+	cornerRadius = numberForValue(@"cornerRadius", 25);
 	pinchToCloseEnabled = boolValueForKey(@"pinchToCloseEnabled", NO);
 	customFrameEnabled = boolValueForKey(@"customFrameEnabled", NO);
 	customCenteredFrameEnabled = boolValueForKey(@"customCenteredFrameEnabled", NO);

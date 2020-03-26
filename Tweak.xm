@@ -245,11 +245,28 @@
 	if(enabled && folderBackgroundColorEnabled){
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		[self addSubview:self.backgroundColorFrame];
+
+		if(kCFCoreFoundationVersionNumber > 1600) {
+			if(enabled && cornerRadiusEnabled) {
+				[self.backgroundColorFrame.layer setCornerRadius:cornerRadius];
+			} else if (enabled) {
+				[self.backgroundColorFrame.layer setCornerRadius:38];
+			}
+		}
 	}
 	if(enabled &&  folderBackgroundColorWithGradientEnabled){
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		[self.layer insertSublayer:self.gradient atIndex:0];
+
+		if(kCFCoreFoundationVersionNumber > 1600) {
+			if(enabled && cornerRadiusEnabled) {
+				[self.gradient setCornerRadius:cornerRadius];
+			} else if (enabled) {
+				[self.gradient setCornerRadius:38];
+			}
+		}
 	}
+
 }
 %end
 
