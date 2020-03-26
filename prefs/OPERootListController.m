@@ -30,6 +30,7 @@ NSDictionary *preferences;
 	self.navigationItem.titleView = [UIView new];
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,10,10)];
         self.titleLabel.font = [UIFont systemFontOfSize:17];
+		self.titleLabel.font = [UIFont systemFontOfSize:(self.font.pointSize)]; //Thats the way i know how to do it
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         self.titleLabel.text = @"Folded";
 		self.titleLabel.alpha = 0.0;
@@ -87,8 +88,8 @@ NSDictionary *preferences;
 		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
 		handler:^(UIAlertAction * action) {
 			NSTask *t = [[NSTask alloc] init];
-			[t setLaunchPath:@"/usr/bin/killall"];
-			[t setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
+			[t setLaunchPath:@"/bin/killall"];
+			[t setArguments:[NSArray arrayWithObjects:@"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", nil]];
 			[t launch];
 		}];
 
@@ -96,6 +97,26 @@ NSDictionary *preferences;
 		[alert addAction:yes];
 		[self presentViewController:alert animated:YES completion:nil];
 	
+}
+
+-(void)deletePrefs {
+	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Reset Preferences"
+							message:@"Are you sure you want to reset all of your preferences? This action CANNOT be undone!"
+							preferredStyle:UIAlertControllerStyleAlert];
+
+		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault
+		handler:^(UIAlertAction * action) {}];
+		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
+		handler:^(UIAlertAction * action) {
+			NSTask *t = [[NSTask alloc] init];
+			[t setLaunchPath:@"/usr/bin/rm"];
+			[t setArguments:[NSArray arrayWithObjects:@"", nil]];
+			[t launch];
+		}];
+
+		[alert addAction:defaultAction];
+		[alert addAction:yes];
+		[self presentViewController:alert animated:YES completion:nil];
 }
 
 -(void)linkTwitter {
