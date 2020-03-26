@@ -272,6 +272,9 @@ static void preferencesChanged()
 	customTitleBoxHeight = numberForValue(@"customTitleBoxHeight", 50);
 	hideFolderIconBackground = boolValueForKey(@"hideFolderIconBackground", NO);
 
+	if(customTitleFontEnabled && titleFontWeight!=1) { //disables custom font weighting, preventing a freeze
+		titleFontWeight=1;
+	}
 	NSLog(@"[Folded]: Preferences reloaded sucessfully.");
 	//Hopefully this works :D
 }
