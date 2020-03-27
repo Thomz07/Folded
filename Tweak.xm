@@ -59,20 +59,6 @@
   }
 }
 
--(void)viewWillAppear:(BOOL)arg1 {
-	%orig;
-	if(enabled) {
-		isInFolder = YES;
-	}
-}
-
--(void)viewWillDisappear:(BOOL)arg1 {
-	%orig;
-	if(enabled) {
-		isInFolder = NO;
-	}
-}
-
 %new
 - (UIColor *)randomColor {
 
@@ -87,9 +73,9 @@
 
 %hook SBIconListPageControl
 
--(void)viewWillAppear:(BOOL)arg1 {
+-(void)layoutSubviews {
 	%orig;
-	if(isInFolder) {
+	if(!onPages) {
 		[self setFrame:CGRectMake(0,200,307,37)];
 	}
 }
@@ -389,22 +375,32 @@
 
 %hook SBIconGridImage
 
--(NSUInteger)numberOfColumns {
-	if(enabled && customFolderIconEnabled){
-  		return folderIconColumns;
-  	} else {return %orig;}
++ (unsigned long long)numberOfColumns {
+
+	if(enabled && twoByTwoIconEnabled){
+		return 2;
+	} else {return %orig;}
 }
 
--(NSUInteger)numberOfCells {
-	if(enabled && customFolderIconEnabled){
-  		return (folderIconColumns*folderIconRows);
-  	} else {return %orig;}
++ (unsigned long long)numberOfRowsForNumberOfCells:(unsigned long long)arg1 {
+
+	if(enabled && twoByTwoIconEnabled){
+		return 2;
+	} else {return %orig;}
 }
 
--(NSUInteger)numberOfRows {
-	if(enabled && customFolderIconEnabled){
-  		return folderIconRows;
-  	} else {return %orig;}
++ (CGSize)cellSize {
+    CGSize orig = %orig;
+	if(enabled && twoByTwoIconEnabled){
+		return CGSizeMake(orig.width * 1.5, orig.height);
+	} else {return %orig;}
+}
+
++ (CGSize)cellSpacing {
+    CGSize orig = %orig;
+    if(enabled && twoByTwoIconEnabled){
+		return CGSizeMake(orig.width * 1.5, orig.height);
+	} else {return %orig;}
 }
 ///
 
@@ -460,7 +456,7 @@
 
 %end
 
-//This part is crucial to my method :devil_face:
+//This part is crucial to my methods :devil_face:
 %hook SBIconController
 
 -(void)viewDidAppear:(BOOL)arg1 {

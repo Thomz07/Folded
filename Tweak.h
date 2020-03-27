@@ -152,7 +152,7 @@ BOOL hideFolderIconBackground;
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
 BOOL hasShownFailureAlert;
-BOOL isInFolder = NO;
+BOOL onPages = YES;
 
 #define PLIST_PATH @"/User/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
 #define kIdentifier @"xyz.burritoz.thomz.folded.prefs"
@@ -276,6 +276,12 @@ static void preferencesChanged()
 	if(customTitleFontEnabled && titleFontWeight!=1) { //disables custom font weighting, preventing a freeze
 		titleFontWeight=1;
 	}
+
+	if(twoByTwoIconEnabled) {
+		folderIconRows=2;
+		folderIconColumns=2;
+	}
+
 	NSLog(@"[Folded]: Preferences reloaded sucessfully.");
 	//Hopefully this works :D
 }
