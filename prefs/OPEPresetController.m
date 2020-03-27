@@ -2,6 +2,11 @@
 
 @implementation OPEPresetController
 
+- (void)setSpecifier:(PSSpecifier *)specifier {
+    [self loadFromSpecifier:specifier];
+    [super setSpecifier:specifier];
+}
+
 - (void)loadFromSpecifier:(PSSpecifier *)specifier {
 	if (!_specifiers) {
 
@@ -30,7 +35,7 @@
 		handler:^(UIAlertAction * action) {}];
 		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
 		handler:^(UIAlertAction * action) {
-                        NSTask *t3 = [[NSTask alloc] init];
+            NSTask *t3 = [[NSTask alloc] init];
 			[t3 setLaunchPath:@"usr/bin/killall"];
 			[t3 setArguments:[NSArray arrayWithObjects:@"-u $USER cfprefsd", nil]];
 			[t3 launch];
@@ -41,7 +46,7 @@
 
 			//COPY NEW PLIST HERE
 
-			
+
 			NSTask *t2 = [[NSTask alloc] init];
 			[t2 setLaunchPath:@"usr/bin/killall"];
 			[t2 setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
