@@ -90,13 +90,13 @@
 	}
 
 	//working on custom positioning! :D
-	CGRect original = self.frame;
+	/*CGRect original = self.frame;
 	self.frame = CGRectMake(
 		original.origin.x,
 		(original.origin.y + 100),
 		original.size.width,
 		original.size.height
-	);
+	);*/
 
 }
 
