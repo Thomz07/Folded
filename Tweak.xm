@@ -23,7 +23,11 @@
 		if(customCenteredFrameEnabled){
 			return CGRectMake((self.bounds.size.width - frameWidth)/2, (self.bounds.size.height - frameHeight)/2,frameWidth,frameHeight); // simple calculation to center things
 		} else if(!customCenteredFrameEnabled){
-			return CGRectMake(frameX,frameY,frameWidth,frameHeight);
+			if(frameWidth == 0 || frameHeight == 0){
+				return %orig;
+			} else {
+				return CGRectMake(frameX,frameY,frameWidth,frameHeight);
+			}
 		} else {return %orig;}
 	} else {return %orig;}
 }
