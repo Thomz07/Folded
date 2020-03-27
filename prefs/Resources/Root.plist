@@ -128,6 +128,18 @@
 			<key>cell</key>
 			<string>PSLinkCell</string>
 			<key>detail</key>
+			<string>OPEPresetController</string>
+			<key>presetName</key>
+			<string>KEYHERE</string>
+			<key>label</key>
+			<string>Presets</string>
+			<key>icon</key>
+			<string>presets.png</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>detail</key>
 			<string>OPESubPageController</string>
 			<key>pageKey</key>
 			<string>FAQ</string>
@@ -154,6 +166,13 @@
 		</dict>
 		<dict>
 			<key>cell</key>
+<<<<<<< HEAD
+=======
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+>>>>>>> f171e6a2808e917377f295329951872f766794ec
 			<string>PSButtonCell</string>
 			<key>cellClass</key>
 			<string>Thomz_TwitterCell</string>
