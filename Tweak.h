@@ -64,16 +64,10 @@
 @end
 
 @interface SBIconListPageControl : UIView
-@property (nonatomic,retain) UILabel *label;
 @end
 
 @interface _SBIconGridWrapperView : UIView
 @property (nonatomic, assign) CGAffineTransform transform;
-@end
-
-@interface UITextFieldBorderView
-@property (nonatomic, assign) BOOL hidden;
--(void)layoutSubviews;
 @end
 
 @class UITextField, UIFont;
@@ -144,10 +138,6 @@ BOOL clearBackgroundIcons;
 BOOL customWallpaperBlurEnabled;
 double customWallpaperBlurFactor;
 BOOL tapToCloseEnabled;
-BOOL customTitleBoxWidthEnabled;
-double customTitleBoxWidth;
-BOOL customTitleBoxHeightEnabled;
-double customTitleBoxHeight;
 BOOL hideFolderIconBackground;
 BOOL hidePageDotsEnabled;
 double hideDotsPref;
@@ -271,8 +261,6 @@ static void preferencesChanged()
 	customWallpaperBlurEnabled = boolValueForKey(@"customWallpaperBlurEnabled", NO);
 	customWallpaperBlurFactor = numberForValue(@"customWallpaperBlurFactor", 1.0);
 	tapToCloseEnabled = boolValueForKey(@"tapToCloseEnabled", NO);
-	customTitleBoxWidthEnabled = boolValueForKey(@"customTitleBoxWidthEnabled", NO);
-	customTitleBoxHeightEnabled = boolValueForKey(@"customTitleBoxHeightEnabled", NO);
 	hideFolderIconBackground = boolValueForKey(@"hideFolderIconBackground", NO);
 	hideDotsPref = numberForValue(@"hideDotsPref", 1);
 

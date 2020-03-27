@@ -51,8 +51,8 @@
 		<dict>
         	<key>cell</key>
         	<string>PSGroupCell</string>
-			<key>label</key>
-			<string>PLEASE SEE FAQ PAGE FOR MORE INFO! THIS WILL DISABLE CUSTOM FONT WEIGHTING!</string>
+			<key>footerText</key>
+			<string>Please see FAQ page for more info! This will disable Custom Font Weighting</string>
         </dict>
 		<dict>
         	<key>cell</key>
