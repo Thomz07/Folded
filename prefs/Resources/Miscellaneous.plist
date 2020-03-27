@@ -131,19 +131,30 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
+			<label>Page Dots</label>
 		</dict>
 		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
-			<string>hidePageDotsEnabled</string>
-			<key>label</key>
-			<string>Hide Page Dots</string>
-		</dict>
+            <key>cell</key>
+            <string>PSSegmentCell</string>
+            <key>defaults</key>
+            <string>xyz.burritoz.thomz.folded.prefs</string>
+            <key>default</key>
+            <string>1</string>
+            <key>key</key>
+            <string>hideDotsPref</string>
+            <key>validValues</key>
+            <array>
+                <string>1</string>
+                <string>2</string>
+                <string>3</string>
+            </array>
+            <key>validTitles</key>
+            <array>
+            	<string>Off</string>
+                <string>In Folders</string>
+                <string>Everywhere</string>
+            </array>
+        </dict>
 	</array>
 	<key>title</key>
 	<string>Miscellaneous</string>

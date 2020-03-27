@@ -80,9 +80,13 @@
 -(void)layoutSubviews {
 
 	%orig;
-
-	if(hidePageDotsEnabled){ // not working
-		[self setHidden:true];
+	if(enabled && hideDotsPrefs==2 && isInAFolder ) { // not working (look below thomz :D)
+		self.hidden=1; //now this works :D
+		isInAFolder = NO;
+	} else if(enabled && hideDotsPref==3) {
+		self.hidden=1;
+	} else {
+		return %orig;
 	}
 
 }
@@ -126,6 +130,8 @@
 %hook SBFolderTitleTextField
 
 -(void)layoutSubviews {
+
+	isInAFolder = YES;
 
 	%orig;
 

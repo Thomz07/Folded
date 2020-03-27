@@ -155,6 +155,7 @@ BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
 BOOL hasShownFailureAlert;
 BOOL blankIconAlertShouldShow;
+BOOL isInAFolder = NO;
 
 #define PLIST_PATH @"/User/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
 #define kIdentifier @"xyz.burritoz.thomz.folded.prefs"
@@ -272,7 +273,7 @@ static void preferencesChanged()
 	customTitleBoxWidthEnabled = boolValueForKey(@"customTitleBoxWidthEnabled", NO);
 	customTitleBoxHeightEnabled = boolValueForKey(@"customTitleBoxHeightEnabled", NO);
 	hideFolderIconBackground = boolValueForKey(@"hideFolderIconBackground", NO);
-	hidePageDotsEnabled = boolValueForKey(@"hidePageDotsEnabled", NO);
+	hideDotsPref = numberForValue(@"hideDotsPref", 1);
 
 	if(customTitleFontEnabled && titleFontWeight!=1) { //disables custom font weighting, preventing a freeze
 		titleFontWeight=1;
