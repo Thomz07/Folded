@@ -187,19 +187,6 @@ NSDictionary *preferences;
 
 @end
 
-@implementation Burrit0z_TitleCell //A temporary one
-
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
-	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
-
-    if (self) {
-
-	}
-
-	return self;
-}
-@end
-
 @implementation FoldedHeaderCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {

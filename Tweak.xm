@@ -185,7 +185,7 @@
 		modifiedOriginY = self.bounds.origin.y;
 	}
 
-	if(enabled && (customTitleBoxWidthEnabled || customTitleBoxHeightEnabled || customTitleOffSetEnabled || customTitleXOffSetEnabled)) {
+	if(enabled && (customTitleOffSetEnabled || customTitleXOffSetEnabled)) {
 		[self setFrame: CGRectMake(
 			modifiedOriginX,
 			modifiedOriginY,
