@@ -71,6 +71,20 @@
 
 %end
 
+%hook SBIconListPageControl
+
+-(void)layoutSubviews {
+
+	%orig;
+
+	if([self isDescendantOfView:%c(SBFolderController)]){ // not working
+		[self setBackgroundColor:[UIColor whiteColor]];
+	}
+
+}
+
+%end
+
 %hook SBFolderBackgroundMaterialSettings
 
 -(UIColor *)baseOverlayColor { // this effect looks so sweet

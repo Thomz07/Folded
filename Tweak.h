@@ -64,7 +64,7 @@
 @end
 
 @interface SBIconListPageControl : UIView
-@property (nonatomic, assign) BOOL hidden;
+@property (nonatomic,retain) UILabel *label;
 @end
 
 @interface _SBIconGridWrapperView : UIView
