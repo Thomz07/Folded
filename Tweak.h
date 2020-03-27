@@ -6,6 +6,8 @@
 //i think my sdks are broken, why the hell UIKitCore is not found
 
 @interface SBIconController : UIAlertController
++(id)sharedInstance;
+-(void)ShowFailureAlert;
 @end
 
 @interface SBIconListGridLayoutConfiguration

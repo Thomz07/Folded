@@ -386,24 +386,27 @@
 //Haha this next part is my genius method of stopping SpringBoard crashes!
 //Ngl surprised my dumb self thought of this. :D
 +(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
-  if (enabled && customFolderIconEnabled) {
-	return nil;
+  if (enabled && customFolderIconEnabled && hasProcessLaunched) {
+	  return nil;
+	  [[%c(SBIconController) sharedInstance] showFailureAlert];
   } else {
 	return %orig;
   }
 }
 
 +(id)gridImageForLayout:(id)arg1 cellImageDrawBlock:(id)arg2 {
-  if (enabled && customFolderIconEnabled) {
-	return nil;
+  if (enabled && customFolderIconEnabled && hasProcessLaunched) {
+	  return nil;
+	  [[%c(SBIconController) sharedInstance] showFailureAlert];
   } else {
 	return %orig;
   }
 }
 
 +(id)gridImageForLayout:(id)arg1 pool:(id)arg2 cellImageDrawBlock:(id)arg3 {
-  if (enabled && customFolderIconEnabled) {
-	return nil;
+  if (enabled && customFolderIconEnabled && hasProcessLaunched) {
+	  return nil;
+	  [[%c(SBIconController) sharedInstance] showFailureAlert];
   } else {
 	return %orig;
   }
@@ -433,8 +436,16 @@
   hasProcessLaunched = YES;
 
   if (enabled && hasInjectionFailed && showInjectionAlerts && !hasShownFailureAlert) {
-	  UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
-                               message:@"Folded has failed to inject a custom folder icon layout. This is due to another tweak interfering with Folded. Please note Folded has prevented a crash that would have occured due to this."
+	  [self showFailureAlert];
+	  hasShownFailureAlert = YES;
+  }
+
+}
+
+%new
+-(void)showFailureAlert {
+	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
+                               message:@"Folded has failed to inject a custom folder icon layout. This is due to another tweak interfering with Folded, or due to you editing icons in a folder (respring to fix.) Please note Folded has prevented a crash that would have occured due to this."
                                preferredStyle:UIAlertControllerStyleAlert];
 
 		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault
@@ -442,9 +453,6 @@
 
 		[alert addAction:defaultAction];
 		[self presentViewController:alert animated:YES completion:nil];
-                hasShownFailureAlert = YES;
-  }
-
 }
 
 %end
