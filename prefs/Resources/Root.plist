@@ -155,18 +155,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSButtonCell</string>
-			<key>label</key>
-			<string>Test</string>
-			<key>action</key>
-			<string>bolders</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSButtonCell</string>
 			<key>cellClass</key>
 			<string>Thomz_TwitterCell</string>
 			<key>user</key>

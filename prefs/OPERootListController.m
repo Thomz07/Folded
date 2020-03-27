@@ -2,7 +2,7 @@
 
 @implementation OPERootListController
 
-NSDictionary *preferences;
+NSMutableDictionary *preferences;
 
 - (NSArray *)specifiers {
 	if (!_specifiers) {
@@ -68,7 +68,7 @@ NSDictionary *preferences;
 -(void)apply:(PSSpecifier *)specifier {
 	NSTask *f = [[NSTask alloc] init];
 			[f setLaunchPath:@"/usr/bin/killall"];
-			[f setArguments:[NSArray arrayWithObjects:@"cfprefsd", nil]];
+			[f setArguments:[NSArray arrayWithObjects:@"-u $USER cfprefsd", nil]];
 			[f launch];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -77,7 +77,7 @@ NSDictionary *preferences;
 	   							   //Lmao no problem Thomz ;) -Burrit0z
          });
 
-	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
+	preferences = [NSMutableDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs"];
 	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
 							message:@"Your settings have been applied. Some settings, not many, may require a respring. \n Would you like to respring as well?"
 							preferredStyle:UIAlertControllerStyleAlert];
@@ -99,6 +99,9 @@ NSDictionary *preferences;
 }
 
 -(void)resetPrefs:(id)sender {
+
+	preferences = [NSMutableDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs"];
+
 	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Reset Preferences"
 							message:@"Are you sure you want to reset all of your preferences? This action CANNOT be undone! Your device will respring."
 							preferredStyle:UIAlertControllerStyleAlert];
@@ -107,24 +110,12 @@ NSDictionary *preferences;
 		handler:^(UIAlertAction * action) {}];
 		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
 		handler:^(UIAlertAction * action) {
-                        NSTask *t3 = [[NSTask alloc] init];
-			[t3 setLaunchPath:@"usr/bin/killall"];
-			[t3 setArguments:[NSArray arrayWithObjects:@"-u $USER cfprefsd", nil]];
-			[t3 launch];
-			NSTask *t = [[NSTask alloc] init];
-			[t setLaunchPath:@"/bin/rm"];
-			[t setArguments:[NSArray arrayWithObjects:@"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", nil]];
-			[t launch];
-			NSTask *t2 = [[NSTask alloc] init];
-			[t2 setLaunchPath:@"usr/bin/killall"];
-			[t2 setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
-			[t2 launch];
+			// insert method to succesfully reset prefs here
 		}];
 
 		[alert addAction:defaultAction];
 		[alert addAction:yes];
 		[self presentViewController:alert animated:YES completion:nil];
-		[self reloadSpecifiers]; //reload the prefs 
 }
 
 -(void)linkTwitter {
