@@ -8,6 +8,16 @@
         	<key>cell</key>
         	<string>PSGroupCell</string>
         </dict>
+		<dict>
+        	<key>cell</key>
+        	<string>PSButtonCell</string>
+			<key>action</key>
+			<string>applyPreset</string>
+			<key>label</key>
+			<string>Example</string>
+			<key>presetName</key>
+			<string>Bolders</string>
+        </dict>
 	</array>
 	<key>title</key>
 	<string>Presets</string>
