@@ -181,7 +181,7 @@ BOOL cornerRadiusEnabled;
 
 			if(!customTitleFontEnabled){
 				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFont"]] animated:YES];
-			} else if(customTitleOffSetEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customTitleFont"]]) {
+			} else if(customTitleFontEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customTitleFont"]]) {
 				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customTitleFont"]] afterSpecifierID:@"Custom Title Font" animated:YES];
 			}
 
