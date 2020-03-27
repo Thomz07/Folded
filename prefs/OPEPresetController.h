@@ -4,7 +4,7 @@
 #import <Preferences/PSListItemsController.h>
 #import <Preferences/PSSliderTableCell.h>
 
-@interface OPESubPageController : PSListController
+@interface OPEPresetController : PSListController
 @end
 
 @interface NSTask : NSObject
