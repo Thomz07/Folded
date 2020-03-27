@@ -98,7 +98,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
             <key>footerText</key>
-			<string>iOS 12 only, Layout must be 2x2</string>
+			<string>iOS 12 and 13, Layout must be 2x2</string>
 		</dict>
 		<dict>
         	<key>cell</key>

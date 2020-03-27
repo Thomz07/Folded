@@ -183,6 +183,17 @@
     if(enabled && hideFolderGridEnabled){
 		[self setHidden:true];
 	}
+	if((twoByTwoIconEnabled || (folderIconColumns==2 && folderIconRows==2))&& kCFCoreFoundationVersionNumber > 1600) {
+		CGAffineTransform originalIconView = (self.transform);
+		self.transform = CGAffineTransformMake(
+			1.5,
+			originalIconView.b,
+			originalIconView.c,
+			1.5,
+			originalIconView.tx,
+			originalIconView.ty
+		);
+	}
 }
 
 %end
@@ -319,38 +330,6 @@
 
 	if(enabled && customLayoutEnabled){
     	return (customLayoutColumns);
-	} else {return %orig;}
-}
-
-%end
-
-%hook SBIconGridImage
-
-+ (unsigned long long)numberOfColumns {
-
-	if(enabled && twoByTwoIconEnabled){
-		return 2;
-	} else {return %orig;}
-}
-
-+ (unsigned long long)numberOfRowsForNumberOfCells:(unsigned long long)arg1 {
-
-	if(enabled && twoByTwoIconEnabled){
-		return 2;
-	} else {return %orig;}
-}
-
-+ (CGSize)cellSize {
-    CGSize orig = %orig;
-	if(enabled && twoByTwoIconEnabled){
-		return CGSizeMake(orig.width * 1.5, orig.height);
-	} else {return %orig;}
-}
-
-+ (CGSize)cellSpacing {
-    CGSize orig = %orig;
-    if(enabled && twoByTwoIconEnabled){
-		return CGSizeMake(orig.width * 1.5, orig.height);
 	} else {return %orig;}
 }
 
