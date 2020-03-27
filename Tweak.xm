@@ -81,8 +81,8 @@
 
 	%orig;
 
-	if([self isDescendantOfView:%c(SBFolderController)]){ // not working
-		[self setBackgroundColor:[UIColor whiteColor]];
+	if(hidePageDotsEnabled){ // not working
+		[self setHidden:true];
 	}
 
 }

@@ -128,7 +128,22 @@
 			<key>label</key>
 			<string>Hide Dock and Pages in Folders</string>
 		</dict>
-
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>hidePageDotsEnabled</string>
+			<key>label</key>
+			<string>Hide Page Dots</string>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>Miscellaneous</string>

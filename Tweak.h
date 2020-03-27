@@ -149,6 +149,7 @@ double customTitleBoxWidth;
 BOOL customTitleBoxHeightEnabled;
 double customTitleBoxHeight;
 BOOL hideFolderIconBackground;
+BOOL hidePageDotsEnabled;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
@@ -270,9 +271,8 @@ static void preferencesChanged()
 	tapToCloseEnabled = boolValueForKey(@"tapToCloseEnabled", NO);
 	customTitleBoxWidthEnabled = boolValueForKey(@"customTitleBoxWidthEnabled", NO);
 	customTitleBoxHeightEnabled = boolValueForKey(@"customTitleBoxHeightEnabled", NO);
-	customTitleBoxWidth = numberForValue(@"customTitleBoxWidth", 100);
-	customTitleBoxHeight = numberForValue(@"customTitleBoxHeight", 50);
 	hideFolderIconBackground = boolValueForKey(@"hideFolderIconBackground", NO);
+	hidePageDotsEnabled = boolValueForKey(@"hidePageDotsEnabled", NO);
 
 	if(customTitleFontEnabled && titleFontWeight!=1) { //disables custom font weighting, preventing a freeze
 		titleFontWeight=1;
