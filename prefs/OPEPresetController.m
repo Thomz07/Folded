@@ -37,7 +37,7 @@
 }
 
 -(void)applyPreset:(PSSpecifier *)specifier {
-    NSString *desiredPreset = [specifier propertyForKey:@"presetName"];
+    NSString *desiredPresetPlist = [NSString stringWithFormat:@"/Library/PreferenceBundles/Folded.bundle/%@.plist", [specifier propertyForKey:@"presetName"]];
 
 	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Apply Preset"
 							message:@"Are you sure you want to apply this preset? \n \n This action CANNOT be undone!"
@@ -51,12 +51,19 @@
 			[t setLaunchPath:@"/bin/rm"];
 			[t setArguments:[NSArray arrayWithObjects:@"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", nil]];
 			[t launch];
+
+			NSTask *t4 = [[NSTask alloc] init];
+			[t4 setLaunchPath:@"/bin/cp"];
+			[t4 setArguments:[NSArray arrayWithObjects:desiredPresetPlist, nil]];
+			[t4 launch];
+
+
 			NSTask *t2 = [[NSTask alloc] init];
-			[t2 setLaunchPath:@"usr/bin/killall"];
+			[t2 setLaunchPath:@"/usr/bin/killall"];
 			[t2 setArguments:[NSArray arrayWithObjects:@"-u $USER cfprefsd", nil]];
 			[t2 launch];
 			NSTask *t3 = [[NSTask alloc] init];
-			[t3 setLaunchPath:@"usr/bin/killall"];
+			[t3 setLaunchPath:@"/usr/bin/killall"];
 			[t3 setArguments:[NSArray arrayWithObjects:@"-u $USER cfprefsd", nil]];
 			[t3 launch];
 

@@ -377,7 +377,7 @@ BOOL cornerRadiusEnabled;
     [super layoutSubviews];
     [self.control setFrame:CGRectOffset(self.control.frame, 0, 15)];
 }
-@end // love you kritanta (yeah [s]he's awesome -Burritoz)
+@end // love you kritanta (yeah he's awesome -Burritoz)
 
 @implementation ThomzScreenSizeCell 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier  {
