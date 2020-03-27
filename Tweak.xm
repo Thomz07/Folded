@@ -71,6 +71,10 @@
 
 %end
 
+%hook SBIconListPageControl
+
+%end
+
 %hook SBFolderBackgroundMaterialSettings
 
 -(UIColor *)baseOverlayColor { // this effect looks so sweet
