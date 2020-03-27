@@ -152,6 +152,7 @@ BOOL hideFolderIconBackground;
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
 BOOL hasShownFailureAlert;
+BOOL isInFolder = NO;
 
 #define PLIST_PATH @"/User/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
 #define kIdentifier @"xyz.burritoz.thomz.folded.prefs"

@@ -59,6 +59,20 @@
   }
 }
 
+-(void)viewWillAppear:(BOOL)arg1 {
+	%orig;
+	if(enabled) {
+		isInFolder = YES;
+	}
+}
+
+-(void)viewWillDisappear:(BOOL)arg1 {
+	%orig;
+	if(enabled) {
+		isInFolder = NO;
+	}
+}
+
 %new
 - (UIColor *)randomColor {
 
@@ -72,6 +86,13 @@
 %end
 
 %hook SBIconListPageControl
+
+-(void)viewWillAppear:(BOOL)arg1 {
+	%orig;
+	if(isInFolder) {
+		[self setFrame:CGRectMake(0,200,307,37)];
+	}
+}
 
 %end
 
