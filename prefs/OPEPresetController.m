@@ -1,18 +1,30 @@
-#include "OPEPresetController.m"
+//While it is abnormal, there is no .h file for this .m file. Everything comes in one neat package!
+//This is because there was a "#include nested too deeply" error.
+#import <Preferences/PSListController.h>
+#import <Preferences/PSTableCell.h>
+#import <Preferences/PSSpecifier.h>
+#import <Preferences/PSListItemsController.h>
+#import <Preferences/PSSliderTableCell.h>
+//#import <Preferences/PSSegmentTableCell.h>
+
+@interface OPEPresetController : PSListController
+@end
+
+@interface NSTask : NSObject
+@property(copy) NSArray *arguments;
+@property(copy) NSString *launchPath;
+- (id)init;
+- (void)launch;
+@end
 
 @implementation OPEPresetController
 
-- (void)setSpecifier:(PSSpecifier *)specifier {
-    [self loadFromSpecifier:specifier];
-    [super setSpecifier:specifier];
-}
-
-- (void)loadFromSpecifier:(PSSpecifier *)specifier {
+- (NSArray *)specifiers {
 	if (!_specifiers) {
-
-		_specifiers = [self loadSpecifiersFromPlistName:Presets target:self];
-
+		_specifiers = [self loadSpecifiersFromPlistName:@"Root" target:self];
 	}
+
+	return _specifiers;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -25,40 +37,38 @@
 }
 
 -(void)applyPreset:(PSSpecifier *)specifier {
-    desiredPreset = [specifier propertyForKey:@"presetName"];
+    NSString *desiredPreset = [specifier propertyForKey:@"presetName"];
 
 	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Apply Preset"
-							message:@"Are you sure you want to apply this preset? This action CANNOT be undone! Your device will respring."
+							message:@"Are you sure you want to apply this preset? \n \n This action CANNOT be undone!"
 							preferredStyle:UIAlertControllerStyleAlert];
 
 		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault
 		handler:^(UIAlertAction * action) {}];
 		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
 		handler:^(UIAlertAction * action) {
-            NSTask *t = [[NSTask alloc] init];
+			NSTask *t = [[NSTask alloc] init];
 			[t setLaunchPath:@"/bin/rm"];
 			[t setArguments:[NSArray arrayWithObjects:@"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", nil]];
 			[t launch];
-			NSTask *t4 = [[NSTask alloc] init];
-			[t4 setLaunchPath:@"usr/bin/killall"];
-			[t4 setArguments:[NSArray arrayWithObjects:@"-u $USER cfprefsd", nil]];
-			[t4 launch];
-			NSTask *t5 = [[NSTask alloc] init];
-			[t5 setLaunchPath:@"usr/bin/killall"];
-			[t5 setArguments:[NSArray arrayWithObjects:@"-u $USER cfprefsd", nil]];
-			[t5 launch];
 			NSTask *t2 = [[NSTask alloc] init];
 			[t2 setLaunchPath:@"usr/bin/killall"];
-			[t2 setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
+			[t2 setArguments:[NSArray arrayWithObjects:@"-u $USER cfprefsd", nil]];
 			[t2 launch];
+			NSTask *t3 = [[NSTask alloc] init];
+			[t3 setLaunchPath:@"usr/bin/killall"];
+			[t3 setArguments:[NSArray arrayWithObjects:@"-u $USER cfprefsd", nil]];
+			[t3 launch];
 
-			//COPY NEW PLIST HERE
-
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+       CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
+         });
 		}];
 
 		[alert addAction:defaultAction];
 		[alert addAction:yes];
 		[self presentViewController:alert animated:YES completion:nil];
+
 }
 
 @end
