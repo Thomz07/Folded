@@ -107,6 +107,10 @@ NSDictionary *preferences;
 		handler:^(UIAlertAction * action) {}];
 		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
 		handler:^(UIAlertAction * action) {
+                        NSTask *t3 = [[NSTask alloc] init];
+			[t3 setLaunchPath:@"usr/bin/killall"];
+			[t3 setArguments:[NSArray arrayWithObjects:@"-u $USER cfprefsd", nil]];
+			[t3 launch];
 			NSTask *t = [[NSTask alloc] init];
 			[t setLaunchPath:@"/bin/rm"];
 			[t setArguments:[NSArray arrayWithObjects:@"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", nil]];
@@ -115,10 +119,6 @@ NSDictionary *preferences;
 			[t2 setLaunchPath:@"usr/bin/killall"];
 			[t2 setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
 			[t2 launch];
-			NSTask *t3 = [[NSTask alloc] init];
-			[t3 setLaunchPath:@"usr/bin/killall"];
-			[t3 setArguments:[NSArray arrayWithObjects:@"-u $USER cfprefsd", nil]];
-			[t3 launch];
 		}];
 
 		[alert addAction:defaultAction];
