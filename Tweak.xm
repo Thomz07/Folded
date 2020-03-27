@@ -80,7 +80,7 @@
 -(void)layoutSubviews {
 
 	%orig;
-	if(enabled && hideDotsPrefs==2 && isInAFolder ) { // not working (look below thomz :D)
+	if(enabled && hideDotsPref==2 && isInAFolder ) { // not working (look below thomz :D)
 		self.hidden=1; //now this works :D
 		isInAFolder = NO;
 	} else if(enabled && hideDotsPref==3) {
