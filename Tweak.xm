@@ -71,17 +71,6 @@
 
 %end
 
-%hook SBIconListPageControl
-
--(void)layoutSubviews {
-	%orig;
-	if(!onPages) {
-		[self setFrame:CGRectMake(0,200,307,37)];
-	}
-}
-
-%end
-
 %hook SBFolderBackgroundMaterialSettings
 
 -(UIColor *)baseOverlayColor { // this effect looks so sweet
