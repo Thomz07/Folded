@@ -7,7 +7,7 @@
 
 @interface SBIconController : UIAlertController
 +(id)sharedInstance;
--(void)ShowFailureAlert;
+-(void)showFailureAlert;
 @end
 
 @interface SBIconListGridLayoutConfiguration
