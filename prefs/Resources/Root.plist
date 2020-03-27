@@ -166,13 +166,6 @@
 		</dict>
 		<dict>
 			<key>cell</key>
-<<<<<<< HEAD
-=======
-			<string>PSGroupCell</string>
-		</dict>
-		<dict>
-			<key>cell</key>
->>>>>>> f171e6a2808e917377f295329951872f766794ec
 			<string>PSButtonCell</string>
 			<key>cellClass</key>
 			<string>Thomz_TwitterCell</string>
