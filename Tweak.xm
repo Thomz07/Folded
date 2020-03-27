@@ -386,37 +386,19 @@
 //Haha this next part is my genius method of stopping SpringBoard crashes!
 //Ngl surprised my dumb self thought of this. :D
 +(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
-  if (enabled) {
-	@try {
-		return %orig;
-	} @catch (NSException *exception) {
-		return nil;
-	}
-  } else {
-	  return %orig;
+  if (enabled && customFolderIconEnabled) {
+	return nil;
   }
 }
 +(id)gridImageForLayout:(id)arg1 cellImageDrawBlock:(id)arg2 {
-  if (enabled) {
-	@try {
-		return %orig;
-	} @catch (NSException *exception) {
-		return nil;
-	}
-  } else {
-	  return %orig;
+  if (enabled && customFolderIconEnabled) {
+	return nil;
   }
 }
 
 +(id)gridImageForLayout:(id)arg1 pool:(id)arg2 cellImageDrawBlock:(id)arg3 {
-  if (enabled) {
-	@try {
-		return %orig;
-	} @catch (NSException *exception) {
-		return nil;
-	}
-  } else {
-	  return %orig;
+  if (enabled && customFolderIconEnabled) {
+	return nil;
   }
 }
 
