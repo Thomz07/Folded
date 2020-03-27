@@ -132,7 +132,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>label>Page Dots</string>
+			<string>Page Dots</string>
 		</dict>
 		<dict>
 		<key>cell</key>
@@ -140,28 +140,21 @@
 		<key>defaults</key>
 		<string>xyz.burritoz.thomz.folded.prefs</string>
 		<key>default</key>
-		<string>3</string>
+		<string>1</string>
 		<key>key</key>
-		<string>customLayoutRows</string>
+		<string>pageDotPref</string>
 		<key>validValues</key>
 		<array>
 				<string>1</string>
 				<string>2</string>
 				<string>3</string>
-				<string>4</string>
-				<string>5</string>
-				<string>6</string>
-				<string>7</string>
 		</array>
 		<key>validTitles</key>
 		<array>
 			<string>1</string>
-				<string>2</string>
-				<string>3</string>
-				<string>4</string>
-				<string>5</string>
-				<string>6</string>
-				<string>7</string>
+				<string>Show all</string>
+				<string>Hide in Folder</string>
+				<string>Hide All</string>
 		</array>
 </dict>
 	</array>
