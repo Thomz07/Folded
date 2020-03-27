@@ -128,6 +128,18 @@
 			<key>cell</key>
 			<string>PSLinkCell</string>
 			<key>detail</key>
+			<string>OPEPresetController</string>
+			<key>presetName</key>
+			<string>KEYHERE</string>
+			<key>label</key>
+			<string>Presets</string>
+			<key>icon</key>
+			<string>presets.png</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>detail</key>
 			<string>OPESubPageController</string>
 			<key>pageKey</key>
 			<string>FAQ</string>
@@ -151,14 +163,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>label</key>
-			<string>Test</string>
-			<key>action</key>
-			<string>bolders</string>
 		</dict>
 		<dict>
 			<key>cell</key>
