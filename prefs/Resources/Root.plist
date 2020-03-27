@@ -144,9 +144,21 @@
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>label</key>
-			<string>Reset all Prefernces</string>
+			<string>Reset all Preferences</string>
 			<key>action</key>
-			<string>resetPrefs</string>
+			<string>resetPrefs:</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Test</string>
+			<key>action</key>
+			<string>bolders</string>
 		</dict>
 		<dict>
 			<key>cell</key>
