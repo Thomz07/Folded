@@ -131,30 +131,39 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<label>Page Dots</label>
+			<key>label</key>
+			<string>label>Page Dots</string>
 		</dict>
 		<dict>
-            <key>cell</key>
-            <string>PSSegmentCell</string>
-            <key>defaults</key>
-            <string>xyz.burritoz.thomz.folded.prefs</string>
-            <key>default</key>
-            <string>1</string>
-            <key>key</key>
-            <string>hideDotsPref</string>
-            <key>validValues</key>
-            <array>
-                <string>1</string>
-                <string>2</string>
-                <string>3</string>
-            </array>
-            <key>validTitles</key>
-            <array>
-            	<string>Off</string>
-                <string>In Folders</string>
-                <string>Everywhere</string>
-            </array>
-        </dict>
+		<key>cell</key>
+		<string>PSSegmentCell</string>
+		<key>defaults</key>
+		<string>xyz.burritoz.thomz.folded.prefs</string>
+		<key>default</key>
+		<string>3</string>
+		<key>key</key>
+		<string>customLayoutRows</string>
+		<key>validValues</key>
+		<array>
+				<string>1</string>
+				<string>2</string>
+				<string>3</string>
+				<string>4</string>
+				<string>5</string>
+				<string>6</string>
+				<string>7</string>
+		</array>
+		<key>validTitles</key>
+		<array>
+			<string>1</string>
+				<string>2</string>
+				<string>3</string>
+				<string>4</string>
+				<string>5</string>
+				<string>6</string>
+				<string>7</string>
+		</array>
+</dict>
 	</array>
 	<key>title</key>
 	<string>Miscellaneous</string>
