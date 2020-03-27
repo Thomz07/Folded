@@ -5,10 +5,10 @@
 	<key>items</key>
 	<array>
 		<dict>
-        	<key>cell</key>
-        	<string>PSGroupCell</string>
-        </dict>
-        <dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
@@ -135,28 +135,27 @@
 			<string>Page Dots</string>
 		</dict>
 		<dict>
-		<key>cell</key>
-		<string>PSSegmentCell</string>
-		<key>defaults</key>
-		<string>xyz.burritoz.thomz.folded.prefs</string>
-		<key>default</key>
-		<string>1</string>
-		<key>key</key>
-		<string>pageDotPref</string>
-		<key>validValues</key>
-		<array>
+			<key>cell</key>
+			<string>PSSegmentCell</string>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>default</key>
+			<string>1</string>
+			<key>key</key>
+			<string>pageDotsPref</string>
+			<key>validValues</key>
+			<array>
 				<string>1</string>
 				<string>2</string>
 				<string>3</string>
-		</array>
-		<key>validTitles</key>
-		<array>
-			<string>1</string>
+			</array>
+			<key>validTitles</key>
+			<array>
 				<string>Show all</string>
 				<string>Hide in Folder</string>
 				<string>Hide All</string>
-		</array>
-</dict>
+			</array>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>Miscellaneous</string>

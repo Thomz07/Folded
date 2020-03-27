@@ -150,7 +150,7 @@ BOOL customTitleBoxHeightEnabled;
 double customTitleBoxHeight;
 BOOL hideFolderIconBackground;
 BOOL hidePageDotsEnabled;
-NSInteger hideDotsPref;
+double hideDotsPref;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
