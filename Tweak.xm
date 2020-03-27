@@ -388,17 +388,24 @@
 +(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
   if (enabled && customFolderIconEnabled) {
 	return nil;
+  } else {
+	return %orig;
   }
 }
+
 +(id)gridImageForLayout:(id)arg1 cellImageDrawBlock:(id)arg2 {
   if (enabled && customFolderIconEnabled) {
 	return nil;
+  } else {
+	return %orig;
   }
 }
 
 +(id)gridImageForLayout:(id)arg1 pool:(id)arg2 cellImageDrawBlock:(id)arg3 {
   if (enabled && customFolderIconEnabled) {
 	return nil;
+  } else {
+	return %orig;
   }
 }
 
