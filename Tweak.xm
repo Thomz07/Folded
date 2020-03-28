@@ -394,13 +394,23 @@
   //even easier, because all we need to do is store the working original value in one variable!
   //It will save the preview of all folder icons! In one neat variable package!
   id givenIcon = %orig;
-  if (enabled && customFolderIconEnabled && hasProcessLaunched) {
+  if (enabled && customFolderIconEnabled) {
 
 		if(!hasMethodCached) {
-			folderIconCache = givenIcon;
-			return givenIcon;
+			@try{
+				folderIconCache = givenIcon;
+				return givenIcon;
+			} @catch (NSException *exception) {
+				NSLog(@"[Folded]: The following exception was caught:%@", exception);
+				return nil;
+			}
 		} else {
-		    return folderIconCache; //This makes the previw not change after loading SpringBoard
+			@try {
+		    	return folderIconCache; //This makes the previw not change after loading SpringBoard
+			} @catch (NSException *exception) {
+				NSLog(@"[Folded]: The following exception was caught:%@", exception);
+				return nil; //This should never happen if my above logic is correct
+			}
 	    }
   } else {
 	return givenIcon;
