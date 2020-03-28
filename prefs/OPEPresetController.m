@@ -60,11 +60,11 @@
 
 			NSTask *t2 = [[NSTask alloc] init];
 			[t2 setLaunchPath:@"/usr/bin/killall"];
-			[t2 setArguments:[NSArray arrayWithObjects:@"-u $USER cfprefsd", nil]];
+			[t2 setArguments:[NSArray arrayWithObjects:@"cfprefsd", nil]];
 			[t2 launch];
 			NSTask *t3 = [[NSTask alloc] init];
 			[t3 setLaunchPath:@"/usr/bin/killall"];
-			[t3 setArguments:[NSArray arrayWithObjects:@"-u $USER cfprefsd", nil]];
+			[t3 setArguments:[NSArray arrayWithObjects:@"cfprefsd", nil]];
 			[t3 launch];
 
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

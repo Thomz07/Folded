@@ -66,10 +66,6 @@ NSMutableDictionary *preferences;
 }
 
 -(void)apply:(PSSpecifier *)specifier {
-	NSTask *f = [[NSTask alloc] init];
-			[f setLaunchPath:@"/usr/bin/killall"];
-			[f setArguments:[NSArray arrayWithObjects:@"-u $USER cfprefsd", nil]];
-			[f launch];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
@@ -114,14 +110,17 @@ NSMutableDictionary *preferences;
 			[t setLaunchPath:@"/bin/rm"];
 			[t setArguments:[NSArray arrayWithObjects:@"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", nil]];
 			[t launch];
-			NSTask *t4 = [[NSTask alloc] init];
-			[t4 setLaunchPath:@"usr/bin/killall"];
-			[t4 setArguments:[NSArray arrayWithObjects:@"-u $USER cfprefsd", nil]];
-			[t4 launch];
-			NSTask *t5 = [[NSTask alloc] init];
-			[t5 setLaunchPath:@"usr/bin/killall"];
-			[t5 setArguments:[NSArray arrayWithObjects:@"-u $USER cfprefsd", nil]];
-			[t5 launch];
+
+			pid_t pid;
+    			const char* args[] = {"killall", "cfprefsd", NULL};
+   			    posix_spawn(&pid, "/usr/bin/killall", NULL, NULL, (char* const*)args, NULL);
+
+			[NSThread sleepForTimeInterval:0.1]; //Yeah, I know (*"Don't use this!"*)
+
+			pid_t pid2;
+    			const char* args2[] = {"killall", "cfprefsd", NULL};
+   			    posix_spawn(&pid2, "/usr/bin/killall", NULL, NULL, (char* const*)args2, NULL);
+
 			NSTask *t2 = [[NSTask alloc] init];
 			[t2 setLaunchPath:@"usr/bin/killall"];
 			[t2 setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];

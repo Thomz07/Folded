@@ -3,6 +3,7 @@
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSListItemsController.h>
 #import <Preferences/PSSliderTableCell.h>
+#import <spawn.h>
 
 @interface OPERootListController : PSListController{
         UITableView * _table;

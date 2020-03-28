@@ -12,7 +12,7 @@
         	<key>cell</key>
         	<string>PSButtonCell</string>
 			<key>action</key>
-			<string>applyPreset</string>
+			<string>applyPreset:</string>
 			<key>label</key>
 			<string>Example</string>
 			<key>presetName</key>
