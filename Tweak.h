@@ -20,7 +20,7 @@
 /////////////////
 @interface SBIconGridImage //I use this to change fix the iOS 13 folder icon crashes
 //An actual iOS Method:
--(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 ;
++(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 ;
 @end
 
 //This is where I initiaize the variable I use to hold the cached Icon information

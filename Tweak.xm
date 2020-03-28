@@ -388,7 +388,7 @@
 }
 //////////
 
--(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
++(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
   //I figured out the hard way that this is in fact a class method, and not an instance method.
   //This means we can't use instance logic to save the individual icon cache. However, this makes it
   //even easier, because all we need to do is store the working original value in one variable!
@@ -405,11 +405,7 @@
 				return nil;
 			}
 		} else {
-			@try {
 		    	return folderIconCache; //This makes the previw not change after loading SpringBoard
-			} @catch (NSException *exception) {
-				NSLog(@"[Folded]: The following exception was caught:%@", exception);
-				return nil; //This should never happen if my above logic is correct
 			}
 	    }
   } else {
