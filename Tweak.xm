@@ -400,16 +400,22 @@
 }
 //////////
 //This method used to be at leas 3 times the size. I've simplified it to this
+
 +(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
+  //I figured out the hard way that this is in fact a class method, and not an instance method.
+  //This means we can't use instance logic to save the individual icon cache. However, this makes it
+  //even easier, because all we need to do is store the working original value in one variable!
+  //It will save the preview of all folder icons! In one neat variable package!
   if (enabled && customFolderIconEnabled) {
-	@try {
-		return %orig;
-		lastIconSucess = %orig;
-	} @catch (NSException *exception) {
-		return lastIconSucess;
-	}
+		@try{
+			return %orig;
+			lastIconSucess = %orig;
+		} @catch (NSException *exception) {
+			NSLog(@"[Folded]: The following exception was caught:%@", exception);
+			return lastIconSucess;
+		}
   } else {
-	  return %orig;
+	return %orig;
   }
 }
 
