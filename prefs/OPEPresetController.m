@@ -37,7 +37,7 @@
 }
 
 -(void)applyPreset:(PSSpecifier *)specifier {
-    NSString *desiredPresetPlist = [NSString stringWithFormat:@"/Library/PreferenceBundles/Folded.bundle/%@.plist", [specifier propertyForKey:@"presetName"]];
+    NSString *desiredPresetPlist = [NSString stringWithFormat:@"/Library/PreferenceBundles/Folded.bundle/%@.plist /var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", [specifier propertyForKey:@"presetName"]];
 
 	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Apply Preset"
 							message:@"Are you sure you want to apply this preset? \n \n This action CANNOT be undone!"
@@ -54,7 +54,7 @@
 
 			NSTask *t4 = [[NSTask alloc] init];
 			[t4 setLaunchPath:@"/bin/cp"];
-			[t4 setArguments:[NSArray arrayWithObjects:desiredPresetPlist, nil]];
+			[t4 setArguments:[NSArray arrayWithObjects:, nil]];
 			[t4 launch];
 
 
