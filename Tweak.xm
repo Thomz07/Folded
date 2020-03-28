@@ -386,73 +386,26 @@
 		return CGSizeMake(orig.width * 1.5, orig.height);
 	} else {return %orig;}
 }
-///
-
-
-%new
-
--(NSInteger)cacheAndAssignIndex:(id)arg1 {
-	if(self.indexOfCachedIcon!>-1) { //If the index is not greater than -1 (basically, its not set, as the index should never be negative)
-		[folderIconCache addObject:arg1];
-		NSInteger totalIndex = ([folderIconCache count]-1); //we know the index of what we just added will be equal to the amount of objects in it -1
-		self.indexOfCachedIcon=totalIndex;
-	}
-	return self.indexOfCachedIcon;
-}
-
-//Here is the new method that I made to check if the icon has been cached
-%new
-
--(BOOL)checkForCache:(id)arg1 {
-
-	if(self.hasMethodCached!=YES && self.hasMethodCached!=NO) { //If it is nil
-
-		self.hasMethodCached = NO; //essentially makes the method default to NO
-								//This is adjusted to YES if the cache is found in the Array
-
-		for(int i=0; i<[folderIconCache count]; i++) {
-			if(arg1==[folderIconCache objectAtIndex:i]) {
-				self.hasMethodCached = YES;
-			}
-		}
-	}
-	return self.hasMethodCached;
-}
-
 //////////
 
-+(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
+-(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
+  //I figured out the hard way that this is in fact a class method, and not an instance method.
+  //This means we can't use instance logic to save the individual icon cache. However, this makes it
+  //even easier, because all we need to do is store the working original value in one variable!
+  //It will save the preview of all folder icons! In one neat variable package!
   id givenIcon = %orig;
   if (enabled && customFolderIconEnabled && hasProcessLaunched) {
 
-	  [self checkForCache:givenIcon]; //This makes my method check if we have already logged the cache for the icon that we are dealing with.
-
-	  if(self.hasMethodCached==NO) {
-		  [self cacheAndAssignIndex:givenIcon];
-	  }
-
+		if(!hasMethodCached) {
+			folderIconCache = givenIcon;
+			return givenIcon;
+		} else {
+		    return folderIconCache; //This makes the previw not change after loading SpringBoard
+	    }
   } else {
 	return givenIcon;
   }
 }
-
-/* OLD METHOD, THERE ARE FLAWS HERE (just things that clearly can be improved, thats why I rewrote it.)
-+(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
-  if (enabled && customFolderIconEnabled && hasProcessLaunched) {
-	  @try {
-		  return %orig;
-		  workingMethodCache = %orig;
-	  } @catch (NSException *exception) {
-		  @try {
-			  return workingMethodCache;
-		  } @catch (NSException *exception) {
-			  return nil;
-		  }
-	  }
-  } else {
-	return %orig;
-  }
-}*/
 
 %end
 
