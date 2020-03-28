@@ -248,12 +248,28 @@
 		MSHookIvar<UIVisualEffectView *>(self, "_blurView") = self.lightView;
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		[self addSubview:self.lightView];
+
+		if(kCFCoreFoundationVersionNumber > 1600) {
+			if(enabled && cornerRadiusEnabled) {
+				[self.lightView.layer setCornerRadius:cornerRadius];
+			} else if (enabled) {
+				[self.lightView.layer setCornerRadius:38];
+			}
+		}
 	}
 
 	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 2){
 		MSHookIvar<UIVisualEffectView *>(self, "_blurView") = self.darkView;
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		[self addSubview:self.darkView];
+
+		if(kCFCoreFoundationVersionNumber > 1600) {
+			if(enabled && cornerRadiusEnabled) {
+				[self.darkView.layer setCornerRadius:cornerRadius];
+			} else if (enabled) {
+				[self.darkView.layer setCornerRadius:38];
+			}
+		}
 	}
 
 	if(enabled && folderBackgroundColorEnabled){
@@ -367,10 +383,6 @@
 
 %hook SBIconGridImage
 
-//Just declare and assign our new properties
-%property (nonatomic, assign) BOOL hasMethodCached;
-%property (nonatomic, assign) NSInteger indexOfCachedIcon;
-
 //Here is just the way we resize the icon in 2x2 mode, meaning it looks just like it should, and won't be excessively small
 
 + (CGSize)cellSize {
@@ -382,37 +394,26 @@
 
 + (CGSize)cellSpacing {
     CGSize orig = %orig;
-    if(enabled && twoByTwoIconEnabled){
+    if(enabled && twoByTwoIconEnabled){	
 		return CGSizeMake(orig.width * 1.5, orig.height);
 	} else {return %orig;}
 }
 //////////
-
+//This method used to be at leas 3 times the size. I've simplified it to this
 +(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
-  //I figured out the hard way that this is in fact a class method, and not an instance method.
-  //This means we can't use instance logic to save the individual icon cache. However, this makes it
-  //even easier, because all we need to do is store the working original value in one variable!
-  //It will save the preview of all folder icons! In one neat variable package!
-  id givenIcon = %orig;
   if (enabled && customFolderIconEnabled) {
-
-		if(!hasMethodCached) {
-			@try{
-				folderIconCache = givenIcon;
-				hasMethodCached = YES;
-				return givenIcon;
-			} @catch (NSException *exception) {
-				NSLog(@"[Folded]: The following exception was caught:%@", exception);
-				return nil;
-			}
-		} else {
-		    	return folderIconCache; //This makes the previw not change after loading SpringBoard
-		}
+	@try {
+		return %orig;
+		lastIconSucess = %orig;
+	} @catch (NSException *exception) {
+		return lastIconSucess;
+	}
   } else {
-	return givenIcon;
+	  return %orig;
   }
 }
 
+///////////////////
 
 %end
 

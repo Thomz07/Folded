@@ -19,18 +19,12 @@
 
 /////////////////
 @interface SBIconGridImage //I use this to change fix the iOS 13 folder icon crashes
-//An actual iOS Method:
+//Actual iOS Methods:
 +(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 ;
 @end
 
-//This is where I initiaize the variable I use to hold the cached Icon information
-//This essentially makes it so we can keep the same icons throughout each launch of SpringBoard
-//If I didn't include this, the icon cache *could* sucessfully update and not be caught by the old @try @catch,
-//Meaning the icon would snap to that of the actual folder.
-//I plan to explain in more detail at the method itself.
-id folderIconCache;
-//This here is the checker I use:
-BOOL hasMethodCached = NO;
+//Store the icon that sucessfully was used on SB launch, allowing me to reuse as well.
+id lastIconSucess;
 
 /////////////////
 
