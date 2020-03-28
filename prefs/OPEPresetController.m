@@ -54,7 +54,7 @@
 
 			NSTask *t4 = [[NSTask alloc] init];
 			[t4 setLaunchPath:@"/bin/cp"];
-			[t4 setArguments:[NSArray arrayWithObjects:, nil]];
+			[t4 setArguments:[NSArray arrayWithObjects:desiredPresetPlist, nil]];
 			[t4 launch];
 
 
