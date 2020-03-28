@@ -70,6 +70,12 @@
 @property (nonatomic, assign) CGAffineTransform transform;
 @end
 
+@interface SBIconListFlowLayout
+-(unsigned long long)maximumIconCount;
+-(unsigned long long)numberOfColumnsForOrientation:(long long)arg1 ;
+-(unsigned long long)numberOfRowsForOrientation:(long long)arg1 ;
+@end
+
 @class UITextField, UIFont;
 @interface SBFolderTitleTextField : UITextField
 @property (nonatomic, assign) CGRect frame;
@@ -147,6 +153,10 @@ BOOL hasInjectionFailed;
 BOOL hasShownFailureAlert;
 BOOL blankIconAlertShouldShow;
 BOOL isInAFolder = NO;
+
+id firstMethodWorkingCache;
+id secondMethodWorkingCache;
+id thirdMethodWorkingCache;
 
 #define PLIST_PATH @"/User/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
 #define kIdentifier @"xyz.burritoz.thomz.folded.prefs"

@@ -89,15 +89,6 @@
 		return %orig;
 	}
 
-	//working on custom positioning! :D
-	/*CGRect original = self.frame;
-	self.frame = CGRectMake(
-		original.origin.x,
-		(original.origin.y + 100),
-		original.size.width,
-		original.size.height
-	);*/
-
 }
 
 %end
@@ -409,7 +400,16 @@
 //Ngl surprised my dumb self thought of this. :D
 +(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
   if (enabled && customFolderIconEnabled && hasProcessLaunched) {
-	  return nil;
+	  @try {
+		  return %orig;
+		  firstMethodWorkingCache = %orig;
+	  } @catch (NSException *exception) {
+		  @try {
+			  return firstMethodWorkingCache;
+		  } @catch (NSException *exception) {
+			  return nil;
+		  }
+	  }
   } else {
 	return %orig;
   }
@@ -417,7 +417,16 @@
 
 +(id)gridImageForLayout:(id)arg1 cellImageDrawBlock:(id)arg2 {
   if (enabled && customFolderIconEnabled && hasProcessLaunched) {
-	  return nil;
+	  @try {
+		  return %orig;
+		  secondMethodWorkingCache = %orig;
+	  } @catch (NSException *exception) {
+		  @try {
+			  return secondMethodWorkingCache;
+		  } @catch (NSException *exception) {
+			  return nil;
+		  }
+	  }
   } else {
 	return %orig;
   }
@@ -425,7 +434,16 @@
 
 +(id)gridImageForLayout:(id)arg1 pool:(id)arg2 cellImageDrawBlock:(id)arg3 {
   if (enabled && customFolderIconEnabled && hasProcessLaunched) {
-	  return nil;
+	  @try {
+		  return %orig;
+		  thirdMethodWorkingCache = %orig;
+	  } @catch (NSException *exception) {
+		  @try {
+			  return thirdMethodWorkingCache;
+		  } @catch (NSException *exception) {
+			  return nil;
+		  }
+	  }
   } else {
 	return %orig;
   }
@@ -446,6 +464,19 @@
 
 %end
 
+%hook SBIconListFlowLayout
+
+-(unsigned long long)maximumIconCount {
+	unsigned long long original = %orig;
+
+	if(enabled && customFolderIconEnabled && ((original==9) || (original==folderIconRows*folderIconColumns))) {
+		return(customLayoutRows*customLayoutColumns);
+	} else {
+		return %orig;
+	}
+}
+
+%end
 //This part is crucial to my methods :devil_face:
 %hook SBIconController
 
