@@ -367,19 +367,11 @@
 
 %hook SBIconGridImage
 
-+ (unsigned long long)numberOfColumns {
+//Just declare and assign our new properties
+%property (nonatomic, assign) BOOL hasMethodCached;
+%property (nonatomic, assign) NSInteger indexOfCachedIcon;
 
-	if(enabled && twoByTwoIconEnabled){
-		return 2;
-	} else {return %orig;}
-}
-
-+ (unsigned long long)numberOfRowsForNumberOfCells:(unsigned long long)arg1 {
-
-	if(enabled && twoByTwoIconEnabled){
-		return 2;
-	} else {return %orig;}
-}
+//Here is just the way we resize the icon in 2x2 mode, meaning it looks just like it should, and won't be excessively small
 
 + (CGSize)cellSize {
     CGSize orig = %orig;
@@ -396,16 +388,63 @@
 }
 ///
 
-//Haha this next part is my genius method of stopping SpringBoard crashes!
-//Ngl surprised my dumb self thought of this. :D
+
+%new
+
+-(NSInteger)cacheAndAssignIndex:(id)arg1 {
+	if(self.indexOfCachedIcon!>-1) { //If the index is not greater than -1 (basically, its not set, as the index should never be negative)
+		[folderIconCache addObject:arg1];
+		NSInteger totalIndex = ([folderIconCache count]-1); //we know the index of what we just added will be equal to the amount of objects in it -1
+		self.indexOfCachedIcon=totalIndex;
+	}
+	return self.indexOfCachedIcon;
+}
+
+//Here is the new method that I made to check if the icon has been cached
+%new
+
+-(BOOL)checkForCache:(id)arg1 {
+
+	if(self.hasMethodCached!=YES && self.hasMethodCached!=NO) { //If it is nil
+
+		self.hasMethodCached = NO; //essentially makes the method default to NO
+								//This is adjusted to YES if the cache is found in the Array
+
+		for(int i=0; i<[folderIconCache count]; i++) {
+			if(arg1==[folderIconCache objectAtIndex:i]) {
+				self.hasMethodCached = YES;
+			}
+		}
+	}
+	return self.hasMethodCached;
+}
+
+//////////
+
++(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
+  id givenIcon = %orig;
+  if (enabled && customFolderIconEnabled && hasProcessLaunched) {
+
+	  [self checkForCache:givenIcon]; //This makes my method check if we have already logged the cache for the icon that we are dealing with.
+
+	  if(self.hasMethodCached==NO) {
+		  [self cacheAndAssignIndex:givenIcon];
+	  }
+
+  } else {
+	return givenIcon;
+  }
+}
+
+/* OLD METHOD, THERE ARE FLAWS HERE (just things that clearly can be improved, thats why I rewrote it.)
 +(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
   if (enabled && customFolderIconEnabled && hasProcessLaunched) {
 	  @try {
 		  return %orig;
-		  firstMethodWorkingCache = %orig;
+		  workingMethodCache = %orig;
 	  } @catch (NSException *exception) {
 		  @try {
-			  return firstMethodWorkingCache;
+			  return workingMethodCache;
 		  } @catch (NSException *exception) {
 			  return nil;
 		  }
@@ -413,41 +452,7 @@
   } else {
 	return %orig;
   }
-}
-
-+(id)gridImageForLayout:(id)arg1 cellImageDrawBlock:(id)arg2 {
-  if (enabled && customFolderIconEnabled && hasProcessLaunched) {
-	  @try {
-		  return %orig;
-		  secondMethodWorkingCache = %orig;
-	  } @catch (NSException *exception) {
-		  @try {
-			  return secondMethodWorkingCache;
-		  } @catch (NSException *exception) {
-			  return nil;
-		  }
-	  }
-  } else {
-	return %orig;
-  }
-}
-
-+(id)gridImageForLayout:(id)arg1 pool:(id)arg2 cellImageDrawBlock:(id)arg3 {
-  if (enabled && customFolderIconEnabled && hasProcessLaunched) {
-	  @try {
-		  return %orig;
-		  thirdMethodWorkingCache = %orig;
-	  } @catch (NSException *exception) {
-		  @try {
-			  return thirdMethodWorkingCache;
-		  } @catch (NSException *exception) {
-			  return nil;
-		  }
-	  }
-  } else {
-	return %orig;
-  }
-}
+}*/
 
 %end
 
@@ -466,7 +471,9 @@
 
 %hook SBIconListFlowLayout
 
--(unsigned long long)maximumIconCount {
+-(unsigned long long)maximumIconCount { //Yes. This damn method is what prevented the addition of icons beyond what the folder icon was.
+										//That's because, like the folder icon SBIconListGridLayoutConfiguration, this cannot be dynamically
+										//adjusted. So, I hook it initially to allow for the extra icons.
 	unsigned long long original = %orig;
 
 	if(enabled && customFolderIconEnabled && ((original==9) || (original==folderIconRows*folderIconColumns))) {
@@ -545,6 +552,8 @@
 -(NSUInteger)numberOfPortraitColumns {
   [self getLocations];
   //I rewrote this so many times, and ended up with this insanley dumb and long, but rock solid method
+  //DON'T QUESTION IT. JUST DON'T!
+
     if (self.isFolder && enabled && (customLayoutEnabled || customFolderIconEnabled)) {
 		if (customFolderIconEnabled && customLayoutEnabled) {
 			if (hasProcessLaunched) { 
