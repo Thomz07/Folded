@@ -399,6 +399,7 @@
 		if(!hasMethodCached) {
 			@try{
 				folderIconCache = givenIcon;
+				hasMethodCached = YES;
 				return givenIcon;
 			} @catch (NSException *exception) {
 				NSLog(@"[Folded]: The following exception was caught:%@", exception);
@@ -406,12 +407,12 @@
 			}
 		} else {
 		    	return folderIconCache; //This makes the previw not change after loading SpringBoard
-			}
-	    }
+		}
   } else {
 	return givenIcon;
   }
 }
+
 
 %end
 
