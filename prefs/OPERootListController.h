@@ -29,5 +29,6 @@
 @property(copy) NSArray *arguments;
 @property(copy) NSString *launchPath;
 - (id)init;
+- (void)waitUntilExit;
 - (void)launch;
 @end

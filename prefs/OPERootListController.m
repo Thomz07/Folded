@@ -110,11 +110,13 @@ NSMutableDictionary *preferences;
 			[t setLaunchPath:@"/bin/rm"];
 			[t setArguments:[NSArray arrayWithObjects:@"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", nil]];
 			[t launch];
+			[t waitUntilExit];
 
 			NSTask *t4 = [[NSTask alloc] init];
 			[t4 setLaunchPath:@"/bin/cp"];
 			[t4 setArguments:[NSArray arrayWithObjects:@"/Library/PreferenceBundles/Folded.bundle/blank.plist /var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", nil]];
 			[t4 launch];
+			[t4 waitUntilExit];
 
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
