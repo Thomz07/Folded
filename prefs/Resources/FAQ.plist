@@ -10,8 +10,22 @@
             <key>label</key>
             <string>Welcome to Folded FAQ</string>
             <key>footerText</key>
-            <string>You can find here explainations for every options of the tweak</string>
+            <string>You can find here explainations for every option of the tweak!</string>
         </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>Useful information</string>
+        </dict>
+        <dict>
+			<key>cell</key>
+			<string>PSDefaultCell</string>
+			<key>cellClass</key>
+			<string>ThomzScreenSizeCell</string>
+			<key>height</key>
+			<integer>100</integer>
+		</dict>
         <dict>
             <key>cell</key>
             <string>PSGroupCell</string>
@@ -80,14 +94,6 @@
             <key>cell</key>
             <string>PSGroupCell</string>
         </dict>
-         <dict>
-			<key>cell</key>
-			<string>PSDefaultCell</string>
-			<key>cellClass</key>
-			<string>ThomzScreenSizeCell</string>
-			<key>height</key>
-			<integer>115</integer>
-		</dict>
 	</array>
 	<key>title</key>
 	<string>FAQ</string>

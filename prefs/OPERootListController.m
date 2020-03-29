@@ -254,7 +254,10 @@ NSMutableDictionary *preferences;
 
 		[self addSubview:icon];
 		[self addSubview:person];
+		[self addSubview:description];
 	}
+
+	return self;
 }
 
 @end
