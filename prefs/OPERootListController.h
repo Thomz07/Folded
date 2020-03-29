@@ -33,3 +33,9 @@
 - (void)waitUntilExit;
 - (void)launch;
 @end
+
+@interface NSUserDefaults (Folded)
+
+-(id)objectForKey:(NSString *)key inDomain:(NSString *)domain;
+-(void)setObject:(id)value forKey:(NSString *)key inDomain:(NSString *)domain; //thanks to R0wDrunner for these two lines of the interface :)
+@end

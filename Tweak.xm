@@ -30,7 +30,7 @@
 			width=original.size.width;
 		}
 		if(frameHeight==0) {
-			height=original.bounds.size.height;
+			height=original.size.height;
 		}
 		if(customCenteredFrameEnabled) {
 			return CGRectMake((self.bounds.size.width - width)/2, (self.bounds.size.height - height)/2,width,height);
