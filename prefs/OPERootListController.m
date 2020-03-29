@@ -2,7 +2,7 @@
 
 @implementation OPERootListController
 
-NSMutableDictionary *preferences;
+NSDictionary *preferences;
 
 - (NSArray *)specifiers {
 	if (!_specifiers) {
@@ -73,7 +73,6 @@ NSMutableDictionary *preferences;
 	   							   //Lmao no problem Thomz ;) -Burrit0z
          });
 
-	preferences = [NSMutableDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs"];
 	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
 							message:@"Your settings have been applied. Some settings, not many, may require a respring. \n Would you like to respring as well?"
 							preferredStyle:UIAlertControllerStyleAlert];
@@ -96,7 +95,7 @@ NSMutableDictionary *preferences;
 
 -(void)resetPrefs:(id)sender {
 
-	preferences = [NSMutableDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs"];
+	preferences = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
 
 	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Reset Preferences"
 							message:@"Are you sure you want to reset all of your preferences? This action CANNOT be undone! Your device will respring."
@@ -106,25 +105,9 @@ NSMutableDictionary *preferences;
 		handler:^(UIAlertAction * action) {}];
 		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
 		handler:^(UIAlertAction * action) {
-			NSTask *t = [[NSTask alloc] init];
-			[t setLaunchPath:@"/bin/rm"];
-			[t setArguments:[NSArray arrayWithObjects:@"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", nil]];
-			[t launch];
-			[t waitUntilExit];
-
-			NSTask *t4 = [[NSTask alloc] init];
-			[t4 setLaunchPath:@"/bin/cp"];
-			[t4 setArguments:[NSArray arrayWithObjects:@"/Library/PreferenceBundles/Folded.bundle/blank.plist /var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", nil]];
-			[t4 launch];
-			[t4 waitUntilExit];
-
-			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-       CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
-         });
-
-		 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-       CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
-         });
+		
+		NSUserDefaults *prefs = [[NSUserDefaults standardUserDefaults] init];
+		[prefs removePersistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];			
 
 		 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
