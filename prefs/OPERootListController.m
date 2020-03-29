@@ -141,6 +141,14 @@ NSMutableDictionary *preferences;
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.reddit.com/user/Burrit0z_Dev"]];
 }
 
+-(void)openThomzPayPal {
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://paypal.me/Thomz07"]];
+}
+
+-(void)openBurrit0zPayPal {
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://paypal.me/Burrit0zDev"]];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offsetY = scrollView.contentOffset.y;
 
@@ -219,6 +227,34 @@ NSMutableDictionary *preferences;
 	}
 
 	return self;
+}
+
+@end
+
+@implementation getThomzAniPhone
+//This is very much like the twitter cell concept
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
+	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
+
+    if (self) {
+
+		NSBundle *bundle = [[NSBundle alloc]initWithPath:@"/Library/PreferenceBundles/Folded.bundle"];
+		UIImage *logo = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"payPal" ofType:@"png"]];
+		UIImageView *icon = [[UIImageView alloc]initWithImage:logo];
+		[icon setFrame:CGRectMake(12.5,15,28,28)];
+
+		UILabel *person = [[UILabel alloc] initWithFrame:CGRectMake(60,17.5,200,15)];
+        [person setText:specifier.properties[@"who"]];
+		[person setFont:[person.font fontWithSize:14]];
+
+		UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(60,33,200,15)];
+		[description setText:specifier.properties[@"why"]];
+		[person setFont:[person.font fontWithSize:10]];
+
+		[self addSubview:icon];
+		[self addSubview:person];
+	}
 }
 
 @end

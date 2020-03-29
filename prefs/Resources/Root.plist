@@ -129,8 +129,6 @@
 			<string>PSLinkCell</string>
 			<key>detail</key>
 			<string>OPEPresetController</string>
-			<key>presetName</key>
-			<string>KEYHERE</string>
 			<key>label</key>
 			<string>Presets</string>
 			<key>icon</key>
@@ -155,10 +153,26 @@
 		<dict>
 			<key>cell</key>
 			<string>PSButtonCell</string>
-			<key>label</key>
-			<string>Reset all Preferences</string>
+			<key>cellClass</key>
+			<string>getThomzAniPhone</string>
 			<key>action</key>
-			<string>resetPrefs:</string>
+			<string>openThomzPayPal</string>
+			<key>who</key>
+			<string>Donate to Thomz!</string>
+			<key>why</key>
+			<string>Help him get an iPhone X!</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>cellClass</key>
+			<string>getThomzAniPhone</string>
+			<key>action</key>
+			<string>openBurrit0zPayPal</string>
+			<key>who</key>
+			<string>Donate to Burrit0z!</string>
+			<key>why</key>
+			<string>Help me pay for tweaks!</string>
 		</dict>
 		<dict>
 			<key>cell</key>
