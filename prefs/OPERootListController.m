@@ -112,19 +112,8 @@ NSMutableDictionary *preferences;
 			[t launch];
 
 			pid_t pid;
-    			const char* args[] = {"killall", "cfprefsd", NULL};
+    			const char* args[] = {"killall", "-9", "SpringBoard", NULL};
    			    posix_spawn(&pid, "/usr/bin/killall", NULL, NULL, (char* const*)args, NULL);
-
-			[NSThread sleepForTimeInterval:0.1]; //Yeah, I know (*"Don't use this!"*)
-
-			pid_t pid2;
-    			const char* args2[] = {"killall", "cfprefsd", NULL};
-   			    posix_spawn(&pid2, "/usr/bin/killall", NULL, NULL, (char* const*)args2, NULL);
-
-			NSTask *t2 = [[NSTask alloc] init];
-			[t2 setLaunchPath:@"usr/bin/killall"];
-			[t2 setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
-			[t2 launch];
 		}];
 
 		[alert addAction:defaultAction];

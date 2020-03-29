@@ -450,27 +450,6 @@
 	}
 }
 
-
-//These two methods below should gurantee homeplus support
-- (NSUInteger)numberOfPortraitColumns {
-	NSUInteger original = %orig;
-
-	if(enabled && original==3) {
-		return customLayoutColumns;
-	} else {
-		return original;
-	}
-}
-- (NSUInteger)numberOfPortraitRows {
-	NSUInteger original = %orig;
-
-	if(enabled && original==3) {
-		return customLayoutRows;
-	} else {
-		return original;
-	}
-}
-
 %end
 
 

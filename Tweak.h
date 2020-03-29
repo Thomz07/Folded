@@ -217,7 +217,7 @@ static void preferencesChanged()
     CFPreferencesAppSynchronize((CFStringRef)kIdentifier);
     reloadPrefs();
 
-	enabled = boolValueForKey(@"enabled", YES);
+	enabled = boolValueForKey(@"enabled", NO);
 	backgroundAlphaEnabled = boolValueForKey(@"backgroundAlphaEnabled", NO);
 	backgroundAlpha = numberForValue(@"backgroundAlpha", 1.0);
 	cornerRadiusEnabled = boolValueForKey(@"cornerRadiusEnabled", NO);
