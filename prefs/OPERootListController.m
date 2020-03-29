@@ -111,9 +111,23 @@ NSMutableDictionary *preferences;
 			[t setArguments:[NSArray arrayWithObjects:@"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", nil]];
 			[t launch];
 
-			pid_t pid;
-    			const char* args[] = {"killall", "-9", "SpringBoard", NULL};
-   			    posix_spawn(&pid, "/usr/bin/killall", NULL, NULL, (char* const*)args, NULL);
+			NSTask *f = [[NSTask alloc] init];
+			setuid(0);
+			[f setLaunchPath:@"/usr/bin/killall"];
+			[f setArguments:[NSArray arrayWithObjects:@"cfprefsd", nil]];
+			[f launch];
+
+			[NSThread sleepForTimeInterval:0.1];
+			NSTask *g = [[NSTask alloc] init];
+			setuid(0);
+			[g setLaunchPath:@"/usr/bin/killall"];
+			[g setArguments:[NSArray arrayWithObjects:@"cfprefsd", nil]];
+			[g launch];
+
+			NSTask *h = [[NSTask alloc] init];
+			[h setLaunchPath:@"/usr/bin/killall"];
+			[h setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
+			[h launch];
 		}];
 
 		[alert addAction:defaultAction];

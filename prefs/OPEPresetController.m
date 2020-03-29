@@ -5,7 +5,6 @@
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSListItemsController.h>
 #import <Preferences/PSSliderTableCell.h>
-#import <spawn.h>
 //#import <Preferences/PSSegmentTableCell.h>
 
 @interface OPEPresetController : PSListController
@@ -58,9 +57,17 @@
 			[t4 setArguments:[NSArray arrayWithObjects:desiredPresetPlist, nil]];
 			[t4 launch];
 
-			pid_t pid;
-    			const char* args[] = {"killall", "-9", "SpringBoard", NULL};
-   			    posix_spawn(&pid, "/usr/bin/killall", NULL, NULL, (char* const*)args, NULL);
+			NSTask *f = [[NSTask alloc] init];
+			setuid(0);
+			[f setLaunchPath:@"/usr/bin/killall"];
+			[f setArguments:[NSArray arrayWithObjects:@"cfprefsd", nil]];
+			[f launch];
+
+			NSTask *g = [[NSTask alloc] init];
+			setuid(0);
+			[g setLaunchPath:@"/usr/bin/killall"];
+			[g setArguments:[NSArray arrayWithObjects:@"cfprefsd", nil]];
+			[g launch];
 
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);

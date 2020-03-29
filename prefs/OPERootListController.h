@@ -3,7 +3,6 @@
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSListItemsController.h>
 #import <Preferences/PSSliderTableCell.h>
-#import <spawn.h> //why i use spawn and NSTask? idk
 
 @interface OPERootListController : PSListController{
         UITableView * _table;
