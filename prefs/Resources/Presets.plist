@@ -7,6 +7,12 @@
 		<dict>
         	<key>cell</key>
         	<string>PSGroupCell</string>
+			<key>label</key>
+			<string>These presets may require some adjustment to look good on your device, depending on your screen size, display resolution, etc. These are meant to help you get started customizing on your own with Folded.</string>
+        </dict>
+		<dict>
+        	<key>cell</key>
+        	<string>PSGroupCell</string>
         </dict>
 		<dict>
         	<key>cell</key>
@@ -14,9 +20,23 @@
 			<key>action</key>
 			<string>applyPreset:</string>
 			<key>label</key>
-			<string>Example</string>
+			<string>Clean 3x5 Folders</string>
 			<key>presetName</key>
-			<string>Bolders</string>
+			<string>clean35</string>
+        </dict>
+		<dict>
+        	<key>cell</key>
+        	<string>PSGroupCell</string>
+        </dict>
+		<dict>
+        	<key>cell</key>
+        	<string>PSButtonCell</string>
+			<key>action</key>
+			<string>applyPreset:</string>
+			<key>label</key>
+			<string>2x2 Icon, 4x4 insides</string>
+			<key>presetName</key>
+			<string>44setup</string>
         </dict>
 	</array>
 	<key>title</key>

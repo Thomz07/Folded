@@ -111,23 +111,27 @@ NSMutableDictionary *preferences;
 			[t setArguments:[NSArray arrayWithObjects:@"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", nil]];
 			[t launch];
 
-			NSTask *f = [[NSTask alloc] init];
-			setuid(0);
-			[f setLaunchPath:@"/usr/bin/killall"];
-			[f setArguments:[NSArray arrayWithObjects:@"cfprefsd", nil]];
-			[f launch];
+			NSTask *t4 = [[NSTask alloc] init];
+			[t4 setLaunchPath:@"/bin/cp"];
+			[t4 setArguments:[NSArray arrayWithObjects:@"/Library/PreferenceBundles/Folded.bundle/blank.plist /var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", nil]];
+			[t4 launch];
 
-			[NSThread sleepForTimeInterval:0.1];
-			NSTask *g = [[NSTask alloc] init];
-			setuid(0);
-			[g setLaunchPath:@"/usr/bin/killall"];
-			[g setArguments:[NSArray arrayWithObjects:@"cfprefsd", nil]];
-			[g launch];
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+       CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
+         });
 
-			NSTask *h = [[NSTask alloc] init];
-			[h setLaunchPath:@"/usr/bin/killall"];
-			[h setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
-			[h launch];
+		 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+       CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
+         });
+
+		 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+       CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
+         });
+
+		NSTask *f = [[NSTask alloc] init];
+		[f setLaunchPath:@"/usr/bin/killall"];
+		[f setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
+		[f launch];
 		}];
 
 		[alert addAction:defaultAction];

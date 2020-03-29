@@ -173,6 +173,8 @@
 			<string>Donate to Thomz!</string>
 			<key>why</key>
 			<string>Help him get an iPhone X!</string>
+			<key>height</key>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -185,6 +187,8 @@
 			<string>Donate to Burrit0z!</string>
 			<key>why</key>
 			<string>Help me pay for tweaks!</string>
+			<key>height</key>
+			<integer>60</integer>
 		</dict>
 		<dict>
 			<key>cell</key>
