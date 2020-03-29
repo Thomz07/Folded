@@ -382,10 +382,12 @@ BOOL cornerRadiusEnabled;
 
 	if (self)
     {
+
 		UILabel *deviceInformation = [[UILabel alloc]initWithFrame:CGRectMake(15,14,300,20)];
         UILabel *ScreenWidth = [[UILabel alloc] initWithFrame:CGRectMake(15,40,300,20)];
 		UILabel *ScreenHeight = [[UILabel alloc] initWithFrame:CGRectMake(15,60,300,20)];
 		UILabel *deviceOS = [[UILabel alloc] initWithFrame:CGRectMake(15,80,300,20)];
+
 		float width = [UIScreen mainScreen].bounds.size.width;
 		float height = [UIScreen mainScreen].bounds.size.height;
 		NSString *widthString = [NSString stringWithFormat:@"%0.1f", width];
@@ -393,14 +395,15 @@ BOOL cornerRadiusEnabled;
 		NSString *fullSentenceWidth = [NSString stringWithFormat:@"Your screen width is %@", widthString];
 		NSString *fullSentenceHeight = [NSString stringWithFormat:@"Your screen height is %@", heightString];
 		NSString *OS = [NSString stringWithFormat:@"Your iOS Version is %@", [[UIDevice currentDevice] systemVersion]];
+
 		[deviceInformation setText:@"Device Information"];
-		[deviceInformation setFont:[deviceInformation.font fontWithSize:20]];
+		[deviceInformation setFont:[deviceInformation.font fontWithSize:17]];
         [ScreenWidth setText:fullSentenceWidth];
-		[ScreenWidth setFont:[ScreenWidth.font fontWithSize:15]];
+		[ScreenWidth setFont:[ScreenWidth.font fontWithSize:13]];
 		[ScreenHeight setText:fullSentenceHeight];
-		[ScreenHeight setFont:[ScreenHeight.font fontWithSize:15]];
+		[ScreenHeight setFont:[ScreenHeight.font fontWithSize:13]];
 		[deviceOS setText:OS];
-		[deviceOS setFont:[deviceOS.font fontWithSize:15]];
+		[deviceOS setFont:[deviceOS.font fontWithSize:13]];
 
 		[self setBackgroundColor:[UIColor clearColor]];
 		[self addSubview:deviceInformation];

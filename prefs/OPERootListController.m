@@ -242,15 +242,15 @@ NSMutableDictionary *preferences;
 		NSBundle *bundle = [[NSBundle alloc]initWithPath:@"/Library/PreferenceBundles/Folded.bundle"];
 		UIImage *logo = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"payPal" ofType:@"png"]];
 		UIImageView *icon = [[UIImageView alloc]initWithImage:logo];
-		[icon setFrame:CGRectMake(12.5,15,28,28)];
+		[icon setFrame:CGRectMake(16,15,33,40)];
 
-		UILabel *person = [[UILabel alloc] initWithFrame:CGRectMake(60,17.5,200,15)];
+		UILabel *person = [[UILabel alloc] initWithFrame:CGRectMake(65,17.5,200,20)];
         [person setText:specifier.properties[@"who"]];
-		[person setFont:[person.font fontWithSize:14]];
+		[person setFont:[person.font fontWithSize:15]];
 
-		UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(60,33,200,15)];
+		UILabel *description = [[UILabel alloc]initWithFrame:CGRectMake(65,35,200,20)];
 		[description setText:specifier.properties[@"why"]];
-		[person setFont:[person.font fontWithSize:10]];
+		[description setFont:[description.font fontWithSize:10]];
 
 		[self addSubview:icon];
 		[self addSubview:person];
