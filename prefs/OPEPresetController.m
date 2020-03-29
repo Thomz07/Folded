@@ -7,6 +7,7 @@
 #import <Preferences/PSSliderTableCell.h>
 
 @interface OPEPresetController : PSListController
+-(void)setObjectInPreset:(id)value forKey:(NSString *)key;
 @end
 
 @interface NSTask : NSObject
@@ -23,6 +24,7 @@
 -(void)setObject:(id)value forKey:(NSString *)key inDomain:(NSString *)domain; //thanks to R0wDrunner for these two lines of the interface :)
 @end
 
+NSString *domain = @"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist";
 
 @implementation OPEPresetController
 
@@ -43,11 +45,14 @@
     [super viewWillAppear:animated];
 }
 
+-(void)setObjectInPreset:(id)value forKey:(NSString *)key {
+	[[NSUserDefaults standardUserDefaults] setObject:value forKey:key inDomain:domain]; //literally useless except to make the following method look neater
+}
+
 -(void)applyPreset:(PSSpecifier *)specifier {
-    //NSString *desiredPresetPlist = [NSString stringWithFormat:@"/Library/PreferenceBundles/Folded.bundle/%@.plist /var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist", [specifier propertyForKey:@"presetName"]];
 
 	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Apply Preset"
-							message:@"Are you sure you want to apply this preset? \n \n This action CANNOT be undone!"
+							message:@"Are you sure you want to apply this preset? \n \n This action will override your existing preferences!"
 							preferredStyle:UIAlertControllerStyleAlert];
 
 		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault
@@ -57,49 +62,71 @@
 			
 			NSUserDefaults *prefs = [[NSUserDefaults standardUserDefaults] init];
 			[prefs removePersistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
-
-			/*NSTask *t4 = [[NSTask alloc] init];
-			[t4 setLaunchPath:@"/bin/cp"];
-			[t4 setArguments:[NSArray arrayWithObjects:desiredPresetPlist, nil]];
-			[t4 launch];
-			[t4 waitUntilExit];*/
-
-			
-			static NSString *domain = @"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist";
 			
 			if([[specifier propertyForKey:@"presetName"] isEqualToString:@"clean35"]) {
 
-			[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"clearBackgroundIcons" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@"38.0" forKey:@"cornerRadius" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"cornerRadiusEnabled" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"customBlurBackground" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"customBlurBackgroundEnabled" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"customCenteredFrameEnabled" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"customFolderIconEnabled" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"customFrameEnabled" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@"500" forKey:@"customFrameHeight" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@"325" forKey:@"customFrameWidth" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@"3" forKey:@"customLayoutColumns" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@"3" forKey:@"folderIconRows" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@"3" forKey:@"folderIconColumns" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@"5" forKey:@"customLayoutRows" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"customLayoutEnabled" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"customTitleFontSizeEnabled" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@"50" forKey:@"customTitleFontSize" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"customTitleOffsetEnabled" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@"45" forKey:@"customTitleOffset" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"customWallpaperBlurEnabled" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"enabled" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@"2" forKey:@"hideDotsPref" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"hideFolderIconBackground" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"pinchToCloseEnabled" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"tapToCloseEnabled" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@"2" forKey:@"titleAlignment" inDomain:domain];
-			[[NSUserDefaults standardUserDefaults] setObject:@"3" forKey:@"titleFontWeight" inDomain:domain];
+				[self setObjectInPreset:@YES forKey:@"clearBackgroundIcons"];
+				[self setObjectInPreset:@"38.0" forKey:@"cornerRadius"];
+				[self setObjectInPreset:@YES forKey:@"cornerRadiusEnabled"];
+				[self setObjectInPreset:@"1" forKey:@"customBlurBackground"];
+				[self setObjectInPreset:@NO forKey:@"customBlurBackgroundEnabled"];
+				[self setObjectInPreset:@YES forKey:@"customCenteredFrameEnabled"];
+				[self setObjectInPreset:@YES forKey:@"customFolderIconEnabled"];
+				[self setObjectInPreset:@YES forKey:@"customFrameEnabled"];
+				[self setObjectInPreset:@"500" forKey:@"customFrameHeight"];
+				[self setObjectInPreset:@"325" forKey:@"customFrameWidth"];
+				[self setObjectInPreset:@"3" forKey:@"customLayoutColumns"];
+				[self setObjectInPreset:@"3" forKey:@"folderIconRows"];
+				[self setObjectInPreset:@"3" forKey:@"folderIconColumns"];
+				[self setObjectInPreset:@"5" forKey:@"customLayoutRows"];
+				[self setObjectInPreset:@YES forKey:@"customLayoutEnabled"];
+				[self setObjectInPreset:@YES forKey:@"customTitleFontSizeEnabled"];
+				[self setObjectInPreset:@"50" forKey:@"customTitleFontSize"];
+				[self setObjectInPreset:@YES forKey:@"customTitleOffsetEnabled"];
+				[self setObjectInPreset:@"45" forKey:@"customTitleOffset"];
+				[self setObjectInPreset:@YES forKey:@"customWallpaperBlurEnabled"];
+				[self setObjectInPreset:@YES forKey:@"enabled"];
+				[self setObjectInPreset:@"2" forKey:@"hideDotsPref"];
+				[self setObjectInPreset:@YES forKey:@"hideFolderIconBackground"];
+				[self setObjectInPreset:@YES forKey:@"pinchToCloseEnabled"];
+				[self setObjectInPreset:@YES forKey:@"tapToCloseEnabled"];
+				[self setObjectInPreset:@"2" forKey:@"titleAlignment"];
+				[self setObjectInPreset:@"3" forKey:@"titleFontWeight"];
 
-			
+			} else if([[specifier propertyForKey:@"presetName"] isEqualToString:@"44setup"]) {
+				[self setObjectInPreset:@YES forKey:@"twoByTwoIconEnabled"];
+				[self setObjectInPreset:@YES forKey:@"hideFolderIconBackground"];
+				[self setObjectInPreset:@YES forKey:@"customTitleFontSizeEnabled"];
+				[self setObjectInPreset:@"2" forKey:@"folderIconColumns"];
+				[self setObjectInPreset:@"2" forKey:@"folderIconRows"];
+				[self setObjectInPreset:@"4" forKey:@"customLayoutColumns"];
+				[self setObjectInPreset:@"4" forKey:@"customLayoutRows"];
+				[self setObjectInPreset:@YES forKey:@"customLayoutEnabled"];
+				[self setObjectInPreset:@YES forKey:@"customCenteredFrameEnabled"];
+				[self setObjectInPreset:@YES forKey:@"pinchToCloseEnabled"];
+				[self setObjectInPreset:@YES forKey:@"tapToCloseEnabled"];
+				[self setObjectInPreset:@"350" forKey:@"customFrameWidth"];
+				[self setObjectInPreset:@YES forKey:@"customTitleFontSizeEnabled"];
+				[self setObjectInPreset:@"60" forKey:@"customTitleFontSize"];
+				[self setObjectInPreset:@YES forKey:@"backgroundAlphaEnabled"];
+				[self setObjectInPreset:@"3" forKey:@"titleFontWeight"];
+				[self setObjectInPreset:@YES forKey:@"clearBackgroundIcons"];
+				[self setObjectInPreset:@"110" forKey:@"customTitleOffset"];
+				[self setObjectInPreset:@YES forKey:@"customTitleXOffsetEnabled"];
+				[self setObjectInPreset:@YES forKey:@"enabled"];
+				[self setObjectInPreset:@"2" forKey:@"hideDotsPref"];
+				[self setObjectInPreset:@"1" forKey:@"titleAlignment"];
+				[self setObjectInPreset:@YES forKey:@"customFrameEnabled"];
+				[self setObjectInPreset:@YES forKey:@"customFolderIconEnabled"];
+				[self setObjectInPreset:@YES forKey:@"customTitleOffsetEnabled"];
+				[self setObjectInPreset:@"-17" forKey:@"customTitleXOffset"];
+				[self setObjectInPreset:@"400" forKey:@"customFrameHeight"];
+				[self setObjectInPreset:@"350" forKey:@"customFrameWidth"];
+
 			}
 
+		[[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"enabled" inDomain:domain];	
+		[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"enabled" inDomain:domain];		
 
 		 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
@@ -115,6 +142,35 @@
 		[alert addAction:yes];
 		[self presentViewController:alert animated:YES completion:nil];
 
+}
+
+-(void)resetPrefs:(id)sender {
+
+	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Reset Preferences"
+							message:@"Are you sure you want to reset all of your preferences? This action CANNOT be undone! Your device will respring."
+							preferredStyle:UIAlertControllerStyleAlert];
+
+		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault
+		handler:^(UIAlertAction * action) {}];
+		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
+		handler:^(UIAlertAction * action) {
+		
+		NSUserDefaults *prefs = [[NSUserDefaults standardUserDefaults] init];
+		[prefs removePersistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];			
+
+		 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+       CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
+         });
+
+		NSTask *f = [[NSTask alloc] init];
+		[f setLaunchPath:@"/usr/bin/killall"];
+		[f setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
+		[f launch];
+		}];
+
+		[alert addAction:defaultAction];
+		[alert addAction:yes];
+		[self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

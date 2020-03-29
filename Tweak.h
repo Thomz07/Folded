@@ -90,6 +90,12 @@ id lastIconSucess;
 -(void)layoutSubviews;
 @end
 
+@interface NSUserDefaults (Folded)
+
+-(id)objectForKey:(NSString *)key inDomain:(NSString *)domain;
+-(void)setObject:(id)value forKey:(NSString *)key inDomain:(NSString *)domain; //thanks to R0wDrunner for these two lines of the interface :)
+@end
+
 // Defining global variables and methods
 
 // Preferences keys
@@ -217,14 +223,21 @@ static void preferencesChanged()
     CFPreferencesAppSynchronize((CFStringRef)kIdentifier);
     reloadPrefs();
 
+	if(!([[prefs objectForKey:@"enabled"] boolValue] == YES || [[prefs objectForKey:@"enabled"] boolValue] == NO)) { //I know this logic is sped
+		NSString *domain = @"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist";
+		[[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"enabled" inDomain:domain];
+		[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"enabled" inDomain:domain];
+		//This is to patch issue where unless the "enabled" switch is toggled on and off after installing, the tweak won't work
+	}
+
 	enabled = boolValueForKey(@"enabled", NO);
 	backgroundAlphaEnabled = boolValueForKey(@"backgroundAlphaEnabled", NO);
 	backgroundAlpha = numberForValue(@"backgroundAlpha", 1.0);
 	cornerRadiusEnabled = boolValueForKey(@"cornerRadiusEnabled", NO);
 	cornerRadius = numberForValue(@"cornerRadius", 25);
 	pinchToCloseEnabled = boolValueForKey(@"pinchToCloseEnabled", NO);
-	customFrameEnabled = boolValueForKey(@"customFrameEnabled", NO);
-	customCenteredFrameEnabled = boolValueForKey(@"customCenteredFrameEnabled", NO);
+	customFrameEnabled = boolValueForKey(@"customFrameEnabled", YES);
+	customCenteredFrameEnabled = boolValueForKey(@"customCenteredFrameEnabled", YES);
 	frameX = numberForValue(@"customFrameX", 0);
 	frameY = numberForValue(@"customFrameY", 0);
 	frameWidth = numberForValue(@"customFrameWidth", 300);

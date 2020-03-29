@@ -349,6 +349,15 @@ BOOL cornerRadiusEnabled;
 
 }
 
+
+-(void)openThomzPayPal {
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://paypal.me/Thomz07"]];
+}
+
+-(void)openBurrit0zPayPal {
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://paypal.me/Burrit0zDev"]];
+}
+
 @end
 
 @implementation KRLabeledSliderCell
@@ -416,5 +425,36 @@ BOOL cornerRadiusEnabled;
     return self;
 }
 
+
+@end
+
+@implementation getThomzAniPhone2
+//This is very much like the twitter cell concept
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
+	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
+
+    if (self) {
+
+		NSBundle *bundle = [[NSBundle alloc]initWithPath:@"/Library/PreferenceBundles/Folded.bundle"];
+		UIImage *logo = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"payPal" ofType:@"png"]];
+		UIImageView *icon = [[UIImageView alloc]initWithImage:logo];
+		[icon setFrame:CGRectMake(16,15,33,40)];
+
+		UILabel *person = [[UILabel alloc] initWithFrame:CGRectMake(65,17.5,200,20)];
+        [person setText:specifier.properties[@"who"]];
+		[person setFont:[person.font fontWithSize:15]];
+
+		UILabel *description = [[UILabel alloc]initWithFrame:CGRectMake(65,35,200,20)];
+		[description setText:specifier.properties[@"why"]];
+		[description setFont:[description.font fontWithSize:10]];
+
+		[self addSubview:icon];
+		[self addSubview:person];
+		[self addSubview:description];
+	}
+
+	return self;
+}
 
 @end

@@ -107,7 +107,11 @@ NSDictionary *preferences;
 		handler:^(UIAlertAction * action) {
 		
 		NSUserDefaults *prefs = [[NSUserDefaults standardUserDefaults] init];
-		[prefs removePersistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];			
+		[prefs removePersistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];	
+
+		NSString *domain = @"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist";
+		[[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"enabled" inDomain:domain];	
+		[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"enabled" inDomain:domain];		
 
 		 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);

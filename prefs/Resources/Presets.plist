@@ -26,10 +26,6 @@
         </dict>
 		<dict>
         	<key>cell</key>
-        	<string>PSGroupCell</string>
-        </dict>
-		<dict>
-        	<key>cell</key>
         	<string>PSButtonCell</string>
 			<key>action</key>
 			<string>applyPreset:</string>
@@ -38,6 +34,18 @@
 			<key>presetName</key>
 			<string>44setup</string>
         </dict>
+		<dict>
+        	<key>cell</key>
+        	<string>PSGroupCell</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>resetPrefs:</string>
+			<key>label</key>
+			<string>Reset All Preferences</string>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>Presets</string>

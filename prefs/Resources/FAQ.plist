@@ -88,6 +88,38 @@
             <key>cell</key>
             <string>PSGroupCell</string>
         </dict>
+        <dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>cellClass</key>
+			<string>getThomzAniPhone2</string>
+			<key>action</key>
+			<string>openThomzPayPal</string>
+			<key>who</key>
+			<string>Donate to Thomz!</string>
+			<key>why</key>
+			<string>Help him get an iPhone X!</string>
+			<key>height</key>
+			<integer>65</integer>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>cellClass</key>
+			<string>getThomzAniPhone2</string>
+			<key>action</key>
+			<string>openBurrit0zPayPal</string>
+			<key>who</key>
+			<string>Donate to Burrit0z!</string>
+			<key>why</key>
+			<string>Help me pay for tweaks!</string>
+			<key>height</key>
+			<integer>65</integer>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>FAQ</string>
