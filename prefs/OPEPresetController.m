@@ -162,6 +162,12 @@ NSString *domain = @"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.p
 				[self setObjectInPreset:@"4" forKey:@"customLayoutColumns"];
 				[self setObjectInPreset:@"5" forKey:@"customLayoutRows"];
 				[self setObjectInPreset:@YES forKey:@"clearBackgroundIcons"];
+
+				[self setObjectInPreset:@YES forKey:@"customFolderIconEnabled"];
+				[self setObjectInPreset:@"3" forKey:@"folderIconColumns"];
+				[self setObjectInPreset:@"3" forKey:@"folderIconRows"];
+
+				[self setObjectInPreset:@"3" forKey:@"titleFontWeight"];
 			}		
 
 		 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
