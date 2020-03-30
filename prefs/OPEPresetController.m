@@ -163,14 +163,14 @@ static NSString* colorForValue(NSString *key) {
 				[self setObjectInPreset:@"3" forKey:@"titleFontWeight"];
 				[self setObjectInPreset:@YES forKey:@"clearBackgroundIcons"];
 				[self setObjectInPreset:@"110" forKey:@"customTitleOffset"];
-				[self setObjectInPreset:@YES forKey:@"customTitleXOffsetEnabled"];
+				[self setObjectInPreset:@YES forKey:@"customTitleXOffSetEnabled"];
 				[self setObjectInPreset:@YES forKey:@"enabled"];
 				[self setObjectInPreset:@"2" forKey:@"hideDotsPref"];
 				[self setObjectInPreset:@"1" forKey:@"titleAlignment"];
 				[self setObjectInPreset:@YES forKey:@"customFrameEnabled"];
 				[self setObjectInPreset:@YES forKey:@"customFolderIconEnabled"];
 				[self setObjectInPreset:@YES forKey:@"customTitleOffsetEnabled"];
-				[self setObjectInPreset:@"-17" forKey:@"customTitleXOffset"];
+				[self setObjectInPreset:@"-17" forKey:@"customTitleXOffSet"];
 				[self setObjectInPreset:@"400" forKey:@"customFrameHeight"];
 				[self setObjectInPreset:@"350" forKey:@"customFrameWidth"];
 
@@ -193,8 +193,8 @@ static NSString* colorForValue(NSString *key) {
 				
 				[self setObjectInPreset:@YES forKey:@"clearBackgroundIcons"];
 				[self setObjectInPreset:@"3" forKey:@"titleFontWeight"];
-				[self setObjectInPreset:@YES forKey:@"customTitleXOffsetEnabled"];
-				[self setObjectInPreset:@"-17" forKey:@"customTitleXOffset"];
+				[self setObjectInPreset:@YES forKey:@"customTitleXOffSetEnabled"];
+				[self setObjectInPreset:@"-17" forKey:@"customTitleXOffSet"];
 
 				[self setObjectInPreset:@YES forKey:@"customFolderIconEnabled"];
 				[self setObjectInPreset:@"3" forKey:@"folderIconColumns"];
@@ -489,10 +489,10 @@ static NSString* colorForValue(NSString *key) {
 				   [self setObjectInPreset:([listItems objectAtIndex:15]) forKey:@"hideTitleEnabled"];
 				   [self setObjectInPreset:([listItems objectAtIndex:16]) forKey:@"customTitleFontSizeEnabled"];
 				   [self setObjectInPreset:([listItems objectAtIndex:17]) forKey:@"customTitleFontSize"];
-				   [self setObjectInPreset:([listItems objectAtIndex:18]) forKey:@"customTitleOffsetEnabled"];
-				   [self setObjectInPreset:([listItems objectAtIndex:19]) forKey:@"customTitleOffset"];
-				   [self setObjectInPreset:([listItems objectAtIndex:20]) forKey:@"customTitleXOffsetEnabled"];
-				   [self setObjectInPreset:([listItems objectAtIndex:21]) forKey:@"customTitleXOffset"];
+				   [self setObjectInPreset:([listItems objectAtIndex:18]) forKey:@"customTitleOffSetEnabled"];
+				   [self setObjectInPreset:([listItems objectAtIndex:19]) forKey:@"customTitleOffSet"];
+				   [self setObjectInPreset:([listItems objectAtIndex:20]) forKey:@"customTitleXOffSetEnabled"];
+				   [self setObjectInPreset:([listItems objectAtIndex:21]) forKey:@"customTitleXOffSet"];
 				   [self setObjectInPreset:([listItems objectAtIndex:22]) forKey:@"customFolderIconEnabled"];
 				   [self setObjectInPreset:([listItems objectAtIndex:23]) forKey:@"folderIconRows"];
 				   [self setObjectInPreset:([listItems objectAtIndex:24]) forKey:@"folderIconColumns"];
