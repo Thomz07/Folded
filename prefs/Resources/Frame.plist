@@ -14,7 +14,11 @@
 			<key>cellClass</key>
 			<string>ThomzScreenSizeCell</string>
 			<key>height</key>
-			<integer>100</integer>
+			<integer>110</integer>
+		</dict>
+        <dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
 		</dict>
 		<dict>
 			<key>cell</key>

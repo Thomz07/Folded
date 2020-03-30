@@ -18,7 +18,7 @@
 			<key>cellClass</key>
 			<string>ThomzScreenSizeCell</string>
 			<key>height</key>
-			<integer>100</integer>
+			<integer>110</integer>
 		</dict>
         <dict>
             <key>cell</key>
@@ -104,7 +104,7 @@
 			<key>why</key>
 			<string>Help him get an iPhone X!</string>
 			<key>height</key>
-			<integer>65</integer>
+			<integer>70</integer>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -118,7 +118,7 @@
 			<key>why</key>
 			<string>Help me pay for tweaks!</string>
 			<key>height</key>
-			<integer>65</integer>
+			<integer>70</integer>
 		</dict>
 	</array>
 	<key>title</key>

@@ -8,11 +8,9 @@
         	<key>cell</key>
         	<string>PSGroupCell</string>
 			<key>label</key>
+			<string>Presets</string>
+			<key>footerText</key>
 			<string>These presets may require some adjustment to look good on your device, depending on your screen size, display resolution, etc. These are meant to help you get started customizing on your own with Folded.</string>
-        </dict>
-		<dict>
-        	<key>cell</key>
-        	<string>PSGroupCell</string>
         </dict>
 		<dict>
         	<key>cell</key>

@@ -174,7 +174,7 @@
 			<key>why</key>
 			<string>Help him get an iPhone X!</string>
 			<key>height</key>
-			<integer>65</integer>
+			<integer>70</integer>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -188,7 +188,7 @@
 			<key>why</key>
 			<string>Help me pay for tweaks!</string>
 			<key>height</key>
-			<integer>65</integer>
+			<integer>70</integer>
 		</dict>
 		<dict>
 			<key>cell</key>
