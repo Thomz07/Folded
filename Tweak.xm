@@ -19,27 +19,19 @@
 
 -(CGRect)_frameForScalingView { // modyfing the frame with the values from the settings
 
-//Ok thomz, I rewrote this method so it works better.
+//Ok thomz, we need to rewrite this, there are issues with it.
 
-	double width;
-	double height;
-	CGRect original = %orig;
-
-	if(enabled && customFrameEnabled){
-		if(frameWidth==0) {
-			width=original.size.width;
-		}
-		if(frameHeight==0) {
-			height=original.size.height;
-		}
-		if(customCenteredFrameEnabled) {
-			return CGRectMake((self.bounds.size.width - width)/2, (self.bounds.size.height - height)/2,width,height);
-		} else {
-			return CGRectMake(frameX, frameY, width, height);
-		}
-	} else {
-		return CGRectMake(original.origin.x, original.origin.y, original.size.width, original.size.height); //this actually fixes an issue that just %orig would cause
-	}
+if(enabled && customFrameEnabled){
+		if(customCenteredFrameEnabled){
+			return CGRectMake((self.bounds.size.width - frameWidth)/2, (self.bounds.size.height - frameHeight)/2,frameWidth,frameHeight); // simple calculation to center things
+		} else if(!customCenteredFrameEnabled){
+			if(frameWidth == 0 || frameHeight == 0){
+				return %orig;
+			} else {
+				return CGRectMake(frameX,frameY,frameWidth,frameHeight);
+			}
+		} else {return %orig;}
+	} else {return %orig;}
 }
 
 -(BOOL)_showsTitle { // simply hide the title
