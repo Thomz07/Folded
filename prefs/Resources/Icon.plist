@@ -7,6 +7,10 @@
         <dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
+		</dict>
+        <dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
 			<key>footerText</key>
 			<string>PLEASE NOTE: (iOS 13 only) The method to create custom folder icons is very complicaed and tricky. Currently, there are two known issues with this method. (1) When editing folders, your folder icon will snap to that of the insides of the folder, rather than your set folder icon. Respring to fix. Additionally, (2) there is a glitchy animation when exiting folders from the first page. I plan to find a way to fix both. --Burrit0z</string>
 		</dict>
@@ -140,7 +144,7 @@
 			<key>label</key>
 			<string>Hide Folder Icon Background</string>
 		</dict>
-</array>
+    </array>
 	<key>title</key>
 	<string>Icon</string>
 </dict>

@@ -223,13 +223,6 @@ static void preferencesChanged()
     CFPreferencesAppSynchronize((CFStringRef)kIdentifier);
     reloadPrefs();
 
-	if(!([[prefs objectForKey:@"enabled"] boolValue] == YES || [[prefs objectForKey:@"enabled"] boolValue] == NO)) { //I know this logic is sped
-		NSString *domain = @"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist";
-		[[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"enabled" inDomain:domain];
-		[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"enabled" inDomain:domain];
-		//This is to patch issue where unless the "enabled" switch is toggled on and off after installing, the tweak won't work
-	}
-
 	enabled = boolValueForKey(@"enabled", NO);
 	backgroundAlphaEnabled = boolValueForKey(@"backgroundAlphaEnabled", NO);
 	backgroundAlpha = numberForValue(@"backgroundAlpha", 1.0);

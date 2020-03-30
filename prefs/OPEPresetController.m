@@ -162,10 +162,7 @@ NSString *domain = @"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.p
 				[self setObjectInPreset:@"4" forKey:@"customLayoutColumns"];
 				[self setObjectInPreset:@"5" forKey:@"customLayoutRows"];
 				[self setObjectInPreset:@YES forKey:@"clearBackgroundIcons"];
-			}
-
-		[[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"enabled" inDomain:domain];	
-		[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"enabled" inDomain:domain];		
+			}		
 
 		 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);

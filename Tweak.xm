@@ -6,14 +6,14 @@
 -(void)setBackgroundAlpha:(double)arg1 { // returning the value from the slider cell in the settings for the bg alpha
 
 	if(enabled && backgroundAlphaEnabled){
-		return %orig(backgroundAlpha);
+		%orig(backgroundAlpha);
 	}
 }
 
 -(void)setCornerRadius:(double)arg1 { // returning the value from the slider cell in the settings for the corner radius
 
 	if(enabled && cornerRadiusEnabled){
-		return %orig(cornerRadius);
+		%orig(cornerRadius);
 	}
 }
 
@@ -83,7 +83,7 @@ if(enabled && customFrameEnabled){
 
 	%orig;
 	if(enabled && hideDotsPref==2 && isInAFolder ) { // not working (look below thomz :D)
-		self.hidden=1; //now this works :D
+		self.hidden = 1; //now this works :D
 		isInAFolder = NO;
 	} else if(enabled && hideDotsPref==3) {
 		self.hidden=1;
