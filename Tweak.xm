@@ -101,9 +101,9 @@ if(enabled && customFrameEnabled){
 
 	UIColor *color = [UIColor cscp_colorFromHexString:folderBackgroundBackgroundColor];
 
-	if(enabled && folderBackgroundBackgroundColorEnabled){
+	if(enabled && folderBackgroundBackgroundColorEnabled && !randomColorBackgroundEnabled){
 		return color;
-	} else if(enabled && randomColorBackgroundEnabled){
+	} else if(enabled && folderBackgroundBackgroundColorEnabled && randomColorBackgroundEnabled){
 		return [self randomColor];
 	} else {return %orig;}
 }
