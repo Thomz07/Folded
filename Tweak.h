@@ -54,6 +54,8 @@ id lastIconSucess;
 @interface SBFolderControllerBackgroundView : UIView
 @property (nonatomic, strong) UIColor *backgroundColor;
 @property (nonatomic, assign) CGFloat aplha;
+@property (nonatomic, strong) UIVisualEffectView *blurView;
+-(UIColor *)randomColor;
 -(void)layoutSubviews;
 @end
 
@@ -228,8 +230,8 @@ static void preferencesChanged()
 	enabled = boolValueForKey(@"enabled", NO);
 	backgroundAlphaEnabled = boolValueForKey(@"backgroundAlphaEnabled", NO);
 	backgroundAlpha = numberForValue(@"backgroundAlpha", 1.0);
-	cornerRadiusEnabled = boolValueForKey(@"cornerRadiusEnabled", NO);
-	cornerRadius = numberForValue(@"cornerRadius", 25);
+	cornerRadiusEnabled = boolValueForKey(@"cornerRadiusEnabled", YES);
+	cornerRadius = numberForValue(@"cornerRadius", 38);
 	pinchToCloseEnabled = boolValueForKey(@"pinchToCloseEnabled", NO);
 	customFrameEnabled = boolValueForKey(@"customFrameEnabled", YES);
 	customCenteredFrameEnabled = boolValueForKey(@"customCenteredFrameEnabled", YES);

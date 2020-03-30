@@ -88,7 +88,7 @@
 			<key>action</key>
 			<string>enterPrefs</string>
 			<key>label</key>
-			<string>Test Pasteboard Reciever</string>
+			<string>Import Preset From Pasteboard</string>
 		</dict>
 	</array>
 	<key>title</key>

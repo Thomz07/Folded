@@ -347,7 +347,7 @@ static NSString* colorForValue(NSString *key) {
 	cornerRadius = numberForValue(@"cornerRadius", 25);
 	pinchToCloseEnabled = boolValueForKey(@"pinchToCloseEnabled", NO);
 	customFrameEnabled = boolValueForKey(@"customFrameEnabled", YES);
-	customCenteredFrameEnabled = boolValueForKey(@"customCenteredFrameEnabled", YES);
+	customCenteredFrameEnabled = boolValueForKey(@"customCenteredFrameEnabled", NO);
 	frameX = numberForValue(@"customFrameX", 0);
 	frameY = numberForValue(@"customFrameY", 0);
 	frameWidth = numberForValue(@"customFrameWidth", 300);
@@ -453,6 +453,9 @@ static NSString* colorForValue(NSString *key) {
    		handler:^(UIAlertAction * action) {
 
 			   @try{
+
+				   NSUserDefaults *prefs = [[NSUserDefaults standardUserDefaults] init];
+				   [prefs removePersistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
 
 				   NSString *pasteboardData = [UIPasteboard generalPasteboard].string;
 

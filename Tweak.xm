@@ -12,8 +12,12 @@
 
 -(void)setCornerRadius:(double)arg1 { // returning the value from the slider cell in the settings for the corner radius
 
-	if(enabled && cornerRadiusEnabled){
-		%orig(cornerRadius);
+	if(enabled) { //as weird as it is, this 38 return value fixes square blur views for custom light/dark options
+		if(cornerRadiusEnabled) {
+				%orig(cornerRadius);
+			} else {
+				%orig(38);
+			}
 	}
 }
 
@@ -91,40 +95,6 @@ if(enabled && customFrameEnabled){
 		return %orig;
 	}
 
-}
-
-%end
-
-%hook SBFolderBackgroundMaterialSettings
-
--(UIColor *)baseOverlayColor { // this effect looks so sweet
-
-	UIColor *color = [UIColor cscp_colorFromHexString:folderBackgroundBackgroundColor];
-
-	if(enabled && folderBackgroundBackgroundColorEnabled && !randomColorBackgroundEnabled){
-		return color;
-	} else if(enabled && folderBackgroundBackgroundColorEnabled && randomColorBackgroundEnabled){
-		return [self randomColor];
-	} else {return %orig;}
-}
-
--(double)baseOverlayTintAlpha {
-
-	if(enabled && folderBackgroundBackgroundColorEnabled){
-		return backgroundAlphaColor;
-	} else if(enabled && randomColorBackgroundEnabled){
-		return backgroundAlphaColor;
-	} else {return %orig;}
-}
-
-%new
-- (UIColor *)randomColor {
-
-	int r = arc4random_uniform(256);
-	int g = arc4random_uniform(256);
-	int b = arc4random_uniform(256);
-
-	return [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:1.0f];
 }
 
 %end
@@ -258,30 +228,16 @@ if(enabled && customFrameEnabled){
 
 	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 1){
 		MSHookIvar<UIVisualEffectView *>(self, "_blurView") = self.lightView;
+
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		[self addSubview:self.lightView];
-
-		if(kCFCoreFoundationVersionNumber > 1600) {
-			if(cornerRadiusEnabled) {
-				[self.lightView.layer setCornerRadius:cornerRadius];
-			} else {
-				[self.lightView.layer setCornerRadius:38];
-			}
-		}
 	}
 
 	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 2){
 		MSHookIvar<UIVisualEffectView *>(self, "_blurView") = self.darkView;
+
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		[self addSubview:self.darkView];
-
-		if(kCFCoreFoundationVersionNumber > 1600) {
-			if(cornerRadiusEnabled) {
-				[self.darkView.layer setCornerRadius:cornerRadius];
-			} else {
-				[self.darkView.layer setCornerRadius:38];
-			}
-		}
 	}
 
 	if(enabled && folderBackgroundColorEnabled){
@@ -323,9 +279,34 @@ if(enabled && customFrameEnabled){
 
 %hook SBFolderControllerBackgroundView
 
+
 -(void)layoutSubviews {
-    %orig;
 	if (enabled && customWallpaperBlurEnabled) self.alpha = customWallpaperBlurFactor;
+
+	/*if(kCFCoreFoundationVersionNumber > 1600 && enabled) { //I commented this out because it doesnt work with custom wallpaper blur strength
+		UIColor *color;
+
+		if(folderBackgroundBackgroundColorEnabled && !randomColorBackgroundEnabled){
+			color = [UIColor cscp_colorFromHexString:folderBackgroundBackgroundColor];
+
+			[MSHookIvar<UIVisualEffectView *>(self, "_blurView") setBackgroundColor:color];
+		} else if(folderBackgroundBackgroundColorEnabled && randomColorBackgroundEnabled){
+			color = [self randomColor];
+
+			[MSHookIvar<UIVisualEffectView *>(self, "_blurView") setBackgroundColor:color];
+
+		}
+	}*/
+}
+
+%new
+- (UIColor *)randomColor {
+
+	int r = arc4random_uniform(256);
+	int g = arc4random_uniform(256);
+	int b = arc4random_uniform(256);
+
+	return [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:1.0f];
 }
 
 %end
@@ -333,6 +314,41 @@ if(enabled && customFrameEnabled){
 %end
 
 %group ios12
+
+%hook SBFolderBackgroundMaterialSettings
+
+-(UIColor *)baseOverlayColor { // this effect looks so sweet
+
+	UIColor *color = [UIColor cscp_colorFromHexString:folderBackgroundBackgroundColor];
+
+	if(enabled && folderBackgroundBackgroundColorEnabled && !randomColorBackgroundEnabled){
+		return color;
+	} else if(enabled && folderBackgroundBackgroundColorEnabled && randomColorBackgroundEnabled){
+		return [self randomColor];
+	} else {return %orig;}
+}
+
+-(double)baseOverlayTintAlpha {
+
+	if(enabled && folderBackgroundBackgroundColorEnabled){
+		return backgroundAlphaColor;
+	} else if(enabled && randomColorBackgroundEnabled){
+		return backgroundAlphaColor;
+	} else {return %orig;}
+}
+
+%new
+- (UIColor *)randomColor {
+
+	int r = arc4random_uniform(256);
+	int g = arc4random_uniform(256);
+	int b = arc4random_uniform(256);
+
+	return [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:1.0f];
+}
+
+%end
+
 %hook SBFolderSettings
 
 -(BOOL)pinchToClose { // enable pinch to close
