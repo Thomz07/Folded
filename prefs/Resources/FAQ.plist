@@ -98,25 +98,11 @@
 			<key>cellClass</key>
 			<string>getThomzAniPhone2</string>
 			<key>action</key>
-			<string>openThomzPayPal</string>
+			<string>openPayPalPool</string>
 			<key>who</key>
-			<string>Donate to Thomz!</string>
+			<string>Donate to Us!</string>
 			<key>why</key>
-			<string>Help him get an iPhone X!</string>
-			<key>height</key>
-			<integer>70</integer>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>cellClass</key>
-			<string>getThomzAniPhone2</string>
-			<key>action</key>
-			<string>openBurrit0zPayPal</string>
-			<key>who</key>
-			<string>Donate to Burrit0z!</string>
-			<key>why</key>
-			<string>Help me pay for tweaks!</string>
+			<string>Thank us for our hard work!</string>
 			<key>height</key>
 			<integer>70</integer>
 		</dict>

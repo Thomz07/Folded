@@ -137,12 +137,8 @@ NSDictionary *preferences;
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.reddit.com/user/Burrit0z_Dev"]];
 }
 
--(void)openThomzPayPal {
-	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://paypal.me/Thomz07"]];
-}
-
--(void)openBurrit0zPayPal {
-	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://paypal.me/Burrit0zDev"]];
+-(void)openPayPalPool {
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://paypal.me/pools/c/8nPzkVjCKn"]];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

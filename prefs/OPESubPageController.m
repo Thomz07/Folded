@@ -350,12 +350,8 @@ BOOL cornerRadiusEnabled;
 }
 
 
--(void)openThomzPayPal {
-	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://paypal.me/Thomz07"]];
-}
-
--(void)openBurrit0zPayPal {
-	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://paypal.me/Burrit0zDev"]];
+-(void)openPayPalPool {
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://paypal.me/pools/c/8nPzkVjCKn"]];
 }
 
 @end
