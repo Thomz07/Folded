@@ -74,6 +74,22 @@
 			<key>label</key>
 			<string>Reset All Preferences</string>
 		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>exportPrefs</string>
+			<key>label</key>
+			<string>Export Preferences</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>enterPrefs</string>
+			<key>label</key>
+			<string>Test Pasteboard Reciever</string>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>Presets</string>

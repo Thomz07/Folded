@@ -155,7 +155,7 @@ BOOL customWallpaperBlurEnabled;
 double customWallpaperBlurFactor;
 BOOL tapToCloseEnabled;
 BOOL hideFolderIconBackground;
-BOOL hidePageDotsEnabled;
+//BOOL hidePageDotsEnabled;
 double hideDotsPref;
 BOOL resizeFolderIconEnabled;
 double resizeFactor;
