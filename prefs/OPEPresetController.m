@@ -150,6 +150,18 @@ NSString *domain = @"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.p
 				[self setObjectInPreset:@"000000" forKey:@"folderBackgroundBackgroundColor"];
 				[self setObjectInPreset:@"1" forKey:@"backgroundAlphaColor"];
 
+			} else if([[specifier propertyForKey:@"presetName"] isEqualToString:@"biggerFolder63"]) {
+				[self setObjectInPreset:@YES forKey:@"enabled"];
+				[self setObjectInPreset:@YES forKey:@"hideTitleEnabled"];
+				[self setObjectInPreset:@YES forKey:@"pinchToCloseEnabled"];
+				[self setObjectInPreset:@"500" forKey:@"customFrameHeight"];
+				[self setObjectInPreset:@"350" forKey:@"customFrameWidth"];
+				[self setObjectInPreset:@YES forKey:@"customFrameEnabled"];
+				[self setObjectInPreset:@YES forKey:@"customCenteredFrameEnabled"];
+				[self setObjectInPreset:@YES forKey:@"customLayoutEnabled"];
+				[self setObjectInPreset:@"4" forKey:@"customLayoutColumns"];
+				[self setObjectInPreset:@"5" forKey:@"customLayoutRows"];
+				[self setObjectInPreset:@YES forKey:@"clearBackgroundIcons"];
 			}
 
 		[[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"enabled" inDomain:domain];	

@@ -54,6 +54,16 @@
         </dict>
 		<dict>
         	<key>cell</key>
+        	<string>PSButtonCell</string>
+			<key>action</key>
+			<string>applyPreset:</string>
+			<key>label</key>
+			<string>Bigger Folder</string>
+			<key>presetName</key>
+			<string>biggerFolder63</string>
+        </dict>
+		<dict>
+        	<key>cell</key>
         	<string>PSGroupCell</string>
         </dict>
 		<dict>
