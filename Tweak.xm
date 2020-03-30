@@ -198,7 +198,17 @@ if(enabled && customFrameEnabled){
     if(enabled && hideFolderGridEnabled){
 		[self setHidden:true];
 	}
-	if((twoByTwoIconEnabled || (folderIconColumns==2 && folderIconRows==2))&& kCFCoreFoundationVersionNumber > 1600) {
+	if(resizeFolderIconEnabled) {
+		CGAffineTransform originalIconView = (self.transform);
+		self.transform = CGAffineTransformMake(
+			resizeFactor,
+			originalIconView.b,
+			originalIconView.c,
+			resizeFactor,
+			originalIconView.tx,
+			originalIconView.ty
+		);
+	} else if((twoByTwoIconEnabled || (folderIconColumns==2 && folderIconRows==2))&& kCFCoreFoundationVersionNumber > 1600) {
 		CGAffineTransform originalIconView = (self.transform);
 		self.transform = CGAffineTransformMake(
 			1.5,
@@ -385,14 +395,7 @@ if(enabled && customFrameEnabled){
 
 %hook SBIconGridImage
 
-//Here is just the way we resize the icon in 2x2 mode, meaning it looks just like it should, and won't be excessively small
-
-+ (CGSize)cellSize {
-    CGSize orig = %orig;
-	if(enabled && twoByTwoIconEnabled){
-		return CGSizeMake(orig.width * 1.5, orig.height);
-	} else {return %orig;}
-}
+//Here is just the way we resize the icon spacing in 2x2 mode, meaning it looks just like it should, and won't be excessively small
 
 + (CGSize)cellSpacing {
     CGSize orig = %orig;

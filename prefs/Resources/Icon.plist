@@ -4,18 +4,18 @@
 <dict>
 	<key>items</key>
 	<array>
-        <dict>
+    <dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 		</dict>
-        <dict>
+    <dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>footerText</key>
 			<string>PLEASE NOTE: (iOS 13 only) The method to create custom folder icons is very complicaed and tricky. Currently, there are two known issues with this method. (1) When editing folders, your folder icon will snap to that of the insides of the folder, rather than your set folder icon. Respring to fix. Additionally, (2) there is a glitchy animation when exiting folders from the first page. I plan to find a way to fix both. --Burrit0z</string>
 		</dict>
 		<dict>
-        	<key>cell</key>
+      <key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
 			<false/>
@@ -25,8 +25,8 @@
 			<string>customFolderIconEnabled</string>
 			<key>label</key>
 			<string>Custom Folder Grid</string>
-        </dict>
-        <dict>
+    </dict>
+    <dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
             <key>footerText</key>
@@ -50,9 +50,6 @@
                 <string>5</string>
                 <string>6</string>
                 <string>7</string>
-                <string>8</string>
-                <string>9</string>
-                <string>10</string>
             </array>
             <key>validTitles</key>
             <array>
@@ -63,9 +60,6 @@
                 <string>5</string>
                 <string>6</string>
                 <string>7</string>
-                <string>8</string>
-                <string>9</string>
-                <string>10</string>
             </array>
         </dict>
         <dict>
@@ -104,11 +98,43 @@
                 <string>7</string>
             </array>
 		</dict>
+    <dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+    <dict>
+      <key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>resizeFolderIconEnabled</string>
+			<key>label</key>
+			<string>Resize Folder Icon</string>
+    </dict>
+    <dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>min</key>
+			<real>0.01</real>
+			<key>max</key>
+			<real>5</real>
+			<key>isSegmented</key>
+			<false/>
+			<key>showValue</key>
+			<true/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>resizeFactor</string>
+		</dict>
         <dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-            <key>footerText</key>
-			<string>iOS 12 and 13, Layout must be 2x2</string>
+            <key>label</key>
+			<string>iOS 12 and 13:</string>
 		</dict>
 		<dict>
         	<key>cell</key>

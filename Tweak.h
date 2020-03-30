@@ -157,6 +157,8 @@ BOOL tapToCloseEnabled;
 BOOL hideFolderIconBackground;
 BOOL hidePageDotsEnabled;
 double hideDotsPref;
+BOOL resizeFolderIconEnabled;
+double resizeFactor;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
@@ -279,6 +281,8 @@ static void preferencesChanged()
 	tapToCloseEnabled = boolValueForKey(@"tapToCloseEnabled", NO);
 	hideFolderIconBackground = boolValueForKey(@"hideFolderIconBackground", NO);
 	hideDotsPref = numberForValue(@"hideDotsPref", 1);
+	resizeFolderIconEnabled = boolValueForKey(@"resizeFolderIconEnabled", NO);
+	resizeFactor = numberForValue(@"resizeFactor", 1.0);
 
 	if(customTitleFontEnabled && titleFontWeight!=1) { //disables custom font weighting, preventing a freeze
 		titleFontWeight=1;
