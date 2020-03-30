@@ -34,6 +34,26 @@
         </dict>
 		<dict>
         	<key>cell</key>
+        	<string>PSButtonCell</string>
+			<key>action</key>
+			<string>applyPreset:</string>
+			<key>label</key>
+			<string>Modern Look</string>
+			<key>presetName</key>
+			<string>modern27</string>
+        </dict>
+		<dict>
+        	<key>cell</key>
+        	<string>PSButtonCell</string>
+			<key>action</key>
+			<string>applyPreset:</string>
+			<key>label</key>
+			<string>Oled Mode</string>
+			<key>presetName</key>
+			<string>oled92</string>
+        </dict>
+		<dict>
+        	<key>cell</key>
         	<string>PSGroupCell</string>
         </dict>
 		<dict>

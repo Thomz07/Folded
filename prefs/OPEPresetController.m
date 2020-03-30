@@ -123,6 +123,33 @@ NSString *domain = @"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.p
 				[self setObjectInPreset:@"400" forKey:@"customFrameHeight"];
 				[self setObjectInPreset:@"350" forKey:@"customFrameWidth"];
 
+			} else if([[specifier propertyForKey:@"presetName"] isEqualToString:@"modern27"]) {
+				[self setObjectInPreset:@YES forKey:@"backgroundAlphaEnabled"];
+				[self setObjectInPreset:@"0" forKey:@"backgroundAlpha"];
+				[self setObjectInPreset:@YES forKey:@"tapToCloseEnabled"];
+				[self setObjectInPreset:@YES forKey:@"enabled"];
+				[self setObjectInPreset:@"1" forKey:@"titleAlignment"];
+				[self setObjectInPreset:@"2" forKey:@"titleFontWeight"];
+				[self setObjectInPreset:@"2" forKey:@"hideDotsPref"];
+				[self setObjectInPreset:@"500" forKey:@"customFrameHeight"];
+				[self setObjectInPreset:@"375" forKey:@"customFrameWidth"];
+				[self setObjectInPreset:@"0" forKey:@"customFrameX"];
+				[self setObjectInPreset:@"167" forKey:@"customFrameY"];
+				[self setObjectInPreset:@YES forKey:@"customFrameEnabled"];
+				[self setObjectInPreset:@YES forKey:@"customLayoutEnabled"];
+				[self setObjectInPreset:@"4" forKey:@"customLayoutColumns"];
+				[self setObjectInPreset:@"5" forKey:@"customLayoutRows"];
+
+			} else if([[specifier propertyForKey:@"presetName"] isEqualToString:@"oled92"]) {
+				[self setObjectInPreset:@YES forKey:@"enabled"];
+				[self setObjectInPreset:@YES forKey:@"backgroundAlphaEnabled"];
+				[self setObjectInPreset:@"0" forKey:@"backgroundAlpha"];
+				[self setObjectInPreset:@YES forKey:@"tapToCloseEnabled"];
+				[self setObjectInPreset:@"2" forKey:@"hideDotsPref"];
+				[self setObjectInPreset:@YES forKey:@"folderBackgroundBackgroundColorEnabled"];
+				[self setObjectInPreset:@"000000" forKey:@"folderBackgroundBackgroundColor"];
+				[self setObjectInPreset:@"1" forKey:@"backgroundAlphaColor"];
+
 			}
 
 		[[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"enabled" inDomain:domain];	
