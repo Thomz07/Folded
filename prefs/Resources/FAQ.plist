@@ -13,14 +13,6 @@
             <string>You can find here explainations for every option of the tweak!</string>
         </dict>
         <dict>
-			<key>cell</key>
-			<string>PSDefaultCell</string>
-			<key>cellClass</key>
-			<string>ThomzScreenSizeCell</string>
-			<key>height</key>
-			<integer>110</integer>
-		</dict>
-        <dict>
             <key>cell</key>
             <string>PSGroupCell</string>
             <key>label</key>
@@ -88,6 +80,14 @@
             <key>cell</key>
             <string>PSGroupCell</string>
         </dict>
+         <dict>
+			<key>cell</key>
+			<string>PSDefaultCell</string>
+			<key>cellClass</key>
+			<string>ThomzScreenSizeCell</string>
+			<key>height</key>
+			<integer>110</integer>
+		</dict>
         <dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
