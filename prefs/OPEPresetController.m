@@ -469,6 +469,20 @@ static NSString* colorForValue(NSString *key) {
 			       NSArray *list = [pasteboardData componentsSeparatedByString:@"f"];
 
 				   NSMutableArray *listItems = [(NSArray*)list mutableCopy];
+				   /*
+				   NSMutableArray *possibleprefs = [[NSMutableArray alloc] init];
+				   [possibleprefs addObjectsFromArray:@[@"enabled",@"backgroundAlphaEnabled",@"backgroundAlpha",@"cornerRadiusEnabled",@"cornerRadius",
+				   		@"pinchToCloseEnabled",@"customFrameEnabled",@"customCenteredFrameEnabled",@"customFrameX",@"customFrameY",@"customFrameWidth",
+						@"customFrameHeight",@"customLayoutEnabled",@"customLayoutRows",@"customLayoutColumns",@"hideTitleEnabled",@"customTitleFontSizeEnabled",
+						@"customTitleFontSize",@"customTitleOffSetEnabled",@"customTitleOffSet",@"customTitleXOffSetEnabled",@"customTitleXOffSet",
+						@"customFolderIconEnabled",@"folderIconRows",@"folderIconColumns",@"twoByTwoIconEnabled",@"titleFontWeight",@"titleAlignment",
+						@"titleColorEnabled",@"titleColor",@"titleBackgroundEnabled",@"titleBackgroundColor",@"titleBackgroundCornerRadius",
+						@"titleBackgroundBlurEnabled",@"showInjectionAlerts",@"customBlurBackgroundEnabled",@"customBlurBackground",@"folderBackgroundColorEnabled",
+						@"folderBackgroundColor",@"customTitleFontEnabled",@"customTitleFont",@"seizureModeEnabled",@"folderBackgroundBackgroundColorEnabled",
+						@"backgroundAlphaColor",@"folderBackgroundBackgroundColor",@"randomColorBackgroundEnabled",@"folderBackgroundColorWithGradientEnabled",
+						@"folderBackgroundColorWithGradient",@"folderBackgroundColorWithGradientVerticalGradientEnabled",@"hideFolderGridEnabled",
+						@"clearBackgroundIcons",@"customWallpaperBlurEnabled",@"customWallpaperBlurFactor",@"tapToCloseEnabled",@"hideFolderIconBackground",
+						@"hideDotsPref",@"resizeFolderIconEnabled",@"resizeFactor"]];*/
 
 				   [self setObjectInPreset:([listItems objectAtIndex:0]) forKey:@"enabled"];
 				   [self setObjectInPreset:([listItems objectAtIndex:1]) forKey:@"backgroundAlphaEnabled"];
