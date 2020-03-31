@@ -191,38 +191,6 @@ if(enabled && customFrameEnabled){
 
 %end
 
-%hook _SBIconGridWrapperView
-
--(void)layoutSubviews {
-    %orig;
-    if(enabled && hideFolderGridEnabled){
-		[self setHidden:true];
-	}
-	if(resizeFolderIconEnabled) {
-		CGAffineTransform originalIconView = (self.transform);
-		self.transform = CGAffineTransformMake(
-			resizeFactor,
-			originalIconView.b,
-			originalIconView.c,
-			resizeFactor,
-			originalIconView.tx,
-			originalIconView.ty
-		);
-	} else if((twoByTwoIconEnabled || (folderIconColumns==2 && folderIconRows==2))&& kCFCoreFoundationVersionNumber > 1600) {
-		CGAffineTransform originalIconView = (self.transform);
-		self.transform = CGAffineTransformMake(
-			1.5,
-			originalIconView.b,
-			originalIconView.c,
-			1.5,
-			originalIconView.tx,
-			originalIconView.ty
-		);
-	}
-}
-
-%end
-
 
 %hook SBFolderBackgroundView
 %property (nonatomic, retain) UIVisualEffectView *lightView;
@@ -388,11 +356,55 @@ if(enabled && customFrameEnabled){
 
 %end
 
-///////////////
+%hook SBIconGridImage
+
++ (CGSize)cellSize {
+    CGSize orig = %orig;
+	if(enabled && twoByTwoIconEnabled){
+    	return CGSizeMake(orig.width * 1.54, orig.height);
+	} else {
+		return orig;
+	}
+}
+
+
++ (unsigned long long)numberOfColumns {
+
+	if(enabled && twoByTwoIconEnabled){
+    	return 2;
+	} else {
+		return %orig;
+	}
+}
+
++ (unsigned long long)numberOfRowsForNumberOfCells:(unsigned long long)arg1 {
+	if(enabled && twoByTwoIconEnabled){
+		if (arg1 >= 3){
+			return 2;
+		} else {
+			return 1;
+		}
+	} else {
+		return %orig;
+	}
+}
+
++ (CGSize)cellSpacing {
+    CGSize orig = %orig;
+	if(enabled && twoByTwoIconEnabled){
+    	return CGSizeMake(orig.width * 1.54, orig.height);
+	} else {
+		return orig;
+	}
+}
+
 %end
 
-%group ios13
+%end
 
+/////////////////////////////////////////////////////////
+
+%group ios13
 %hook SBIconGridImage
 
 //Here is just the way we resize the icon spacing in 2x2 mode, meaning it looks just like it should, and won't be excessively small
@@ -425,6 +437,38 @@ if(enabled && customFrameEnabled){
 }
 
 ///////////////////
+
+%end
+
+%hook _SBIconGridWrapperView
+
+-(void)layoutSubviews {
+    %orig;
+    if(enabled && hideFolderGridEnabled){
+		[self setHidden:true];
+	}
+	if(resizeFolderIconEnabled) {
+		CGAffineTransform originalIconView = (self.transform);
+		self.transform = CGAffineTransformMake(
+			resizeFactor,
+			originalIconView.b,
+			originalIconView.c,
+			resizeFactor,
+			originalIconView.tx,
+			originalIconView.ty
+		);
+	} else if((twoByTwoIconEnabled || (folderIconColumns==2 && folderIconRows==2))&& kCFCoreFoundationVersionNumber > 1600) {
+		CGAffineTransform originalIconView = (self.transform);
+		self.transform = CGAffineTransformMake(
+			1.5,
+			originalIconView.b,
+			originalIconView.c,
+			1.5,
+			originalIconView.tx,
+			originalIconView.ty
+		);
+	}
+}
 
 %end
 
