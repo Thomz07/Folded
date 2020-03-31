@@ -67,7 +67,14 @@ static BOOL boolValueForKey(NSString *key, BOOL defaultValue) {
 
 static double numberForValue(NSString *key, double defaultValue) {
 	double value = (recievedPrefs && [recievedPrefs objectForKey:key]) ?  [[recievedPrefs objectForKey:key] doubleValue] : defaultValue;
-	[arrayWithPrefs addObject:[NSString stringWithFormat:@"%F",value]];
+
+	NSNumber *numberForDouble = [NSNumber numberWithDouble:value];
+
+	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+	formatter.roundingIncrement = [NSNumber numberWithDouble:0.01];
+	formatter.numberStyle = NSNumberFormatterDecimalStyle;
+
+	[arrayWithPrefs addObject:[NSString stringWithFormat:@"%@",[formatter stringFromNumber:numberForDouble]]];
 	return value;
 }
 
@@ -462,14 +469,6 @@ static NSString* colorForValue(NSString *key) {
 			       NSArray *list = [pasteboardData componentsSeparatedByString:@"f"];
 
 				   NSMutableArray *listItems = [(NSArray*)list mutableCopy];
-
-				   for(int i=0; i<[listItems count]; i++) {
-					   if([[listItems objectAtIndex:i] isEqualToString:@"1"]) { //This works because any double number is returned as a floating point
-						   [listItems replaceObjectAtIndex:i withObject:@YES];
-					   } else if([[listItems objectAtIndex:i] isEqualToString:@"0"]) {
-						   [listItems replaceObjectAtIndex:i withObject:@NO];
-					   }
-				   }
 
 				   [self setObjectInPreset:([listItems objectAtIndex:0]) forKey:@"enabled"];
 				   [self setObjectInPreset:([listItems objectAtIndex:1]) forKey:@"backgroundAlphaEnabled"];
