@@ -23,8 +23,6 @@
 
 -(CGRect)_frameForScalingView { // modyfing the frame with the values from the settings
 
-//Ok thomz, we need to rewrite this, there are issues with it.
-
 if(enabled && customFrameEnabled){
 		if(customCenteredFrameEnabled){
 			return CGRectMake((self.bounds.size.width - frameWidth)/2, (self.bounds.size.height - frameHeight)/2,frameWidth,frameHeight); // simple calculation to center things
@@ -247,37 +245,13 @@ if(enabled && customFrameEnabled){
 
 %hook SBFolderControllerBackgroundView
 
-
 -(void)layoutSubviews {
+    %orig;
 	if (enabled && customWallpaperBlurEnabled) self.alpha = customWallpaperBlurFactor;
-
-	/*if(kCFCoreFoundationVersionNumber > 1600 && enabled) { //I commented this out because it doesnt work with custom wallpaper blur strength
-		UIColor *color;
-
-		if(folderBackgroundBackgroundColorEnabled && !randomColorBackgroundEnabled){
-			color = [UIColor cscp_colorFromHexString:folderBackgroundBackgroundColor];
-
-			[MSHookIvar<UIVisualEffectView *>(self, "_blurView") setBackgroundColor:color];
-		} else if(folderBackgroundBackgroundColorEnabled && randomColorBackgroundEnabled){
-			color = [self randomColor];
-
-			[MSHookIvar<UIVisualEffectView *>(self, "_blurView") setBackgroundColor:color];
-
-		}
-	}*/
-}
-
-%new
-- (UIColor *)randomColor {
-
-	int r = arc4random_uniform(256);
-	int g = arc4random_uniform(256);
-	int b = arc4random_uniform(256);
-
-	return [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:1.0f];
 }
 
 %end
+
 
 %end
 

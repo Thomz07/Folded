@@ -54,8 +54,6 @@ id lastIconSucess;
 @interface SBFolderControllerBackgroundView : UIView
 @property (nonatomic, strong) UIColor *backgroundColor;
 @property (nonatomic, assign) CGFloat aplha;
-@property (nonatomic, strong) UIVisualEffectView *blurView;
--(UIColor *)randomColor;
 -(void)layoutSubviews;
 @end
 
