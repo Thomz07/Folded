@@ -202,6 +202,9 @@ static NSString* colorForValue(NSString *key) {
 				[self setObjectInPreset:@"3" forKey:@"titleFontWeight"];
 				[self setObjectInPreset:@YES forKey:@"customTitleXOffSetEnabled"];
 				[self setObjectInPreset:@"-17" forKey:@"customTitleXOffSet"];
+				[self setObjectInPreset:@YES forKey:@"customTitleOffSetEnabled"];
+				[self setObjectInPreset:@"167" forKey:@"customTitleOffSet"];
+
 
 				[self setObjectInPreset:@YES forKey:@"customFolderIconEnabled"];
 				[self setObjectInPreset:@"3" forKey:@"folderIconColumns"];
