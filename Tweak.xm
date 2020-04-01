@@ -350,30 +350,38 @@ if(enabled && customFrameEnabled){
 
 + (CGSize)cellSize {
     CGSize orig = %orig;
-	if(enabled && twoByTwoIconEnabled){
-    	return CGSizeMake(orig.width * 1.54, orig.height);
-	} else {
-		return orig;
-	}
+	if(enabled && customLayoutEnabled){
+    	if(customLayoutRows == 1 && customLayoutColumns == 1){
+			return CGSizeMake(orig.width * 3.54, orig.height);
+		} else if((customLayoutRows == 1 && customLayoutColumns == 2) || (customLayoutRows == 2 && customLayoutColumns == 1)){
+			return CGSizeMake(orig.width * 1.62, orig.height * 0.44);
+		} else if(customLayoutRows == 2 && customLayoutColumns == 2) {
+			return CGSizeMake(orig.width * 1.54, orig.height);
+		} else if((customLayoutRows == 3 && customLayoutColumns == 2) || (customLayoutRows == 2 && customLayoutColumns == 3)) {
+			return CGSizeMake(orig.width, orig.height * 0.7);
+		} else {return orig;}
+	} else {return orig;}
+
+	//return CGSizeMake(orig.width * 1.54, orig.height);
 }
 
 
 + (unsigned long long)numberOfColumns {
 
-	if(enabled && twoByTwoIconEnabled){
-    	return 2;
+	if(enabled && customLayoutEnabled){
+		if(customLayoutRows == 2 && customLayoutColumns == 2){
+    		return 2;
+		} else {return %orig;}
 	} else {
 		return %orig;
 	}
 }
 
 + (unsigned long long)numberOfRowsForNumberOfCells:(unsigned long long)arg1 {
-	if(enabled && twoByTwoIconEnabled){
-		if (arg1 >= 3){
-			return 2;
-		} else {
-			return 1;
-		}
+	if(enabled && customLayoutEnabled){
+		if(customLayoutRows == 2 && customLayoutColumns == 2){
+    		return 2;
+		} else {return %orig;}
 	} else {
 		return %orig;
 	}
@@ -381,8 +389,10 @@ if(enabled && customFrameEnabled){
 
 + (CGSize)cellSpacing {
     CGSize orig = %orig;
-	if(enabled && twoByTwoIconEnabled){
-    	return CGSizeMake(orig.width * 1.54, orig.height);
+	if(enabled && customLayoutEnabled){
+		if(customLayoutRows == 2 && customLayoutColumns == 2){
+    		return CGSizeMake(orig.width * 1.5, orig.height);
+		} else {return orig;}
 	} else {
 		return orig;
 	}

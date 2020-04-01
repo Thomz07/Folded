@@ -37,6 +37,7 @@
             <string>customLayoutRows</string>
             <key>validValues</key>
             <array>
+                <string>1</string>
                 <string>2</string>
                 <string>3</string>
                 <string>4</string>
@@ -46,6 +47,7 @@
             </array>
             <key>validTitles</key>
             <array>
+                <string>1</string>
                 <string>2</string>
                 <string>3</string>
                 <string>4</string>
@@ -65,6 +67,7 @@
             <string>customLayoutColumns</string>
             <key>validValues</key>
             <array>
+                <string>1</string>
                 <string>2</string>
                 <string>3</string>
                 <string>4</string>
@@ -74,6 +77,7 @@
             </array>
             <key>validTitles</key>
             <array>
+                <string>1</string>
                 <string>2</string>
                 <string>3</string>
                 <string>4</string>
