@@ -91,8 +91,6 @@
     <dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>footerText</key>
-			<string>Note: The options above will only work on iOS 13</string>
 		</dict>
     <dict>
       <key>cell</key>
@@ -126,7 +124,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>footerText</key>
-			<string>Layout must be 2x2 on iOS 12</string>
+			<string>Note: The options above will only work on iOS 13</string>
 		</dict>
 		<dict>
         	<key>cell</key>
