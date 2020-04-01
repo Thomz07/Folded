@@ -21,12 +21,14 @@
 			<string>customFolderIconEnabled</string>
 			<key>label</key>
 			<string>Custom Folder Grid</string>
-    </dict>
-    <dict>
+    	</dict>
+    	<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
             <key>footerText</key>
 			<string>Rows and Columns</string>
+			<key>key</key>
+			<string>rowsAndColumnsGroupCellIcon</string>
 		</dict>
 		<dict>
             <key>cell</key>

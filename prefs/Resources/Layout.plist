@@ -25,6 +25,8 @@
         	<string>PSGroupCell</string>
             <key>footerText</key>
 			<string>Rows and Columns</string>
+            <key>key</key>
+            <string>rowsAndColumnsGroupCell</string>
         </dict>
         <dict>
             <key>cell</key>

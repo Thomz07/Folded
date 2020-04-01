@@ -21,6 +21,8 @@ BOOL customBlurBackgroundEnabled;
 BOOL customWallpaperBlurEnabled;
 BOOL backgroundAlphaEnabled;
 BOOL cornerRadiusEnabled;
+BOOL resizeFolderIconEnabled;
+BOOL customFolderIconEnabled;
 
 - (void)setSpecifier:(PSSpecifier *)specifier {
     [self loadFromSpecifier:specifier];
@@ -36,6 +38,26 @@ BOOL cornerRadiusEnabled;
 
 		if ([[specifier propertyForKey:@"pageKey"] isEqualToString:@"Title"]) {
 			NSArray *chosenLabels = @[@"customTitleFontSize", @"customTitleOffSet", @"titleColor", @"customTitleColor", @"customTitleFont",@"customTitleXOffSet"];
+			self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
+			for(PSSpecifier *specifier in [self specifiers]) {
+			if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
+			[self.mySavedSpecifiers setObject:specifier forKey:[specifier propertyForKey:@"key"]];
+			}
+		}
+		}
+
+		if ([[specifier propertyForKey:@"pageKey"] isEqualToString:@"Layout"]) {
+			NSArray *chosenLabels = @[@"rowsAndColumnsGroupCell", @"customLayoutRows", @"customLayoutColumns"];
+			self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
+			for(PSSpecifier *specifier in [self specifiers]) {
+			if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
+			[self.mySavedSpecifiers setObject:specifier forKey:[specifier propertyForKey:@"key"]];
+			}
+		}
+		}
+
+		if ([[specifier propertyForKey:@"pageKey"] isEqualToString:@"Icon"]) {
+			NSArray *chosenLabels = @[@"rowsAndColumnsGroupCellIcon", @"folderIconRows", @"folderIconColumns",@"resizeFactor"];
 			self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
 			for(PSSpecifier *specifier in [self specifiers]) {
 			if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
@@ -259,6 +281,37 @@ BOOL cornerRadiusEnabled;
 
 		}
 
+		if ([self.sub isEqualToString:@"Layout"]) {
+
+			customLayoutEnabled = [[preferences objectForKey:@"customLayoutEnabled"] boolValue];
+
+			if(!customLayoutEnabled){
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"rowsAndColumnsGroupCell"], self.mySavedSpecifiers[@"customLayoutRows"], self.mySavedSpecifiers[@"customLayoutColumns"]] animated:YES];
+			} else if(customLayoutEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"rowsAndColumnsGroupCell"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"customLayoutRows"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"customLayoutColumns"]]) {
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"rowsAndColumnsGroupCell"], self.mySavedSpecifiers[@"customLayoutRows"], self.mySavedSpecifiers[@"customLayoutColumns"]] afterSpecifierID:@"Enable Custom Layout" animated:YES];
+			}
+
+		}
+
+		if ([self.sub isEqualToString:@"Icon"]) {
+
+			customFolderIconEnabled = [[preferences objectForKey:@"customFolderIconEnabled"] boolValue];
+			resizeFolderIconEnabled = [[preferences objectForKey:@"resizeFolderIconEnabled"] boolValue];
+
+			if(!customFolderIconEnabled){
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"rowsAndColumnsGroupCellIcon"], self.mySavedSpecifiers[@"folderIconRows"], self.mySavedSpecifiers[@"folderIconColumns"]] animated:YES];
+			} else if(customFolderIconEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"rowsAndColumnsGroupCellIcon"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"folderIconRows"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"folderIconColumns"]]) {
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"rowsAndColumnsGroupCellIcon"], self.mySavedSpecifiers[@"folderIconRows"], self.mySavedSpecifiers[@"folderIconColumns"]] afterSpecifierID:@"Custom Folder Grid" animated:YES];
+			}
+
+			if(!resizeFolderIconEnabled){
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"resizeFactor"]] animated:YES];
+			} else if(resizeFolderIconEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"resizeFactor"]]) {
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"resizeFactor"]] afterSpecifierID:@"Resize Folder Icon" animated:YES];
+			}
+
+		}
+
 }
 
 -(void)removeSegments {
@@ -343,6 +396,30 @@ BOOL cornerRadiusEnabled;
 
 			if(!cornerRadiusEnabled){
 				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"cornerRadius"]] animated:YES];
+			} 
+
+		}
+
+		if ([self.sub isEqualToString:@"Layout"]) {
+
+			customLayoutEnabled = [[preferences objectForKey:@"customLayoutEnabled"] boolValue];
+
+			if(!customLayoutEnabled){
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"rowsAndColumnsGroupCell"], self.mySavedSpecifiers[@"customLayoutRows"], self.mySavedSpecifiers[@"customLayoutColumns"]] animated:YES];
+			}
+		}
+
+		if ([self.sub isEqualToString:@"Icon"]) {
+
+			customFolderIconEnabled = [[preferences objectForKey:@"customFolderIconEnabled"] boolValue];
+			resizeFolderIconEnabled = [[preferences objectForKey:@"resizeFolderIconEnabled"] boolValue];
+
+			if(!customFolderIconEnabled){
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"rowsAndColumnsGroupCellIcon"], self.mySavedSpecifiers[@"folderIconRows"], self.mySavedSpecifiers[@"folderIconColumns"]] animated:YES];
+			} 
+
+			if(!resizeFolderIconEnabled){
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"resizeFactor"]] animated:YES];
 			} 
 
 		}
