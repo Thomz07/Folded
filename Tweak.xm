@@ -248,6 +248,34 @@ if(enabled && customFrameEnabled){
 -(void)layoutSubviews {
     %orig;
 	if (enabled && customWallpaperBlurEnabled) self.alpha = customWallpaperBlurFactor;
+
+	if (kCFCoreFoundationVersionNumber > 1600) {
+		if (enabled && folderBackgroundBackgroundColorEnabled && !randomColorBackgroundEnabled) {
+			UIColor *color = [UIColor cscp_colorFromHexString:folderBackgroundBackgroundColor];
+			UIView *maView;
+			maView = [[UIView alloc]initWithFrame:self.frame];
+			[maView setBackgroundColor:color];
+			[maView setAlpha:1];
+			[self addSubview:maView];
+		} else if(enabled && folderBackgroundBackgroundColorEnabled && randomColorBackgroundEnabled) {
+			UIView *maView;
+			maView = [[UIView alloc]initWithFrame:self.frame];
+			UIColor *randomColorIGuess = [self randomColor];
+			[maView setBackgroundColor:randomColorIGuess];
+			[maView setAlpha:1];
+			[self addSubview:maView];
+		}
+	}
+}
+
+%new
+- (UIColor *)randomColor {
+
+	int r = arc4random_uniform(256);
+	int g = arc4random_uniform(256);
+	int b = arc4random_uniform(256);
+
+	return [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:1.0f];
 }
 
 %end
@@ -330,6 +358,16 @@ if(enabled && customFrameEnabled){
 	if(enabled && customLayoutEnabled){
     	return (customLayoutColumns);
 	} else {return %orig;}
+}
+
+-(double)sideIconInset {
+	if(enabled && insetsEnabled) {return sideInset;} else {return %orig;}
+}
+-(double)topIconInset {
+	if(enabled && insetsEnabled) {return topInset;} else {return %orig;}
+}
+-(double)bottomIconInset {
+	if(enabled && insetsEnabled) {return bottomInset;} else {return %orig;}
 }
 
 %end
@@ -571,65 +609,82 @@ if(enabled && customFrameEnabled){
   [self getLocations];
   //I rewrote this so many times, and ended up with this insanley dumb and long, but rock solid method
   //DON'T QUESTION IT. JUST DON'T!
-
-    if (self.isFolder && enabled && (customLayoutEnabled || customFolderIconEnabled)) {
+  NSUInteger returnThis = 3;
+    if (self.isFolder && enabled) {
 		if (customFolderIconEnabled && customLayoutEnabled) {
 			if (hasProcessLaunched) { 
-				return (customLayoutColumns);
+				returnThis = (customLayoutColumns);
 			} else {
 				@try {
-					return (folderIconColumns);
+					returnThis = (folderIconColumns);
 				} @catch (NSException *exception) {
-				return %orig;
+				returnThis = %orig;
 				hasInjectionFailed = YES;
 				}	
 			}
 		} else if(customLayoutEnabled && !customFolderIconEnabled) {
-			return customLayoutColumns;
+			returnThis = customLayoutColumns;
 		} else if(!customLayoutEnabled && customFolderIconEnabled) {
 			if (!hasProcessLaunched) {
 				@try {
-						return (folderIconColumns);
+						returnThis = (folderIconColumns);
 					} @catch (NSException *exception) {
-					return %orig;
+					returnThis = %orig;
 					hasInjectionFailed = YES;
 					}
 			}
 		}
   } else {
-    return (%orig);
+    returnThis = (%orig);
   }
+  if(returnThis>1) {
+	  return returnThis;
+  } else {return 3;}
 }
 
 -(NSUInteger)numberOfPortraitRows {
   [self getLocations];
-    if (self.isFolder && enabled && (customLayoutEnabled || customFolderIconEnabled)) {
+      NSUInteger returnThis = 3;
+    if (self.isFolder && enabled) {
 		if (customFolderIconEnabled && customLayoutEnabled) {
 			if (hasProcessLaunched) { 
-				return (customLayoutRows);
+				returnThis = (customLayoutRows);
 			} else {
 				@try {
-					return (folderIconRows);
+					returnThis = (folderIconRows);
 				} @catch (NSException *exception) {
-				return %orig;
+				returnThis = %orig;
 				hasInjectionFailed = YES;
 				}	
 			}
 		} else if(customLayoutEnabled && !customFolderIconEnabled) {
-			return customLayoutRows;
+			returnThis = customLayoutRows;
 		} else if(!customLayoutEnabled && customFolderIconEnabled) {
 			if (!hasProcessLaunched) {
 				@try {
-						return (folderIconRows);
+						returnThis = (folderIconRows);
 					} @catch (NSException *exception) {
-					return %orig;
+					returnThis = %orig;
 					hasInjectionFailed = YES;
 					}
 			}
 		}
   } else {
-    return (%orig);
+    returnThis = (%orig);
   }
+  if(returnThis>1) {
+	  return returnThis;
+  } else {return 3;}
+}
+
+- (UIEdgeInsets)portraitLayoutInsets {
+	[self getLocations];
+	if(self.isFolder && enabled && insetsEnabled) {
+		return UIEdgeInsetsMake(topInset,
+								sideInset,
+								bottomInset,
+								sideInset);
+	} else {return %orig;}
 }
 
 %end

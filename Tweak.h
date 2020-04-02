@@ -54,6 +54,7 @@ id lastIconSucess;
 @interface SBFolderControllerBackgroundView : UIView
 @property (nonatomic, strong) UIColor *backgroundColor;
 @property (nonatomic, assign) CGFloat aplha;
+-(UIColor *)randomColor;
 -(void)layoutSubviews;
 @end
 
@@ -159,6 +160,10 @@ BOOL hideFolderIconBackground;
 double hideDotsPref;
 BOOL resizeFolderIconEnabled;
 double resizeFactor;
+BOOL insetsEnabled;
+double topInset;
+double sideInset;
+double bottomInset;
 
 BOOL hasProcessLaunched;
 BOOL hasInjectionFailed;
@@ -206,24 +211,30 @@ static void reloadPrefs()
 //There were so many issues with prefs I'm writing these out to be super long, but super safe
 //Note to self -- Just don't use these in final release
 static BOOL boolValueForKey(NSString *key, BOOL defaultValue) {
-    return (prefs && (
-					  [[prefs objectForKey:key] boolValue] == YES || 
-					  [[prefs objectForKey:key] boolValue] == NO)
-		) ? [[prefs objectForKey:key] boolValue] : defaultValue;
+    return (prefs && [prefs objectForKey:key] ? [[prefs objectForKey:key] boolValue] : defaultValue);
 }
 
 static double numberForValue(NSString *key, double defaultValue) {
-	return (prefs && (
-					  [[prefs objectForKey:key] doubleValue] > 0 ||
-					  [[prefs objectForKey:key] doubleValue] <= 0)
-	) ?  [[prefs objectForKey:key] doubleValue] : defaultValue;
+	return (prefs && [prefs objectForKey:key] ? [[prefs objectForKey:key] doubleValue] : defaultValue);
 	//I'm pretty sure a double will return fine to any numeric variable
+}
+
+NSString *domain = @"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist";
+
+static void setObjectInPreset(id value, NSString *key) {
+	[[NSUserDefaults standardUserDefaults] setObject:value forKey:key inDomain:domain]; //literally useless except to make the following method look neater
 }
 
 static void preferencesChanged() 
 {
     CFPreferencesAppSynchronize((CFStringRef)kIdentifier);
     reloadPrefs();
+
+	if(prefs==nil) {
+		NSUserDefaults *prefss = [[NSUserDefaults standardUserDefaults] init];
+		[prefss removePersistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
+		setObjectInPreset(@YES, @"enabled");
+	}
 
 	enabled = boolValueForKey(@"enabled", NO);
 	backgroundAlphaEnabled = boolValueForKey(@"backgroundAlphaEnabled", NO);
@@ -283,6 +294,10 @@ static void preferencesChanged()
 	hideDotsPref = numberForValue(@"hideDotsPref", 1);
 	resizeFolderIconEnabled = boolValueForKey(@"resizeFolderIconEnabled", NO);
 	resizeFactor = numberForValue(@"resizeFactor", 1.0);
+	insetsEnabled = boolValueForKey(@"insetsEnabled", NO);
+	topInset = numberForValue(@"topInset", 0);
+	sideInset = numberForValue(@"sideInset", 0);
+	bottomInset = numberForValue(@"bottomInset", 0);
 
 	if(customTitleFontEnabled && titleFontWeight!=1) { //disables custom font weighting, preventing a freeze
 		titleFontWeight=1;

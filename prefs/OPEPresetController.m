@@ -346,6 +346,10 @@ static NSString* colorForValue(NSString *key) {
 	double hideDotsPref;
 	BOOL resizeFolderIconEnabled;
 	double resizeFactor;
+	BOOL insetsEnabled;
+	double topInset;
+	double sideInset;
+	double bottomInset;
 
     CFPreferencesAppSynchronize((CFStringRef)kIdentifier);
     reloadPrefs();
@@ -408,6 +412,10 @@ static NSString* colorForValue(NSString *key) {
 	hideDotsPref = numberForValue(@"hideDotsPref", 1);
 	resizeFolderIconEnabled = boolValueForKey(@"resizeFolderIconEnabled", NO);
 	resizeFactor = numberForValue(@"resizeFactor", 1.0);
+	insetsEnabled = boolValueForKey(@"insetsEnabled", NO);
+	topInset = numberForValue(@"topInset", 0);
+	sideInset = numberForValue(@"sideInset", 0);
+	bottomInset = numberForValue(@"bottomInset", 0);
 
 	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
                                message:@"Folded has exported your settings and added a unique string to your pasteboard. You may enter this, or share with others, to restore to this preset at any time."
@@ -545,6 +553,13 @@ static NSString* colorForValue(NSString *key) {
 				   [self setObjectInPreset:([listItems objectAtIndex:55]) forKey:@"hideDotsPref"];
 				   [self setObjectInPreset:([listItems objectAtIndex:56]) forKey:@"resizeFolderIconEnabled"];
 				   [self setObjectInPreset:([listItems objectAtIndex:57]) forKey:@"resizeFactor"];
+
+				   if([listItems count]>57) { //allows for older preset strings to work without raising an error
+					[self setObjectInPreset:([listItems objectAtIndex:58]) forKey:@"insetsEnabled"];
+					[self setObjectInPreset:([listItems objectAtIndex:59]) forKey:@"topInset"];
+					[self setObjectInPreset:([listItems objectAtIndex:60]) forKey:@"sideInset"];
+					[self setObjectInPreset:([listItems objectAtIndex:61]) forKey:@"bottomInset"];
+				   }
 
 				   [self presentViewController:sucess animated:YES completion:nil];
 
