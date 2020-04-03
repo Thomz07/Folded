@@ -12,13 +12,10 @@
 }
 
 -(void)setCornerRadius:(double)arg1 { // returning the value from the slider cell in the settings for the corner radius
-
-	if(enabled) { //as weird as it is, this 38 return value fixes square blur views for custom light/dark options
-		if(cornerRadiusEnabled) {
-				%orig(cornerRadius);
-			} else {
-				%orig(38);
-			}
+	if(enabled && cornerRadiusEnabled) {
+		%orig(cornerRadius);
+	} else if (!cornerRadiusEnabled) {
+		%orig(38);
 	}
 }
 
@@ -436,6 +433,18 @@ if(enabled && customFrameEnabled){
 /////////////////////////////////////////////////////////
 
 %group ios13
+
+%hook SBHFloatyFolderVisualConfiguration
+
+-(CGFloat)continuousCornerRadius {
+	if(enabled && cornerRadiusEnabled) {
+			return (cornerRadius);
+		} else {
+			return %orig;
+		}
+}
+
+%end
 
 %hook SBIconGridImage
 
