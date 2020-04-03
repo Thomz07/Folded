@@ -1,6 +1,7 @@
 #include "Tweak.h"
 
 %group universal
+
 %hook SBFloatyFolderView
 
 -(void)setBackgroundAlpha:(double)arg1 { // returning the value from the slider cell in the settings for the bg alpha
@@ -21,7 +22,7 @@
 	}
 }
 
--(CGRect)_frameForScalingView { // modyfing the frame with the values from the settings
+-(CGRect)_frameForScalingView { // modyfing the frame with the values from the settings, iOS 12
 
 if(enabled && customFrameEnabled){
 		if(customCenteredFrameEnabled){
@@ -52,12 +53,6 @@ if(enabled && customFrameEnabled){
 	} else {return %orig;}
 }
 
--(void)scrollViewDidScroll:(id)arg1 {
-	if(enabled && seizureModeEnabled){
-		[self setBackgroundColor:[self randomColor]];
-	}
-}
-
 -(BOOL)_tapToCloseGestureRecognizer:(id)arg1 shouldReceiveTouch:(id)arg2 {
   %orig;
   if (enabled && tapToCloseEnabled) {
@@ -78,6 +73,7 @@ if(enabled && customFrameEnabled){
 }
 
 %end
+
 
 %hook SBIconListPageControl
 
@@ -255,14 +251,14 @@ if(enabled && customFrameEnabled){
 			UIView *maView;
 			maView = [[UIView alloc]initWithFrame:self.frame];
 			[maView setBackgroundColor:color];
-			[maView setAlpha:1];
+			[maView setAlpha:backgroundAlphaColor];
 			[self addSubview:maView];
 		} else if(enabled && folderBackgroundBackgroundColorEnabled && randomColorBackgroundEnabled) {
 			UIView *maView;
 			maView = [[UIView alloc]initWithFrame:self.frame];
 			UIColor *randomColorIGuess = [self randomColor];
 			[maView setBackgroundColor:randomColorIGuess];
-			[maView setAlpha:1];
+			[maView setAlpha:backgroundAlphaColor];
 			[self addSubview:maView];
 		}
 	}
@@ -443,6 +439,7 @@ if(enabled && customFrameEnabled){
 /////////////////////////////////////////////////////////
 
 %group ios13
+
 %hook SBIconGridImage
 
 //Here is just the way we resize the icon spacing in 2x2 mode, meaning it looks just like it should, and won't be excessively small
@@ -510,39 +507,6 @@ if(enabled && customFrameEnabled){
 
 %end
 
-%hook SBFolderControllerBackgroundView
-
--(void)layoutSubviews {
-
-	UIColor *color = [UIColor cscp_colorFromHexString:folderBackgroundBackgroundColor];
-	UIView *backgroundColor;
-	backgroundColor = [[UIView alloc]initWithFrame:self.frame];
-
-	%orig;
-
-	if(enabled && folderBackgroundBackgroundColorEnabled && !randomColorBackgroundEnabled){
-		[backgroundColor setBackgroundColor:color];
-		[backgroundColor setAlpha:backgroundAlphaColor];
-		[self addSubview:backgroundColor];
-	} else if(enabled && folderBackgroundBackgroundColorEnabled && randomColorBackgroundEnabled){
-		[backgroundColor setBackgroundColor:[self randomColor]];
-		[backgroundColor setAlpha:backgroundAlphaColor];
-		[self addSubview:backgroundColor];
-	} else {}
-
-}
-
-%new
-- (UIColor *)randomColor {
-
-	int r = arc4random_uniform(256);
-	int g = arc4random_uniform(256);
-	int b = arc4random_uniform(256);
-
-	return [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:1.0f];
-}
-
-%end
 
 %hook SBHFolderSettings
 

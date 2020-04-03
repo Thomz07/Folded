@@ -329,7 +329,6 @@ static NSString* colorForValue(NSString *key) {
 	NSString *folderBackgroundColor;
 	BOOL customTitleFontEnabled;
 	double customTitleFont;
-	BOOL seizureModeEnabled;
 	BOOL folderBackgroundBackgroundColorEnabled;
 	double backgroundAlphaColor;
 	NSString * folderBackgroundBackgroundColor;
@@ -395,7 +394,6 @@ static NSString* colorForValue(NSString *key) {
 	folderBackgroundColor = colorForValue(@"folderBackgroundColor");
 	customTitleFontEnabled = boolValueForKey(@"customTitleFontEnabled", NO);
 	customTitleFont = numberForValue(@"customTitleFont", 36);
-	seizureModeEnabled = boolValueForKey(@"seizureModeEnabled", NO);
 	folderBackgroundBackgroundColorEnabled = boolValueForKey(@"folderBackgroundBackgroundColorEnabled", NO);
 	backgroundAlphaColor = numberForValue(@"backgroundAlphaColor", 0);
 	folderBackgroundBackgroundColor = colorForValue(@"folderBackgroundBackgroundColor");
@@ -438,7 +436,7 @@ static NSString* colorForValue(NSString *key) {
 
 -(void)enterPrefs {
 	UIAlertController *sucess = [UIAlertController alertControllerWithTitle:@"Folded"
-							message:@"Your new preset has been applied. Your device will now respring."
+							message:@"If it was valid, your new preset has been applied. Your device will now respring."
 							preferredStyle:UIAlertControllerStyleAlert];
 
 		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
@@ -450,15 +448,6 @@ static NSString* colorForValue(NSString *key) {
 		}];
 
 		[sucess addAction:yes];
-
-	UIAlertController* invalid = [UIAlertController alertControllerWithTitle:@"Folded"
-                               message:@"The preset found in your pasteboard is invalid."
-                               preferredStyle:UIAlertControllerStyleAlert];
-
-		UIAlertAction* OK = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-   		handler:^(UIAlertAction * action) {}];
-
-		[invalid addAction:OK];
 
 	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
                                message:@"Folded will get the preset from your pasteboard. Please be sure it is valid, or this will not work."
@@ -489,7 +478,7 @@ static NSString* colorForValue(NSString *key) {
 						@"customFolderIconEnabled",@"folderIconRows",@"folderIconColumns",@"twoByTwoIconEnabled",@"titleFontWeight",@"titleAlignment",
 						@"titleColorEnabled",@"titleColor",@"titleBackgroundEnabled",@"titleBackgroundColor",@"titleBackgroundCornerRadius",
 						@"titleBackgroundBlurEnabled",@"showInjectionAlerts",@"customBlurBackgroundEnabled",@"customBlurBackground",@"folderBackgroundColorEnabled",
-						@"folderBackgroundColor",@"customTitleFontEnabled",@"customTitleFont",@"seizureModeEnabled",@"folderBackgroundBackgroundColorEnabled",
+						@"folderBackgroundColor",@"customTitleFontEnabled",@"customTitleFont",@"folderBackgroundBackgroundColorEnabled",
 						@"backgroundAlphaColor",@"folderBackgroundBackgroundColor",@"randomColorBackgroundEnabled",@"folderBackgroundColorWithGradientEnabled",
 						@"folderBackgroundColorWithGradient",@"folderBackgroundColorWithGradientVerticalGradientEnabled",@"hideFolderGridEnabled",
 						@"clearBackgroundIcons",@"customWallpaperBlurEnabled",@"customWallpaperBlurFactor",@"tapToCloseEnabled",@"hideFolderIconBackground",
@@ -536,35 +525,34 @@ static NSString* colorForValue(NSString *key) {
 				   [self setObjectInPreset:([listItems objectAtIndex:38]) forKey:@"folderBackgroundColor"];
 				   [self setObjectInPreset:([listItems objectAtIndex:39]) forKey:@"customTitleFontEnabled"];
 				   [self setObjectInPreset:([listItems objectAtIndex:40]) forKey:@"customTitleFont"];
-				   [self setObjectInPreset:([listItems objectAtIndex:41]) forKey:@"seizureModeEnabled"];
-				   [self setObjectInPreset:([listItems objectAtIndex:42]) forKey:@"folderBackgroundBackgroundColorEnabled"];
-				   [self setObjectInPreset:([listItems objectAtIndex:43]) forKey:@"backgroundAlphaColor"];
-				   [self setObjectInPreset:([listItems objectAtIndex:44]) forKey:@"folderBackgroundBackgroundColor"];
-				   [self setObjectInPreset:([listItems objectAtIndex:45]) forKey:@"randomColorBackgroundEnabled"];
-				   [self setObjectInPreset:([listItems objectAtIndex:46]) forKey:@"folderBackgroundColorWithGradientEnabled"];
-				   [self setObjectInPreset:([listItems objectAtIndex:47]) forKey:@"folderBackgroundColorWithGradient"];
-				   [self setObjectInPreset:([listItems objectAtIndex:48]) forKey:@"folderBackgroundColorWithGradientVerticalGradientEnabled"];
-				   [self setObjectInPreset:([listItems objectAtIndex:49]) forKey:@"hideFolderGridEnabled"];
-				   [self setObjectInPreset:([listItems objectAtIndex:50]) forKey:@"clearBackgroundIcons"];
-				   [self setObjectInPreset:([listItems objectAtIndex:51]) forKey:@"customWallpaperBlurEnabled"];
-				   [self setObjectInPreset:([listItems objectAtIndex:52]) forKey:@"customWallpaperBlurFactor"];
-				   [self setObjectInPreset:([listItems objectAtIndex:53]) forKey:@"tapToCloseEnabled"];
-				   [self setObjectInPreset:([listItems objectAtIndex:54]) forKey:@"hideFolderIconBackground"];
-				   [self setObjectInPreset:([listItems objectAtIndex:55]) forKey:@"hideDotsPref"];
-				   [self setObjectInPreset:([listItems objectAtIndex:56]) forKey:@"resizeFolderIconEnabled"];
-				   [self setObjectInPreset:([listItems objectAtIndex:57]) forKey:@"resizeFactor"];
 
-				   if([listItems count]>57) { //allows for older preset strings to work without raising an error
-					[self setObjectInPreset:([listItems objectAtIndex:58]) forKey:@"insetsEnabled"];
-					[self setObjectInPreset:([listItems objectAtIndex:59]) forKey:@"topInset"];
-					[self setObjectInPreset:([listItems objectAtIndex:60]) forKey:@"sideInset"];
-					[self setObjectInPreset:([listItems objectAtIndex:61]) forKey:@"bottomInset"];
+				   [self setObjectInPreset:([listItems objectAtIndex:41]) forKey:@"folderBackgroundBackgroundColorEnabled"];
+				   [self setObjectInPreset:([listItems objectAtIndex:42]) forKey:@"backgroundAlphaColor"];
+				   [self setObjectInPreset:([listItems objectAtIndex:43]) forKey:@"folderBackgroundBackgroundColor"];
+				   [self setObjectInPreset:([listItems objectAtIndex:44]) forKey:@"randomColorBackgroundEnabled"];
+				   [self setObjectInPreset:([listItems objectAtIndex:45]) forKey:@"folderBackgroundColorWithGradientEnabled"];
+				   [self setObjectInPreset:([listItems objectAtIndex:46]) forKey:@"folderBackgroundColorWithGradient"];
+				   [self setObjectInPreset:([listItems objectAtIndex:47]) forKey:@"folderBackgroundColorWithGradientVerticalGradientEnabled"];
+				   [self setObjectInPreset:([listItems objectAtIndex:48]) forKey:@"hideFolderGridEnabled"];
+				   [self setObjectInPreset:([listItems objectAtIndex:49]) forKey:@"clearBackgroundIcons"];
+				   [self setObjectInPreset:([listItems objectAtIndex:50]) forKey:@"customWallpaperBlurEnabled"];
+				   [self setObjectInPreset:([listItems objectAtIndex:51]) forKey:@"customWallpaperBlurFactor"];
+				   [self setObjectInPreset:([listItems objectAtIndex:52]) forKey:@"tapToCloseEnabled"];
+				   [self setObjectInPreset:([listItems objectAtIndex:53]) forKey:@"hideFolderIconBackground"];
+				   [self setObjectInPreset:([listItems objectAtIndex:54]) forKey:@"hideDotsPref"];
+				   [self setObjectInPreset:([listItems objectAtIndex:55]) forKey:@"resizeFolderIconEnabled"];
+				   [self setObjectInPreset:([listItems objectAtIndex:56]) forKey:@"resizeFactor"];
+
+				   if([listItems count]>56) {
+					[self setObjectInPreset:([listItems objectAtIndex:57]) forKey:@"insetsEnabled"];
+					[self setObjectInPreset:([listItems objectAtIndex:58]) forKey:@"topInset"];
+					[self setObjectInPreset:([listItems objectAtIndex:59]) forKey:@"sideInset"];
+					[self setObjectInPreset:([listItems objectAtIndex:60]) forKey:@"bottomInset"];
 				   }
 
 				   [self presentViewController:sucess animated:YES completion:nil];
 
 			   } @catch (NSException *exception) {
-				   [self presentViewController:invalid animated:YES completion:nil];
 			   }
 
 		   }]; 

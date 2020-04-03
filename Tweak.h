@@ -52,6 +52,7 @@ id lastIconSucess;
 @end
 
 @interface SBFolderControllerBackgroundView : UIView
+@property (nonatomic, strong) UIVisualEffectView *blurView;
 @property (nonatomic, strong) UIColor *backgroundColor;
 @property (nonatomic, assign) CGFloat aplha;
 -(UIColor *)randomColor;
@@ -143,7 +144,6 @@ BOOL folderBackgroundColorEnabled;
 NSString *folderBackgroundColor;
 BOOL customTitleFontEnabled;
 NSString *customTitleFont;
-BOOL seizureModeEnabled;
 BOOL folderBackgroundBackgroundColorEnabled;
 double backgroundAlphaColor;
 NSString * folderBackgroundBackgroundColor;
@@ -278,7 +278,6 @@ static void preferencesChanged()
 	folderBackgroundColor = [prefs valueForKey:@"folderBackgroundColor"];
 	customTitleFontEnabled = boolValueForKey(@"customTitleFontEnabled", NO);
 	customTitleFont = [[prefs valueForKey:@"customTitleFont"] stringValue];
-	seizureModeEnabled = boolValueForKey(@"seizureModeEnabled", NO);
 	folderBackgroundBackgroundColorEnabled = boolValueForKey(@"folderBackgroundBackgroundColorEnabled", NO);
 	backgroundAlphaColor = numberForValue(@"backgroundAlphaColor", 0);
 	folderBackgroundBackgroundColor = [prefs valueForKey:@"folderBackgroundBackgroundColor"];
