@@ -244,7 +244,7 @@ if(enabled && customFrameEnabled){
 
 -(void)layoutSubviews {
     %orig;
-	if (enabled && customWallpaperBlurEnabled) self.alpha = customWallpaperBlurFactor;
+	if (enabled && customWallpaperBlurEnabled && !folderBackgroundBackgroundColorEnabled) self.alpha = customWallpaperBlurFactor;
 	UIView *maView;
 	maView = [[UIView alloc]initWithFrame:self.frame];
 	if (kCFCoreFoundationVersionNumber > 1600) {
@@ -261,7 +261,7 @@ if(enabled && customFrameEnabled){
 	[self addSubview:maView];
 }
 
--(void)removeFromSuperview {
+-(void)viewWillDisappear:(BOOL)arg1 {
 	[self.maView setAlpha:0.0];
 	%orig;
 }
