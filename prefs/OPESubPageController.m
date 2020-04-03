@@ -136,7 +136,7 @@ BOOL customFolderIconEnabled;
 								message:@"Your settings have been applied. Some settings, not many, may require a respring."
 								preferredStyle:UIAlertControllerStyleAlert];
 	
-			UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cool!" style:UIAlertActionStyleDefault
+			UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault
 			handler:^(UIAlertAction * action) {}];
 	
 			[alert addAction:defaultAction];
