@@ -141,6 +141,14 @@ NSDictionary *preferences;
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://paypal.me/pools/c/8nPzkVjCKn"]];
 }
 
+-(void)openGithub {
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/Thomz07/Folded"]];
+}
+
+-(void)openPackix {
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://repo.packix.com/package/xyz.burritoz.thomz.folded"]];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offsetY = scrollView.contentOffset.y;
 
@@ -216,37 +224,6 @@ NSDictionary *preferences;
 		[self addSubview:title];
 		[self addSubview:developers];
 		[self addSubview:icon];
-	}
-
-	return self;
-}
-
-@end
-
-@implementation getThomzAniPhone
-//This is very much like the twitter cell concept
-
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
-	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
-
-    if (self) {
-
-		NSBundle *bundle = [[NSBundle alloc]initWithPath:@"/Library/PreferenceBundles/Folded.bundle"];
-		UIImage *logo = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"payPal" ofType:@"png"]];
-		UIImageView *icon = [[UIImageView alloc]initWithImage:logo];
-		[icon setFrame:CGRectMake(16,15,33,40)];
-
-		UILabel *person = [[UILabel alloc] initWithFrame:CGRectMake(65,17.5,200,20)];
-        [person setText:specifier.properties[@"who"]];
-		[person setFont:[person.font fontWithSize:15]];
-
-		UILabel *description = [[UILabel alloc]initWithFrame:CGRectMake(65,35,200,20)];
-		[description setText:specifier.properties[@"why"]];
-		[description setFont:[description.font fontWithSize:10]];
-
-		[self addSubview:icon];
-		[self addSubview:person];
-		[self addSubview:description];
 	}
 
 	return self;

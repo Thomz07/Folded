@@ -23,9 +23,6 @@
 @interface FoldedHeaderCell : PSTableCell
 @end
 
-@interface getThomzAniPhone : PSTableCell
-@end
-
 @interface NSTask : NSObject
 @property(copy) NSArray *arguments;
 @property(copy) NSString *launchPath;

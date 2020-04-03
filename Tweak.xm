@@ -510,6 +510,40 @@ if(enabled && customFrameEnabled){
 
 %end
 
+%hook SBFolderControllerBackgroundView
+
+-(void)layoutSubviews {
+
+	UIColor *color = [UIColor cscp_colorFromHexString:folderBackgroundBackgroundColor];
+	UIView *backgroundColor;
+	backgroundColor = [[UIView alloc]initWithFrame:self.frame];
+
+	%orig;
+
+	if(enabled && folderBackgroundBackgroundColorEnabled && !randomColorBackgroundEnabled){
+		[backgroundColor setBackgroundColor:color];
+		[backgroundColor setAlpha:backgroundAlphaColor];
+		[self addSubview:backgroundColor];
+	} else if(enabled && folderBackgroundBackgroundColorEnabled && randomColorBackgroundEnabled){
+		[backgroundColor setBackgroundColor:[self randomColor]];
+		[backgroundColor setAlpha:backgroundAlphaColor];
+		[self addSubview:backgroundColor];
+	} else {}
+
+}
+
+%new
+- (UIColor *)randomColor {
+
+	int r = arc4random_uniform(256);
+	int g = arc4random_uniform(256);
+	int b = arc4random_uniform(256);
+
+	return [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:1.0f];
+}
+
+%end
+
 %hook SBHFolderSettings
 
 -(BOOL)pinchToClose { // enable pinch to close again

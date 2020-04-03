@@ -166,24 +166,6 @@
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>cellClass</key>
-			<string>getThomzAniPhone2</string>
-			<key>action</key>
-			<string>openPayPalPool</string>
-			<key>who</key>
-			<string>Donate to Us!</string>
-			<key>why</key>
-			<string>Thank us for our hard work!</string>
-			<key>height</key>
-			<integer>70</integer>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>cellClass</key>
 			<string>Thomz_TwitterCell</string>
 			<key>user</key>
 			<string>Thomz</string>
@@ -215,6 +197,40 @@
 			<string>burrit0z</string>
 			<key>action</key>
 			<string>linkReddit</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>openPayPalPool</string>
+			<key>icon</key>
+			<string>payPal.png</string>
+			<key>label</key>
+			<string>Donate us</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>openGithub</string>
+			<key>icon</key>
+			<string>github.png</string>
+			<key>label</key>
+			<string>Check the Source Code</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>openPackix</string>
+			<key>icon</key>
+			<string>packix.png</string>
+			<key>label</key>
+			<string>Check the Tweak Depiction</string>
 		</dict>
 	</array>
 	<key>title</key>

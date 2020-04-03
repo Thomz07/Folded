@@ -70,14 +70,6 @@
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>action</key>
-			<string>resetPrefs:</string>
-			<key>label</key>
-			<string>Reset All Preferences</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>action</key>
 			<string>exportPrefs</string>
 			<key>label</key>
 			<string>Export Preferences</string>
@@ -89,6 +81,18 @@
 			<string>enterPrefs</string>
 			<key>label</key>
 			<string>Import Preset From Pasteboard</string>
+		</dict>
+		<dict>
+        	<key>cell</key>
+        	<string>PSGroupCell</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>resetPrefs:</string>
+			<key>label</key>
+			<string>Reset All Preferences</string>
 		</dict>
 	</array>
 	<key>title</key>

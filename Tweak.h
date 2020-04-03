@@ -56,6 +56,7 @@ id lastIconSucess;
 @property (nonatomic, assign) CGFloat aplha;
 -(UIColor *)randomColor;
 -(void)layoutSubviews;
+- (UIColor *)randomColor;
 @end
 
 @interface SBWallpaperEffectView : UIView

@@ -136,7 +136,7 @@ BOOL customFolderIconEnabled;
 								message:@"Your settings have been applied. Some settings, not many, may require a respring."
 								preferredStyle:UIAlertControllerStyleAlert];
 	
-			UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cool!" style:UIAlertActionStyleDefault
+			UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault
 			handler:^(UIAlertAction * action) {}];
 	
 			[alert addAction:defaultAction];
@@ -512,7 +512,7 @@ BOOL customFolderIconEnabled;
 		NSBundle *bundle = [[NSBundle alloc]initWithPath:@"/Library/PreferenceBundles/Folded.bundle"];
 		UIImage *logo = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"payPal" ofType:@"png"]];
 		UIImageView *icon = [[UIImageView alloc]initWithImage:logo];
-		[icon setFrame:CGRectMake(16,15,33,40)];
+		[icon setFrame:CGRectMake(13,15,40,40)];
 
 		UILabel *person = [[UILabel alloc] initWithFrame:CGRectMake(65,17.5,200,20)];
         [person setText:specifier.properties[@"who"]];
