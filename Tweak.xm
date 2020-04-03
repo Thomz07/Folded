@@ -240,28 +240,30 @@ if(enabled && customFrameEnabled){
 %end
 
 %hook SBFolderControllerBackgroundView
+%property (nonatomic, strong) UIView *maView;
 
 -(void)layoutSubviews {
     %orig;
 	if (enabled && customWallpaperBlurEnabled) self.alpha = customWallpaperBlurFactor;
-
+	UIView *maView;
+	maView = [[UIView alloc]initWithFrame:self.frame];
 	if (kCFCoreFoundationVersionNumber > 1600) {
 		if (enabled && folderBackgroundBackgroundColorEnabled && !randomColorBackgroundEnabled) {
 			UIColor *color = [UIColor cscp_colorFromHexString:folderBackgroundBackgroundColor];
-			UIView *maView;
-			maView = [[UIView alloc]initWithFrame:self.frame];
 			[maView setBackgroundColor:color];
 			[maView setAlpha:backgroundAlphaColor];
-			[self addSubview:maView];
 		} else if(enabled && folderBackgroundBackgroundColorEnabled && randomColorBackgroundEnabled) {
-			UIView *maView;
-			maView = [[UIView alloc]initWithFrame:self.frame];
 			UIColor *randomColorIGuess = [self randomColor];
 			[maView setBackgroundColor:randomColorIGuess];
 			[maView setAlpha:backgroundAlphaColor];
-			[self addSubview:maView];
 		}
 	}
+	[self addSubview:maView];
+}
+
+-(void)removeFromSuperview {
+	[self.maView setAlpha:0.0];
+	%orig;
 }
 
 %new

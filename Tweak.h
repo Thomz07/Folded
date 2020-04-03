@@ -55,6 +55,7 @@ id lastIconSucess;
 @property (nonatomic, strong) UIVisualEffectView *blurView;
 @property (nonatomic, strong) UIColor *backgroundColor;
 @property (nonatomic, assign) CGFloat aplha;
+@property (nonatomic, strong) UIView *maView;
 -(UIColor *)randomColor;
 -(void)layoutSubviews;
 - (UIColor *)randomColor;

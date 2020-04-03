@@ -22,6 +22,30 @@
 		</dict>
 		<dict>
 			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>openPayPalPool</string>
+			<key>icon</key>
+			<string>payPal.png</string>
+			<key>label</key>
+			<string>Donate to us!</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>openGithub</string>
+			<key>icon</key>
+			<string>github.png</string>
+			<key>label</key>
+			<string>Check out the Source Code!</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
 			<false/>
@@ -206,31 +230,11 @@
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>action</key>
-			<string>openPayPalPool</string>
-			<key>icon</key>
-			<string>payPal.png</string>
-			<key>label</key>
-			<string>Donate us</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>action</key>
-			<string>openGithub</string>
-			<key>icon</key>
-			<string>github.png</string>
-			<key>label</key>
-			<string>Check the Source Code</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>action</key>
 			<string>openPackix</string>
 			<key>icon</key>
 			<string>packix.png</string>
 			<key>label</key>
-			<string>Check the Tweak Depiction</string>
+			<string>Check out the Tweak Depiction!</string>
 		</dict>
 	</array>
 	<key>title</key>
