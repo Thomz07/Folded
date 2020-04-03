@@ -66,7 +66,7 @@
 			<key>key</key>
 			<string>showInjectionAlerts</string>
 			<key>label</key>
-			<string>Show Compatability Alerts</string>
+			<string>Show Compatibility Alerts</string>
 		</dict>
 		<dict>
         	<key>cell</key>
@@ -173,14 +173,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>action</key>
-			<string>resetPrefs:</string>
-			<key>label</key>
-			<string>Reset All Preferences</string>
 		</dict>
 		<dict>
 			<key>cell</key>

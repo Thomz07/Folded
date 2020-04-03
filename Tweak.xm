@@ -535,7 +535,7 @@ if(enabled && customFrameEnabled){
 	unsigned long long original = %orig;
 
 	if(enabled && customFolderIconEnabled && ((original==9) || (original==folderIconRows*folderIconColumns))) {
-		return(customLayoutRows*customLayoutColumns);
+		return(100); //allows a ton of icons :D
 	} else {
 		return %orig;
 	}
