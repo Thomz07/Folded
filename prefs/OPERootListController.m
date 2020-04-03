@@ -141,6 +141,14 @@ NSDictionary *preferences;
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://paypal.me/pools/c/8nPzkVjCKn"]];
 }
 
+-(void)openGithub {
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/Thomz07/Folded"]];
+}
+
+-(void)openPackix {
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://repo.packix.com/package/xyz.burritoz.thomz.folded"]];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offsetY = scrollView.contentOffset.y;
 
