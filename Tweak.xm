@@ -157,10 +157,10 @@ if(enabled && customFrameEnabled){
 
 
 %hook SBFolderBackgroundView
-%property (nonatomic, retain) UIVisualEffectView *lightView;
-%property (nonatomic, retain) UIVisualEffectView *darkView;
-%property (nonatomic, retain) UIView *backgroundColorFrame;
-%property (nonatomic, retain) CAGradientLayer *gradient;
+%property (nonatomic, strong) UIVisualEffectView *lightView;
+%property (nonatomic, strong) UIVisualEffectView *darkView;
+%property (nonatomic, strong) UIView *backgroundColorFrame;
+%property (nonatomic, strong) CAGradientLayer *gradient;
 -(void)layoutSubviews {
 
 	%orig;
@@ -259,11 +259,6 @@ if(enabled && customFrameEnabled){
 		}
 	}
 	[self addSubview:maView];
-}
-
--(void)viewWillDisappear:(BOOL)arg1 {
-	[self.maView setAlpha:0.0];
-	%orig;
 }
 
 %new

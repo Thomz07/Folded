@@ -56,6 +56,7 @@ id lastIconSucess;
 @property (nonatomic, strong) UIColor *backgroundColor;
 @property (nonatomic, assign) CGFloat aplha;
 @property (nonatomic, strong) UIView *maView;
+- (void)willRemoveSubview:(UIView *)subview;
 -(UIColor *)randomColor;
 -(void)layoutSubviews;
 - (UIColor *)randomColor;
@@ -158,7 +159,7 @@ BOOL customWallpaperBlurEnabled;
 double customWallpaperBlurFactor;
 BOOL tapToCloseEnabled;
 BOOL hideFolderIconBackground;
-//BOOL hidePageDotsEnabled;
+
 double hideDotsPref;
 BOOL resizeFolderIconEnabled;
 double resizeFactor;
