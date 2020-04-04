@@ -2,6 +2,35 @@
 
 %group universal
 
+%hook SBFolder
+//%property (nonatomic, assign) BOOL hasStoredLists;
+//Originally I tried using a property, but for some reason there were new instances of SBFolder each time...
+
+-(NSString *)displayName {
+	NSString *name = %orig;
+	BOOL isAlreadyStored = NO;
+	NSUInteger indexToReplaceWithNew;
+	for(int i=0; i<[foldersThatExist count]; i++) {
+		if([[foldersThatExist objectAtIndex:i] isEqualToString:name]) {
+			isAlreadyStored = YES;
+			indexToReplaceWithNew = i;
+		}
+	}
+	
+	NSString *countOfIcons = [NSString stringWithFormat:@"%ld", (long)[self.icons count]];
+
+	if(!isAlreadyStored) {
+		[foldersThatExist addObject:name];
+		[countOfIconsInFoldersThatExist addObject:countOfIcons];
+	} else if(isAlreadyStored && !([[countOfIconsInFoldersThatExist objectAtIndex:indexToReplaceWithNew] isEqualToString:countOfIcons])) { 
+		//Allows the updating of the icon count without respringing.
+		[countOfIconsInFoldersThatExist replaceObjectAtIndex:indexToReplaceWithNew withObject:countOfIcons];
+	}
+	return name;
+}
+
+%end
+
 %hook SBFloatyFolderView
 
 -(void)setBackgroundAlpha:(double)arg1 { // returning the value from the slider cell in the settings for the bg alpha
@@ -91,6 +120,7 @@ if(enabled && customFrameEnabled){
 %end
 
 %hook SBFolderTitleTextField
+%property (nonatomic, strong) UILabel *newLabel;
 
 -(void)layoutSubviews {
 
@@ -148,7 +178,49 @@ if(enabled && customFrameEnabled){
 		)];
 	}
 
+	if(enabled && folderAppCounterEnabled &&!([self.ab_text length] == 0) && !addedLabel) { //so we know the string has been set
+
+		NSString *currentText = self.ab_text;
+		//NSLog(@"[Folded]: %@", currentText);
+		NSUInteger indexOfFolder;
+		for(int i=0; i<[foldersThatExist count]; i++) {
+			if([currentText isEqualToString:[foldersThatExist objectAtIndex:i]]) indexOfFolder=i;
+		}
+		NSString *labelText = [countOfIconsInFoldersThatExist objectAtIndex:indexOfFolder];
+
+		UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake((titlePosition.origin.x),(self.bounds.origin.y - 50),400,100)];
+			[newLabel setText:[NSString stringWithFormat:@"%@ APPS IN", labelText]];
+			if (customTitleFontEnabled) {
+				[newLabel setFont:[UIFont fontWithName:customTitleFont size:20]];
+			} else {
+				[newLabel setFont:[newLabel.font fontWithSize:20]];
+			}
+
+			if(folderAppCounterFontSizeEnabled) {
+				[newLabel setFont:[newLabel.font fontWithSize:folderAppCounterFontSize]];
+			}
+
+			if(titleColorEnabled) {
+				[newLabel setTextColor:color];
+			}
+
+			[self addSubview:newLabel];
+
+		addedLabel=YES;
+	}
+
 }
+
+-(void)removeFromSuperview {
+	addedLabel = NO;
+	%orig;
+}
+
+-(CGRect)textRectForBounds:(CGRect)arg1 {
+	titlePosition = %orig(arg1);
+	return %orig;
+}
+
 
 %end
 

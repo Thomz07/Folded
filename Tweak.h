@@ -22,10 +22,6 @@
 //Actual iOS Methods:
 +(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 ;
 @end
-
-//Store the icon that sucessfully was used on SB launch, allowing me to reuse as well.
-id lastIconSucess;
-
 /////////////////
 
 @interface SBFloatyFolderView : UIView
@@ -87,6 +83,8 @@ id lastIconSucess;
 
 @class UITextField, UIFont;
 @interface SBFolderTitleTextField : UITextField
+@property (nonatomic, strong) NSString *ab_text;
+@property (nonatomic, strong) UILabel *newLabel;
 @property (nonatomic, assign) CGRect frame;
 @property (nonatomic, assign) CGRect bounds;
 @property (nonatomic, strong) UIFont *font;
@@ -101,7 +99,25 @@ id lastIconSucess;
 -(void)setObject:(id)value forKey:(NSString *)key inDomain:(NSString *)domain; //thanks to R0wDrunner for these two lines of the interface :)
 @end
 
+@interface SBFolder 
+@property (nonatomic,copy) NSString *displayName;
+@property (nonatomic,copy,readonly) NSArray *icons; 
+//@property (nonatomic, assign) BOOL hasStoredLists;
+@end
+
 // Defining global variables and methods
+//Store the icon that sucessfully was used on SB launch, allowing me to reuse as well.
+id lastIconSucess;
+BOOL hasProcessLaunched;
+BOOL hasInjectionFailed;
+BOOL hasShownFailureAlert;
+BOOL blankIconAlertShouldShow;
+BOOL isInAFolder = NO;
+NSMutableArray *foldersThatExist = [[NSMutableArray alloc] init];
+NSMutableArray *countOfIconsInFoldersThatExist = [[NSMutableArray alloc] init];
+
+BOOL addedLabel = NO;
+CGRect titlePosition;
 
 // Preferences keys
 NSDictionary *preferences;
@@ -159,7 +175,6 @@ BOOL customWallpaperBlurEnabled;
 double customWallpaperBlurFactor;
 BOOL tapToCloseEnabled;
 BOOL hideFolderIconBackground;
-
 double hideDotsPref;
 BOOL resizeFolderIconEnabled;
 double resizeFactor;
@@ -168,11 +183,9 @@ double topInset;
 double sideInset;
 double bottomInset;
 
-BOOL hasProcessLaunched;
-BOOL hasInjectionFailed;
-BOOL hasShownFailureAlert;
-BOOL blankIconAlertShouldShow;
-BOOL isInAFolder = NO;
+BOOL folderAppCounterEnabled;
+BOOL folderAppCounterFontSizeEnabled;
+double folderAppCounterFontSize;
 
 #define PLIST_PATH @"/User/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
 #define kIdentifier @"xyz.burritoz.thomz.folded.prefs"
@@ -300,6 +313,10 @@ static void preferencesChanged()
 	topInset = numberForValue(@"topInset", 0);
 	sideInset = numberForValue(@"sideInset", 0);
 	bottomInset = numberForValue(@"bottomInset", 0);
+
+	folderAppCounterEnabled = boolValueForKey(@"folderAppCounterEnabled", NO);
+	folderAppCounterFontSizeEnabled = boolValueForKey(@"folderAppCounterFontSizeEnabled", NO);
+	folderAppCounterFontSize = numberForValue(@"folderAppCounterFontSize", 20);
 
 	if(customTitleFontEnabled && titleFontWeight!=1) { //disables custom font weighting, preventing a freeze
 		titleFontWeight=1;
