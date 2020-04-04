@@ -188,7 +188,7 @@ if(enabled && customFrameEnabled){
 		}
 		NSString *labelText = [countOfIconsInFoldersThatExist objectAtIndex:indexOfFolder];
 
-		UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake((titlePosition.origin.x),(self.bounds.origin.y - 50),400,100)];
+		UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake((titlePosition.origin.x),(self.bounds.origin.y - 50),(self.frame.size.width - 70),100)];
 			[newLabel setText:[NSString stringWithFormat:@"%@ APPS IN", labelText]];
 			if (customTitleFontEnabled) {
 				[newLabel setFont:[UIFont fontWithName:customTitleFont size:20]];
@@ -202,6 +202,14 @@ if(enabled && customFrameEnabled){
 
 			if(titleColorEnabled) {
 				[newLabel setTextColor:color];
+			}
+
+			if(titleAlignment == 1){
+				[newLabel setTextAlignment:NSTextAlignmentLeft];
+			} else if(titleAlignment == 3){
+				[newLabel setTextAlignment:NSTextAlignmentRight];
+			} else {
+				[newLabel setTextAlignment:NSTextAlignmentCenter];
 			}
 
 			[self addSubview:newLabel];
@@ -682,11 +690,11 @@ if(enabled && customFrameEnabled){
 }
 
 -(NSUInteger)numberOfPortraitColumns {
-  [self getLocations];
   //I rewrote this so many times, and ended up with this insanley dumb and long, but rock solid method
   //DON'T QUESTION IT. JUST DON'T!
-  NSUInteger returnThis = 3;
+  [self getLocations];
     if (self.isFolder && enabled) {
+		NSUInteger returnThis;
 		if (customFolderIconEnabled && customLayoutEnabled) {
 			if (hasProcessLaunched) { 
 				returnThis = (customLayoutColumns);
@@ -710,18 +718,18 @@ if(enabled && customFrameEnabled){
 					}
 			}
 		}
+		if(returnThis>1) {
+	 	    return returnThis;
+		} else {return 3;}
   } else {
-    returnThis = (%orig);
+    return (%orig);
   }
-  if(returnThis>1) {
-	  return returnThis;
-  } else {return 3;}
 }
 
 -(NSUInteger)numberOfPortraitRows {
   [self getLocations];
-      NSUInteger returnThis = 3;
     if (self.isFolder && enabled) {
+		NSUInteger returnThis;
 		if (customFolderIconEnabled && customLayoutEnabled) {
 			if (hasProcessLaunched) { 
 				returnThis = (customLayoutRows);
@@ -745,12 +753,12 @@ if(enabled && customFrameEnabled){
 					}
 			}
 		}
+		if(returnThis>1) {
+	 	    return returnThis;
+		} else {return 3;}
   } else {
-    returnThis = (%orig);
+    return (%orig);
   }
-  if(returnThis>1) {
-	  return returnThis;
-  } else {return 3;}
 }
 
 - (UIEdgeInsets)portraitLayoutInsets {
