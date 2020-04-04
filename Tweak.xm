@@ -610,11 +610,11 @@ if(enabled && customFrameEnabled){
 }
 
 -(NSUInteger)numberOfPortraitColumns {
-  [self getLocations];
   //I rewrote this so many times, and ended up with this insanley dumb and long, but rock solid method
   //DON'T QUESTION IT. JUST DON'T!
-  NSUInteger returnThis = 3;
+  [self getLocations];
     if (self.isFolder && enabled) {
+		NSUInteger returnThis;
 		if (customFolderIconEnabled && customLayoutEnabled) {
 			if (hasProcessLaunched) { 
 				returnThis = (customLayoutColumns);
@@ -638,18 +638,18 @@ if(enabled && customFrameEnabled){
 					}
 			}
 		}
+		if(returnThis>1) {
+	 	    return returnThis;
+		} else {return 3;}
   } else {
-    returnThis = (%orig);
+    return (%orig);
   }
-  if(returnThis>1) {
-	  return returnThis;
-  } else {return 3;}
 }
 
 -(NSUInteger)numberOfPortraitRows {
   [self getLocations];
-      NSUInteger returnThis = 3;
     if (self.isFolder && enabled) {
+		NSUInteger returnThis;
 		if (customFolderIconEnabled && customLayoutEnabled) {
 			if (hasProcessLaunched) { 
 				returnThis = (customLayoutRows);
@@ -673,12 +673,12 @@ if(enabled && customFrameEnabled){
 					}
 			}
 		}
+		if(returnThis>1) {
+	 	    return returnThis;
+		} else {return 3;}
   } else {
-    returnThis = (%orig);
+    return (%orig);
   }
-  if(returnThis>1) {
-	  return returnThis;
-  } else {return 3;}
 }
 
 - (UIEdgeInsets)portraitLayoutInsets {
