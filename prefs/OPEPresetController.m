@@ -565,6 +565,7 @@ static NSString* colorForValue(NSString *key) {
 				   [self presentViewController:sucess animated:YES completion:nil];
 
 			   } @catch (NSException *exception) {
+				   [self presentViewController:sucess animated:YES completion:nil];
 			   }
 
 		   }]; 
