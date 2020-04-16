@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+        	<key>cell</key>
+        	<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Presets</string>
+			<key>footerText</key>
+			<string>These presets may require some adjustment to look good on your device, depending on your screen size, display resolution, etc. These are meant to help you get started customizing on your own with Folded.</string>
+        </dict>
+		<dict>
+        	<key>cell</key>
+        	<string>PSButtonCell</string>
+			<key>action</key>
+			<string>applyPreset:</string>
+			<key>label</key>
+			<string>Clean 3x5 Folders</string>
+			<key>presetName</key>
+			<string>clean35</string>
+        </dict>
+		<dict>
+        	<key>cell</key>
+        	<string>PSButtonCell</string>
+			<key>action</key>
+			<string>applyPreset:</string>
+			<key>label</key>
+			<string>2x2 Icon, 4x4 insides</string>
+			<key>presetName</key>
+			<string>44setup</string>
+        </dict>
+		<dict>
+        	<key>cell</key>
+        	<string>PSButtonCell</string>
+			<key>action</key>
+			<string>applyPreset:</string>
+			<key>label</key>
+			<string>Modern Look</string>
+			<key>presetName</key>
+			<string>modern27</string>
+        </dict>
+		<dict>
+        	<key>cell</key>
+        	<string>PSButtonCell</string>
+			<key>action</key>
+			<string>applyPreset:</string>
+			<key>label</key>
+			<string>Oled Mode</string>
+			<key>presetName</key>
+			<string>oled92</string>
+        </dict>
+		<dict>
+        	<key>cell</key>
+        	<string>PSButtonCell</string>
+			<key>action</key>
+			<string>applyPreset:</string>
+			<key>label</key>
+			<string>Bigger Folder</string>
+			<key>presetName</key>
+			<string>biggerFolder63</string>
+        </dict>
+		<dict>
+        	<key>cell</key>
+        	<string>PSGroupCell</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>exportPrefs</string>
+			<key>label</key>
+			<string>Export Preferences</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>enterPrefs</string>
+			<key>label</key>
+			<string>Import Preset From Pasteboard</string>
+		</dict>
+		<dict>
+        	<key>cell</key>
+        	<string>PSGroupCell</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>action</key>
+			<string>resetPrefs:</string>
+			<key>label</key>
+			<string>Reset All Preferences</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>Presets</string>
+</dict>
+</plist>
