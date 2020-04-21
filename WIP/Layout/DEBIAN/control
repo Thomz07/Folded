@@ -1,0 +1,13 @@
+Package: xyz.burritoz.thomz.folded
+Name: Folded
+Depends: mobilesubstrate, preferenceloader, com.creaturesurvive.libcscolorpicker
+Contains: com.burritoz.cartella, com.thomz.foldy
+Replaces: com.burritoz.cartella, com.thomz.foldy
+Conflicts: com.burritoz.cartella, com.thomz.foldy, com.spark.snowboard.dock
+Version: 1.0.3
+Architecture: iphoneos-arm
+Description: Folders, your way. The most complete folder tweak to date. A merge tweak of Cartella and Foldy.
+Maintainer: Thomz and burrit0z
+Author: Thomz and burrit0z
+Section: Tweaks
+Icon: file:///Library/PreferenceBundles/Folded.bundle/fullSizedIcon.png

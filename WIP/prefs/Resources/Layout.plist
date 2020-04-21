@@ -4,33 +4,31 @@
 <dict>
 	<key>items</key>
 	<array>
-    <dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>footerText</key>
-			<string>Please see FAQ page for more info</string>
-		</dict>
 		<dict>
-      <key>cell</key>
+        	<key>cell</key>
+        	<string>PSGroupCell</string>
+        </dict>
+        <dict>
+        	<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
 			<string>xyz.burritoz.thomz.folded.prefs</string>
 			<key>key</key>
-			<string>customFolderIconEnabled</string>
+			<string>customLayoutEnabled</string>
 			<key>label</key>
-			<string>Custom Folder Grid</string>
-    	</dict>
-    	<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
+			<string>Enable Custom Layout</string>
+        </dict>
+        <dict>
+        	<key>cell</key>
+        	<string>PSGroupCell</string>
             <key>footerText</key>
 			<string>Rows and Columns</string>
-			<key>key</key>
-			<string>rowsAndColumnsGroupCellIcon</string>
-		</dict>
-		<dict>
+            <key>key</key>
+            <string>rowsAndColumnsGroupCell</string>
+        </dict>
+        <dict>
             <key>cell</key>
             <string>PSSegmentCell</string>
             <key>defaults</key>
@@ -38,10 +36,9 @@
             <key>default</key>
             <string>3</string>
             <key>key</key>
-            <string>folderIconRows</string>
+            <string>customLayoutRows</string>
             <key>validValues</key>
             <array>
-                <string>1</string>
                 <string>2</string>
                 <string>3</string>
                 <string>4</string>
@@ -51,7 +48,6 @@
             </array>
             <key>validTitles</key>
             <array>
-            	<string>1</string>
                 <string>2</string>
                 <string>3</string>
                 <string>4</string>
@@ -68,10 +64,9 @@
             <key>default</key>
             <string>3</string>
             <key>key</key>
-            <string>folderIconColumns</string>
+            <string>customLayoutColumns</string>
             <key>validValues</key>
             <array>
-                <string>1</string>
                 <string>2</string>
                 <string>3</string>
                 <string>4</string>
@@ -81,7 +76,6 @@
             </array>
             <key>validTitles</key>
             <array>
-            	<string>1</string>
                 <string>2</string>
                 <string>3</string>
                 <string>4</string>
@@ -89,30 +83,36 @@
                 <string>6</string>
                 <string>7</string>
             </array>
-		</dict>
-    <dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-		</dict>
-    <dict>
-      <key>cell</key>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+        </dict>
+        <dict>
+            <key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
 			<string>xyz.burritoz.thomz.folded.prefs</string>
 			<key>key</key>
-			<string>resizeFolderIconEnabled</string>
+			<string>insetsEnabled</string>
 			<key>label</key>
-			<string>Resize Folder Icon</string>
+			<string>Custom Folder Offsets/Insets</string>
+    </dict>
+    <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>Top</string>
     </dict>
     <dict>
 			<key>cell</key>
 			<string>PSSliderCell</string>
 			<key>min</key>
-			<real>0.01</real>
+			<real>-200</real>
 			<key>max</key>
-			<real>5</real>
+			<real>200</real>
 			<key>isSegmented</key>
 			<false/>
 			<key>showValue</key>
@@ -120,90 +120,54 @@
 			<key>defaults</key>
 			<string>xyz.burritoz.thomz.folded.prefs</string>
 			<key>key</key>
-			<string>resizeFactor</string>
+			<string>topInset</string>
 		</dict>
         <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>Bottom</string>
+    </dict>
+    <dict>
 			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>footerText</key>
-			<string>Note: The options above will only work on iOS 13</string>
-		</dict>
-		<dict>
-        	<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
+			<string>PSSliderCell</string>
+			<key>min</key>
+			<real>-200</real>
+			<key>max</key>
+			<real>200</real>
+			<key>isSegmented</key>
 			<false/>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
-			<string>twoByTwoIconEnabled</string>
-			<key>label</key>
-			<string>2x2 Icon</string>
-        </dict>
-        <dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-		</dict>
-        <dict>
-        	<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
-			<string>hideFolderGridEnabled</string>
-			<key>label</key>
-			<string>Hide Folder Grid</string>
-        </dict>
-        <dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
-			<string>hideFolderIconBackground</string>
-			<key>label</key>
-			<string>Hide Folder Icon Background</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-		</dict>
-		<dict>
-        	<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
-			<string>colorFolderIconBackground</string>
-			<key>label</key>
-			<string>Color Icon Blur (Background)</string>
-        </dict>
-		<dict>
-			<key>cell</key>
-			<string>PSLinkCell</string>
-			<key>cellClass</key>
-			<string>CSColorDisplayCell</string>
-			<key>defaults</key>
-			<string>xyz.burritoz.thomz.folded.prefs</string>
-			<key>key</key>
-			<string>folderIconColor</string>
-			<key>defaultsPath</key>
-			<string>/Library/PreferenceBundles/Folded.bundle</string>
-			<key>fallback</key>
-			<string>51e8b6</string>
-			<key>alpha</key>
+			<key>showValue</key>
 			<true/>
-			<key>label</key>
-			<string>Color</string> 
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>bottomInset</string>
 		</dict>
-    </array>
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>Side</string>
+    </dict>
+    <dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>min</key>
+			<real>-200</real>
+			<key>max</key>
+			<real>200</real>
+			<key>isSegmented</key>
+			<false/>
+			<key>showValue</key>
+			<true/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>sideInset</string>
+		</dict>
+	</array>
 	<key>title</key>
-	<string>Icon</string>
+	<string>Layout</string>
 </dict>
 </plist>

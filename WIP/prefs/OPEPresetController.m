@@ -210,6 +210,8 @@ static NSString* colorForValue(NSString *key) {
 				[self setObjectInPreset:@"3" forKey:@"folderIconColumns"];
 				[self setObjectInPreset:@"3" forKey:@"folderIconRows"];
 
+				[self setObjectInPreset:@YES forKey:@"folderAppCounterEnabled"];
+
 			} else if([[specifier propertyForKey:@"presetName"] isEqualToString:@"oled92"]) {
 				[self setObjectInPreset:@YES forKey:@"enabled"];
 				[self setObjectInPreset:@YES forKey:@"backgroundAlphaEnabled"];
@@ -353,6 +355,10 @@ static NSString* colorForValue(NSString *key) {
 	BOOL colorFolderIconBackground;
 	NSString *folderIconColor;
 
+	BOOL folderAppCounterEnabled;
+	BOOL folderAppCounterFontSizeEnabled;
+	double folderAppCounterFontSize;
+
     CFPreferencesAppSynchronize((CFStringRef)kIdentifier);
     reloadPrefs();
 
@@ -420,6 +426,10 @@ static NSString* colorForValue(NSString *key) {
 
 	colorFolderIconBackground = boolValueForKey(@"colorFolderIconBackground", NO);
 	folderIconColor = colorForValue(@"folderIconColor");
+
+	folderAppCounterEnabled = boolValueForKey(@"folderAppCounterEnabled", NO);
+	folderAppCounterFontSizeEnabled = boolValueForKey(@"folderAppCounterFontSizeEnabled", NO);
+	folderAppCounterFontSize = numberForValue(@"folderAppCounterFontSize", 20);
 
 	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
                                message:@"Folded has exported your settings and added a unique string to your pasteboard. You may enter this, or share with others, to restore to this preset at any time."
@@ -549,19 +559,22 @@ static NSString* colorForValue(NSString *key) {
 				   [self setObjectInPreset:([listItems objectAtIndex:55]) forKey:@"resizeFolderIconEnabled"];
 				   [self setObjectInPreset:([listItems objectAtIndex:56]) forKey:@"resizeFactor"];
 
-				   if([listItems count]>56) {
-					[self setObjectInPreset:([listItems objectAtIndex:57]) forKey:@"insetsEnabled"];
-					[self setObjectInPreset:([listItems objectAtIndex:58]) forKey:@"topInset"];
-					[self setObjectInPreset:([listItems objectAtIndex:59]) forKey:@"sideInset"];
-					[self setObjectInPreset:([listItems objectAtIndex:60]) forKey:@"bottomInset"];
+				   [self setObjectInPreset:([listItems objectAtIndex:57]) forKey:@"insetsEnabled"];
+				   [self setObjectInPreset:([listItems objectAtIndex:58]) forKey:@"topInset"];
+				   [self setObjectInPreset:([listItems objectAtIndex:59]) forKey:@"sideInset"];
+				   [self setObjectInPreset:([listItems objectAtIndex:60]) forKey:@"bottomInset"];
 
-					[self setObjectInPreset:([listItems objectAtIndex:61]) forKey:@"colorFolderIconBackground"];
-					[self setObjectInPreset:([listItems objectAtIndex:62]) forKey:@"folderIconColor"];
-				   }
+				   [self setObjectInPreset:([listItems objectAtIndex:61]) forKey:@"colorFolderIconBackground"];
+				   [self setObjectInPreset:([listItems objectAtIndex:62]) forKey:@"folderIconColor"];
+
+				   [self setObjectInPreset:([listItems objectAtIndex:63]) forKey:@"folderAppCounterEnabled"];
+				   [self setObjectInPreset:([listItems objectAtIndex:64]) forKey:@"folderAppCounterFontSizeEnabled"];
+				   [self setObjectInPreset:([listItems objectAtIndex:65]) forKey:@"folderAppCounterFontSize"];
 
 				   [self presentViewController:sucess animated:YES completion:nil];
 
 			   } @catch (NSException *exception) {
+				   [self presentViewController:sucess animated:YES completion:nil];
 			   }
 
 		   }]; 

@@ -38,7 +38,7 @@
 			<key>min</key>
 			<integer>0</integer>
 			<key>max</key>
-			<integer>99</integer>
+			<integer>100</integer>
 			<key>isSegmented</key>
 			<false/>
 			<key>showValue</key>
@@ -298,7 +298,50 @@
 			<key>label</key>
 			<string>Color</string> 
 		</dict>
-
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>folderAppCounterEnabled</string>
+			<key>label</key>
+			<string>Enable App Count Label</string>
+		</dict>
+		<dict>
+        	<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>folderAppCounterFontSizeEnabled</string>
+			<key>label</key>
+			<string>App Count Label Font Size</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>min</key>
+			<integer>0</integer>
+			<key>max</key>
+			<integer>100</integer>
+			<key>isSegmented</key>
+			<false/>
+			<key>showValue</key>
+			<true/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>folderAppCounterFontSize</string>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>Title</string>

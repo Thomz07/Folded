@@ -75,11 +75,11 @@ NSDictionary *preferences;
 
 	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
 							message:@"Your settings have been applied. Some settings, not many, may require a respring. \n Would you like to respring as well?"
-							preferredStyle:UIAlertControllerStyleActionSheet];
+							preferredStyle:UIAlertControllerStyleAlert];
 
-		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel
+		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault
 		handler:^(UIAlertAction * action) {}];
-		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Respring" style:UIAlertActionStyleDestructive
+		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
 		handler:^(UIAlertAction * action) {
 			NSTask *t = [[NSTask alloc] init];
 			[t setLaunchPath:@"usr/bin/killall"];
@@ -91,41 +91,6 @@ NSDictionary *preferences;
 		[alert addAction:yes];
 		[self presentViewController:alert animated:YES completion:nil];
 
-}
-
--(void)resetPrefs:(id)sender {
-
-	preferences = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
-
-	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Reset Preferences"
-							message:@"Are you sure you want to reset all of your preferences? This action CANNOT be undone! Your device will respring."
-							preferredStyle:UIAlertControllerStyleAlert];
-
-		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault
-		handler:^(UIAlertAction * action) {}];
-		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
-		handler:^(UIAlertAction * action) {
-		
-		NSUserDefaults *prefs = [[NSUserDefaults standardUserDefaults] init];
-		[prefs removePersistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];	
-
-		NSString *domain = @"/var/mobile/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist";
-		[[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"enabled" inDomain:domain];	
-		[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"enabled" inDomain:domain];		
-
-		 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-       CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("xyz.burritoz.thomz.folded.prefs/reload"), nil, nil, true);
-         });
-
-		NSTask *f = [[NSTask alloc] init];
-		[f setLaunchPath:@"/usr/bin/killall"];
-		[f setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
-		[f launch];
-		}];
-
-		[alert addAction:defaultAction];
-		[alert addAction:yes];
-		[self presentViewController:alert animated:YES completion:nil];
 }
 
 -(void)linkTwitter {

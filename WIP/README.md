@@ -38,3 +38,8 @@ Folded has a preset section in preferences, which allows you to share, export, a
 
 ## Stable and Smooth
 Folded has been written from the ground up, and many methods have been rewritten numerous times to ensure you have the best experience as a user.
+
+## What Do People Say?
+"Smooth, fast, & bringing all the features of Bolders and beyond!" - /u/rubbercake
+
+"I can’t believe I finally have 2x2 folder icons on iOS 13! Finally! Folded made me pregnant! And I’m not even a woman!" - /u/Sure_Enough
