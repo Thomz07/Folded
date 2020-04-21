@@ -5,7 +5,7 @@
 #import <Preferences/PSSliderTableCell.h>
 #import <Foundation/NSUserDefaults.h>
 
-@interface OPERootListController : PSListController{
+@interface OPERootListController : PSListController {
         UITableView * _table;
 }
 @property (nonatomic, strong) NSMutableDictionary *mySavedSpecifiers;

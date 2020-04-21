@@ -75,11 +75,11 @@ NSDictionary *preferences;
 
 	UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Folded"
 							message:@"Your settings have been applied. Some settings, not many, may require a respring. \n Would you like to respring as well?"
-							preferredStyle:UIAlertControllerStyleAlert];
+							preferredStyle:UIAlertControllerStyleActionSheet];
 
-		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault
+		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel
 		handler:^(UIAlertAction * action) {}];
-		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive
+		UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Respring" style:UIAlertActionStyleDestructive
 		handler:^(UIAlertAction * action) {
 			NSTask *t = [[NSTask alloc] init];
 			[t setLaunchPath:@"usr/bin/killall"];
