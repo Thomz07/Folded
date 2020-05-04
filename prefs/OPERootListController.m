@@ -200,33 +200,88 @@ NSDictionary *preferences;
 
 @end
 
-@implementation FoldedHeaderCell
+@implementation FoldedHeaderCell // Header Cell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(id)reuseIdentifier specifier:(id)specifier {
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
 
-    if (self) {
-		UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(90,25,500,30)];
-		[title setNumberOfLines:0];
-		[title setText:@"Folded"];
-		[title setFont:[UIFont systemFontOfSize:30]];
+	if (self) {
+    
+    packageNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,70,self.contentView.bounds.size.width+30,50)];
+	[packageNameLabel setTextAlignment:NSTextAlignmentRight];
+    [packageNameLabel setFont:[UIFont systemFontOfSize:50 weight: UIFontWeightSemibold] ];
+    packageNameLabel.textColor = [UIColor whiteColor];
+    packageNameLabel.text = @"Folded";
+    
+    developerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,30,self.contentView.bounds.size.width+30,50)];
+	[developerLabel setTextAlignment:NSTextAlignmentRight];
+    [developerLabel setFont:[UIFont systemFontOfSize:22.5 weight: UIFontWeightMedium] ];
+    developerLabel.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.85];
+	developerLabel.alpha = 0.8;
+    developerLabel.text = @"Thomz + Burrit0z";
+    
+    
+    versionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,110,self.contentView.bounds.size.width+30,50)];
+	[versionLabel setTextAlignment:NSTextAlignmentRight];
+    [versionLabel setFont:[UIFont systemFontOfSize:22 weight: UIFontWeightMedium] ];
+    versionLabel.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.8];
+	versionLabel.alpha = 0.8;
+    versionLabel.text = @"1.0.4";
 
-		UILabel *developers = [[UILabel alloc] initWithFrame:CGRectMake(90,55,500,20)];
-		[developers setNumberOfLines:0];
-		[developers setText:@"Folders, your way"];
-		[developers setFont:[UIFont systemFontOfSize:15]];
+	NSBundle *bundle = [[NSBundle alloc]initWithPath:@"/Library/PreferenceBundles/Folded.bundle"];
+	UIImage *phone = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"headerPhone" ofType:@"png"]];
+	UIImageView *phoneImage = [[UIImageView alloc]initWithImage:phone];
+	[phoneImage setFrame:CGRectMake(20,0,120,174)];
+    
+    bgView.backgroundColor = [UIColor colorWithRed:0.46 green:0.72 blue:0.84 alpha:1.0];
+    
+    [self addSubview:packageNameLabel];
+    [self addSubview:developerLabel];
+    [self addSubview:versionLabel];
+	[self addSubview:phoneImage];
 
-		NSBundle *bundle = [[NSBundle alloc]initWithPath:@"/Library/PreferenceBundles/Folded.bundle"];
-		UIImage *logo = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"fullSizedIcon" ofType:@"png"]];
-		UIImageView *icon = [[UIImageView alloc]initWithImage:logo];
-		[icon setFrame:CGRectMake(20,22.5,55,55)];
+    }
+    	return self;
 
-		[self addSubview:title];
-		[self addSubview:developers];
-		[self addSubview:icon];
-	}
+}
 
-	return self;
+- (instancetype)initWithSpecifier:(PSSpecifier *)specifier {
+	return [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MultiplaHeaderCell" specifier:specifier];
+}
+
+- (void)setFrame:(CGRect)frame {
+	frame.origin.x = 0;
+	[super setFrame:frame];
+}
+
+- (CGFloat)preferredHeightForWidth:(CGFloat)arg1{
+    return 200.0f;
+}
+
+
+-(void)layoutSubviews{
+	[super layoutSubviews];
+
+    bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.bounds.size.width, 200)];
+
+    UIColor *topColor = [UIColor colorWithRed: 0.00 green: 0.42 blue: 1.00 alpha: 1.00];
+    UIColor *bottomColor = [UIColor colorWithRed: 0.00 green: 0.64 blue: 1.00 alpha: 1.00];
+
+    CAGradientLayer *theViewGradient = [CAGradientLayer layer];
+    theViewGradient.colors = [NSArray arrayWithObjects: (id)topColor.CGColor, (id)bottomColor.CGColor, nil];
+    theViewGradient.startPoint = CGPointMake(0.5, 0.0);
+    theViewGradient.endPoint = CGPointMake(0.5, 1.0);
+    theViewGradient.frame = bgView.bounds;
+
+    //Add gradient to view
+    [bgView.layer insertSublayer:theViewGradient atIndex:0];
+    [self insertSubview:bgView atIndex:0];
+
+}
+
+
+- (CGFloat)preferredHeightForWidth:(CGFloat)width inTableView:(id)tableView {
+	return [self preferredHeightForWidth:width];
 }
 
 @end

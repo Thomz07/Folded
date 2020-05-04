@@ -20,7 +20,16 @@
 @interface Thomz_TwitterCell : PSTableCell
 @end
 
-@interface FoldedHeaderCell : PSTableCell
+@protocol PreferencesTableCustomView
+- (id)initWithSpecifier:(id)arg1;
+@end
+
+@interface FoldedHeaderCell : PSTableCell <PreferencesTableCustomView> {
+    UIView *bgView;
+    UILabel *packageNameLabel;
+    UILabel *developerLabel;
+    UILabel *versionLabel;
+}
 @end
 
 @interface NSTask : NSObject

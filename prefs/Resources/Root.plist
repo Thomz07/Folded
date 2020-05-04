@@ -7,18 +7,10 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSDefaultCell</string>
-			<key>cellClass</key>
+			<key>headerCellClass</key>
 			<string>FoldedHeaderCell</string>
 			<key>height</key>
 			<integer>100</integer>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -31,6 +23,10 @@
 			<string>enabled</string>
 			<key>label</key>
 			<string>Enable</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
 		</dict>
 		<dict>
 			<key>cell</key>
