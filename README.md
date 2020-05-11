@@ -38,3 +38,5 @@ Folded has a preset section in preferences, which allows you to share, export, a
 
 ## Stable and Smooth
 Folded has been written from the ground up, and many methods have been rewritten numerous times to ensure you have the best experience as a user.
+
+## Yes (this is a test)
