@@ -77,8 +77,8 @@ id lastIconSucess;
 
 @interface SBFolderIconImageView : UIView
 @property (nonatomic, strong) SBWallpaperEffectView *backgroundView;
-@property (nonatomic, assign) CGFloat aplha;
-@property (nonatomic, assign) CGAffineTransform transform;
+-(BOOL)isAnimating;
+-(void)_updateOverlayImage;
 @end
 
 @interface SBIconListPageControl : UIView
@@ -86,6 +86,7 @@ id lastIconSucess;
 
 @interface _SBIconGridWrapperView : UIView
 @property (nonatomic, assign) CGAffineTransform transform;
+-(SBFolderIconImageView *)folderIconImageView;
 @end
 
 @interface SBIconListFlowLayout

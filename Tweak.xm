@@ -508,9 +508,6 @@ if(enabled && customFrameEnabled){
 
 -(void)layoutSubviews {
     %orig;
-	//This next line fixes issues where icons are chopped into a square shape
-	UIView *super = self.superview;
-	if(super) [super setClipsToBounds:NO];
 
     if(enabled && hideFolderGridEnabled){
 		[self setHidden:true];
@@ -535,6 +532,13 @@ if(enabled && customFrameEnabled){
 			originalIconView.tx,
 			originalIconView.ty
 		);
+	}
+
+	//This next line fixes issues where icons are chopped into a square shape
+	if((resizeFolderIconEnabled || twoByTwoIconEnabled) && ![[self folderIconImageView] isAnimating]) {
+		[self.superview setClipsToBounds:NO];
+	} else if([[self folderIconImageView] isAnimating] && (resizeFolderIconEnabled || twoByTwoIconEnabled)) {
+		[self.superview setClipsToBounds:YES];
 	}
 }
 
