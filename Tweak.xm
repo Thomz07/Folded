@@ -478,8 +478,9 @@ if(enabled && customFrameEnabled){
 		return CGSizeMake(orig.width * 1.5, orig.height);
 	} else {return %orig;}
 }
+
 //////////
-//This method used to be at leas 3 times the size. I've simplified it to this
+//This method used to be at least 3 times the size. I've simplified it to this
 
 +(id)gridImageForLayout:(id)arg1 previousGridImage:(id)arg2 previousGridCellIndexToUpdate:(unsigned long long)arg3 pool:(id)arg4 cellImageDrawBlock:(id)arg5 {
   //I figured out the hard way that this is in fact a class method, and not an instance method.
@@ -507,6 +508,9 @@ if(enabled && customFrameEnabled){
 
 -(void)layoutSubviews {
     %orig;
+	//This next line fixes issues where icons are chopped into a square shape
+	[self.superview setClipsToBounds:NO];
+	
     if(enabled && hideFolderGridEnabled){
 		[self setHidden:true];
 	}
