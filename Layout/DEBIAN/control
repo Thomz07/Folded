@@ -3,7 +3,7 @@ Name: Folded
 Depends: mobilesubstrate, preferenceloader, com.creaturesurvive.libcscolorpicker
 Contains: com.burritoz.cartella, com.thomz.foldy
 Replaces: com.burritoz.cartella, com.thomz.foldy
-Conflicts: com.burritoz.cartella, com.thomz.foldy, com.spark.snowboard.dock
+Conflicts: com.burritoz.cartella, com.thomz.foldy
 Version: 1.0.4
 Architecture: iphoneos-arm
 Description: Folders, your way. The most complete folder tweak to date. A merge tweak of Cartella and Foldy.

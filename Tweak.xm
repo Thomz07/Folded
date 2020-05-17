@@ -2,6 +2,24 @@
 
 %group universal
 
+%hook SBIconView
+-(void)tapGestureDidChange:(id)sender { //I'm not sure exactly where I got this, but this is not my code... I might have found it on r/jbdevs?
+
+	%orig;
+
+	UIViewController *parent = [self _viewControllerForAncestor];
+
+  	if([parent isKindOfClass:[objc_getClass("SBFolderController") class]] && parent!=nil){
+			SBFolderController *controller = (SBFolderController *)parent;
+		if([controller.containerView isKindOfClass:[objc_getClass("SBFloatyFolderView") class]] && controller) {
+			[(SBFloatyFolderView *)controller.containerView _handleOutsideTap:nil];
+		}
+    }
+
+}
+
+%end
+
 %hook SBFolderIconImageView
 
 -(void)layoutSubviews { 

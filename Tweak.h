@@ -28,7 +28,12 @@ id lastIconSucess;
 
 /////////////////
 
+@interface SBIconView : UIView
+-(id)_viewControllerForAncestor;
+@end
+
 @interface SBFloatyFolderView : UIView
+-(void)_handleOutsideTap:(id)arg1;
 -(void)layoutSubviews;
 -(void)setBackgroundColor:(UIColor *)arg1;
 -(UIColor *)randomColor;
@@ -49,6 +54,10 @@ id lastIconSucess;
 @property (nonatomic, strong) UIVisualEffectView *darkView;
 @property (nonatomic, strong) UIView *backgroundColorFrame;
 @property (nonatomic, strong) CAGradientLayer *gradient;
+@end
+
+@interface SBFolderController : UIView
+@property (nonatomic,readonly) UIView * containerView;
 @end
 
 @interface SBFolderControllerBackgroundView : UIView
