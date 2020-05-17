@@ -509,8 +509,9 @@ if(enabled && customFrameEnabled){
 -(void)layoutSubviews {
     %orig;
 	//This next line fixes issues where icons are chopped into a square shape
-	[self.superview setClipsToBounds:NO];
-	
+	UIView *super = self.superview;
+	if(super) [super setClipsToBounds:NO];
+
     if(enabled && hideFolderGridEnabled){
 		[self setHidden:true];
 	}
