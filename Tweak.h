@@ -169,7 +169,6 @@ BOOL customWallpaperBlurEnabled;
 double customWallpaperBlurFactor;
 BOOL tapToCloseEnabled;
 BOOL hideFolderIconBackground;
-
 double hideDotsPref;
 BOOL resizeFolderIconEnabled;
 double resizeFactor;
@@ -177,6 +176,7 @@ BOOL insetsEnabled;
 double topInset;
 double sideInset;
 double bottomInset;
+BOOL closeFolderInApp;
 
 BOOL colorFolderIconBackground;
 NSString *folderIconColor;
@@ -313,6 +313,7 @@ static void preferencesChanged()
 	topInset = numberForValue(@"topInset", 0);
 	sideInset = numberForValue(@"sideInset", 0);
 	bottomInset = numberForValue(@"bottomInset", 0);
+	closeFolderInApp = boolValueForKey(@"closeFolderInApp", YES);
 
 	colorFolderIconBackground = boolValueForKey(@"colorFolderIconBackground", NO);
 	folderIconColor = [prefs valueForKey:@"folderIconColor"];

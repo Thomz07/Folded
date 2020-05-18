@@ -9,12 +9,14 @@
 
 	UIViewController *parent = [self _viewControllerForAncestor];
 
-  	if([parent isKindOfClass:[objc_getClass("SBFolderController") class]] && parent!=nil){
+	if(closeFolderInApp){
+		if([parent isKindOfClass:[objc_getClass("SBFolderController") class]] && parent!=nil){
 			SBFolderController *controller = (SBFolderController *)parent;
-		if([controller.containerView isKindOfClass:[objc_getClass("SBFloatyFolderView") class]] && controller) {
-			[(SBFloatyFolderView *)controller.containerView _handleOutsideTap:nil];
-		}
-    }
+			if([controller.containerView isKindOfClass:[objc_getClass("SBFloatyFolderView") class]] && controller) {
+				[(SBFloatyFolderView *)controller.containerView _handleOutsideTap:nil];
+			}
+    	}
+	}
 
 }
 

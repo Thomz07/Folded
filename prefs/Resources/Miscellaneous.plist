@@ -140,6 +140,22 @@
 				<string>Hide All</string>
 			</array>
 		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>xyz.burritoz.thomz.folded.prefs</string>
+			<key>key</key>
+			<string>closeFolderInApp</string>
+			<key>label</key>
+			<string>Close Folder when Opening App</string>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>Miscellaneous</string>
