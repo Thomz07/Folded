@@ -252,21 +252,21 @@ static void preferencesChanged()
 		setObjectInPreset(@YES, @"enabled");
 	}
 
-	enabled = boolValueForKey(@"enabled", NO);
+	enabled = boolValueForKey(@"enabled", YES);
 	backgroundAlphaEnabled = boolValueForKey(@"backgroundAlphaEnabled", NO);
 	backgroundAlpha = numberForValue(@"backgroundAlpha", 1.0);
-	cornerRadiusEnabled = boolValueForKey(@"cornerRadiusEnabled", YES);
+	cornerRadiusEnabled = boolValueForKey(@"cornerRadiusEnabled", NO);
 	cornerRadius = numberForValue(@"cornerRadius", 38);
 	pinchToCloseEnabled = boolValueForKey(@"pinchToCloseEnabled", NO);
-	customFrameEnabled = boolValueForKey(@"customFrameEnabled", YES);
-	customCenteredFrameEnabled = boolValueForKey(@"customCenteredFrameEnabled", YES);
+	customFrameEnabled = boolValueForKey(@"customFrameEnabled", NO);
+	customCenteredFrameEnabled = boolValueForKey(@"customCenteredFrameEnabled", NO);
 	frameX = numberForValue(@"customFrameX", 0);
 	frameY = numberForValue(@"customFrameY", 0);
 	frameWidth = numberForValue(@"customFrameWidth", 300);
 	frameHeight = numberForValue(@"customFrameHeight", 300);
 	customLayoutEnabled = boolValueForKey(@"customLayoutEnabled", NO);
-	customLayoutRows = numberForValue(@"customLayoutRows", 4);
-	customLayoutColumns = numberForValue(@"customLayoutColumns", 4);
+	customLayoutRows = numberForValue(@"customLayoutRows", 3);
+	customLayoutColumns = numberForValue(@"customLayoutColumns", 3);
     hideTitleEnabled = boolValueForKey(@"hideTitleEnabled", NO);
     customTitleFontSizeEnabled = boolValueForKey(@"customTitleFontSizeEnabled", NO);
     customTitleFontSize = numberForValue(@"customTitleFontSize", 36);
@@ -278,8 +278,8 @@ static void preferencesChanged()
     folderIconRows = numberForValue(@"folderIconRows", 3);
 	folderIconColumns = numberForValue(@"folderIconColumns", 3);
 	twoByTwoIconEnabled = boolValueForKey(@"twoByTwoIconEnabled", NO);
-	titleFontWeight = numberForValue(@"titleFontWeight", 0);
-	titleAlignment = numberForValue(@"titleAlignment", 1);
+	titleFontWeight = numberForValue(@"titleFontWeight", 1);
+	titleAlignment = numberForValue(@"titleAlignment", 2);
 	titleColorEnabled = boolValueForKey(@"titleColorEnabled", NO);
 	titleColor = [prefs valueForKey:@"titleColor"];
 	titleBackgroundEnabled = boolValueForKey(@"titleBackgroundEnabled", NO);
@@ -313,7 +313,7 @@ static void preferencesChanged()
 	topInset = numberForValue(@"topInset", 0);
 	sideInset = numberForValue(@"sideInset", 0);
 	bottomInset = numberForValue(@"bottomInset", 0);
-	closeFolderInApp = boolValueForKey(@"closeFolderInApp", YES);
+	closeFolderInApp = boolValueForKey(@"closeFolderInApp", NO);
 
 	colorFolderIconBackground = boolValueForKey(@"colorFolderIconBackground", NO);
 	folderIconColor = [prefs valueForKey:@"folderIconColor"];

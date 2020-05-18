@@ -220,7 +220,7 @@
             <key>defaults</key>
             <string>xyz.burritoz.thomz.folded.prefs</string>
             <key>default</key>
-            <string>0</string>
+            <string>1</string>
             <key>key</key>
             <string>titleFontWeight</string>
             <key>validValues</key>
@@ -248,7 +248,7 @@
             <key>defaults</key>
             <string>xyz.burritoz.thomz.folded.prefs</string>
             <key>default</key>
-            <string>1</string>
+            <string>2</string>
             <key>key</key>
             <string>titleAlignment</string>
             <key>validValues</key>
