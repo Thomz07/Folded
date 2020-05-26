@@ -4,6 +4,7 @@
 #import <Preferences/PSListItemsController.h>
 #import <Preferences/PSSliderTableCell.h>
 #import <Foundation/NSUserDefaults.h>
+#import <version.h>
 
 @interface OPERootListController : PSListController {
         UITableView * _table;
