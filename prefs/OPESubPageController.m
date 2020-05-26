@@ -1,8 +1,11 @@
 #include "OPESubPageController.h"
 
+_UICustomBlurEffect *blurEffectNotification;
+UIVisualEffectView *blurView;
+NSDictionary *preferences;
+
 @implementation OPESubPageController
 
-NSDictionary *preferences;
 BOOL customTitleFontSizeEnabled;
 BOOL customTitleOffSetEnabled;
 BOOL titleColorEnabled;
@@ -23,6 +26,32 @@ BOOL backgroundAlphaEnabled;
 BOOL cornerRadiusEnabled;
 BOOL resizeFolderIconEnabled;
 BOOL customFolderIconEnabled;
+
+void updateFolderBlurView() { 
+
+	preferences = [[NSUserDefaults standardUserDefaults]persistentDomainForName:@"xyz.burritoz.thomz.folded.prefs"];
+
+	blurEffectNotification = [[_UICustomBlurEffect alloc]init];
+
+	double folders_container_blurFactor = [[preferences valueForKey:@"customBlurBlurFactor"] doubleValue];
+	double folders_container_colorTintAlpha = [[preferences valueForKey:@"customBlurColorTintAlpha"] doubleValue];
+	double folders_container_saturationDeltafactor = [[preferences valueForKey:@"customBlurSaturationDeltafactor"] doubleValue];
+	double folders_container_redFactor = [[preferences valueForKey:@"customBlurRedFactor"] doubleValue];
+	double folders_container_greenFactor = [[preferences valueForKey:@"customBlurGreenFactor"] doubleValue];
+	double folders_container_blueFactor = [[preferences valueForKey:@"customBlurBlueFactor"] doubleValue];
+	float folders_container_red_float = (float) folders_container_redFactor;
+	float folders_container_green_float = (float) folders_container_greenFactor;
+	float folders_container_blue_float = (float) folders_container_blueFactor;
+
+	blurEffectNotification = [[_UICustomBlurEffect alloc] init];
+	blurEffectNotification.blurRadius = folders_container_blurFactor;
+	blurEffectNotification.colorTint = [UIColor colorWithRed:folders_container_red_float green:folders_container_green_float blue:folders_container_blue_float alpha:1.0];
+	blurEffectNotification.colorTintAlpha = folders_container_colorTintAlpha;
+	blurEffectNotification.saturationDeltaFactor = folders_container_saturationDeltafactor;
+	blurEffectNotification.scale = ([UIScreen mainScreen].scale);
+
+	blurView.effect = blurEffectNotification;
+}
 
 - (void)setSpecifier:(PSSpecifier *)specifier {
     [self loadFromSpecifier:specifier];
@@ -77,7 +106,7 @@ BOOL customFolderIconEnabled;
 		}
 
 		if ([[specifier propertyForKey:@"pageKey"] isEqualToString:@"Appearance"]) {
-			NSArray *chosenLabels = @[@"folderBackgroundColor",@"folderBackgroundColorWithGradientEnabled",@"folderBackgroundColorWithGradient",@"folderBackgroundColorWithGradientVerticalGradientEnabled",@"folderBackgroundBackgroundColor",@"randomColorBackgroundEnabled",@"customBlurBackground",@"customWallpaperBlurFactor",@"backgroundAlphaColor"];
+			NSArray *chosenLabels = @[@"folderBackgroundColor",@"folderBackgroundColorWithGradientEnabled",@"folderBackgroundColorWithGradient",@"folderBackgroundColorWithGradientVerticalGradientEnabled",@"folderBackgroundBackgroundColor",@"randomColorBackgroundEnabled",@"customBlurBackground",@"customWallpaperBlurFactor",@"backgroundAlphaColor",@"enableCustomBlur",@"customBlurBlurFactor",@"customBlurColorTintAlpha",@"customBlurSaturationDeltafactor",@"customBlurRedFactor",@"customBlurGreenFactor",@"customBlurBlueFactor",@"previewCell"];
 			self.mySavedSpecifiers = (!self.mySavedSpecifiers) ? [[NSMutableDictionary alloc] init] : self.mySavedSpecifiers;
 			for(PSSpecifier *specifier in [self specifiers]) {
 			if([chosenLabels containsObject:[specifier propertyForKey:@"key"]]) {
@@ -116,6 +145,8 @@ BOOL customFolderIconEnabled;
 		UIBarButtonItem *applyButton = [[UIBarButtonItem alloc] initWithTitle:@"Apply" style:UIBarButtonItemStylePlain target:self action:@selector(apply:)];
 		self.navigationItem.rightBarButtonItem = applyButton;
 	}
+
+	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)updateFolderBlurView, CFSTR("xyz.burritoz.thomz.folded.prefs/foldersBlurView"), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
 }
 
 -(void)reloadSpecifiers {
@@ -249,9 +280,9 @@ BOOL customFolderIconEnabled;
 			}
 
 			if(!customBlurBackgroundEnabled){
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customBlurBackground"]] animated:YES];
-			} else if(customBlurBackgroundEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customBlurBackground"]]) {
-				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customBlurBackground"]] afterSpecifierID:@"Custom Blur Background" animated:YES];
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customBlurBackground"],self.mySavedSpecifiers[@"previewCell"],self.mySavedSpecifiers[@"enableCustomBlur"],self.mySavedSpecifiers[@"customBlurBlurFactor"],self.mySavedSpecifiers[@"customBlurColorTintAlpha"],self.mySavedSpecifiers[@"customBlurSaturationDeltafactor"],self.mySavedSpecifiers[@"customBlurRedFactor"],self.mySavedSpecifiers[@"customBlurGreenFactor"],self.mySavedSpecifiers[@"customBlurBlueFactor"]] animated:YES];
+			} else if(customBlurBackgroundEnabled && ![self containsSpecifier:self.mySavedSpecifiers[@"customBlurBackground"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"previewCell"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"enableCustomBlur"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"customBlurBlurFactor"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"customBlurColorTintAlpha"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"customBlurSaturationDeltafactor"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"customBlurRedFactor"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"customBlurGreenFactor"]] && ![self containsSpecifier:self.mySavedSpecifiers[@"customBlurBlueFactor"]]) {
+				[self insertContiguousSpecifiers:@[self.mySavedSpecifiers[@"customBlurBackground"],self.mySavedSpecifiers[@"previewCell"],self.mySavedSpecifiers[@"enableCustomBlur"],self.mySavedSpecifiers[@"customBlurBlurFactor"],self.mySavedSpecifiers[@"customBlurColorTintAlpha"],self.mySavedSpecifiers[@"customBlurSaturationDeltafactor"],self.mySavedSpecifiers[@"customBlurRedFactor"],self.mySavedSpecifiers[@"customBlurGreenFactor"],self.mySavedSpecifiers[@"customBlurBlueFactor"]] afterSpecifierID:@"Custom Blur Background" animated:YES];
 			}
 
 			if(!customWallpaperBlurEnabled){
@@ -376,7 +407,7 @@ BOOL customFolderIconEnabled;
 			}
 
 			if(!customBlurBackgroundEnabled){
-				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customBlurBackground"]] animated:YES];
+				[self removeContiguousSpecifiers:@[self.mySavedSpecifiers[@"customBlurBackground"],self.mySavedSpecifiers[@"previewCell"],self.mySavedSpecifiers[@"enableCustomBlur"],self.mySavedSpecifiers[@"customBlurBlurFactor"],self.mySavedSpecifiers[@"customBlurColorTintAlpha"],self.mySavedSpecifiers[@"customBlurSaturationDeltafactor"],self.mySavedSpecifiers[@"customBlurRedFactor"],self.mySavedSpecifiers[@"customBlurGreenFactor"],self.mySavedSpecifiers[@"customBlurBlueFactor"]] animated:YES];
 			}
 
 			if(!customWallpaperBlurEnabled){
@@ -527,6 +558,43 @@ BOOL customFolderIconEnabled;
 		[self addSubview:description];
 	}
 
+	return self;
+}
+
+@end
+
+@implementation TartinePreviewCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(id)reuseIdentifier specifier:(id)specifier {
+
+	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
+
+	if(self){
+
+		updateFolderBlurView();
+		
+		blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffectNotification];
+		blurView.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width - 300)/2,20,300,60);
+		blurView.layer.masksToBounds = YES;
+		blurView.layer.cornerRadius = 20;
+
+		NSBundle *bundle = [[NSBundle alloc]initWithPath:@"/var/mobile/Library/SpringBoard"];
+		UIImage *wallpaperImage = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"LockBackgroundThumbnail" ofType:@"jpg"]];
+		UIImageView *wallpaperView = [[UIImageView alloc]initWithImage:wallpaperImage];
+		wallpaperView.frame = CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width,100);
+
+		UILabel *previewLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,40,[UIScreen mainScreen].bounds.size.width,20)];
+		previewLabel.text = @"Live preview blur";
+		previewLabel.textAlignment = NSTextAlignmentCenter;
+
+		[self addSubview:previewLabel];
+		[self addSubview:blurView];
+		[self addSubview:wallpaperView];
+		[self bringSubviewToFront:blurView];
+		[self bringSubviewToFront:previewLabel];
+
+	}
+	
 	return self;
 }
 

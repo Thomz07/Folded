@@ -30,3 +30,24 @@
 - (id)init;
 - (void)launch;
 @end
+
+@interface TartinePreviewCell : PSTableCell
+@end
+
+@interface _UICustomBlurEffect : UIBlurEffect
+@property (assign,nonatomic) double grayscaleTintLevel; 
+@property (assign,nonatomic) double grayscaleTintAlpha; 
+@property (assign,nonatomic) bool lightenGrayscaleWithSourceOver; 
+@property (nonatomic,retain) UIColor* colorTint; 
+@property (assign,nonatomic) double colorTintAlpha; 
+@property (assign,nonatomic) double colorBurnTintLevel; 
+@property (assign,nonatomic) double colorBurnTintAlpha; 
+@property (assign,nonatomic) double darkeningTintAlpha; 
+@property (assign,nonatomic) double darkeningTintHue; 
+@property (assign,nonatomic) double darkeningTintSaturation; 
+@property (assign,nonatomic) bool darkenWithSourceOver; 
+@property (assign,nonatomic) double blurRadius; 
+@property (assign,nonatomic) double saturationDeltaFactor; 
+@property (assign,nonatomic) double scale; 
+@property (assign,nonatomic) double zoom;
+@end

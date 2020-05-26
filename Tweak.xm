@@ -192,6 +192,7 @@ if(enabled && customFrameEnabled){
 %hook SBFolderBackgroundView
 %property (nonatomic, strong) UIVisualEffectView *lightView;
 %property (nonatomic, strong) UIVisualEffectView *darkView;
+%property (nonatomic, strong) UIVisualEffectView *customBlurView;
 %property (nonatomic, strong) UIView *backgroundColorFrame;
 %property (nonatomic, strong) CAGradientLayer *gradient;
 -(void)layoutSubviews {
@@ -205,6 +206,20 @@ if(enabled && customFrameEnabled){
 	self.backgroundColorFrame = [[UIView alloc] initWithFrame:self.bounds];
 	UIColor *backgroundColor = [UIColor cscp_colorFromHexString:folderBackgroundColor];
 	[self.backgroundColorFrame setBackgroundColor:backgroundColor];
+
+	float folders_container_red_float = (float) customBlurRedFactor;
+	float folders_container_green_float = (float) customBlurGreenFactor;
+	float folders_container_blue_float = (float) customBlurBlueFactor;
+
+	_UICustomBlurEffect *customBlur = [[_UICustomBlurEffect alloc] init];
+	customBlur.blurRadius = customBlurBlurFactor;
+	customBlur.colorTint = [UIColor colorWithRed:folders_container_red_float green:folders_container_green_float blue:folders_container_blue_float alpha:1.0];
+	customBlur.colorTintAlpha = customBlurColorTintAlpha;
+	customBlur.saturationDeltaFactor = customBlurSaturationDeltafactor;
+	customBlur.scale = ([UIScreen mainScreen].scale);
+	
+	self.customBlurView = [[UIVisualEffectView alloc] initWithEffect:customBlur];
+	self.customBlurView.frame = self.bounds;
 
 	NSArray<id> *gradientColors = [StringForPreferenceKey(@"folderBackgroundColorWithGradient") cscp_gradientStringCGColors];
 
@@ -221,18 +236,22 @@ if(enabled && customFrameEnabled){
 
 	self.gradient.colors = gradientColors;
 
-	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 1){
-		MSHookIvar<UIVisualEffectView *>(self, "_blurView") = self.lightView;
+	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 1 && !enableCustomBlur){
 
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		[self addSubview:self.lightView];
 	}
-
-	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 2){
-		MSHookIvar<UIVisualEffectView *>(self, "_blurView") = self.darkView;
+	
+	if(enabled && customBlurBackgroundEnabled && customBlurBackground == 2 && !enableCustomBlur){
 
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		[self addSubview:self.darkView];
+	}
+	
+	if(enabled && customBlurBackgroundEnabled && enableCustomBlur){
+
+		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+		[self addSubview:self.customBlurView];
 	}
 
 	if(enabled && folderBackgroundColorEnabled){

@@ -49,7 +49,7 @@ id lastIconSucess;
 @interface SBFolderBackgroundView : UIView
 -(void)layoutSubviews;
 -(void)setBackgroundColor:(UIColor *)arg1;
-@property (nonatomic, strong) UIVisualEffectView *blurView;
+@property (nonatomic, strong) UIVisualEffectView *customBlurView;
 @property (nonatomic, strong) UIVisualEffectView *lightView;
 @property (nonatomic, strong) UIVisualEffectView *darkView;
 @property (nonatomic, strong) UIView *backgroundColorFrame;
@@ -109,6 +109,24 @@ id lastIconSucess;
 
 -(id)objectForKey:(NSString *)key inDomain:(NSString *)domain;
 -(void)setObject:(id)value forKey:(NSString *)key inDomain:(NSString *)domain; //thanks to R0wDrunner for these two lines of the interface :)
+@end
+
+@interface _UICustomBlurEffect : UIBlurEffect
+@property (assign,nonatomic) double grayscaleTintLevel; 
+@property (assign,nonatomic) double grayscaleTintAlpha; 
+@property (assign,nonatomic) bool lightenGrayscaleWithSourceOver; 
+@property (nonatomic,retain) UIColor* colorTint; 
+@property (assign,nonatomic) double colorTintAlpha; 
+@property (assign,nonatomic) double colorBurnTintLevel; 
+@property (assign,nonatomic) double colorBurnTintAlpha; 
+@property (assign,nonatomic) double darkeningTintAlpha; 
+@property (assign,nonatomic) double darkeningTintHue; 
+@property (assign,nonatomic) double darkeningTintSaturation; 
+@property (assign,nonatomic) bool darkenWithSourceOver; 
+@property (assign,nonatomic) double blurRadius; 
+@property (assign,nonatomic) double saturationDeltaFactor; 
+@property (assign,nonatomic) double scale; 
+@property (assign,nonatomic) double zoom;
 @end
 
 // Defining global variables and methods
@@ -177,6 +195,13 @@ double topInset;
 double sideInset;
 double bottomInset;
 BOOL closeFolderInApp;
+BOOL enableCustomBlur;
+double customBlurBlurFactor;
+double customBlurColorTintAlpha;
+double customBlurSaturationDeltafactor;
+double customBlurRedFactor;
+double customBlurGreenFactor;
+double customBlurBlueFactor;
 
 BOOL colorFolderIconBackground;
 NSString *folderIconColor;
@@ -314,6 +339,13 @@ static void preferencesChanged()
 	sideInset = numberForValue(@"sideInset", 0);
 	bottomInset = numberForValue(@"bottomInset", 0);
 	closeFolderInApp = boolValueForKey(@"closeFolderInApp", NO);
+	enableCustomBlur = boolValueForKey(@"enableCustomBlur", NO);
+	customBlurBlurFactor = numberForValue(@"customBlurBlurFactor", 40);
+	customBlurColorTintAlpha = numberForValue(@"customBlurColorTintAlpha", 0.3);
+	customBlurSaturationDeltafactor = numberForValue(@"customBlurSaturationDeltafactor", 1.9);
+	customBlurRedFactor = numberForValue(@"customBlurRedFactor", 1);
+	customBlurGreenFactor = numberForValue(@"customBlurGreenFactor", 1);
+	customBlurBlueFactor = numberForValue(@"customBlurBlueFactor", 1);
 
 	colorFolderIconBackground = boolValueForKey(@"colorFolderIconBackground", NO);
 	folderIconColor = [prefs valueForKey:@"folderIconColor"];
