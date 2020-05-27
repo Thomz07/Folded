@@ -195,6 +195,8 @@ void updateFolderBlurView() {
 
 			[self presentViewController:alert animated:YES completion:nil];
 	}
+
+	AudioServicesPlaySystemSound(1521);
 }
 
 -(void)setPreferenceValue:(id)value specifier:(PSSpecifier *)specifier {
