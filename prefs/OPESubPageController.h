@@ -3,6 +3,8 @@
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSListItemsController.h>
 #import <Preferences/PSSliderTableCell.h>
+#import <UIKit/UIKit.h>
+#import <AudioToolbox/AudioServices.h>
 //#import <Preferences/PSSegmentTableCell.h>
 
 @interface OPESubPageController : PSListController
