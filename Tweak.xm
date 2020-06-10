@@ -519,6 +519,7 @@ if(enabled && customFrameEnabled){
   } else {
 	return %orig;
   }
+
 }
 
 ///////////////////
@@ -526,6 +527,7 @@ if(enabled && customFrameEnabled){
 %end
 
 %hook _SBIconGridWrapperView
+%property (nonatomic, strong) id foldedCachedIcon;
 
 -(void)layoutSubviews {
     %orig;
@@ -560,6 +562,15 @@ if(enabled && customFrameEnabled){
 		[self.superview setClipsToBounds:NO];
 	} else if([[self folderIconImageView] isAnimating] && (resizeFolderIconEnabled || twoByTwoIconEnabled)) {
 		[self.superview setClipsToBounds:YES];
+	}
+}
+
+-(void)setFolderIconImageView:(id)arg1 {
+	if(!hasProcessLaunched) {
+		self.foldedCachedIcon = arg1;
+		%orig;
+	} else {
+		%orig(self.foldedCachedIcon);
 	}
 }
 
