@@ -226,7 +226,7 @@ NSDictionary *preferences;
     [versionLabel setFont:[UIFont systemFontOfSize:22 weight: UIFontWeightMedium] ];
     versionLabel.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.8];
 	versionLabel.alpha = 0.8;
-    versionLabel.text = @"1.1.0";
+    versionLabel.text = @"1.2.0";
 
 	NSBundle *bundle = [[NSBundle alloc]initWithPath:@"/Library/PreferenceBundles/Folded.bundle"];
 	UIImage *phone = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"headerPhone" ofType:@"png"]];

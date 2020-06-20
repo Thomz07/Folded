@@ -508,6 +508,8 @@ if(enabled && customFrameEnabled){
   //This means we can't use instance logic to save the individual icon cache. However, this makes it
   //even easier, because all we need to do is store the working original value in one variable!
   //It will save the preview of all folder icons! In one neat variable package!
+
+  //also, this is still used to prevent crashes even with the caching system of 1.2.0 in place
   if (enabled) {
 		@try{
 			return %orig;
@@ -523,6 +525,46 @@ if(enabled && customFrameEnabled){
 }
 
 ///////////////////
+
+%end
+
+%hook SBFolderIconImageCache
+
+- (id)imageForPageAtIndex:(NSInteger)index inFolderIcon:(id)folderIcon {
+	if(hasProcessLaunched) {
+		BOOL isSaved = NO;
+		NSInteger locatedIndex = -100;
+		id returnVal = nil;
+
+		for(int i=0; i < [folderIconCacheArray count]; i++) {
+			NSMutableDictionary *folderIconDict = folderIconCacheArray[i];
+			id savedIcon = folderIconDict[@"folderIcon"];
+			if(savedIcon == folderIcon) {
+				isSaved = YES;
+				locatedIndex = i;
+				break;
+			}
+		}
+		if(isSaved) {
+			NSMutableDictionary *infoDict = folderIconCacheArray[locatedIndex];
+			if(infoDict[[NSString stringWithFormat:@"%ld", (long)index]] == nil) {
+				infoDict[[NSString stringWithFormat:@"%ld", (long)index]] = %orig;
+			}
+			returnVal = infoDict[[NSString stringWithFormat:@"%ld", (long)index]];
+		} else {
+			NSMutableDictionary *infoDict = [[NSMutableDictionary alloc] init];
+			infoDict[@"folderIcon"] = folderIcon;
+			infoDict[[NSString stringWithFormat:@"%ld", (long)index]] = %orig;
+			[folderIconCacheArray addObject:infoDict];
+			returnVal = %orig;
+		}
+
+		return returnVal;
+	} else {
+		return %orig;
+	}
+
+}
 
 %end
 

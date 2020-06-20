@@ -213,6 +213,7 @@ BOOL hasInjectionFailed;
 BOOL hasShownFailureAlert;
 BOOL blankIconAlertShouldShow;
 BOOL isInAFolder = NO;
+NSMutableArray *folderIconCacheArray = [[NSMutableArray alloc] init];
 
 #define PLIST_PATH @"/User/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
 #define kIdentifier @"xyz.burritoz.thomz.folded.prefs"
