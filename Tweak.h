@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 #include <CSColorPicker/CSColorPicker.h>
-#import "substrate.h"
 //#import <UIKit/UIKitCore.h>
 //Those two lines are only used when compiling via DragonBuild
 //actually they make it uncompilable with theos
@@ -86,7 +85,6 @@ id lastIconSucess;
 @end
 
 @interface _SBIconGridWrapperView : UIView
-@property (nonatomic, strong) id foldedCachedIcon;
 @property (nonatomic, assign) CGAffineTransform transform;
 -(SBFolderIconImageView *)folderIconImageView;
 @end
@@ -213,6 +211,7 @@ BOOL hasInjectionFailed;
 BOOL hasShownFailureAlert;
 BOOL blankIconAlertShouldShow;
 BOOL isInAFolder = NO;
+
 NSMutableArray *folderIconCacheArray = [[NSMutableArray alloc] init];
 
 #define PLIST_PATH @"/User/Library/Preferences/xyz.burritoz.thomz.folded.prefs.plist"
