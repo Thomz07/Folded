@@ -30,6 +30,7 @@ id lastIconSucess;
 
 @interface SBIconView : UIView
 -(id)_viewControllerForAncestor;
+-(BOOL)isFolderIcon;
 @end
 
 @interface SBFloatyFolderView : UIView
